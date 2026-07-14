@@ -38,11 +38,9 @@ export default function HomePage() {
           <div className="max-w-[48rem]">
             <SectionHeading
               eyebrow="Design philosophy"
-              title="How I think, not just what I make"
+              title="The whole system, not just the screen"
             />
-            <blockquote className="text-[clamp(1.125rem,2.5vw,1.375rem)] font-medium text-foreground leading-[1.55] italic pl-6 border-l-[3px] border-primary mt-8 mb-8">
-              &ldquo;Good product design makes the system understandable&mdash;not only when everything works, but when data is late, AI is uncertain, permissions change, or a user needs to recover.&rdquo;
-            </blockquote>
+            <blockquote className="text-[clamp(1.125rem,2.5vw,1.375rem)] font-medium text-foreground leading-[1.55] italic pl-6 border-l-[3px] border-primary mt-8 mb-8">“Good product design is what makes a system understandable—getting the flows right, designing the data well, and treating AI as core to the experience, not an afterthought.”</blockquote>
             <Button to="/philosophy" variant="outline">Read the full philosophy</Button>
           </div>
         </div>
@@ -57,7 +55,7 @@ export default function HomePage() {
             Working on something complex?
           </h2>
           <p className="text-[1.0625rem] text-muted-foreground mb-8 max-w-[36rem] mx-auto">
-            I&apos;m open to senior product design roles where the problems are real, the systems are complicated, and the work matters.
+            I&apos;m open to roles where the problems are real, the systems are complicated, and the work matters.
           </p>
           <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>

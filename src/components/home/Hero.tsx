@@ -24,14 +24,14 @@ export default function Hero() {
             workflows into clear, trustworthy
             products&mdash;leading teams and partnering with
             engineering from early strategy through
-            implementation.
+            implementation and quality assurance.
           </p>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
             <Button to="/work" variant="primary">
-              View Case Studies
+              Case Studies
             </Button>
             <Button to="/philosophy" variant="outline">
-              Read My Philosophy
+              My Philosophy
             </Button>
           </div>
           <p className="text-sm text-muted-foreground">
