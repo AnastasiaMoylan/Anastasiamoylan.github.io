@@ -1,4 +1,3 @@
-import "./HomePage.css";
 import Hero from "../components/home/Hero";
 import ToolBadgeStrip from "../components/home/ToolBadgeStrip";
 import CapabilityGrid from "../components/home/CapabilityGrid";
@@ -16,14 +15,14 @@ export default function HomePage() {
       <Hero />
       <ToolBadgeStrip />
 
-      <section className="home-work-section" aria-labelledby="home-work-heading">
+      <section className="py-20 border-b border-border" aria-labelledby="home-work-heading">
         <div className="content-container">
           <SectionHeading
             eyebrow="Selected work"
-            title="Case studies"
-            subtitle="Complex B2B products, enterprise AI, and systems that survive real use."
+            title="Four problems worth reading about"
+            subtitle="Each one involved real organizational complexity, ambiguous requirements, and meaningful stakes. The designs had to survive implementation, not just reviews."
           />
-          <div className="home-work-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {featuredProjects.map((project) => (
               <WorkCard key={project.slug} project={project} />
             ))}
@@ -34,23 +33,32 @@ export default function HomePage() {
       <CapabilityGrid />
       <ProcessPreview />
 
-      <section className="home-philosophy-section" aria-labelledby="philosophy-teaser-heading">
+      <section className="py-20 border-b border-border" aria-labelledby="philosophy-teaser-heading">
         <div className="content-container">
-          <div className="home-philosophy-inner">
-            <SectionHeading eyebrow="Philosophy" title="How I think about design" />
-            <blockquote className="home-philosophy-quote">
+          <div className="max-w-[48rem]">
+            <SectionHeading
+              eyebrow="Design philosophy"
+              title="How I think, not just what I make"
+            />
+            <blockquote className="text-[clamp(1.125rem,2.5vw,1.375rem)] font-medium text-foreground leading-[1.55] italic pl-6 border-l-[3px] border-primary mt-8 mb-8">
               &ldquo;Good product design makes the system understandable&mdash;not only when everything works, but when data is late, AI is uncertain, permissions change, or a user needs to recover.&rdquo;
             </blockquote>
-            <Button to="/philosophy" variant="outline">Read My Philosophy</Button>
+            <Button to="/philosophy" variant="outline">Read the full philosophy</Button>
           </div>
         </div>
       </section>
 
-      <section className="home-cta-band" aria-labelledby="home-cta-heading">
+      <section className="py-20 text-center" aria-labelledby="home-cta-heading">
         <div className="content-container">
-          <h2 className="home-cta-heading" id="home-cta-heading">
-            Let&apos;s collaborate on a complex product problem.
+          <h2
+            id="home-cta-heading"
+            className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-4"
+          >
+            Working on something complex?
           </h2>
+          <p className="text-[1.0625rem] text-muted-foreground mb-8 max-w-[36rem] mx-auto">
+            I&apos;m open to senior product design roles where the problems are real, the systems are complicated, and the work matters.
+          </p>
           <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>
       </section>

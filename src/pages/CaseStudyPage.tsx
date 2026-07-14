@@ -1,5 +1,4 @@
 import { useParams, Link, Navigate } from "react-router";
-import "./CaseStudyPage.css";
 import { projects } from "../data/projects";
 import Button from "../components/ui/Button";
 
@@ -12,8 +11,6 @@ const caseStudyContent: Record<
     ownership: string[];
     keyDecisions: string[];
     states: string[];
-    outcome: string;
-    learned: string;
   }
 > = {
   "governed-ai-finance-workspace": {
@@ -47,11 +44,29 @@ const caseStudyContent: Record<
       "Blocked promotion — reason visible, checklist of unmet requirements",
       "Pause/resume/rollback — for consequential multi-step workflows",
     ],
-    outcome:
-      "[TODO: add measured outcomes — POC reception, research findings, roadmap decisions driven by this work]",
-    learned: "[TODO: add what was learned or changed direction during this engagement]",
   },
 };
+
+function TodoTag({ children }: { children: string }) {
+  return (
+    <span className="inline-block bg-ring/15 border border-ring/40 rounded-sm px-2 py-0.5 text-sm text-ring italic">
+      {children}
+    </span>
+  );
+}
+
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="list-none p-0 m-0 flex flex-col gap-3">
+      {items.map((item, i) => (
+        <li key={i} className="text-base text-muted-foreground leading-[1.65] pl-5 relative">
+          <span className="absolute left-0 text-accent">—</span>
+          {item.startsWith("[TODO") ? <TodoTag>{item}</TodoTag> : item}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -65,102 +80,87 @@ export default function CaseStudyPage() {
 
   if (!content) {
     return (
-      <div className="case-study-page">
+      <div className="py-16">
         <div className="content-container">
-          <Link to="/work" className="case-study-back">&larr; All case studies</Link>
-          <div className="case-study-header">
-            <p className="case-study-outcome-label">Case study</p>
-            <h1 className="case-study-title">{project.title}</h1>
-          </div>
-          <p className="case-study-text">Full case study coming soon.</p>
+          <Link to="/work" className="inline-flex items-center gap-1.5 text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline mb-10 transition-colors duration-150">
+            &larr; All case studies
+          </Link>
+          <h1 className="text-[clamp(1.75rem,4vw,3rem)] font-bold text-foreground mb-6">{project.title}</h1>
+          <p className="text-muted-foreground">Full case study coming soon.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="case-study-page">
+    <div className="py-16 pb-24">
       <div className="content-container">
-        <Link to="/work" className="case-study-back">&larr; All case studies</Link>
+        <Link to="/work" className="inline-flex items-center gap-1.5 text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline mb-10 transition-colors duration-150">
+          &larr; All case studies
+        </Link>
 
-        <div className="case-study-header">
-          <p className="case-study-outcome-label">{content.outcomeLabel}</p>
-          <h1 className="case-study-title">{project.title}</h1>
+        <div className="max-w-[48rem] mb-12 pb-12 border-b border-border">
+          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent mb-4">
+            {content.outcomeLabel}
+          </p>
+          <h1 className="text-[clamp(1.75rem,4vw,3rem)] font-bold text-foreground leading-[1.15]">
+            {project.title}
+          </h1>
         </div>
 
-        <div className="case-study-snapshot">
-          <div className="case-study-snapshot-grid">
+        <div className="bg-card border border-border rounded-md px-8 py-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {content.snapshotFields.map(({ label, value }) => (
               <div key={label}>
-                <p className="case-study-snapshot-item-label">{label}</p>
-                <p className="case-study-snapshot-item-value">{value}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-1">{label}</p>
+                <p className="text-[0.9375rem] text-foreground">{value}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="case-study-body">
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">Context and stakes</h2>
-            <p className="case-study-text">{content.context}</p>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">My ownership</h2>
-            <ul className="case-study-bullets">
-              {content.ownership.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">Key decisions</h2>
-            <ul className="case-study-bullets">
-              {content.keyDecisions.map((item, i) => (
-                <li key={i}>
-                  <span className="todo-placeholder">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">States, edge cases, and recovery</h2>
-            <ul className="case-study-bullets">
-              {content.states.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">Execution</h2>
-            <div className="case-study-placeholder" role="img" aria-label="Diagram/screenshot — placeholder">
-              Diagram/screenshot — placeholder
-              <p className="case-study-placeholder-caption">This would show the end-to-end workspace flow connecting Workflow Builder, Sandbox, and Production environments.</p>
-            </div>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">Outcome and impact</h2>
-            <p className="case-study-text">
-              <span className="todo-placeholder">{content.outcome}</span>
-            </p>
-          </section>
-
-          <section className="case-study-section">
-            <h2 className="case-study-section-heading">What I learned</h2>
-            <p className="case-study-text">
-              <span className="todo-placeholder">{content.learned}</span>
-            </p>
-          </section>
+        <div className="flex flex-col gap-12">
+          {[
+            { heading: "Context and stakes", content: <p className="text-base text-muted-foreground leading-[1.7] max-w-[46rem]">{content.context}</p> },
+            { heading: "My ownership", content: <BulletList items={content.ownership} /> },
+            { heading: "Key decisions", content: <BulletList items={content.keyDecisions} /> },
+            { heading: "States, edge cases, and recovery", content: <BulletList items={content.states} /> },
+            {
+              heading: "Execution",
+              content: (
+                <div className="bg-card border border-border rounded-md p-8 text-center text-muted-foreground text-sm">
+                  Diagram/screenshot — placeholder
+                  <p className="mt-2 italic text-[0.8125rem]">This would show the end-to-end workspace flow connecting Workflow Builder, Sandbox, and Production environments.</p>
+                </div>
+              ),
+            },
+            {
+              heading: "Outcome and impact",
+              content: <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add measured outcomes — POC reception, research findings, roadmap decisions driven by this work]</TodoTag></p>,
+            },
+            {
+              heading: "What I learned",
+              content: <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add what was learned or changed direction during this engagement]</TodoTag></p>,
+            },
+          ].map(({ heading, content: sectionContent }) => (
+            <section key={heading} className="flex flex-col gap-5">
+              <h2 className="text-[1.375rem] font-bold text-foreground pb-3 border-b border-border">
+                {heading}
+              </h2>
+              {sectionContent}
+            </section>
+          ))}
         </div>
 
-        <div className="case-study-next">
+        <div className="mt-16 pt-12 border-t border-border flex flex-wrap justify-between items-center gap-4">
           <div>
-            <p className="case-study-next-label">Next case study</p>
-            <Link to={`/work/${nextProject.slug}`} className="case-study-next-link">
+            <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-2">
+              Next case study
+            </p>
+            <Link
+              to={`/work/${nextProject.slug}`}
+              className="text-base font-semibold text-accent hover:text-foreground no-underline transition-colors duration-150"
+            >
               {nextProject.title} &rarr;
             </Link>
           </div>

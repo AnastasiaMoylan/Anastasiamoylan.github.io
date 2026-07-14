@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { NavLink } from "react-router";
 import { Menu } from "lucide-react";
-import "./Header.css";
 import Button from "../ui/Button";
 import MobileNav from "./MobileNav";
 
@@ -17,23 +16,30 @@ export default function Header() {
   const menuBtnRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <header className="header">
-      <div className="content-container header-inner">
-        <NavLink to="/" className="header-wordmark">
+    <header className="sticky top-0 z-50 bg-background border-b border-border">
+      <div className="content-container flex items-center justify-between h-16">
+        <NavLink
+          to="/"
+          className="text-base font-semibold text-foreground hover:text-accent no-underline shrink-0 transition-colors duration-150"
+        >
           Anastasia Novelly Moylan
         </NavLink>
 
-        <nav aria-label="Main navigation">
-          <ul className="header-nav">
+        <nav aria-label="Main navigation" className="hidden lg:block">
+          <ul className="flex items-center gap-8 list-none m-0 p-0">
             {navLinks.map(({ to, label }) => (
               <li key={to}>
                 <NavLink
                   to={to}
                   end={to === "/"}
                   className={({ isActive }) =>
-                    isActive ? "header-nav-link active" : "header-nav-link"
+                    [
+                      "text-[0.9375rem] font-medium no-underline transition-colors duration-150 pb-0.5 border-b-2",
+                      isActive
+                        ? "text-foreground border-primary"
+                        : "text-muted-foreground border-transparent hover:text-foreground",
+                    ].join(" ")
                   }
-                  aria-current={undefined}
                 >
                   {({ isActive }) => (
                     <span aria-current={isActive ? "page" : undefined}>
@@ -46,7 +52,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="header-cta">
+        <div className="hidden lg:flex">
           <Button to="/contact" variant="primary">
             Let&apos;s Collaborate
           </Button>
@@ -54,7 +60,7 @@ export default function Header() {
 
         <button
           ref={menuBtnRef}
-          className="header-menu-btn"
+          className="flex lg:hidden items-center justify-center w-11 h-11 bg-transparent border-none text-foreground cursor-pointer rounded-sm hover:bg-secondary transition-colors duration-150"
           onClick={() => setMenuOpen(true)}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"

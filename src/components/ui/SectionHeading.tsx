@@ -1,5 +1,3 @@
-import "./SectionHeading.css";
-
 interface SectionHeadingProps {
   eyebrow?: string;
   title: string;
@@ -16,10 +14,20 @@ export default function SectionHeading({
   const HeadingTag = `h${level}` as "h2" | "h3";
 
   return (
-    <div className="section-heading">
-      {eyebrow && <p className="section-heading-eyebrow">{eyebrow}</p>}
-      <HeadingTag className="section-heading-title">{title}</HeadingTag>
-      {subtitle && <p className="section-heading-subtitle">{subtitle}</p>}
+    <div className="flex flex-col gap-3">
+      {eyebrow && (
+        <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent">
+          {eyebrow}
+        </p>
+      )}
+      <HeadingTag className="text-[clamp(2rem,4vw,3.75rem)] font-bold text-foreground leading-[1.1]">
+        {title}
+      </HeadingTag>
+      {subtitle && (
+        <p className="text-[1.0625rem] text-muted-foreground leading-relaxed max-w-[46rem]">
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 }
