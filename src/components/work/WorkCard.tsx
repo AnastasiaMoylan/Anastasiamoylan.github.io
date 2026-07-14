@@ -38,13 +38,6 @@ export default function WorkCard({ project }: WorkCardProps) {
         </div>
         <h3 className="text-lg font-semibold leading-[1.3] text-foreground">{project.title}</h3>
         <p className="text-[0.9375rem] text-muted-foreground leading-relaxed">{project.problem}</p>
-        <ul className="list-none p-0 m-0 flex flex-wrap gap-1.5">
-          {project.tags.map((tag) => (
-            <li key={tag}>
-              <Badge variant="accent">{tag}</Badge>
-            </li>
-          ))}
-        </ul>
         <p className="text-sm text-muted-foreground italic pt-2 border-t border-border mt-auto">
           {project.outcome}
         </p>
