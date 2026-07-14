@@ -20,7 +20,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Selected work"
             title="Four end-to-end solutions worth reading about"
-            subtitle="Each one was an opportunity to design a connected, end-to-end solution — turning disconnected steps, unclear ownership, and untracked handoffs into a journey people could follow with confidence."
+            subtitle="Each one was an opportunity to design a connected, end-to-end solution: turning disconnected steps, unclear ownership, and untracked handoffs into a journey people could follow with confidence."
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {featuredProjects.map((project) => (
@@ -40,7 +40,7 @@ export default function HomePage() {
               eyebrow="Design philosophy"
               title="The whole system, not just the screen"
             />
-            <blockquote className="text-[clamp(1.125rem,2.5vw,1.375rem)] font-medium text-foreground leading-[1.55] italic pl-6 border-l-[3px] border-primary mt-8 mb-8">“Good product design is what makes a system understandable—getting the flows right, designing the data well, and treating AI as core to the experience, not an afterthought.”</blockquote>
+            <blockquote className="text-[clamp(1.125rem,2.5vw,1.375rem)] font-medium text-foreground leading-[1.55] italic pl-6 border-l-[3px] border-primary mt-8 mb-8">“Good product design is what makes a system understandable: getting the flows right, designing the data well, and treating AI as core to the experience, not an afterthought.”</blockquote>
             <Button to="/philosophy" variant="outline">Read the full philosophy</Button>
           </div>
         </div>

@@ -9,7 +9,7 @@ export default function NotFoundPage() {
           Page not found
         </h1>
         <p className="text-[1.0625rem] text-muted-foreground mb-10 max-w-[32rem] mx-auto">
-          That page doesn&apos;t exist — but there&apos;s plenty here worth looking at.
+          That page doesn&apos;t exist, but there&apos;s plenty here worth looking at.
         </p>
         <div className="flex gap-4 justify-center flex-wrap">
           <Button to="/" variant="primary">Go to Home</Button>

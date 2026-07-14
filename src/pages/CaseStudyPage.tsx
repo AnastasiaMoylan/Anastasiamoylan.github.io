@@ -15,7 +15,7 @@ const caseStudyContent: Record<
   }
 > = {
   "governed-ai-finance-workspace": {
-    outcomeLabel: "Governed AI workspace — Proof of concept, 2025–2026",
+    outcomeLabel: "Governed AI workspace · Proof of concept, 2025–2026",
     snapshotFields: [
       { label: "Role", value: "Lead UX / Product Designer" },
       { label: "Employer", value: "Amdocs Studios" },
@@ -34,16 +34,16 @@ const caseStudyContent: Record<
       "Created PRDs, flows, role models, screeners, recruitment materials, training plans, and moderated research for a working POC.",
     ],
     keyDecisions: [
-      "[TODO: add decision detail — environment separation rationale]",
-      "[TODO: add decision detail — promotion gate design]",
-      "[TODO: add decision detail — AI uncertainty state patterns]",
+      "[TODO: add decision detail: environment separation rationale]",
+      "[TODO: add decision detail: promotion gate design]",
+      "[TODO: add decision detail: AI uncertainty state patterns]",
     ],
     states: [
-      "Partial or low-confidence AI output — visual indicator, explanation, and option to proceed with review",
-      "Failed Python/data operations — preserved work state, clear error, retry and escalation path",
-      "Missing permissions — blocked state with explanation and request-access path",
-      "Blocked promotion — reason visible, checklist of unmet requirements",
-      "Pause/resume/rollback — for consequential multi-step workflows",
+      "Partial or low-confidence AI output: visual indicator, explanation, and option to proceed with review",
+      "Failed Python/data operations: preserved work state, clear error, retry and escalation path",
+      "Missing permissions: blocked state with explanation and request-access path",
+      "Blocked promotion: reason visible, checklist of unmet requirements",
+      "Pause/resume/rollback: for consequential multi-step workflows",
     ],
   },
 };
@@ -88,7 +88,7 @@ export default function CaseStudyPage() {
           </Link>
           <h1 className="text-[clamp(1.75rem,4vw,3rem)] font-bold text-foreground mb-6">{project.title}</h1>
           <p className="text-[1.0625rem] text-muted-foreground mb-2">Full case study and visuals coming soon.</p>
-          <p className="text-[0.9375rem] text-muted-foreground">Detailed write-up available on request — <Link to="/contact" className="text-accent hover:text-foreground no-underline transition-colors duration-150">get in touch</Link>.</p>
+          <p className="text-[0.9375rem] text-muted-foreground">Detailed write-up available on request. <Link to="/contact" className="text-accent hover:text-foreground no-underline transition-colors duration-150">Get in touch</Link>.</p>
         </div>
       </div>
     );
@@ -134,7 +134,7 @@ export default function CaseStudyPage() {
                   <div className="rounded-md border border-border overflow-hidden bg-card">
                     <img
                       src={financeAIFlow}
-                      alt="End-to-end flow diagram for the Finance AI Transformation — showing Governance, Risk and Compliance governing Agentic Workflows, Data Products, Command Center, and the full pipeline through User Experiences, Feedback and Iteration, Problem Framing, Data Discovery and Ingestion, and Finance Sandbox."
+                      alt="End-to-end flow diagram for the Finance AI Transformation, showing Governance, Risk and Compliance governing Agentic Workflows, Data Products, Command Center, and the full pipeline through User Experiences, Feedback and Iteration, Problem Framing, Data Discovery and Ingestion, and Finance Sandbox."
                       className="w-full h-auto block"
                     />
                   </div>
@@ -146,7 +146,7 @@ export default function CaseStudyPage() {
             },
             {
               heading: "Outcome and impact",
-              content: <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add measured outcomes — POC reception, research findings, roadmap decisions driven by this work]</TodoTag></p>,
+              content: <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add measured outcomes: POC reception, research findings, roadmap decisions driven by this work]</TodoTag></p>,
             },
             {
               heading: "What I learned",

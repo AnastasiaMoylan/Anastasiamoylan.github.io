@@ -6,7 +6,7 @@ export default function ResumePage() {
       <div className="content-container">
         <div className="flex flex-wrap items-center gap-4 mb-12 pb-8 border-b border-border print:hidden">
           <span className="text-sm text-muted-foreground mr-auto">
-            Anastasia Novelly Moylan &mdash; Resume
+            Anastasia Novelly Moylan &middot; Resume
           </span>
           <a
             href="/resume.txt"

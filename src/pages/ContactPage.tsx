@@ -9,7 +9,7 @@ export default function ContactPage() {
           Get in touch
         </h1>
         <p className="text-[1.0625rem] text-muted-foreground leading-[1.7] mb-12">
-          I&apos;m open to senior product design roles. Reach out directly — no forms, no gatekeeping.
+          I&apos;m open to senior product design roles. Reach out directly. No forms, no gatekeeping.
         </p>
 
         <div className="flex flex-col gap-4">

@@ -37,7 +37,7 @@ export default function CapabilityGrid() {
         <SectionHeading
           eyebrow="What I bring"
           title="The journey behind the screens"
-          subtitle="Most design portfolios show the outcome. Here's what it actually takes to get there — and why it matters to the teams I work with."
+          subtitle="Most design portfolios show the outcome. Here's what it actually takes to get there, and why it matters to the teams I work with."
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           {capabilities.map(({ icon, title, bullets }) => (

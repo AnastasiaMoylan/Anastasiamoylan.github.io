@@ -87,7 +87,7 @@ export default function ResumeContent() {
         {/* Amdocs */}
         <div className="mb-10">
           <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">
-            Amdocs Studios &mdash; formerly Stellar Elements
+            Amdocs Studios (formerly Stellar Elements)
           </h3>
           <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Lead Experience Designer | 2025&ndash;Present</p>
           <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Senior Experience Designer | July 2021&ndash;July 2025</p>
@@ -107,7 +107,7 @@ export default function ResumeContent() {
 
           {[
             {
-              title: "Finance Transformation / CFO.ai — Lead UX / Product Designer, 2025–2026",
+              title: "Finance Transformation / CFO.ai | Lead UX / Product Designer, 2025–2026",
               bullets: [
                 "Led the product model for a governed enterprise-finance workspace connecting Workflow Builder, Sandbox, promotion gates, Production, and monitoring for accountants, analysts, managers/controllers, finance leaders, admins, and viewers.",
                 "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls.",
@@ -117,17 +117,17 @@ export default function ResumeContent() {
               ],
             },
             {
-              title: "Custom Work Orders — Design Lead and UX / Product Strategy Lead, 2024–2025",
+              title: "Custom Work Orders | Design Lead and UX / Product Strategy Lead, 2024–2025",
               bullets: [
                 "Led an AT&T client engagement that replaced fragmented billing-package assembly with a guided B2B workflow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
                 "Mapped the complete operational flow across admins, accountants, engineers, owners, and reviewers, including missing evidence, failed automation, loading, validation, interim spreadsheet editing, handoffs, and recovery without loss of progress.",
-                "Defined a reusable status model — Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
+                "Defined a reusable status model (Initiated, In Progress, Review, Approved, Finalized, Completed) with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
                 "Partnered with engineering and UI development during implementation and moved unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
                 "Delivered a completed first MVP for interface and project querying plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
               ],
             },
             {
-              title: "Document Insights / Enterprise Knowledge LLM — UX and Product Strategy Lead, 2025",
+              title: "Document Insights / Enterprise Knowledge LLM | UX and Product Strategy Lead, 2025",
               bullets: [
                 "Shaped a multi-phase AI document workspace spanning semantic search, document selection, sourced chat, inline citations, an embedded PDF viewer, related questions, side-by-side and table comparison, and AI-assisted drafting.",
                 "Treated citations as navigation rather than decoration, kept selected-document state explicit, and preserved conversation and source context so generated answers remained verifiable.",
@@ -136,7 +136,7 @@ export default function ResumeContent() {
               ],
             },
             {
-              title: "Globe Connected Customer Journey — Senior UX Designer, completed by April 2025",
+              title: "Globe Connected Customer Journey | Senior UX Designer, completed by April 2025",
               bullets: [
                 "Designed a complex, data-driven customer journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, journey drop-offs, AI-assisted messaging, offer customization, and performance monitoring.",
                 "Converted model output into decision support by pairing predictions with customer context, lifecycle stage, behavior, sentiment, and available actions instead of presenting an opaque score as a final answer.",
@@ -205,7 +205,7 @@ export default function ResumeContent() {
         <div className="flex flex-col gap-5">
           <div>
             <p className="resume-edu-school text-base font-bold text-foreground">The University of Kansas</p>
-            <p className="resume-edu-degree text-[0.9375rem] text-muted-foreground">Bachelor of Science in Journalism (BSJ), Strategic Communications &mdash; Lawrence, Kansas</p>
+            <p className="resume-edu-degree text-[0.9375rem] text-muted-foreground">Bachelor of Science in Journalism (BSJ), Strategic Communications &middot; Lawrence, Kansas</p>
           </div>
           <div>
             <p className="resume-edu-school text-base font-bold text-foreground">LUMA Institute</p>

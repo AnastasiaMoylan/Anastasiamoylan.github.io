@@ -17,7 +17,7 @@ const timeline = [
       { title: "Senior Product Designer", dates: "December 2019–July 2021" },
     ],
     context:
-      "Designed internal operations tooling and crew-facing workflows used across the carrier network. Worked inside a complex org at enterprise scale — coordinating design decisions with operations, IT, and frontline feedback loops.",
+      "Designed internal operations tooling and crew-facing workflows used across the carrier network. Worked inside a complex org at enterprise scale, coordinating design decisions with operations, IT, and frontline feedback loops.",
   },
   {
     company: "Brinks Home Security",
@@ -68,13 +68,13 @@ export default function AboutPage() {
           <SectionBlock label="Who I am">
             <div className="flex flex-col gap-4 text-[1.0625rem] text-muted-foreground leading-[1.75]">
               <p>
-                I design complex enterprise products — AI assistants, workflows, document intelligence systems, and operational tooling — and I stay engaged until what ships matches what was designed. That distinction matters. A lot of enterprise design falls apart between design and production phases.
+                I design complex enterprise products: AI assistants, workflows, document intelligence systems, and operational tooling. I stay engaged until what ships matches what was designed. That distinction matters. A lot of enterprise design falls apart between design and production phases.
               </p>
               <p>
                 My background spans B2B SaaS, telecommunications, aviation, and finance. I know how to design for role-based permissions, how to make AI trustworthy, how to scope a POC that tests the right assumptions, and how to lead a design system that serves a large engineering org without becoming a bottleneck.
               </p>
               <p>
-                I also mentor two to three designers at a time. I lead critique sessions, give feedback that explains reasoning — not just corrections — and work to build judgment, not just improve output on a specific project.
+                I also mentor two to three designers at a time. I lead critique sessions, give feedback that explains reasoning instead of just corrections, and work to build judgment, not just improve output on a specific project.
               </p>
             </div>
           </SectionBlock>
@@ -136,7 +136,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-base font-semibold text-foreground">The University of Kansas</p>
                 <p className="text-[0.9375rem] text-muted-foreground">
-                  Bachelor of Science in Journalism (BSJ), Strategic Communications — Lawrence, Kansas
+                  Bachelor of Science in Journalism (BSJ), Strategic Communications &middot; Lawrence, Kansas
                 </p>
               </div>
               <div>

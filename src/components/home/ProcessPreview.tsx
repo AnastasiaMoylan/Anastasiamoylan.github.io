@@ -6,31 +6,31 @@ const steps = [
     label: "Context",
     number: "01",
     blurb:
-      "Map the full journey — the people, roles, systems, and handoff points across the flow. Before any wireframe, I establish who acts at each step, what they're working from, and where ownership changes hands. Most journey failures start here, when someone skips this phase because there's pressure to show something fast.",
+      "Map the full journey: the people, roles, systems, and handoff points across the flow. Before any wireframe, I establish who acts at each step, what they're working from, and where ownership changes hands. Most journey failures start here, when someone skips this phase because there's pressure to show something fast.",
   },
   {
     label: "Evidence",
     number: "02",
     blurb:
-      "Ground the design in real usage — research and signals gathered from every step of the journey. I identify what's already known, where the gaps are, and what needs to be tested before committing to a direction. Evidence changes the brief. That's the point.",
+      "Ground the design in real usage: research and signals gathered from every step of the journey. I identify what's already known, where the gaps are, and what needs to be tested before committing to a direction. Evidence changes the brief. That's the point.",
   },
   {
     label: "Decisions",
     number: "03",
     blurb:
-      "Turn evidence into a clear journey model — who does what, when, and how each handoff works. I document the rationale behind every structural decision so it survives handoff and can be revisited when context changes. A journey that isn't written down isn't a journey — it's an assumption.",
+      "Turn evidence into a clear journey model: who does what, when, and how each handoff works. I document the rationale behind every structural decision so it survives handoff and can be revisited when context changes. A journey that isn't written down isn't a journey. It's an assumption.",
   },
   {
     label: "Execution",
     number: "04",
     blurb:
-      "Build the end-to-end flow — from first interaction to final action — alongside engineering. Flows, states, component specs, and acceptance criteria built to reduce ambiguity. I stay close to implementation to catch regressions early and protect the journey quality before it reaches users.",
+      "Build the end-to-end flow, from first interaction to final action, alongside engineering. Flows, states, component specs, and acceptance criteria built to reduce ambiguity. I stay close to implementation to catch regressions early and protect the journey quality before it reaches users.",
   },
   {
     label: "Outcomes",
     number: "05",
     blurb:
-      "Measure the journey in action — adoption, time saved, trust earned — and refine from there. I track what actually changed: usability findings, completion rates, stakeholder decisions driven by the work. Outcomes close the loop on whether the journey solved the right problem.",
+      "Measure the journey in action: adoption, time saved, and trust earned, then refine from there. I track what actually changed, including usability findings, completion rates, and stakeholder decisions driven by the work. Outcomes close the loop on whether the journey solved the right problem.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function ProcessPreview() {
         <SectionHeading
           eyebrow="How I work"
           title="Building the journey end-to-end"
-          subtitle="The same five phases on every engagement — because connected, trustworthy journeys don't happen by accident. Select any phase to see what it looks like in practice."
+          subtitle="The same five phases on every engagement, because connected, trustworthy journeys don't happen by accident. Select any phase to see what it looks like in practice."
         />
 
         <div className="flex flex-col md:flex-row gap-3 mt-12">
@@ -72,7 +72,7 @@ export default function ProcessPreview() {
         {active !== null && (
           <div className="mt-4 p-6 bg-card border border-primary/40 rounded-md">
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-accent mb-3">
-              {steps[active].number} — {steps[active].label}
+              {steps[active].number} &middot; {steps[active].label}
             </p>
             <p className="text-[0.9375rem] text-muted-foreground leading-[1.7] max-w-[52rem]">
               {steps[active].blurb}
