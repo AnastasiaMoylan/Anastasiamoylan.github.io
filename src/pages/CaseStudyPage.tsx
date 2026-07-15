@@ -17,10 +17,17 @@ interface CaseStudyImage {
   caption: string;
 }
 
+interface Tldr {
+  challenge: string;
+  solution: string;
+  win: string;
+}
+
 const caseStudyContent: Record<
   string,
   {
     outcomeLabel: string;
+    tldr: Tldr;
     snapshotFields: { label: string; value: string }[];
     context: string;
     ownership: string[];
@@ -32,6 +39,13 @@ const caseStudyContent: Record<
 > = {
   "governed-ai-finance-workspace": {
     outcomeLabel: "Governed AI workspace · Completed, 2025–2026",
+    tldr: {
+      challenge:
+        "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails, and human accountability financial operations require.",
+      solution:
+        "A governed workspace that separates experimentation from production, makes AI activity fully inspectable, and requires human approval before consequential actions.",
+      win: "Gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+    },
     snapshotFields: [
       { label: "Role", value: "Lead UX / Product Designer" },
       { label: "Employer", value: "Amdocs Studios" },
@@ -72,6 +86,13 @@ const caseStudyContent: Record<
   },
   "connected-customer-journey": {
     outcomeLabel: "Connected customer journey · Completed, April 2025",
+    tldr: {
+      challenge:
+        "A telecommunications client had predictive churn signals but no connected path from that signal to an action a customer service representative could actually execute.",
+      solution:
+        "An end-to-end mitigation flow connecting churn detection, AI-assisted messaging, and human review into one journey, with an AI chatbot handling routine cases and escalating to a person when sentiment called for it.",
+      win: "Turned a model score into a reviewed, edited, and launched action, with monitoring built in and human review required before anything reached a customer.",
+    },
     snapshotFields: [
       { label: "Role", value: "Senior UX Designer" },
       { label: "Employer", value: "Amdocs Studios" },
@@ -129,6 +150,13 @@ const caseStudyContent: Record<
   },
   "auditable-billing-workflow": {
     outcomeLabel: "Auditable billing workflow · Completed, 2024–2025",
+    tldr: {
+      challenge:
+        "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed.",
+      solution:
+        "A guided B2B workflow with a shared status model, role-based permissions, and a full audit trail replacing manual, ownerless assembly.",
+      win: "Delivered a first MVP giving every role a shared view of progress, plus a phased roadmap to full automation.",
+    },
     snapshotFields: [
       { label: "Role", value: "Design Lead and UX / Product Strategy Lead" },
       { label: "Employer", value: "Amdocs Studios" },
@@ -210,6 +238,28 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
+function TldrBox({ tldr }: { tldr: Tldr }) {
+  return (
+    <div className="bg-secondary border border-border rounded-md p-6 mb-12" aria-label="Case study summary">
+      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-accent mb-4">TL;DR</p>
+      <dl className="flex flex-col gap-4 m-0">
+        <div>
+          <dt className="text-[0.8125rem] font-semibold text-foreground mb-1">The challenge</dt>
+          <dd className="text-[0.9375rem] text-muted-foreground leading-[1.65] m-0">{tldr.challenge}</dd>
+        </div>
+        <div>
+          <dt className="text-[0.8125rem] font-semibold text-foreground mb-1">The system solution</dt>
+          <dd className="text-[0.9375rem] text-muted-foreground leading-[1.65] m-0">{tldr.solution}</dd>
+        </div>
+        <div>
+          <dt className="text-[0.8125rem] font-semibold text-foreground mb-1">The big win</dt>
+          <dd className="text-[0.9375rem] text-muted-foreground leading-[1.65] m-0">{tldr.win}</dd>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
 function ImageGallery({ images }: { images: CaseStudyImage[] }) {
   return (
     <div className="flex flex-col gap-8">
@@ -265,6 +315,8 @@ export default function CaseStudyPage() {
             {project.title}
           </h1>
         </div>
+
+        <TldrBox tldr={content.tldr} />
 
         <div className="bg-card border border-border rounded-md px-8 py-6 mb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

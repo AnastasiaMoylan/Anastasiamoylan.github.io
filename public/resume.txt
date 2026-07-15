@@ -2,7 +2,7 @@ ANASTASIA NOVELLY MOYLAN
 Lead Product Designer | Complex B2B SaaS, AI Workflows & Design Systems
 
 1 (785) 844-3388
-anastasianmoylan.design@gmail.com
+anastasiamoylan@gmail.com
 anastasiamoylan.github.io
 linkedin.com/in/anastasia-novelly-moylan-76a70052
 St. Marys, Kansas, United States - Open to remote work across the Americas
@@ -11,28 +11,28 @@ St. Marys, Kansas, United States - Open to remote work across the Americas
 
 SUMMARY
 
-Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems into clear, trustworthy product experiences. Owns work from problem framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
+Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
 
-Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they become implementation problems. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
+Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
 
-Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, mentors two to three designers at a time, and changes direction when research or technical evidence reveals a better path.
+Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, manages a review program that checks completed work against what's required, and changes direction when research or technical evidence reveals a better path.
 
 ---
 
 EXPERIENCE
 
-Amdocs Studios -- formerly Stellar Elements
+Amdocs Studios
 Lead Experience Designer | 2025-Present
 Senior Experience Designer | July 2021-July 2025
 St. Marys, Kansas / Distributed enterprise consulting teams
 
-- Own UX and product design across concurrent enterprise B2B engagements, guiding two to three designers while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.
-- Translate ambiguous business and technical problems into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.
+- Own UX and product design across concurrent enterprise B2B engagements, managing a review program for the finance practice that checks completed work against requirements, while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.
+- Translate ambiguous business and technical needs into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.
 - Stay involved beyond handoff by creating development-ready flows, acceptance criteria, decision logs, asynchronous walkthroughs, Definition of Ready and Definition of Done gates, accessibility checks, and design-QA reviews; partner with engineering to assess UI feasibility, surface regressions, and protect interaction quality during delivery.
 - Build code-aware interaction prototypes with React, Tailwind CSS, Vite, Windsurf, Figma Make, and enterprise UI libraries to validate behavior and reduce implementation ambiguity.
 - Work as an experienced design-system practitioner across Figma variables and components, Flywheel React/Tailwind UI, and DCU patterns; extend systems with reusable validation, status, role, review-and-submit, audit-history, and workflow patterns.
 - Lead requirements workshops, co-creation, usability research, working-POC evaluations, critique, backlog prioritization, roadmap definition, sprint planning, test planning, and executive storytelling across teams in the United States, Europe, APAC, and Israel.
-- Mentor designers through pairing, structured critique, requirements clarification, and delivery reviews.
+- Review completed work through pairing, structured critique, requirements clarification, and delivery reviews, checking it against what was required.
 - Led an AI-heavy 2025 portfolio spanning finance transformation, enterprise knowledge tools, document intelligence, predictive customer experiences, workflow automation, and rapid proofs of concept.
 
 Selected product ownership and outcomes:
@@ -45,9 +45,9 @@ Finance Transformation / CFO.ai -- Lead UX / Product Designer, 2025-2026
 - Created PRDs, flows, role models, screeners, recruitment materials, training plans, and moderated research for a working POC.
 
 Custom Work Orders -- Design Lead and UX / Product Strategy Lead, 2024-2025
-- Led an AT&T client engagement that replaced fragmented billing-package assembly with a guided B2B workflow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.
+- Led a telecommunications client engagement that replaced fragmented billing-package assembly with a guided B2B workflow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.
 - Mapped the complete operational flow across admins, accountants, engineers, owners, and reviewers, including missing evidence, failed automation, loading, validation, interim spreadsheet editing, handoffs, and recovery without loss of progress.
-- Defined a reusable status model -- Initiated, In Progress, Review, Approved, Finalized, Completed -- with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.
+- Defined a reusable status model (Initiated, In Progress, Review, Approved, Finalized, Completed) with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.
 - Partnered with engineering and UI development during implementation and moved unsupported dashboard functionality into a visible future backlog instead of compromising the active release.
 - Delivered a completed first MVP for interface and project querying plus a phased roadmap for document integration, in-product editing, expanded review, and automation.
 
@@ -57,7 +57,7 @@ Document Insights / Enterprise Knowledge LLM -- UX and Product Strategy Lead, 20
 - Designed privacy-aware persistence, requiring an intentional save rather than retaining user activity by default.
 - Led or contributed to mixed-method research, protocol development, affinity synthesis, usage-metric definition, and roadmap prioritization; changed navigation and comparison recommendations based on evidence about tab confusion, trust, and preference for side-by-side review.
 
-Globe Connected Customer Journey -- Senior UX Designer, completed by April 2025
+Connected Customer Journey (Telecommunications) -- Senior UX Designer, completed by April 2025
 - Designed a complex, data-driven customer journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, journey drop-offs, AI-assisted messaging, offer customization, and performance monitoring.
 - Converted model output into decision support by pairing predictions with customer context, lifecycle stage, behavior, sentiment, and available actions instead of presenting an opaque score as a final answer.
 - Created an end-to-end mitigation flow from segment and risk detection through context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.
@@ -66,17 +66,16 @@ Globe Connected Customer Journey -- Senior UX Designer, completed by April 2025
 
 American Airlines
 Senior Product Designer | December 2019-July 2021 | Dallas-Fort Worth, Texas
-- Contributed senior product-design expertise within a large-scale aviation and digital-product environment, balancing customer needs, business priorities, operational requirements, and technical constraints.
-- Applied product strategy, user advocacy, interaction design, prototyping, critique, and cross-functional collaboration to airline product work.
-- Partnered across disciplines to translate requirements and complex workflows into usable digital experiences and clearer product direction.
+- Redesigned the travel checkout experience, modernizing outdated flows and establishing an incremental approach to evolving the design system and UI over time.
+- Led the design team's migration to new design software, partnering closely with the team to support the transition.
+- Redesigned the homepage with a new look and feel, balancing a visual refresh against maintaining conversion.
 
 
 Brinks Home Security
 Lead UI/UX Designer | June 2015-December 2019 | Greater Chicago Area
-- Led UX and UI design in the home-security and technology domain, with an emphasis on data-driven design and conversion-rate optimization.
-- Translated customer, business, and technical needs into understandable digital-product experiences using systems thinking, interaction design, and user-centered problem solving.
-- Collaborated across product, engineering, marketing, and business functions to improve usability and support measurable product and conversion goals.
-- Brought strategic communication, audience understanding, and evidence-based design rationale to stakeholder reviews and product decisions.
+- Built and owned the design system from scratch, delivering customer-facing mobile products alongside internal dealer and operations tooling across a full redesign cycle.
+- Led data-driven design and conversion-rate optimization, including a new lead-generation testing framework and iterative A/B testing on SEM landing pages and flows.
+- Managed the designer internship program from hiring through development, and led a content-strategy rollout with copywriters, developers, and executive leadership.
 
 ---
 
@@ -95,7 +94,7 @@ Design systems and implementation
 Figma variables, components, and libraries; design-system adoption and extension; Flywheel React/Tailwind UI and DCU; React and Tailwind CSS prototyping; Vite, Heroicons, Windsurf, Figma Make; engineering pairing, UI feasibility review, regression identification.
 
 Research, communication, and leadership
-Moderated usability and working-POC testing, qualitative/quantitative research planning, affinity mapping and synthesis, stakeholder workshops, client consulting, executive storytelling, critique/mentorship/pairing, multi-team/multi-time-zone delivery.
+Moderated usability and working-POC testing, qualitative/quantitative research planning, affinity mapping and synthesis, stakeholder workshops, client consulting, executive storytelling, critique/review/pairing, multi-team/multi-time-zone delivery.
 
 Tools
 Figma, FigJam, Figma Make, React, Tailwind CSS, Vite, Flywheel UI, DCU, Heroicons, Windsurf, Jira, Notion, Excel, Markdown, Word, PowerPoint, Mermaid, draw.io, ChatGPT, Claude, MCP-enabled workflows.

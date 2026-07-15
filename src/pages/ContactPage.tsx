@@ -14,7 +14,7 @@ export default function ContactPage() {
 
         <div className="flex flex-col gap-4">
           <a
-            href="mailto:anastasianmoylan.design@gmail.com"
+            href="mailto:anastasiamoylan@gmail.com"
             className="flex items-center gap-5 p-6 bg-card border-2 border-border rounded-md hover:border-primary hover:bg-secondary transition-colors duration-150 group no-underline"
           >
             <div className="flex items-center justify-center w-12 h-12 rounded-sm bg-primary/10 text-primary shrink-0">
@@ -23,7 +23,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-0.5 min-w-0">
               <span className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">Email</span>
               <span className="text-base font-semibold text-foreground group-hover:text-primary transition-colors duration-150 truncate">
-                anastasianmoylan.design@gmail.com
+                anastasiamoylan@gmail.com
               </span>
             </div>
           </a>

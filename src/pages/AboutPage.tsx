@@ -3,29 +3,43 @@ import Button from "../components/ui/Button";
 
 const timeline = [
   {
-    company: "Amdocs Studios (formerly Stellar Elements)",
+    company: "Amdocs Studios",
     roles: [
-      { title: "Lead Experience Designer", dates: "2025–Present" },
-      { title: "Senior Experience Designer", dates: "July 2021–July 2025" },
+      {
+        title: "Lead Experience Designer",
+        dates: "2025–Present",
+        context:
+          "Manages a review program for the agency's finance practice, checking completed work against what's required before it moves forward. Drives integration of AI capabilities into production-ready, enterprise-scale systems for finance, billing, and telecommunications CX platforms, and establishes shared design frameworks and best practices across projects.",
+      },
+      {
+        title: "Senior Experience Designer",
+        dates: "July 2021–July 2025",
+        context:
+          "Led design on AI-assisted finance and billing products, enterprise document intelligence, and complex telecommunications CX platforms, driving product strategy alignment and end-to-end experience across multi-phase engagements.",
+      },
     ],
-    context:
-      "Led UX across two to three concurrent enterprise engagements at a time, directing and reviewing work for two to three direct reports per engagement. Drove integration of AI capabilities, including predictive analytics, LLM-based automation, and embedded generative features, into production-ready, enterprise-scale systems for finance, billing, and telecommunications CX platforms, and established shared design frameworks and best practices across projects.",
   },
   {
     company: "American Airlines",
     roles: [
-      { title: "Senior Product Designer", dates: "December 2019–July 2021" },
+      {
+        title: "Senior Product Designer",
+        dates: "December 2019–July 2021",
+        context:
+          "Redesigned the travel checkout experience, modernizing outdated flows and establishing an incremental approach to evolving the design system and UI over time. Led the design team's migration to new design software and redesigned the homepage, balancing a visual refresh against maintaining conversion.",
+      },
     ],
-    context:
-      "Redesigned the travel checkout experience, modernizing outdated flows and establishing an incremental approach to evolving the design system and UI over time. Led the design team's migration to new design software and redesigned the homepage, balancing a visual refresh against maintaining conversion.",
   },
   {
     company: "Brinks Home Security",
     roles: [
-      { title: "Lead UI/UX Designer", dates: "June 2015–December 2019" },
+      {
+        title: "Lead UI/UX Designer",
+        dates: "June 2015–December 2019",
+        context:
+          "Built and owned the design system from scratch, delivering customer-facing mobile products alongside internal dealer and operations tooling across a full redesign cycle. Led data-driven design and conversion-rate optimization, including a new lead-generation testing framework and iterative A/B testing on SEM landing pages, and managed the designer internship program from hiring through development.",
+      },
     ],
-    context:
-      "Built and owned the design system from scratch, delivering customer-facing mobile products alongside internal dealer and operations tooling across a full redesign cycle. Led data-driven design and conversion-rate optimization, including a new lead-generation testing framework and iterative A/B testing on SEM landing pages, and managed the designer internship program from hiring through development.",
   },
 ];
 
@@ -75,7 +89,7 @@ export default function AboutPage() {
                 My background spans B2B SaaS, telecommunications, aviation, and finance: role-based permissions, trustworthy AI, scoping a POC that tests the right assumptions, and design systems that serve large engineering orgs without becoming a bottleneck.
               </p>
               <p>
-                I also mentor two to three designers at a time, leading critique that explains reasoning instead of just corrections, to build judgment rather than just improve output on one project.
+                I also manage a review program for my agency's finance practice, checking completed work against what's required and leading critique that explains reasoning instead of just corrections.
               </p>
             </div>
           </SectionBlock>
@@ -86,7 +100,7 @@ export default function AboutPage() {
               <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" aria-hidden="true" />
 
               <ul className="list-none p-0 m-0 flex flex-col gap-10">
-                {timeline.map(({ company, roles, context }) => (
+                {timeline.map(({ company, roles }) => (
                   <li key={company} className="relative pl-10 flex flex-col gap-3">
                     {/* Dot */}
                     <div
@@ -94,18 +108,19 @@ export default function AboutPage() {
                       aria-hidden="true"
                     />
 
-                    {roles.map(({ title, dates }, i) => (
-                      <div key={title} className={i > 0 ? "mt-3 pt-3 border-t border-border" : ""}>
-                        <p className="text-[1.0625rem] font-semibold text-foreground leading-snug">{title}</p>
-                        <div className="flex flex-wrap items-center gap-x-2 mt-0.5">
-                          <span className="text-sm font-medium text-accent">{company}</span>
-                          <span className="text-sm text-muted-foreground">·</span>
-                          <span className="text-sm text-muted-foreground">{dates}</span>
+                    {roles.map(({ title, dates, context }, i) => (
+                      <div key={title} className={i > 0 ? "mt-4 pt-4 border-t border-border flex flex-col gap-3" : "flex flex-col gap-3"}>
+                        <div>
+                          <p className="text-[1.0625rem] font-semibold text-foreground leading-snug">{title}</p>
+                          <div className="flex flex-wrap items-center gap-x-2 mt-0.5">
+                            <span className="text-sm font-medium text-accent">{company}</span>
+                            <span className="text-sm text-muted-foreground">·</span>
+                            <span className="text-sm text-muted-foreground">{dates}</span>
+                          </div>
                         </div>
+                        <p className="text-[0.9375rem] text-muted-foreground leading-[1.65]">{context}</p>
                       </div>
                     ))}
-
-                    <p className="text-[0.9375rem] text-muted-foreground leading-[1.65]">{context}</p>
                   </li>
                 ))}
               </ul>

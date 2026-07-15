@@ -47,8 +47,8 @@ export default function ResumeContent() {
             </a>
           </li>
           <li>
-            <a href="mailto:anastasianmoylan.design@gmail.com" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150">
-              anastasianmoylan.design@gmail.com
+            <a href="mailto:anastasiamoylan@gmail.com" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150">
+              anastasiamoylan@gmail.com
             </a>
           </li>
           <li>
@@ -77,7 +77,7 @@ export default function ResumeContent() {
             Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
           </p>
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, mentors two to three designers at a time, and changes direction when research or technical evidence reveals a better path.
+            Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, manages a review program that checks completed work against what's required, and changes direction when research or technical evidence reveals a better path.
           </p>
         </div>
       </Section>
@@ -87,19 +87,19 @@ export default function ResumeContent() {
         {/* Amdocs */}
         <div className="mb-10">
           <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">
-            Amdocs Studios (formerly Stellar Elements)
+            Amdocs Studios
           </h3>
           <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Lead Experience Designer | 2025&ndash;Present</p>
           <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Senior Experience Designer | July 2021&ndash;July 2025</p>
           <p className="resume-job-meta text-sm text-muted-foreground mt-1 mb-4">St. Marys, Kansas / Distributed enterprise consulting teams</p>
           <Bullets items={[
-            "Own UX and product design across concurrent enterprise B2B engagements, guiding two to three designers while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.",
+            "Own UX and product design across concurrent enterprise B2B engagements, managing a review program for the finance practice that checks completed work against requirements, while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.",
             "Translate ambiguous business and technical needs into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.",
             "Stay involved beyond handoff by creating development-ready flows, acceptance criteria, decision logs, asynchronous walkthroughs, Definition of Ready and Definition of Done gates, accessibility checks, and design-QA reviews; partner with engineering to assess UI feasibility, surface regressions, and protect interaction quality during delivery.",
             "Build code-aware interaction prototypes with React, Tailwind CSS, Vite, Windsurf, Figma Make, and enterprise UI libraries to validate behavior and reduce implementation ambiguity.",
             "Work as an experienced design-system practitioner across Figma variables and components, Flywheel React/Tailwind UI, and DCU patterns; extend systems with reusable validation, status, role, review-and-submit, audit-history, and workflow patterns.",
             "Lead requirements workshops, co-creation, usability research, working-POC evaluations, critique, backlog prioritization, roadmap definition, sprint planning, test planning, and executive storytelling across teams in the United States, Europe, APAC, and Israel.",
-            "Mentor designers through pairing, structured critique, requirements clarification, and delivery reviews.",
+            "Review completed work through pairing, structured critique, requirements clarification, and delivery reviews, checking it against what was required.",
             "Led an AI-heavy 2025 portfolio spanning finance transformation, enterprise knowledge tools, document intelligence, predictive customer experiences, workflow automation, and rapid proofs of concept.",
           ]} />
 
@@ -187,7 +187,7 @@ export default function ResumeContent() {
             { label: "AI interaction design", body: "AI-assisted workflows and LLM interaction design, uncertainty/latency/partial results/reversibility, human-in-the-loop review, evidence/citations/explainability, generated-plan and generated-code inspection, agent activity/logs/lineage/versioning/auditability, predictive analytics and decision-support interfaces, experimentation and promotion gates." },
             { label: "Flow literacy and complex systems", body: "Role and permission modeling, loading/empty/error/blocked/success states, progressive validation and preserved-progress patterns, approval/exception/escalation/retry/rollback paths, audit trails and compliance-aware workflows." },
             { label: "Design systems and implementation", body: "Figma variables, components, and libraries; design-system adoption and extension; Flywheel React/Tailwind UI and DCU; React and Tailwind CSS prototyping; Vite, Heroicons, Windsurf, Figma Make; engineering pairing, UI feasibility review, regression identification." },
-            { label: "Research, communication, and leadership", body: "Moderated usability and working-POC testing, qualitative/quantitative research planning, affinity mapping and synthesis, stakeholder workshops, client consulting, executive storytelling, critique/mentorship/pairing, multi-team/multi-time-zone delivery." },
+            { label: "Research, communication, and leadership", body: "Moderated usability and working-POC testing, qualitative/quantitative research planning, affinity mapping and synthesis, stakeholder workshops, client consulting, executive storytelling, critique/review/pairing, multi-team/multi-time-zone delivery." },
             { label: "Tools", body: "Figma, FigJam, Figma Make, React, Tailwind CSS, Vite, Flywheel UI, DCU, Heroicons, Windsurf, Jira, Notion, Excel, Markdown, Word, PowerPoint, Mermaid, draw.io, ChatGPT, Claude, MCP-enabled workflows." },
             { label: "Domain experience", body: "Enterprise finance and financial operations, telecommunications and customer-experience platforms, aviation, home security and technology, AI-enabled B2B software, enterprise knowledge and document intelligence, data governance and analytics." },
           ].map(({ label, body }) => (
