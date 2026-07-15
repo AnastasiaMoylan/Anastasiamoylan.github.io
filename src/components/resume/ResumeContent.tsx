@@ -71,10 +71,10 @@ export default function ResumeContent() {
       <Section id="resume-summary-heading" heading="Summary">
         <div className="flex flex-col gap-3">
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems into clear, trustworthy product experiences. Owns work from problem framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
+            Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
           </p>
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they become implementation problems. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
+            Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
           </p>
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
             Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, mentors two to three designers at a time, and changes direction when research or technical evidence reveals a better path.
@@ -94,7 +94,7 @@ export default function ResumeContent() {
           <p className="resume-job-meta text-sm text-muted-foreground mt-1 mb-4">St. Marys, Kansas / Distributed enterprise consulting teams</p>
           <Bullets items={[
             "Own UX and product design across concurrent enterprise B2B engagements, guiding two to three designers while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.",
-            "Translate ambiguous business and technical problems into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.",
+            "Translate ambiguous business and technical needs into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.",
             "Stay involved beyond handoff by creating development-ready flows, acceptance criteria, decision logs, asynchronous walkthroughs, Definition of Ready and Definition of Done gates, accessibility checks, and design-QA reviews; partner with engineering to assess UI feasibility, surface regressions, and protect interaction quality during delivery.",
             "Build code-aware interaction prototypes with React, Tailwind CSS, Vite, Windsurf, Figma Make, and enterprise UI libraries to validate behavior and reduce implementation ambiguity.",
             "Work as an experienced design-system practitioner across Figma variables and components, Flywheel React/Tailwind UI, and DCU patterns; extend systems with reusable validation, status, role, review-and-submit, audit-history, and workflow patterns.",
@@ -172,7 +172,7 @@ export default function ResumeContent() {
           <div className="mt-3">
             <Bullets items={[
               "Led UX and UI design in the home-security and technology domain, with an emphasis on data-driven design and conversion-rate optimization.",
-              "Translated customer, business, and technical needs into understandable digital-product experiences using systems thinking, interaction design, and user-centered problem solving.",
+              "Translated customer, business, and technical needs into understandable digital-product experiences using systems thinking, interaction design, and user-centered solution design.",
               "Collaborated across product, engineering, marketing, and business functions to improve usability and support measurable product and conversion goals.",
               "Brought strategic communication, audience understanding, and evidence-based design rationale to stakeholder reviews and product decisions.",
             ]} />

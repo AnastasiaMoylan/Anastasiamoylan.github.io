@@ -68,13 +68,13 @@ export default function AboutPage() {
           <SectionBlock label="Who I am">
             <div className="flex flex-col gap-4 text-[1.0625rem] text-muted-foreground leading-[1.75]">
               <p>
-                I design complex enterprise products: AI assistants, workflows, document intelligence systems, and operational tooling. I stay engaged until what ships matches what was designed. That distinction matters. A lot of enterprise design falls apart between design and production phases.
+                I design complex enterprise products: AI assistants, workflows, document intelligence systems, and operational tooling. I stay engaged until what ships matches what was designed, a distinction that a lot of enterprise design loses between design and production.
               </p>
               <p>
-                My background spans B2B SaaS, telecommunications, aviation, and finance. I know how to design for role-based permissions, how to make AI trustworthy, how to scope a POC that tests the right assumptions, and how to lead a design system that serves a large engineering org without becoming a bottleneck.
+                My background spans B2B SaaS, telecommunications, aviation, and finance: role-based permissions, trustworthy AI, scoping a POC that tests the right assumptions, and design systems that serve large engineering orgs without becoming a bottleneck.
               </p>
               <p>
-                I also mentor two to three designers at a time. I lead critique sessions, give feedback that explains reasoning instead of just corrections, and work to build judgment, not just improve output on a specific project.
+                I also mentor two to three designers at a time, leading critique that explains reasoning instead of just corrections, to build judgment rather than just improve output on one project.
               </p>
             </div>
           </SectionBlock>

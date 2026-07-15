@@ -5,6 +5,7 @@ import Button from "../ui/Button";
 import MobileNav from "./MobileNav";
 
 const navLinks = [
+  { to: "/", label: "Home" },
   { to: "/work", label: "Work" },
   { to: "/philosophy", label: "Philosophy" },
   { to: "/about", label: "About" },

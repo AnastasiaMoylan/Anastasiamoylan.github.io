@@ -55,7 +55,7 @@ export default function HomePage() {
             Working on something complex?
           </h2>
           <p className="text-[1.0625rem] text-muted-foreground mb-8 max-w-[36rem] mx-auto">
-            I&apos;m open to roles where the problems are real, the systems are complicated, and the work matters.
+            I&apos;m open to roles focused on real solutions, complicated systems, and work that matters.
           </p>
           <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>

@@ -20,7 +20,7 @@ export default function WorkPage() {
           <SectionHeading
             eyebrow="Case studies"
             title="Selected product work"
-            subtitle="These are the problems worth explaining: organizational complexity, technical constraints, and user needs that all had to be resolved at the same time. Each one shows how I work, not just what I delivered."
+            subtitle="These are the solutions worth explaining, each shaped by organizational complexity, technical constraints, and user needs that all had to be resolved at the same time. Every one shows how I work, not just what I delivered."
           />
         </div>
 
@@ -45,7 +45,7 @@ export default function WorkPage() {
             Seen enough to want to talk?
           </h2>
           <p className="text-[1.0625rem] text-muted-foreground mb-8 max-w-[36rem] mx-auto">
-            I&apos;m available for senior product design roles. The best conversations start with a specific problem you&apos;re trying to solve.
+            I&apos;m available for senior product design roles. The best conversations start with a specific solution you&apos;re trying to build.
           </p>
           <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>

@@ -19,7 +19,7 @@ const principles = [
 },
 {
     title: "Critique in service of the decision, not the deliverable",
-    body: "Critique goes sideways the moment it turns into defending a screen. I try to keep it on the problem instead: here's what we were trying to solve, does this actually solve it. Half the time the useful question isn't which option is better. It's whether either one solves the right thing.",
+    body: "Critique goes sideways the moment it turns into defending a screen. I try to keep it on the solution instead: here's what we were trying to achieve, does this actually deliver it. Half the time the useful question isn't which option is better. It's whether either one delivers the right outcome.",
 },
 {
     title: "Coach judgment, not just output",

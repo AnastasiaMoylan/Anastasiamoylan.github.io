@@ -1,6 +1,6 @@
 import Badge from "../ui/Badge";
 
-const tools = ["Figma", "React", "Tailwind CSS", "GitHub", "Webflow"];
+const tools = ["Figma", "React", "Tailwind CSS", "GitHub"];
 
 export default function ToolBadgeStrip() {
   return (

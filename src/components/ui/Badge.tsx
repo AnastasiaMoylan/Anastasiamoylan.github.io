@@ -4,9 +4,9 @@ interface BadgeProps {
 }
 
 const variants = {
-  default: "bg-secondary text-muted-foreground border-border",
+  default: "bg-secondary text-foreground border-border",
   accent: "bg-primary/15 text-accent border-primary/30",
-  status: "bg-secondary text-muted-foreground border-border",
+  status: "bg-secondary text-foreground border-border",
 };
 
 export default function Badge({ children, variant = "default" }: BadgeProps) {

@@ -6,31 +6,31 @@ const steps = [
     label: "Context",
     number: "01",
     blurb:
-      "Map the full journey: the people, roles, systems, and handoff points across the flow. Before any wireframe, I establish who acts at each step, what they're working from, and where ownership changes hands. Most journey failures start here, when someone skips this phase because there's pressure to show something fast.",
+      "Map the full journey: the people, roles, systems, and handoff points across the flow. I establish who acts at each step, what they're working from, and where ownership changes hands before any wireframe exists. Most journey failures start when someone skips this phase to show something fast.",
   },
   {
     label: "Evidence",
     number: "02",
     blurb:
-      "Ground the design in real usage: research and signals gathered from every step of the journey. I identify what's already known, where the gaps are, and what needs to be tested before committing to a direction. Evidence changes the brief. That's the point.",
+      "Ground the design in real usage: research and signals gathered from every step of the journey. I identify what's already known, where the gaps are, and what needs testing before committing to a direction. Evidence changes the brief. That's the point.",
   },
   {
     label: "Decisions",
     number: "03",
     blurb:
-      "Turn evidence into a clear journey model: who does what, when, and how each handoff works. I document the rationale behind every structural decision so it survives handoff and can be revisited when context changes. A journey that isn't written down isn't a journey. It's an assumption.",
+      "Turn evidence into a clear journey model: who does what, when, and how each handoff works. I document the rationale behind every structural decision so it survives handoff and can be revisited later. A journey that isn't written down isn't a journey. It's an assumption.",
   },
   {
     label: "Execution",
     number: "04",
     blurb:
-      "Build the end-to-end flow, from first interaction to final action, alongside engineering. Flows, states, component specs, and acceptance criteria built to reduce ambiguity. I stay close to implementation to catch regressions early and protect the journey quality before it reaches users.",
+      "Build the end-to-end flow, from first interaction to final action, alongside engineering: flows, states, component specs, and acceptance criteria that reduce ambiguity. I stay close to implementation to catch regressions early and protect journey quality before it reaches users.",
   },
   {
     label: "Outcomes",
     number: "05",
     blurb:
-      "Measure the journey in action: adoption, time saved, and trust earned, then refine from there. I track what actually changed, including usability findings, completion rates, and stakeholder decisions driven by the work. Outcomes close the loop on whether the journey solved the right problem.",
+      "Measure the journey in action: adoption, time saved, and trust earned, then refine from there. I track usability findings, completion rates, and stakeholder decisions driven by the work. Outcomes close the loop on whether the journey delivered the right solution.",
   },
 ];
 

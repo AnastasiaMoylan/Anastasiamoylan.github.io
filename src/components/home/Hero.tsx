@@ -3,7 +3,7 @@ import Button from "../ui/Button";
 export default function Hero() {
   return (
     <section
-      className="py-20 pb-24 border-b border-border"
+      className="py-20 border-b border-border"
       aria-labelledby="hero-heading"
     >
       <div className="content-container grid grid-cols-1">
