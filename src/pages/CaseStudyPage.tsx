@@ -35,6 +35,7 @@ const caseStudyContent: Record<
     states: string[];
     images: CaseStudyImage[];
     outcomeText?: string;
+    learned?: string;
   }
 > = {
   "governed-ai-finance-workspace": {
@@ -62,10 +63,14 @@ const caseStudyContent: Record<
       "Created PRDs, flows, role models, screeners, recruitment materials, training plans, and moderated research for a working POC.",
     ],
     keyDecisions: [
-      "[TODO: add decision detail: environment separation rationale]",
-      "[TODO: add decision detail: promotion gate design]",
-      "[TODO: add decision detail: AI uncertainty state patterns]",
+      "Separated experimentation from production as two distinct environments rather than gating a single workspace with permissions, so users could test Python analysis, transformations, and AI-assisted plans in a sandbox with no path to silently affecting financial controls. Promotion to production became an explicit, reviewable event instead of a hidden setting.",
+      "Designed promotion as a gated checklist with visible unmet requirements rather than a one-click publish, so a blocked promotion explained exactly which controls, approvals, or data-access conditions weren't yet met, turning governance from an invisible backend rule into something users could see and resolve.",
+      "Treated AI uncertainty and failure as first-class interaction states, partial or low-confidence output, failed data or Python operations, preserved work on error, retry and escalation, instead of hiding them, so the workspace stayed trustworthy at exactly the moments AI is least reliable.",
     ],
+    outcomeText:
+      "Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work. The result was a working POC that gave stakeholders a concrete, testable model for how governed AI could operate inside financial operations, rather than an abstract promise.",
+    learned:
+      "The hardest part wasn't making AI capable, it was making its governance legible. Early on, controls lived in the backend and users had to trust that they existed. The work got better once every control had a visible surface: an environment label, a promotion checklist, an audit entry. Governance people can't see isn't governance they'll approve.",
     states: [
       "Partial or low-confidence AI output: visual indicator, explanation, and option to proceed with review",
       "Failed Python/data operations: preserved work state, clear error, retry and escalation path",
@@ -117,6 +122,8 @@ const caseStudyContent: Record<
     ],
     outcomeText:
       "Designed an end-to-end mitigation flow that turned a model score into a reviewed, edited, and launched action, with monitoring built in. Human review of AI-assisted messaging was required before anything reached a customer.",
+    learned:
+      "A model score is not a decision. The project reset once we stopped treating the churn prediction as the answer and started treating it as the opening of a decision the representative still had to make, with context, options, and a way to edit anything AI suggested before it reached a customer.",
     images: [
       {
         src: ccjUserFlow,
@@ -182,6 +189,8 @@ const caseStudyContent: Record<
     ],
     outcomeText:
       "Delivered a first MVP that gave every role a shared view of progress, defined a status model that made ownership and handoffs explicit, and laid a phased roadmap for document integration and full automation.",
+    learned:
+      "Most of the value came from the status model, not the screens. Once every role shared one vocabulary for where a package was, Initiated, In Progress, Review, Approved, Finalized, Completed, the \"where did the work go\" problem largely dissolved. The interface was almost downstream of getting that shared language right.",
     images: [
       {
         src: cwoMvp1Workflow,
@@ -211,21 +220,13 @@ const caseStudyContent: Record<
   },
 };
 
-function TodoTag({ children }: { children: string }) {
-  return (
-    <span className="inline-block bg-ring/15 border border-ring/40 rounded-sm px-2 py-0.5 text-sm text-ring italic">
-      {children}
-    </span>
-  );
-}
-
 function BulletList({ items }: { items: string[] }) {
   return (
     <ul className="list-none p-0 m-0 flex flex-col gap-3">
       {items.map((item, i) => (
         <li key={i} className="text-base text-muted-foreground leading-[1.65] pl-5 relative">
           <span className="absolute left-0 text-accent">—</span>
-          {item.startsWith("[TODO") ? <TodoTag>{item}</TodoTag> : item}
+          {item}
         </li>
       ))}
     </ul>
@@ -329,19 +330,15 @@ export default function CaseStudyPage() {
             { heading: "Key decisions", content: <BulletList items={content.keyDecisions} /> },
             { heading: "States, edge cases, and recovery", content: <BulletList items={content.states} /> },
             { heading: "Execution", content: <ImageGallery images={content.images} /> },
-            {
+            content.outcomeText && {
               heading: "Outcome and impact",
-              content: content.outcomeText ? (
-                <p className="text-base text-muted-foreground leading-[1.7] max-w-[46rem]">{content.outcomeText}</p>
-              ) : (
-                <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add measured outcomes: reception, research findings, roadmap decisions driven by this work]</TodoTag></p>
-              ),
+              content: <p className="text-base text-muted-foreground leading-[1.7] max-w-[46rem]">{content.outcomeText}</p>,
             },
-            {
+            content.learned && {
               heading: "What I learned",
-              content: <p className="text-base text-muted-foreground leading-[1.7]"><TodoTag>[TODO: add what was learned or changed direction during this engagement]</TodoTag></p>,
+              content: <p className="text-base text-muted-foreground leading-[1.7] max-w-[46rem]">{content.learned}</p>,
             },
-          ].map(({ heading, content: sectionContent }) => (
+          ].filter((section): section is { heading: string; content: import("react").ReactElement } => Boolean(section)).map(({ heading, content: sectionContent }) => (
             <section key={heading} className="flex flex-col gap-5">
               <h2 className="text-[1.375rem] font-bold text-foreground pb-3 border-b border-border">
                 {heading}

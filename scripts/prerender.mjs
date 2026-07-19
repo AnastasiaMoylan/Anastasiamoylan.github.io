@@ -8,7 +8,36 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(root, "dist-server");
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
-const { render } = await import(path.join(serverDir, "entry-server.js"));
+const { render, getPageMeta } = await import(path.join(serverDir, "entry-server.js"));
+
+const escapeAttr = (s) =>
+  s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const escapeText = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+function applyMeta(html, meta) {
+  return html
+    .replace(/<title>.*?<\/title>/s, `<title>${escapeText(meta.title)}</title>`)
+    .replace(
+      /(<meta name="description" content=)"[^"]*"/,
+      `$1"${escapeAttr(meta.description)}"`
+    )
+    .replace(
+      /(<meta property="og:title" content=)"[^"]*"/,
+      `$1"${escapeAttr(meta.title)}"`
+    )
+    .replace(
+      /(<meta property="og:description" content=)"[^"]*"/,
+      `$1"${escapeAttr(meta.description)}"`
+    )
+    .replace(
+      /(<meta property="og:url" content=)"[^"]*"/,
+      `$1"${escapeAttr(meta.canonical)}"`
+    )
+    .replace(
+      /(<link rel="canonical" href=)"[^"]*"/,
+      `$1"${escapeAttr(meta.canonical)}"`
+    );
+}
 
 const routes = [
   "/",
@@ -25,7 +54,7 @@ const routes = [
 
 for (const route of routes) {
   const appHtml = render(route);
-  const html = template.replace(
+  const html = applyMeta(template, getPageMeta(route)).replace(
     '<div id="root"></div>',
     `<div id="root">${appHtml}</div>`
   );
