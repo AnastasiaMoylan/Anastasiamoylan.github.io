@@ -30,17 +30,24 @@ export default function WorkCard({ project }: WorkCardProps) {
           </div>
         )}
       </div>
-      <div className="p-6 flex flex-col gap-2.5 flex-1">
-        <span className="text-[0.8125rem] text-muted-foreground">{project.role}</span>
-        <h3 className="text-lg font-semibold leading-[1.3] text-foreground">{project.title}</h3>
-        <p className="text-[0.9375rem] font-medium text-foreground leading-[1.5]">{project.tagline}</p>
-        <p className="text-[0.9375rem] text-muted-foreground leading-[1.6] line-clamp-3">{project.problem}</p>
-        <p className="text-[0.8125rem] text-muted-foreground mt-auto pt-1">{project.tags.join(" · ")}</p>
-      </div>
-      <div className="border-t border-border bg-secondary px-6 py-3 flex items-center justify-between text-[0.9375rem] font-medium text-accent transition-colors duration-150 group-hover:bg-primary group-hover:text-primary-foreground">
-        <span>Read case study</span>
-        <span className="text-base transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">
-          &rarr;
+      <div className="p-5 flex flex-col gap-2 flex-1">
+        <span className="text-[0.6875rem] uppercase tracking-wide text-muted-foreground">{project.role}</span>
+        <h3 className="text-[1.1875rem] font-semibold leading-[1.25] text-foreground transition-colors duration-150 group-hover:text-primary">
+          {project.title}
+        </h3>
+        <p className="text-[0.875rem] text-muted-foreground leading-[1.55]">{project.tagline}</p>
+        <ul className="list-none p-0 m-0 flex flex-wrap gap-1.5 mt-auto pt-3">
+          {project.tags.map((tag) => (
+            <li key={tag}>
+              <span className="inline-flex text-[0.6875rem] text-muted-foreground bg-secondary px-2.5 py-1 rounded-md">
+                {tag}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <span className="inline-flex items-center gap-1.5 text-[0.8125rem] font-medium text-accent pt-3" aria-hidden="true">
+          Read case study
+          <span className="transition-transform duration-150 group-hover:translate-x-0.5">&rarr;</span>
         </span>
       </div>
     </article>

@@ -24,7 +24,7 @@ export const projects: Project[] = [
   {
     slug: "governed-ai-finance-workspace",
     image: financeAIFlow,
-    title: "A Governed AI Workspace for Finance",
+    title: "An AI Workspace for Finance",
     tagline: "Reporting, forecasting, and month-end close in one governed AI platform",
     problem:
       "Finance teams needed AI-assisted analysis without losing the audit trails, governance controls, and human accountability that financial operations require. The risk: ship AI features that feel powerful but bypass controls, and the platform becomes a liability.",
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     tagline: "Reducing churn by connecting a fragmented customer journey",
     problem:
       "A telecommunications client had predictive churn signals but no way to act on them. The gap between a model score and a human taking the right action for the right customer was entirely undesigned.",
-    role: "Senior UX Designer",
+    role: "Lead UX Designer",
     status: "Completed April 2025",
     tags: ["Predictive Analytics", "Customer Experience", "AI Decision Support"],
     outcome:
