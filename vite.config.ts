@@ -40,6 +40,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // Honor the PORT env var when the harness assigns one; fall back to Vite's
+  // default so a plain `npm run dev` still works.
+  server: {
+    port: process.env.PORT ? Number(process.env.PORT) : undefined,
+  },
   resolve: {
     alias: {
       // Alias @ to the src directory

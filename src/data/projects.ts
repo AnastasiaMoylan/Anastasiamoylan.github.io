@@ -17,9 +17,8 @@ export interface Project {
 
 import financeAIFlow from "../imports/Finance_AI_Transformation_-_End-to-End_Flow.png";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg";
-import cwoMvp1Workflow from "../assets/case-studies/cwo/mvp1-workflow.jpg";
-// `?preview` keeps the very wide flow diagram light enough for a card thumbnail.
-import diUserFlows from "../assets/case-studies/di/user-flows.jpg?preview";
+import cwoCover from "../assets/case-studies/cwo/cover.jpg";
+import diCover from "../assets/case-studies/di/cover.jpg";
 
 export const projects: Project[] = [
   {
@@ -39,7 +38,7 @@ export const projects: Project[] = [
   },
   {
     slug: "auditable-billing-workflow",
-    image: cwoMvp1Workflow,
+    image: cwoCover,
     title: "An Auditable Billing Workflow",
     tagline: "Replacing manual billing-package assembly to recover backlogged revenue",
     problem:
@@ -54,7 +53,7 @@ export const projects: Project[] = [
   },
   {
     slug: "enterprise-document-knowledge",
-    image: diUserFlows,
+    image: diCover,
     title: "A Tailorable Enterprise AI Platform",
     tagline: "Giving business units their own AI toolbox on centrally maintained rails",
     problem:
