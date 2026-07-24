@@ -37,10 +37,6 @@ export default function WorkPage() {
           ))}
         </div>
 
-        <aside className="mt-12 p-6 bg-card border border-border rounded-md text-[0.9375rem] text-muted-foreground leading-[1.65]">
-          Client and engagement details are confidential. The placeholder visuals here represent real interface work. Full designs are available to share during a conversation with a hiring team.
-        </aside>
-
         <div className="mt-20 text-center">
           <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-4">
             Seen enough to want to talk?
