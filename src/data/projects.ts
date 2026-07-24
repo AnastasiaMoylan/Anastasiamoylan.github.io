@@ -15,7 +15,7 @@ export interface Project {
   image?: string;
 }
 
-import financeAIFlow from "../imports/Finance_AI_Transformation_-_End-to-End_Flow.png";
+import financeAIFlow from "../assets/case-studies/gaf/cover.jpg";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg";
 import cwoCover from "../assets/case-studies/cwo/cover.jpg";
 import diCover from "../assets/case-studies/di/cover.jpg";
