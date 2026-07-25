@@ -2,8 +2,7 @@ import { useParams, Link, Navigate } from "react-router";
 import { projects } from "../data/projects";
 import { caseStudies } from "../data/caseStudies";
 import Button from "../components/ui/Button";
-import Badge from "../components/ui/Badge";
-import SnapshotCard from "../components/case-study/SnapshotCard";
+import CaseStudyHeader from "../components/case-study/CaseStudyHeader";
 import OverviewSection from "../components/case-study/OverviewSection";
 import SectionNav from "../components/case-study/SectionNav";
 import buildSections from "../components/case-study/buildSections";
@@ -50,23 +49,12 @@ export default function CaseStudyPage() {
           &larr; All case studies
         </Link>
 
-        <div className="max-w-[48rem]">
-          <h1 className="text-[clamp(1.75rem,4vw,3rem)] font-bold text-foreground leading-[1.15]">
-            {project.title}
-          </h1>
-          <p className="text-[clamp(1.0625rem,2vw,1.25rem)] font-medium text-muted-foreground leading-[1.5] mt-4">
-            {project.tagline}
-          </p>
-          <ul className="list-none p-0 m-0 flex flex-wrap gap-2 mt-6">
-            {project.tags.map((tag) => (
-              <li key={tag}>
-                <Badge variant="accent">{tag}</Badge>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <SnapshotCard fields={content.snapshotFields} />
+        <CaseStudyHeader
+          title={project.title}
+          tagline={project.tagline}
+          tags={project.tags}
+          fields={content.snapshotFields}
+        />
 
         <OverviewSection tldr={content.tldr} fields={content.snapshotFields} />
 
