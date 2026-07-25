@@ -3,7 +3,9 @@ import type { Tldr } from "../../data/caseStudies";
 export default function OverviewSection({ tldr }: { tldr: Tldr }) {
   return (
     <section className="mt-12 pb-12 border-b border-border">
-      <h2 className="text-[1.375rem] font-bold text-foreground pb-3 mb-5 border-b border-border">Overview</h2>
+      <h2 className="text-[clamp(1.5rem,2.8vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.015em] text-foreground pb-3 mb-5 border-b border-border">
+        Overview
+      </h2>
       <div className="border border-border rounded-[14px] overflow-hidden grid grid-cols-1 md:grid-cols-[2fr_3fr]">
         <div className="bg-card border-b md:border-b-0 md:border-r border-border p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-accent mb-3">The challenge</p>

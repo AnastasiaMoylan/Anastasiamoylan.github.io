@@ -9,8 +9,23 @@ import PendingVisuals from "./PendingVisuals";
 import OutcomeImpact from "./OutcomeImpact";
 import ReflectionBlock from "./ReflectionBlock";
 
+/**
+ * Per-case-study additions, keyed by section id. `append` renders after a
+ * section's default content, `replace` stands in for it entirely. Case studies
+ * that pass nothing are unaffected.
+ */
+export interface SectionAugments {
+  append?: Record<string, React.ReactNode>;
+  replace?: Record<string, React.ReactNode>;
+}
+
 /** Composes the framework's beats in Frame -> Think -> Land order, skipping empty ones. */
-export default function buildSections(content: CaseStudy): Section[] {
+export default function buildSections(
+  content: CaseStudy,
+  augments: SectionAugments = {},
+): Section[] {
+  const { append = {}, replace = {} } = augments;
+
   const sections: Section[] = [
     {
       id: "context",
@@ -34,7 +49,9 @@ export default function buildSections(content: CaseStudy): Section[] {
       id: "role",
       nav: "Role and team",
       heading: "Role and team",
-      content: <RoleTeam owned={content.owned} team={content.team} />,
+      content: (
+        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+      ),
     },
     {
       id: "decisions",
@@ -53,7 +70,16 @@ export default function buildSections(content: CaseStudy): Section[] {
     });
   }
 
-  if (content.images && content.images.length > 0) {
+  // A replacement stands in for the gallery, so a case study can carry a coded
+  // diagram instead of a raster image without needing an empty `images` array.
+  if (replace.execution) {
+    sections.push({
+      id: "execution",
+      nav: "Execution",
+      heading: "Execution",
+      content: <>{replace.execution}</>,
+    });
+  } else if (content.images && content.images.length > 0) {
     sections.push({
       id: "execution",
       nav: "Execution",
@@ -87,5 +113,19 @@ export default function buildSections(content: CaseStudy): Section[] {
     });
   }
 
-  return sections;
+  return sections.map((section) => {
+    const replacement = section.id === "execution" ? undefined : replace[section.id];
+    const addition = append[section.id];
+    if (!replacement && !addition) return section;
+
+    return {
+      ...section,
+      content: (
+        <>
+          {replacement ?? section.content}
+          {addition && <div className="mt-16 flex flex-col gap-16">{addition}</div>}
+        </>
+      ),
+    };
+  });
 }

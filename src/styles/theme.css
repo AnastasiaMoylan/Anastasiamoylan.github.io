@@ -28,6 +28,14 @@
   --accent-text: #7c3030;
   --accent-hover: #5e2424;
   --radius: 0.875rem;
+
+  /* Maroon tint ramp for case-study diagrams: successive mixes of --accent
+     with white. Subtle = tinted rows and callouts, light = first bar and
+     lightest card header, mid = middle bar and header. The base --accent
+     closes the ramp and carries white text reversed out of it. */
+  --accent-tint-subtle: #f7eded;
+  --accent-tint-light: #e2cccc;
+  --accent-tint-mid: #c09292;
 }
 
 @theme inline {
@@ -60,6 +68,9 @@
   --color-surface-raised: var(--surface-raised);
   --color-accent-text: var(--accent-text);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-tint-subtle: var(--accent-tint-subtle);
+  --color-accent-tint-light: var(--accent-tint-light);
+  --color-accent-tint-mid: var(--accent-tint-mid);
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 

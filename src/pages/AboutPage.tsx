@@ -15,7 +15,7 @@ const timeline = [
         title: "Senior Experience Designer",
         dates: "July 2021–July 2025",
         context:
-          "Led design on AI-assisted finance and billing products, enterprise document intelligence, and complex telecommunications CX platforms, driving product strategy alignment and end-to-end experience across multi-phase engagements.",
+          "Led design on Finance Cloud and other AI-assisted finance and billing products, enterprise document intelligence, and complex telecommunications CX platforms, driving product strategy alignment and end-to-end experience across multi-phase engagements.",
       },
     ],
   },

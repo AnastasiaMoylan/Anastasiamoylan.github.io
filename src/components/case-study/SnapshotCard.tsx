@@ -7,9 +7,7 @@ export default function SnapshotCard({
   fields: { label: string; value: string }[];
   team?: TeamMember[];
 }) {
-  // Timeframe and Status are hidden for now; the data stays in place so they
-  // can be restored by removing this filter.
-  const visibleFields = fields.filter(({ label }) => label !== "Timeframe" && label !== "Status");
+  const visibleFields = fields;
 
   return (
     <div

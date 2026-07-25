@@ -53,12 +53,15 @@ export function getPageMeta(pathname: string): PageMeta {
 
   const caseMatch = route.match(/^\/work\/(.+)$/);
   if (caseMatch) {
-    const project = projects.find((p) => p.slug === caseMatch[1]);
+    const project = projects.find(
+      (p) => p.slug === caseMatch[1] || p.previousSlug === caseMatch[1],
+    );
     if (project) {
       return {
         title: `${project.title} — ${NAME}`,
         description: `${project.tagline}. ${project.outcome}`,
-        canonical,
+        // Always the current slug, so a retired alias consolidates onto it.
+        canonical: `${SITE}/work/${project.slug}`,
       };
     }
   }
