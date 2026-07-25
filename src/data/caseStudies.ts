@@ -1,3 +1,10 @@
+import {
+  FINANCE_PRODUCT_MODEL,
+  FINANCE_RESEARCH_ARTIFACTS,
+  BILLING_OPERATIONAL_FLOW,
+  BILLING_STATUS_MODEL,
+  CCJ_HUMAN_REVIEW,
+} from "./ownedStatements";
 // Case study content, keyed by project slug.
 //
 // Shape follows the Case Study Framework's ten beats, rendered in three acts:
@@ -139,11 +146,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     context:
       "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders need to remain responsible for journal entries, accruals, and close work.",
     owned: [
-      "Led the product model for a governed enterprise-finance workspace connecting Workflow Builder, Sandbox, promotion gates, Production, and monitoring for accountants, analysts, managers/controllers, finance leaders, admins, and viewers.",
+      FINANCE_PRODUCT_MODEL,
       "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls; made environment, data access, permissions, and promotion requirements visible throughout the flow.",
       "Designed AI uncertainty and failure as first-class interaction states: partial or low-confidence output, failed data/Python operations, missing permissions, blocked promotion, exception handling, preserved work, retry and escalation, plus pause/resume/rollback concepts for consequential workflows.",
       "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history; preserved human responsibility for accruals, journal entries, close work, and other high-consequence actions.",
-      "Created PRDs, flows, role models, screeners, recruitment materials, training plans, and moderated research for a working POC.",
+      FINANCE_RESEARCH_ARTIFACTS,
     ],
     decisions: [
       {
@@ -274,7 +281,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Designed the data-driven journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring.",
       "Turned model output into decision support: predictions paired with customer context, lifecycle stage, behavior, sentiment, and available actions, not an opaque score presented as a final answer.",
       "Created the end-to-end mitigation flow: risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, iteration.",
-      "Preserved human control by requiring users to review and edit AI-assisted communication before delivery.",
+      CCJ_HUMAN_REVIEW,
     ],
     decisions: [
       {
@@ -430,8 +437,8 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     owned: [
       "Led a guided B2B workflow replacing fragmented billing-package assembly, spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
-      "Mapped the complete operational flow across admins, accountants, engineers, owners, and reviewers, including missing evidence, failed automation, loading, validation, interim spreadsheet editing, handoffs, and recovery without loss of progress.",
-      "Defined a reusable status model (Initiated, In Progress, Review, Approved, Finalized, Completed) with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
+      BILLING_OPERATIONAL_FLOW,
+      BILLING_STATUS_MODEL,
       "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
       "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
     ],

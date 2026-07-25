@@ -1,3 +1,10 @@
+import {
+  FINANCE_PRODUCT_MODEL,
+  FINANCE_RESEARCH_ARTIFACTS,
+  BILLING_OPERATIONAL_FLOW,
+  BILLING_STATUS_MODEL,
+  CCJ_HUMAN_REVIEW,
+} from "../../data/ownedStatements";
 import "./ResumeContent.css";
 
 function Section({ id, heading, children }: { id: string; heading: string; children: React.ReactNode }) {
@@ -109,19 +116,19 @@ export default function ResumeContent() {
             {
               title: "Finance Transformation / CFO.ai | Lead UX / Product Designer, 2025–2026",
               bullets: [
-                "Led the product model for a governed enterprise-finance workspace connecting Workflow Builder, Sandbox, promotion gates, Production, and monitoring for accountants, analysts, managers/controllers, finance leaders, admins, and viewers.",
+                FINANCE_PRODUCT_MODEL,
                 "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls.",
                 "Designed AI uncertainty and failure as first-class interaction states, including partial or low-confidence output, failed operations, missing permissions, blocked promotion, exception handling, retry/escalation, and pause/resume/rollback for consequential workflows.",
                 "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history.",
-                "Created PRDs, flows, role models, screeners, recruitment materials, training plans, and moderated research for a working POC.",
+                FINANCE_RESEARCH_ARTIFACTS,
               ],
             },
             {
               title: "Custom Work Orders | Design Lead and UX / Product Strategy Lead, 2024–2025",
               bullets: [
                 "Led a telecommunications client engagement that replaced fragmented billing-package assembly with a guided B2B workflow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
-                "Mapped the complete operational flow across admins, accountants, engineers, owners, and reviewers, including missing evidence, failed automation, loading, validation, interim spreadsheet editing, handoffs, and recovery without loss of progress.",
-                "Defined a reusable status model (Initiated, In Progress, Review, Approved, Finalized, Completed) with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
+                BILLING_OPERATIONAL_FLOW,
+                BILLING_STATUS_MODEL,
                 "Partnered with engineering and UI development during implementation and moved unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
                 "Delivered a completed first MVP for interface and project querying plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
               ],
@@ -141,7 +148,7 @@ export default function ResumeContent() {
                 "Designed a complex, data-driven customer journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, journey drop-offs, AI-assisted messaging, offer customization, and performance monitoring.",
                 "Converted model output into decision support by pairing predictions with customer context, lifecycle stage, behavior, sentiment, and available actions instead of presenting an opaque score as a final answer.",
                 "Created an end-to-end mitigation flow from segment and risk detection through context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
-                "Preserved human control by requiring users to review and edit AI-assisted communication before delivery.",
+                CCJ_HUMAN_REVIEW,
               ],
             },
           ].map(({ title, bullets }) => (
