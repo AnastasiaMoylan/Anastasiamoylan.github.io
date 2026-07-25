@@ -56,7 +56,7 @@ export default function PromotionGate() {
                 <ChecklistRow key={item.label} label={item.label} satisfied={item.satisfied} />
               ))}
             </ul>
-            <p className="mt-5 m-0 rounded-md bg-accent px-4 py-3 text-center text-[0.75rem] font-bold uppercase tracking-[0.08em] text-accent-foreground">
+            <p className="mt-5 m-0 rounded-md border-2 border-accent bg-accent-tint-subtle px-4 py-3 text-center text-[0.75rem] font-bold uppercase tracking-[0.08em] text-accent">
               Promotion blocked · {unmet} requirement unmet
             </p>
             <p className="mt-3 m-0 text-[0.75rem] leading-[1.55] text-muted-foreground">

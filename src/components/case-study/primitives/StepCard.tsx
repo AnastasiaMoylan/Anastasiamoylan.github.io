@@ -11,7 +11,7 @@ export default function StepCard({
   return (
     <div className="relative h-full rounded-lg border border-border bg-card px-5 pt-7 pb-5 text-center">
       <span
-        className="absolute -top-3.5 left-4 flex h-7 w-7 items-center justify-center rounded-full bg-accent text-xs font-semibold text-accent-foreground"
+        className="absolute -top-3.5 left-4 flex h-7 w-7 items-center justify-center rounded-full border border-accent bg-background text-xs font-semibold text-accent"
         aria-hidden="true"
       >
         {number}

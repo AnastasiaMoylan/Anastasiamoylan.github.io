@@ -153,11 +153,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         value:
           "Accountants, analysts, managers and controllers, finance leaders, admins, and viewers",
       },
-      {
-        label: "Team",
-        value:
-          "Product, Engineering, ML engineering and AI research, Data, Finance and compliance stakeholders",
-      },
+      // No "Team" field here: SnapshotCard renders the `team` array below as its
+      // own row, and listing both duplicated the same disciplines twice.
       { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
     ],
     tldr: {
@@ -424,6 +421,29 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Created the end-to-end mitigation flow: risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, iteration.",
       CCJ_HUMAN_REVIEW,
     ],
+    // Condensed from the `owned` items above; wording drawn from them.
+    ownedThemes: [
+      {
+        label: "The journey platform",
+        detail:
+          "Connected dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring into one data-driven platform.",
+      },
+      {
+        label: "Model output as decision support",
+        detail:
+          "Paired predictions with customer context, lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
+      },
+      {
+        label: "The end-to-end mitigation flow",
+        detail:
+          "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
+      },
+      {
+        label: "Human control over AI messaging",
+        detail:
+          "Required users to review and edit AI-assisted communication before it reached a customer.",
+      },
+    ],
     decisions: [
       {
         decision:
@@ -582,6 +602,34 @@ export const caseStudies: Record<string, CaseStudy> = {
       BILLING_STATUS_MODEL,
       "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
       "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+    ],
+    // Condensed from the `owned` items above; wording drawn from them.
+    ownedThemes: [
+      {
+        label: "The guided workflow",
+        detail:
+          "Replaced fragmented billing-package assembly with one B2B flow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
+      },
+      {
+        label: "The operational map",
+        detail:
+          "Mapped the flow across admins, accountants, engineers, owners, and reviewers — including missing evidence, failed automation, validation, handoffs, and recovery without loss of progress.",
+      },
+      {
+        label: "A reusable status model",
+        detail:
+          "Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
+      },
+      {
+        label: "Delivery partnership",
+        detail:
+          "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible backlog instead of compromising the active release.",
+      },
+      {
+        label: "MVP and roadmap",
+        detail:
+          "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+      },
     ],
     decisions: [
       {
@@ -766,6 +814,33 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Synthesized findings into actionable recommendations.",
       "Supported testing, development, and backend-integration discussions.",
       "Created scalable patterns aligned with the enterprise design system.",
+    ],
+    // Condensed from the `owned` items above; wording drawn from them. The
+    // eight original items were short and sequential, so they group into five.
+    ownedThemes: [
+      {
+        label: "Requirements and prioritization",
+        detail:
+          "Facilitated requirements and prioritization workshops, translating feature requests into capabilities, flows, and phased backlogs.",
+      },
+      {
+        label: "Specification for delivery",
+        detail:
+          "Converted wireframes into product requirements, roadmaps, test plans, and development-ready stories.",
+      },
+      {
+        label: "Research design and synthesis",
+        detail:
+          "Defined research protocols and usage metrics, coordinated mixed-method usability and targeted inquiry, and synthesized findings into actionable recommendations.",
+      },
+      {
+        label: "Implementation support",
+        detail: "Supported testing, development, and backend-integration discussions.",
+      },
+      {
+        label: "Scalable design patterns",
+        detail: "Created scalable patterns aligned with the enterprise design system.",
+      },
     ],
     decisions: [
       {

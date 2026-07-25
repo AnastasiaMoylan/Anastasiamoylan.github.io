@@ -17,18 +17,33 @@ import ConfidenceThresholds from "./ConfidenceThresholds";
 export function financeCloudAugments(): SectionAugments {
   return {
     replace: {
-      // Supersedes the raster end-to-end flow.
-      execution: <GovernedPipeline />,
+      // Execution reads as one argument: here is the whole pipeline, and here
+      // are the two mechanisms that make its governance real. The lead orients
+      // the reader before the first figure; the rules between figures mark the
+      // step from the model down to each mechanism.
+      execution: (
+        <div className="flex flex-col">
+          <p className="m-0 max-w-[52rem] text-base leading-[1.7] text-muted-foreground">
+            The platform is one pipeline with governance sitting over every stage. Two mechanisms
+            carry that governance in practice: the gate that controls promotion to production, and
+            the thresholds that decide when the system may act on its own.
+          </p>
+
+          <div className="mt-12">
+            <GovernedPipeline />
+          </div>
+
+          <div className="mt-16 border-t border-border pt-16">
+            <PromotionGate />
+          </div>
+
+          <div className="mt-16 border-t border-border pt-16">
+            <ConfidenceThresholds />
+          </div>
+        </div>
+      ),
     },
     append: {
-      // Execution carries the "how it works" diagrams: the overall model first,
-      // then the two mechanisms it depends on.
-      execution: (
-        <>
-          <PromotionGate />
-          <ConfidenceThresholds />
-        </>
-      ),
       outcome: <ScalingArc />,
     },
   };

@@ -32,11 +32,11 @@ export default function GovernedPipeline() {
       subheading="Governance, risk, and compliance sit over every stage, agentic workflow, and data product."
       quote="Governance people cannot see is not governance they will approve."
     >
-      <div className="flex flex-col gap-3 rounded-lg bg-accent px-6 py-4 text-accent-foreground sm:flex-row sm:items-center sm:justify-between">
-        <p className="m-0 text-[0.8125rem] font-bold uppercase tracking-[0.1em]">
+      <div className="flex flex-col gap-3 rounded-lg border-2 border-accent bg-accent-tint-subtle px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="m-0 text-[0.8125rem] font-bold uppercase tracking-[0.1em] text-accent">
           Governance <span aria-hidden="true">·</span> Risk <span aria-hidden="true">·</span> Compliance
         </p>
-        <p className="m-0 text-[0.75rem] leading-[1.5] text-accent-foreground/85">
+        <p className="m-0 text-[0.75rem] leading-[1.5] text-muted-foreground">
           Environment labels · promotion gates · audit trail · human review
         </p>
       </div>

@@ -13,7 +13,9 @@ export default function ChecklistRow({ label, satisfied }: { label: string; sati
       <span
         className={[
           "mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.6875rem] font-bold",
-          satisfied ? "bg-accent text-accent-foreground" : "border-[1.5px] border-accent text-accent",
+          satisfied
+            ? "border-[1.5px] border-accent bg-accent-tint-subtle text-accent"
+            : "border-[1.5px] border-accent bg-background text-accent",
         ].join(" ")}
         aria-hidden="true"
       >

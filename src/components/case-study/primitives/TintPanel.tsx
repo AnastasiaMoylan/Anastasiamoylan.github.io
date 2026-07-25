@@ -1,16 +1,19 @@
-export type TintLevel = "none" | "subtle" | "light" | "mid" | "base";
+export type TintLevel = "none" | "subtle" | "light" | "mid" | "deep";
 
 const headerTint: Record<TintLevel, string> = {
   none: "bg-card",
   subtle: "bg-accent-tint-subtle",
   light: "bg-accent-tint-light",
   mid: "bg-accent-tint-mid",
-  base: "bg-accent",
+  deep: "bg-accent-tint-deep",
 };
 
 /**
- * Bordered card with an optionally tinted header. At `base` the header
- * reverses to white text, which is why the ramp tops out there.
+ * Bordered card with an optionally tinted header.
+ *
+ * The ramp stops at `deep` rather than solid maroon: solid is reserved for
+ * calls to action. Every level keeps dark text, so no step needs reversed
+ * white type to stay legible.
  */
 export default function TintPanel({
   title,
@@ -28,8 +31,6 @@ export default function TintPanel({
   emphasized?: boolean;
   children: React.ReactNode;
 }) {
-  const reversed = tint === "base";
-
   return (
     <div
       className={[
@@ -42,21 +43,15 @@ export default function TintPanel({
           <div className="flex items-center justify-between gap-3">
             <div>
               {eyebrow && (
-                <p
-                  className={[
-                    "m-0 text-[0.625rem] font-semibold uppercase tracking-[0.1em]",
-                    reversed ? "text-accent-foreground/80" : "text-accent",
-                  ].join(" ")}
-                >
+                <p className="m-0 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent">
                   {eyebrow}
                 </p>
               )}
               {title && (
                 <p
                   className={[
-                    "m-0 text-base font-bold leading-[1.3]",
+                    "m-0 text-base font-bold leading-[1.3] text-foreground",
                     eyebrow ? "mt-1" : "",
-                    reversed ? "text-accent-foreground" : "text-foreground",
                   ].join(" ")}
                 >
                   {title}

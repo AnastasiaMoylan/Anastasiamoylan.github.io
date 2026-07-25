@@ -36,6 +36,10 @@
   --accent-tint-subtle: #f7eded;
   --accent-tint-light: #e2cccc;
   --accent-tint-mid: #c09292;
+  /* Darkest step of the ramp. Solid --accent is reserved for calls to action,
+     so surfaces that need to read as "deepest" stop here instead. Dark text
+     clears 4.5:1 on it. */
+  --accent-tint-deep: #a86d6d;
 }
 
 @theme inline {
@@ -71,6 +75,7 @@
   --color-accent-tint-subtle: var(--accent-tint-subtle);
   --color-accent-tint-light: var(--accent-tint-light);
   --color-accent-tint-mid: var(--accent-tint-mid);
+  --color-accent-tint-deep: var(--accent-tint-deep);
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 

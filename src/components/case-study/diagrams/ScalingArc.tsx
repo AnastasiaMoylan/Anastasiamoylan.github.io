@@ -7,7 +7,7 @@ import AccentRule from "../primitives/AccentRule";
 const stages = [
   { value: "10", label: "Pilot", heightPx: 60, tint: "bg-accent-tint-light" },
   { value: "300", label: "Scaled rollout", heightPx: 150, tint: "bg-accent-tint-mid" },
-  { value: "1,000+", label: "Enterprise — planned", heightPx: 230, tint: "bg-accent" },
+  { value: "1,000+", label: "Enterprise — planned", heightPx: 230, tint: "bg-accent-tint-deep" },
 ];
 
 const columns = [

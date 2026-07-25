@@ -28,7 +28,7 @@ const bands: {
   },
   {
     title: "Stop and escalate",
-    tint: "base",
+    tint: "deep",
     filled: 1,
     confidence: "Lowest confidence, highest consequence",
     system: "Blocks the action and preserves the work. Nothing consequential proceeds on its own.",
@@ -36,16 +36,15 @@ const bands: {
   },
 ];
 
-function Dots({ filled, reversed }: { filled: number; reversed: boolean }) {
+function Dots({ filled }: { filled: number }) {
   return (
     <span className="flex shrink-0 gap-1.5" aria-hidden="true">
       {[0, 1, 2].map((i) => (
         <span
           key={i}
           className={[
-            "h-2 w-2 rounded-full border",
-            reversed ? "border-accent-foreground" : "border-accent",
-            i < filled ? (reversed ? "bg-accent-foreground" : "bg-accent") : "bg-transparent",
+            "h-2 w-2 rounded-full border border-accent",
+            i < filled ? "bg-accent" : "bg-transparent",
           ].join(" ")}
         />
       ))}
@@ -85,7 +84,7 @@ export default function ConfidenceThresholds() {
             <TintPanel
               title={b.title}
               tint={b.tint}
-              headerRight={<Dots filled={b.filled} reversed={b.tint === "base"} />}
+              headerRight={<Dots filled={b.filled} />}
             >
               <p className="sr-only">{b.confidence}.</p>
               <div className="flex flex-col gap-4">
