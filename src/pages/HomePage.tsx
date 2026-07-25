@@ -1,5 +1,4 @@
 import Hero from "../components/home/Hero";
-import ToolBadgeStrip from "../components/home/ToolBadgeStrip";
 import CapabilityGrid from "../components/home/CapabilityGrid";
 import ProcessPreview from "../components/home/ProcessPreview";
 import SectionHeading from "../components/ui/SectionHeading";
@@ -15,7 +14,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ToolBadgeStrip />
 
       <section className="py-20 border-b border-border" aria-labelledby="home-work-heading">
         <div className="content-container">

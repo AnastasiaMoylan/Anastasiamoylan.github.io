@@ -39,7 +39,7 @@ export default function WorkCard({ project }: WorkCardProps) {
         <ul className="list-none p-0 m-0 flex flex-wrap gap-1.5 mt-auto pt-3">
           {project.tags.map((tag) => (
             <li key={tag}>
-              <span className="inline-flex text-[0.6875rem] text-muted-foreground bg-secondary px-2.5 py-1 rounded-md">
+              <span className="inline-flex text-[0.6875rem] text-foreground/80 bg-secondary px-2.5 py-1 rounded-md">
                 {tag}
               </span>
             </li>
