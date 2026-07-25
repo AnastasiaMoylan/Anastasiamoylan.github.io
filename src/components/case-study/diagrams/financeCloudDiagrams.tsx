@@ -36,14 +36,14 @@ export function financeCloudAugments(): SectionAugments {
           <div className="mt-16 border-t border-border pt-16">
             <PromotionGate />
           </div>
-
-          <div className="mt-16 border-t border-border pt-16">
-            <ConfidenceThresholds />
-          </div>
         </div>
       ),
     },
     append: {
+      // Confidence thresholds sit with the designed states rather than in
+      // Execution: they are the same subject — what the system does when it is
+      // unsure — and Execution was carrying 28% of the page's mobile height.
+      states: <ConfidenceThresholds />,
       outcome: <ScalingArc />,
     },
   };
