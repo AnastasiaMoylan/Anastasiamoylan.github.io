@@ -15,6 +15,10 @@ export const prerenderRoutes: string[] = [
   "/",
   "/work",
   ...projects.map((p) => `/work/${p.slug}`),
+  // Retired slugs get a real prerendered page rather than a redirect stub, so an
+  // old link still serves crawlable HTML. pageMeta points its canonical at the
+  // current slug, which is what consolidates ranking signals.
+  ...projects.flatMap((p) => (p.previousSlug ? [`/work/${p.previousSlug}`] : [])),
   "/philosophy",
   "/about",
   "/contact",

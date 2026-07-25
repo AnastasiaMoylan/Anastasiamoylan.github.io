@@ -7,15 +7,20 @@ import SnapshotCard from "../components/case-study/SnapshotCard";
 import OverviewSection from "../components/case-study/OverviewSection";
 import SectionNav from "../components/case-study/SectionNav";
 import buildSections from "../components/case-study/buildSections";
+import { financeCloudAugments } from "../components/case-study/diagrams/financeCloudDiagrams";
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
-  const project = projects.find((p) => p.slug === slug);
+  // Retired slugs stay reachable, so existing links and résumé references survive
+  // a rename. The canonical URL still points at the current slug (see pageMeta).
+  const project = projects.find((p) => p.slug === slug || p.previousSlug === slug);
 
   if (!project) return <Navigate to="/work" replace />;
 
-  const content = caseStudies[slug!];
-  const currentIndex = projects.findIndex((p) => p.slug === slug);
+  const content = caseStudies[project.slug];
+  // Resolved project, not the URL slug — otherwise reaching the page through a
+  // retired alias finds no match and "next" wraps around to this study itself.
+  const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   if (!content) {
@@ -33,7 +38,10 @@ export default function CaseStudyPage() {
     );
   }
 
-  const sections = buildSections(content);
+  const sections = buildSections(
+    content,
+    project.slug === "finance-cloud" ? financeCloudAugments() : {},
+  );
 
   return (
     <div className="py-16 pb-24">
@@ -65,10 +73,28 @@ export default function CaseStudyPage() {
         <div className="flex flex-col lg:flex-row gap-12 pt-12">
           <SectionNav sections={sections} />
           <div className="flex-1 min-w-0 flex flex-col gap-14">
-            {sections.map(({ id, heading, content: sectionContent }) => (
-              <section key={id} id={id} className="flex flex-col gap-4 scroll-mt-24">
-                <h2 className="text-xl font-bold text-foreground">{heading}</h2>
-                {sectionContent}
+            {/*
+              Heading hierarchy for every case study:
+                h1  page title
+                h2  Overview
+                h3  section headings (these panel headers)
+                h4  titles nested inside a section — diagrams, sub-labels
+            */}
+            {sections.map(({ id, heading, content: sectionContent }, i) => (
+              <section
+                key={id}
+                id={id}
+                className={[
+                  "scroll-mt-24",
+                  // A hairline above each section is the "new section starts
+                  // here" marker, so the h3 never has to carry that job alone.
+                  i > 0 ? "border-t border-border pt-14" : "",
+                ].join(" ")}
+              >
+                <h3 className="text-[clamp(1.25rem,2.4vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.015em] text-foreground">
+                  {heading}
+                </h3>
+                <div className="mt-7">{sectionContent}</div>
               </section>
             ))}
           </div>

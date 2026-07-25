@@ -1,5 +1,7 @@
 export interface Project {
   slug: string;
+  /** Retired slug kept working as a route alias, so existing links survive a rename. */
+  previousSlug?: string;
   title: string;
   /** Verb- and outcome-led line pairing with the short title on cards and the case-study header. */
   tagline: string;
@@ -22,15 +24,17 @@ import diCover from "../assets/case-studies/di/cover.jpg";
 
 export const projects: Project[] = [
   {
-    slug: "governed-ai-finance-workspace",
+    slug: "finance-cloud",
+    previousSlug: "governed-ai-finance-workspace",
     image: financeAIFlow,
-    title: "An AI Workspace for Finance",
-    tagline: "Reporting, forecasting, and month-end close in one governed AI platform",
+    title: "Finance Cloud",
+    tagline:
+      "Reporting, forecasting, and month-end close in one governed AI platform for finance and payroll",
     problem:
       "Finance teams needed AI-assisted analysis without losing the audit trails, governance controls, and human accountability that financial operations require. The risk: ship AI features that feel powerful but bypass controls, and the platform becomes a liability.",
     role: "Lead UX / Product Designer",
     status: "Completed",
-    tags: ["AI Interaction Design", "Complex Workflows", "Governance"],
+    tags: ["AI Interaction Design", "Complex Workflows", "Governance", "Data and Finance"],
     outcome:
       "Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
     featuredOrder: 1,

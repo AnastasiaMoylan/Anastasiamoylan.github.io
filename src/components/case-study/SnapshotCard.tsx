@@ -7,9 +7,17 @@ export default function SnapshotCard({
   fields: { label: string; value: string }[];
   team?: TeamMember[];
 }) {
-  // Timeframe and Status are hidden for now; the data stays in place so they
-  // can be restored by removing this filter.
-  const visibleFields = fields.filter(({ label }) => label !== "Timeframe" && label !== "Status");
+  // Status is hidden for now. The data stays in caseStudies.ts, so deleting
+  // this filter brings it back everywhere.
+  const visibleFields = fields.filter(({ label }) => label !== "Status");
+
+  // The hairlines come from a border-coloured container showing through a 1px
+  // grid gap, so any cell the fields do not fill renders as a solid tinted
+  // block. Pad the final row back out to a whole row — separately per
+  // breakpoint, since the column count changes.
+  const fillers = (columns: number) => (columns - (visibleFields.length % columns)) % columns;
+  const wideFillers = fillers(4);
+  const narrowFillers = fillers(2);
 
   return (
     <div
@@ -24,6 +32,12 @@ export default function SnapshotCard({
             </p>
             <p className="text-[0.875rem] text-foreground leading-[1.45]">{value}</p>
           </div>
+        ))}
+        {Array.from({ length: wideFillers }, (_, i) => (
+          <div key={`w${i}`} className="hidden bg-card md:block" aria-hidden="true" />
+        ))}
+        {Array.from({ length: narrowFillers }, (_, i) => (
+          <div key={`n${i}`} className="bg-card md:hidden" aria-hidden="true" />
         ))}
         {team && team.length > 0 && (
           <div className="col-span-2 md:col-span-4 bg-card p-5">

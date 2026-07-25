@@ -51,6 +51,18 @@ export interface TeamMember {
   owned?: string;
 }
 
+/**
+ * A condensed theme of ownership: a short lead plus one supporting line.
+ *
+ * Preferred over the flat `owned` list, which tends to grow into a résumé dump —
+ * the detail belongs in Key decisions and Execution, so this section only has to
+ * orient the reader. Case studies without themes fall back to `owned`.
+ */
+export interface OwnedTheme {
+  label: string;
+  detail: string;
+}
+
 export interface Tldr {
   challenge: string;
   solution: string;
@@ -115,6 +127,8 @@ export interface CaseStudy {
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
   owned: string[];
+  /** Condensed version of `owned`. When present it renders instead of the list. */
+  ownedThemes?: OwnedTheme[];
   decisions: Decision[];
   states?: StateRecovery[];
   images?: CaseStudyImage[];
@@ -127,30 +141,108 @@ export interface CaseStudy {
 }
 
 export const caseStudies: Record<string, CaseStudy> = {
-  "governed-ai-finance-workspace": {
+  "finance-cloud": {
     snapshotFields: [
       { label: "Role", value: "Lead UX / Product Designer" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
-      { label: "Timeframe", value: "2025–2026" },
-      { label: "Status", value: "Proof of concept (ongoing platform vision)" },
-      { label: "Tools", value: "Figma, React, Tailwind CSS, Vite" },
+      { label: "Timeframe", value: "2024–Present" },
+      { label: "Status", value: "Working POC delivered; scaled pilot in progress" },
+      {
+        label: "Users",
+        value:
+          "Accountants, analysts, managers and controllers, finance leaders, admins, and viewers",
+      },
+      // No "Team" field here: SnapshotCard renders the `team` array below as its
+      // own row, and listing both duplicated the same disciplines twice.
+      { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
     ],
     tldr: {
       challenge:
         "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails, and human accountability financial operations require.",
       solution:
-        "A governed workspace that separates experimentation from production, makes AI activity fully inspectable, and requires human approval before consequential actions.",
-      result: "Gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+        "A governed platform that separates experimentation from production, makes every AI action inspectable, and requires human approval before anything consequential happens.",
+      result:
+        "Took Finance Cloud from zero to one and scaled it from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Finance leaders got the evidence they needed to trust and approve AI-assisted work.",
     },
     context:
-      "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders need to remain responsible for journal entries, accruals, and close work.",
+      "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders remain personally responsible for journal entries, accruals, payroll runs, and close work. A system that produces a number without showing where it came from is not faster, it is unusable, because someone still has to defend that number. Finance Cloud covers reporting, forecasting, variance analysis, anomaly detection, month-end close, and manual journal entries, with copilot assistance and agent-driven workflows running throughout. Every one of those surfaces touches money that has already been committed or is about to be.",
+    evidence: {
+      findings: [
+        {
+          finding: "A number without provenance cannot be approved, only re-derived by hand.",
+          response:
+            "Every AI output needed a visible path back to its inputs, its transformations, and the generated code that produced it.",
+        },
+        {
+          finding:
+            "Controls that lived only in the backend were invisible to the people accountable for them.",
+          response:
+            "Governance needed a surface in the interface: environment labels, promotion checklists, audit entries.",
+        },
+        {
+          finding:
+            "Automation that fails silently in finance does not just lose work, it breaks trust in every future result.",
+          response:
+            "Failure, partial output, and low confidence needed designed states rather than error toasts.",
+        },
+        {
+          finding:
+            "Anomalies surfaced too late are indistinguishable from anomalies never surfaced.",
+          response:
+            "Detection had to reach the right person proactively rather than waiting to be discovered in a report.",
+        },
+      ],
+      insight: "Governance people cannot see is not governance they will approve.",
+    },
     owned: [
       FINANCE_PRODUCT_MODEL,
       "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls; made environment, data access, permissions, and promotion requirements visible throughout the flow.",
       "Designed AI uncertainty and failure as first-class interaction states: partial or low-confidence output, failed data/Python operations, missing permissions, blocked promotion, exception handling, preserved work, retry and escalation, plus pause/resume/rollback concepts for consequential workflows.",
       "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history; preserved human responsibility for accruals, journal entries, close work, and other high-consequence actions.",
+      "Took the platform from zero to one with the lead product owner, translating product requirements into a shipped product, then scaling it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned.",
+      "Designed copilot assistance and agent-driven workflows across reporting, forecasting, variance analysis, and month-end close, so the system could carry the work while a person stayed accountable for the outcome.",
+      "Designed anomaly detection and proactive notifications so unexpected figures reached the right role before close rather than surfacing after submission.",
+      "Worked with ML engineers and AI researchers on interaction models, error states, and confidence thresholds, defining where the system acts automatically, where it recommends, and where it must stop and ask.",
       FINANCE_RESEARCH_ARTIFACTS,
+    ],
+    // Condensed from the nine `owned` items above into five themes. Wording is
+    // drawn from those items; the full detail stays in Key decisions and
+    // Execution rather than being restated here.
+    ownedThemes: [
+      {
+        label: "The product model",
+        detail:
+          "Connected Workflow Builder, Sandbox, promotion gates, Production, and monitoring into one governed platform, with experimentation separated from production so nothing could bypass financial controls.",
+      },
+      {
+        label: "Zero to one, then scale",
+        detail:
+          "Took the platform from zero to one with the lead product owner, then scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned.",
+      },
+      {
+        label: "AI assistance inside the work",
+        detail:
+          "Designed copilot assistance and agent-driven workflows across reporting, forecasting, variance analysis, and month-end close, plus anomaly detection routed to the accountable role before close.",
+      },
+      {
+        label: "Uncertainty as a designed state",
+        detail:
+          "Made partial output, failure, blocked promotion, retry, escalation, and rollback first-class states, and set confidence thresholds with ML engineering as product boundaries.",
+      },
+      {
+        label: "Inspectability and audit",
+        detail:
+          "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history.",
+      },
+    ],
+    // Disciplines as listed in the Team snapshot field.
+    team: [
+      { role: "Product" },
+      { role: "Engineering" },
+      { role: "ML engineering and AI research" },
+      { role: "Data" },
+      { role: "Finance and compliance stakeholders" },
     ],
     decisions: [
       {
@@ -171,6 +263,25 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "The workspace stayed trustworthy at exactly the moments AI is least reliable.",
         rejected: "hiding them",
+      },
+      {
+        decision: "Scoped the copilot to the work in front of the user, not the whole platform.",
+        rationale:
+          "Assistance appeared inside a specific report, forecast, or close task with the relevant data already in context, and produced an editable plan rather than a finished answer. The user could read the plan, change it, and run it.",
+        rejected: "a general-purpose assistant that has to be told what it is looking at",
+      },
+      {
+        decision:
+          "Set confidence thresholds as product decisions, made with ML engineering rather than inherited from the model.",
+        rationale:
+          "We defined explicitly where the system could act on its own, where it should recommend and wait, and where it had to stop and escalate. Those boundaries were interaction-design decisions with a number attached, not a tuning detail.",
+        rejected: "surfacing a raw confidence score and leaving interpretation to the user",
+      },
+      {
+        decision: "Made anomaly detection proactive and role-aware.",
+        rationale:
+          "When figures fell outside expected ranges, the platform notified the role accountable for that area, with the variance, its drivers, and the affected records attached, so the notification was actionable rather than an alert to go look somewhere.",
+        rejected: "leaving anomalies to be found during review, or broadcasting alerts to everyone",
       },
     ],
     states: [
@@ -197,33 +308,60 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         state: "Consequential multi-step workflow",
         userSees: "Pause, resume, and rollback controls",
+        recovery: "Rollback to last approved state",
       },
-    ],
-    images: [
       {
-        src: financeAIFlow,
-        fullSrc: financeAIFlowFull,
-        alt: "End-to-end flow diagram for the Finance AI Transformation, showing Governance, Risk and Compliance governing Agentic Workflows, Data Products, Command Center, and the full pipeline through User Experiences, Feedback and Iteration, Problem Framing, Data Discovery and Ingestion, and Finance Sandbox.",
-        caption:
-          "End-to-end flow: governance and compliance layer governing agentic workflows, shared data products, and the full pipeline from user experience through finance sandbox exploration.",
+        state: "Anomaly detected in a figure",
+        userSees:
+          "Proactive notification to the accountable role, with variance, drivers, and affected records",
+        recovery: "Drill into source data, or dismiss with a recorded reason",
+      },
+      {
+        state: "Agent workflow interrupted mid-run",
+        userSees: "Completed steps preserved and labelled, remaining steps held",
+        recovery: "Resume, or roll back the run as a unit",
       },
     ],
+    // The end-to-end flow is now the coded GovernedPipeline diagram rather than a
+    // raster image. The source asset stays at
+    // src/imports/Finance_AI_Transformation_-_End-to-End_Flow.png pending confirmation.
+    // Its original alt text, preserved because the coded version splits the same
+    // information across headings, an ordered list, and body copy:
+    //   "End-to-end flow diagram for the Finance AI Transformation, showing
+    //    Governance, Risk and Compliance governing Agentic Workflows, Data Products,
+    //    Command Center, and the full pipeline through User Experiences, Feedback and
+    //    Iteration, Problem Framing, Data Discovery and Ingestion, and Finance Sandbox."
     impact: {
       headline:
-        "Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+        "Took Finance Cloud from zero to one and scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
       organizational:
-        "The result was a working POC that gave stakeholders a concrete, testable model for how governed AI could operate inside financial operations, rather than an abstract promise.",
+        "The working POC gave stakeholders a concrete, testable model for how governed AI could operate inside financial operations, rather than an abstract promise. That model is what made the scaled pilot possible.",
+      before:
+        "AI-assisted analysis was either untrusted or unusable in finance, because output arrived without provenance and controls lived where accountable people could not see them.",
+      after:
+        "A governed platform where experimentation is separated from production, every AI action is inspectable, anomalies reach the accountable role proactively, and consequential work requires human approval.",
+      proof: [
+        "Delivered a working POC, then scaled from 10 pilot users to 300 through iterative testing.",
+        "Established the environment separation and promotion gate model now used across the platform.",
+        "Defined confidence thresholds with ML engineering as explicit product boundaries.",
+        "Made anomaly detection actionable by routing it to the accountable role with drivers attached.",
+        "Preserved human responsibility for accruals, journal entries, payroll, and close work.",
+      ],
+      metricStatus:
+        "Exact adoption dates, efficiency gains, and close cycle improvements are not verified and are not stated.",
     },
     reflection: {
       learned:
         "The hardest part wasn't making AI capable, it was making its governance legible. Early on, controls lived in the backend and users had to trust that they existed. The work got better once every control had a visible surface: an environment label, a promotion checklist, an audit entry.",
+      wouldChange:
+        "Scaling taught the second lesson. Ten pilot users will tolerate ambiguity and ask a person when something looks wrong. Three hundred users will not, and at a thousand there is no person to ask. Everything that worked at pilot scale because someone could explain it had to become something the interface explained by itself.",
       principle: "Governance people can't see isn't governance they'll approve.",
     },
   },
 
   "connected-customer-journey": {
     snapshotFields: [
-      { label: "Role", value: "Senior UX Designer" },
+      { label: "Role", value: "Lead UX Designer" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025" },
@@ -282,6 +420,29 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Turned model output into decision support: predictions paired with customer context, lifecycle stage, behavior, sentiment, and available actions, not an opaque score presented as a final answer.",
       "Created the end-to-end mitigation flow: risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, iteration.",
       CCJ_HUMAN_REVIEW,
+    ],
+    // Condensed from the `owned` items above; wording drawn from them.
+    ownedThemes: [
+      {
+        label: "The journey platform",
+        detail:
+          "Connected dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring into one data-driven platform.",
+      },
+      {
+        label: "Model output as decision support",
+        detail:
+          "Paired predictions with customer context, lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
+      },
+      {
+        label: "The end-to-end mitigation flow",
+        detail:
+          "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
+      },
+      {
+        label: "Human control over AI messaging",
+        detail:
+          "Required users to review and edit AI-assisted communication before it reached a customer.",
+      },
     ],
     decisions: [
       {
@@ -441,6 +602,34 @@ export const caseStudies: Record<string, CaseStudy> = {
       BILLING_STATUS_MODEL,
       "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
       "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+    ],
+    // Condensed from the `owned` items above; wording drawn from them.
+    ownedThemes: [
+      {
+        label: "The guided workflow",
+        detail:
+          "Replaced fragmented billing-package assembly with one B2B flow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
+      },
+      {
+        label: "The operational map",
+        detail:
+          "Mapped the flow across admins, accountants, engineers, owners, and reviewers — including missing evidence, failed automation, validation, handoffs, and recovery without loss of progress.",
+      },
+      {
+        label: "A reusable status model",
+        detail:
+          "Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, UAT sign-off, and audit-trail concepts.",
+      },
+      {
+        label: "Delivery partnership",
+        detail:
+          "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible backlog instead of compromising the active release.",
+      },
+      {
+        label: "MVP and roadmap",
+        detail:
+          "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+      },
     ],
     decisions: [
       {
@@ -625,6 +814,33 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Synthesized findings into actionable recommendations.",
       "Supported testing, development, and backend-integration discussions.",
       "Created scalable patterns aligned with the enterprise design system.",
+    ],
+    // Condensed from the `owned` items above; wording drawn from them. The
+    // eight original items were short and sequential, so they group into five.
+    ownedThemes: [
+      {
+        label: "Requirements and prioritization",
+        detail:
+          "Facilitated requirements and prioritization workshops, translating feature requests into capabilities, flows, and phased backlogs.",
+      },
+      {
+        label: "Specification for delivery",
+        detail:
+          "Converted wireframes into product requirements, roadmaps, test plans, and development-ready stories.",
+      },
+      {
+        label: "Research design and synthesis",
+        detail:
+          "Defined research protocols and usage metrics, coordinated mixed-method usability and targeted inquiry, and synthesized findings into actionable recommendations.",
+      },
+      {
+        label: "Implementation support",
+        detail: "Supported testing, development, and backend-integration discussions.",
+      },
+      {
+        label: "Scalable design patterns",
+        detail: "Created scalable patterns aligned with the enterprise design system.",
+      },
     ],
     decisions: [
       {
