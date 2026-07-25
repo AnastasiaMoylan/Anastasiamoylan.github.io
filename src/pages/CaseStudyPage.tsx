@@ -66,9 +66,9 @@ export default function CaseStudyPage() {
           </ul>
         </div>
 
-        <SnapshotCard fields={content.snapshotFields} team={content.team} />
+        <SnapshotCard fields={content.snapshotFields} />
 
-        <OverviewSection tldr={content.tldr} />
+        <OverviewSection tldr={content.tldr} fields={content.snapshotFields} />
 
         <div className="flex flex-col lg:flex-row gap-12 pt-12">
           <SectionNav sections={sections} />
