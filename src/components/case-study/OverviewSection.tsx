@@ -19,7 +19,12 @@ export default function OverviewSection({
 
   return (
     <section className="mt-12 pb-12 border-b border-border">
-      <h2 className="text-[clamp(1.5rem,2.8vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.015em] text-foreground pb-3 mb-5 border-b border-border">
+      {/*
+        No underline on the heading: the panel below already opens with its own
+        border, and the two sat 20px apart reading as one stuttered rule. The
+        heading's size and weight mark it without help.
+      */}
+      <h2 className="mb-5 text-[clamp(1.5rem,2.8vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.015em] text-foreground">
         Overview
       </h2>
       <div className="border border-border rounded-[14px] overflow-hidden">
