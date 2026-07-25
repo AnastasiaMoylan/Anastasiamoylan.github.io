@@ -1,18 +1,22 @@
 import Badge from "../ui/Badge";
 
 /**
- * Title, tagline, tags and the meta facts as one header block.
+ * Title, role, tagline, tags and the remaining facts as one header block.
  *
- * The meta sits beside the title rather than in a bordered card beneath it: the
- * title only fills about half the measure, so the facts use space that was
- * otherwise empty and the header loses a whole band of vertical height plus the
- * card's chrome.
+ * Role is pulled out as a byline directly under the title rather than sitting as
+ * one field among four: it is the reader's second question after the project
+ * name, and the only fact on the page about the author rather than the work.
  *
- * Only the facts that establish standing appear here — who you were, who it was
- * for, and when. Project context (users, tools) renders in the Overview, and the
- * team renders as discipline cards in Role and team.
+ * The other facts run inline along the bottom, which drops the label gutter a
+ * two-column layout needs and lets long values — "Confidential enterprise
+ * telecommunications organization" — sit on one line. Their labels survive as
+ * screen-reader text, so nothing is lost for assistive technology.
+ *
+ * Project context (users, tools) renders in the Overview; the team renders as
+ * discipline cards in Role and team.
  */
-const HEADER_FIELDS = ["Role", "Employer", "Client", "Timeframe"];
+const BYLINE_FIELD = "Role";
+const INLINE_FIELDS = ["Employer", "Client", "Timeframe"];
 
 export default function CaseStudyHeader({
   title,
@@ -25,39 +29,54 @@ export default function CaseStudyHeader({
   tags: string[];
   fields: { label: string; value: string }[];
 }) {
-  const meta = HEADER_FIELDS.flatMap((label) => fields.filter((f) => f.label === label));
+  const role = fields.find((f) => f.label === BYLINE_FIELD);
+  const inlineFields = INLINE_FIELDS.flatMap((label) => fields.filter((f) => f.label === label));
 
   return (
-    <header className="grid grid-cols-1 gap-x-12 gap-y-8 lg:grid-cols-[1.35fr_1fr] lg:items-start">
-      <div>
-        <h1 className="m-0 text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.12] tracking-[-0.015em] text-foreground">
-          {title}
-        </h1>
-        <p className="mt-4 m-0 text-[clamp(1.0625rem,2vw,1.25rem)] font-medium leading-[1.5] text-muted-foreground">
-          {tagline}
-        </p>
-        <ul className="mt-6 m-0 flex list-none flex-wrap gap-2 p-0">
-          {tags.map((tag) => (
-            <li key={tag}>
-              <Badge variant="accent">{tag}</Badge>
-            </li>
-          ))}
-        </ul>
-      </div>
+    /*
+      A grid rather than nested rows, so the tags can sit beside the title on
+      wide screens but drop below the tagline on narrow ones. Nesting them next
+      to the title would push them between the title and the byline when it
+      stacks, which is exactly the adjacency the byline exists to create.
+    */
+    <header className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-x-8">
+      <h1 className="m-0 text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground sm:col-start-1 sm:row-start-1">
+        {title}
+      </h1>
 
-      {meta.length > 0 && (
-        <dl className="m-0 grid grid-cols-2 gap-x-8 gap-y-5 border-t border-border pt-6 lg:grid-cols-1 lg:gap-y-4 lg:border-t-0 lg:border-l lg:pt-1 lg:pl-8">
-          {meta.map(({ label, value }) => (
-            <div key={label} className="lg:grid lg:grid-cols-[6.5rem_1fr] lg:gap-3">
-              <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground lg:pt-[3px]">
-                {label}
-              </dt>
-              <dd className="m-0 mt-1 text-[0.875rem] leading-[1.5] text-foreground lg:mt-0">
-                {value}
-              </dd>
-            </div>
+      <ul className="order-4 m-0 mt-5 flex list-none flex-wrap gap-2 p-0 sm:order-none sm:col-start-2 sm:row-start-1 sm:mt-0 sm:max-w-[26rem] sm:justify-end sm:pt-2">
+        {tags.map((tag) => (
+          <li key={tag}>
+            <Badge variant="accent">{tag}</Badge>
+          </li>
+        ))}
+      </ul>
+
+      {role && (
+        <p className="order-2 mt-2.5 m-0 text-[0.9375rem] font-bold tracking-[0.01em] text-accent sm:order-none sm:col-start-1 sm:row-start-2">
+          <span className="sr-only">Role: </span>
+          {role.value}
+        </p>
+      )}
+
+      <p className="order-3 mt-2.5 m-0 max-w-[46rem] text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground sm:order-none sm:col-start-1 sm:row-start-3">
+        {tagline}
+      </p>
+
+      {inlineFields.length > 0 && (
+        <p className="order-5 mt-5 m-0 border-t border-border pt-4 text-[0.78125rem] leading-[1.6] text-muted-foreground sm:order-none sm:col-span-2 sm:row-start-4">
+          {inlineFields.map(({ label, value }, i) => (
+            <span key={label}>
+              {i > 0 && (
+                <span className="mx-1.5 text-border" aria-hidden="true">
+                  ·
+                </span>
+              )}
+              <span className="sr-only">{label}: </span>
+              {value}
+            </span>
           ))}
-        </dl>
+        </p>
       )}
     </header>
   );
