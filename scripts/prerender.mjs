@@ -8,7 +8,9 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(root, "dist-server");
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
-const { render, getPageMeta } = await import(path.join(serverDir, "entry-server.js"));
+const { render, getPageMeta, prerenderRoutes, buildSitemap } = await import(
+  path.join(serverDir, "entry-server.js")
+);
 
 const escapeAttr = (s) =>
   s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -39,20 +41,7 @@ function applyMeta(html, meta) {
     );
 }
 
-const routes = [
-  "/",
-  "/work",
-  "/work/governed-ai-finance-workspace",
-  "/work/auditable-billing-workflow",
-  "/work/enterprise-document-knowledge",
-  "/work/connected-customer-journey",
-  "/philosophy",
-  "/about",
-  "/contact",
-  "/resume",
-];
-
-for (const route of routes) {
+for (const route of prerenderRoutes) {
   const appHtml = render(route);
   const html = applyMeta(template, getPageMeta(route)).replace(
     '<div id="root"></div>',
@@ -66,3 +55,9 @@ for (const route of routes) {
   fs.writeFileSync(outPath, html);
   console.log(`prerendered ${route} -> ${path.relative(root, outPath)}`);
 }
+
+// Generated from the same route list, so the sitemap can't drift from what
+// actually ships. There is deliberately no sitemap.xml in public/.
+const sitemapPath = path.join(distDir, "sitemap.xml");
+fs.writeFileSync(sitemapPath, buildSitemap());
+console.log(`generated sitemap  -> ${path.relative(root, sitemapPath)} (${prerenderRoutes.length} urls)`);
