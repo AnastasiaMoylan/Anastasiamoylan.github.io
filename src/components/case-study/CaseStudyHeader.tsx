@@ -64,7 +64,12 @@ export default function CaseStudyHeader({
       </p>
 
       {inlineFields.length > 0 && (
-        <p className="order-5 mt-5 m-0 border-t border-border pt-4 text-[0.78125rem] leading-[1.6] text-muted-foreground sm:order-none sm:col-span-2 sm:row-start-4">
+        /*
+          No rule above the facts either. They are small and muted enough that
+          spacing separates them from the tagline, and a rule here put a third
+          horizontal line into the same short stretch as the Overview panel.
+        */
+        <p className="order-5 mt-6 m-0 text-[0.78125rem] leading-[1.6] text-muted-foreground sm:order-none sm:col-span-2 sm:row-start-4">
           {inlineFields.map(({ label, value }, i) => (
             <span key={label}>
               {i > 0 && (
