@@ -2,7 +2,6 @@ import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
 import ChallengeList from "./ChallengeList";
 import OverviewSection from "./OverviewSection";
-import LeadershipGrid from "./LeadershipGrid";
 import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
 import PlaceholderFigure from "./PlaceholderFigure";
@@ -21,12 +20,13 @@ export interface SectionAugments {
 
 /**
  * Composes the page a hiring manager actually reads:
- * Overview -> How I led -> Challenge -> Solution -> Results -> Deep dive.
+ * Overview -> Challenge -> Solution -> Results -> Deep dive.
  *
  * The order is deliberate. Everything above the deep dive is scannable in a
  * minute — headings, bullets, and three-step cards. Everything an interviewer
- * digs into (research, edge cases, decisions with their rejected paths, team,
- * reflection) sits behind a summary rather than competing with the argument.
+ * digs into (leadership and ownership, research, edge cases, decisions with
+ * their rejected paths, reflection) sits behind a summary rather than competing
+ * with the argument.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -45,20 +45,6 @@ export default function buildSections(
       heading: "Overview",
       content: (
         <OverviewSection overview={content.overview} fields={content.snapshotFields} />
-      ),
-    });
-  }
-
-  if (content.leadership && content.leadership.length > 0) {
-    sections.push({
-      id: "leadership",
-      nav: "How I led",
-      heading: "How I led",
-      content: (
-        <LeadershipGrid
-          points={content.leadership}
-          collaborators={content.team?.map((t) => t.role)}
-        />
       ),
     });
   }

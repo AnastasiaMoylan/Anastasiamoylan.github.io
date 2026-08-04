@@ -61,13 +61,16 @@ export default function CaseStudyPage() {
           The cover sets tone rather than carrying information: every substantive
           visual on the page is a captioned figure with its own alt text further
           down, so this one is decorative and stays out of the a11y tree.
+
+          32/9 is half the height 16/9 gave it. A banner rather than a block —
+          the figures inside the case study are the ones worth dwelling on.
         */}
         {project.image ? (
           <img
             src={project.image}
             alt=""
             aria-hidden="true"
-            className="mt-10 aspect-[16/9] w-full rounded-lg border border-border object-cover"
+            className="mt-10 aspect-[32/9] w-full rounded-lg border border-border object-cover"
           />
         ) : (
           <div className="mt-10">
