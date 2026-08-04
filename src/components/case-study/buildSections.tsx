@@ -1,13 +1,13 @@
 import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
-import EvidenceInsight from "./EvidenceInsight";
-import RoleTeam from "./RoleTeam";
-import KeyDecisions from "./KeyDecisions";
-import StatesRecovery from "./StatesRecovery";
+import ChallengeList from "./ChallengeList";
+import OverviewSection from "./OverviewSection";
+import LeadershipGrid from "./LeadershipGrid";
+import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
-import PendingVisuals from "./PendingVisuals";
-import OutcomeImpact from "./OutcomeImpact";
-import ReflectionBlock from "./ReflectionBlock";
+import PlaceholderFigure from "./PlaceholderFigure";
+import ResultsSection from "./ResultsSection";
+import DeepDive from "./DeepDive";
 
 /**
  * Per-case-study additions, keyed by section id. `append` renders after a
@@ -19,102 +19,100 @@ export interface SectionAugments {
   replace?: Record<string, React.ReactNode>;
 }
 
-/** Composes the framework's beats in Frame -> Think -> Land order, skipping empty ones. */
+/**
+ * Composes the page a hiring manager actually reads:
+ * Overview -> How I led -> Challenge -> Solution -> Results -> Deep dive.
+ *
+ * The order is deliberate. Everything above the deep dive is scannable in a
+ * minute — headings, bullets, and three-step cards. Everything an interviewer
+ * digs into (research, edge cases, decisions with their rejected paths, team,
+ * reflection) sits behind a summary rather than competing with the argument.
+ *
+ * Sections whose data is absent don't render, so a study can ship partially
+ * filled without showing empty headings.
+ */
 export default function buildSections(
   content: CaseStudy,
   augments: SectionAugments = {},
 ): Section[] {
   const { append = {}, replace = {} } = augments;
+  const sections: Section[] = [];
 
-  const sections: Section[] = [
-    {
-      id: "context",
-      nav: "Context",
-      heading: "Context and stakes",
-      content: <p className="text-base text-muted-foreground leading-[1.7]">{content.context}</p>,
-    },
-  ];
+  if (content.overview) {
+    sections.push({
+      id: "overview",
+      nav: "Overview",
+      heading: "Overview",
+      content: (
+        <OverviewSection overview={content.overview} fields={content.snapshotFields} />
+      ),
+    });
+  }
+
+  if (content.leadership && content.leadership.length > 0) {
+    sections.push({
+      id: "leadership",
+      nav: "How I led",
+      heading: "How I led",
+      content: (
+        <LeadershipGrid
+          points={content.leadership}
+          collaborators={content.team?.map((t) => t.role)}
+        />
+      ),
+    });
+  }
 
   if (content.evidence) {
     sections.push({
-      id: "evidence",
-      nav: "Evidence",
-      heading: "Evidence and insight",
-      content: <EvidenceInsight evidence={content.evidence} />,
+      id: "challenge",
+      nav: "Challenge",
+      heading: "The challenge",
+      content: <ChallengeList evidence={content.evidence} />,
     });
   }
 
-  sections.push(
-    {
-      id: "role",
-      nav: "Role and team",
-      heading: "Role and team",
+  if (content.solutionSteps && content.solutionSteps.length > 0) {
+    // Visuals sit with the solution: a diagram augment when the study has coded
+    // figures, its own screens when it has them, and a labelled placeholder
+    // when it has neither — so a study never renders a solution with no picture.
+    const visuals = content.images && content.images.length > 0
+      ? <ImageGallery images={content.images} />
+      : append.solution
+        ? null
+        : <PlaceholderFigure caption={content.visualsPendingNote ?? "Final visuals for this case study are in production."} />;
+
+    sections.push({
+      id: "solution",
+      nav: "Solution",
+      heading: "The solution",
       content: (
-        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+        <div className="flex flex-col gap-12">
+          <SolutionSteps steps={content.solutionSteps} />
+          {visuals}
+        </div>
       ),
-    },
-    {
-      id: "decisions",
-      nav: "Key decisions",
-      heading: "Key decisions",
-      content: <KeyDecisions decisions={content.decisions} />,
-    },
-  );
-
-  if (content.states && content.states.length > 0) {
-    sections.push({
-      id: "states",
-      nav: "Edge cases",
-      heading: "States, edge cases, and recovery",
-      content: <StatesRecovery states={content.states} />,
-    });
-  }
-
-  // A replacement stands in for the gallery, so a case study can carry a coded
-  // diagram instead of a raster image without needing an empty `images` array.
-  if (replace.execution) {
-    sections.push({
-      id: "execution",
-      nav: "Execution",
-      heading: "Execution",
-      content: <>{replace.execution}</>,
-    });
-  } else if (content.images && content.images.length > 0) {
-    sections.push({
-      id: "execution",
-      nav: "Execution",
-      heading: "Execution",
-      content: <ImageGallery images={content.images} />,
-    });
-  } else if (content.visualsPending) {
-    sections.push({
-      id: "execution",
-      nav: "Execution",
-      heading: "Execution",
-      content: <PendingVisuals note={content.visualsPendingNote} planned={content.plannedVisuals} />,
     });
   }
 
   if (content.impact) {
     sections.push({
-      id: "outcome",
-      nav: "Outcome",
-      heading: "Outcome and impact",
-      content: <OutcomeImpact impact={content.impact} />,
+      id: "results",
+      nav: "Results",
+      heading: "Results",
+      content: <ResultsSection impact={content.impact} />,
     });
   }
 
-  if (content.reflection) {
-    sections.push({
-      id: "reflection",
-      nav: "Reflection",
-      heading: "Reflection",
-      content: <ReflectionBlock reflection={content.reflection} />,
-    });
-  }
+  sections.push({
+    id: "deep-dive",
+    nav: "Deep dive",
+    heading: "The deep dive",
+    content: <DeepDive content={content} />,
+  });
 
   return sections.map((section) => {
-    const replacement = section.id === "execution" ? undefined : replace[section.id];
+    const replacement = replace[section.id];
     const addition = append[section.id];
     if (!replacement && !addition) return section;
 
