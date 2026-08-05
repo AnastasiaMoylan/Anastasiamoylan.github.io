@@ -116,8 +116,7 @@
       ],
       "removedPanel": {
         "title": "What's next",
-        "sourceField": "caseStudies.nextSteps",
-        "reason": "Removed from the deep dive — roadmap for work that is still moving dates itself faster than the rest of the page. The copy stays in the data so the panel can be restored in one block."
+        "reason": "Removed, along with the `nextSteps` field it read from. A roadmap for work that is still moving dates itself faster than anything else on the page."
       }
     }
   ],
@@ -127,10 +126,9 @@
       "overview": "string — two to four sentences answering 'what was this, and what did I do here'.",
       "leadership": "LeadershipPoint[] — { kind: 'Direction' | 'Hands on', title, detail }. Condensed from ownedThemes.",
       "solutionSteps": "SolutionStep[] — { title, points }.",
-      "nextSteps": "string — kept in the data but not currently rendered; see removedPanel above.",
       "visualsPendingNote": "string — caption for PlaceholderFigure, saying what the real asset will show."
     },
-    "removed": ["visualsPending", "plannedVisuals"],
+    "removed": ["visualsPending", "plannedVisuals", "nextSteps"],
     "unchanged": ["snapshotFields", "team", "tldr", "context", "evidence", "owned", "ownedThemes", "decisions", "states", "images", "impact", "reflection"]
   },
   "contentRules": [

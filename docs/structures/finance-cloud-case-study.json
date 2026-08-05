@@ -132,12 +132,6 @@
       }
     }
   },
-  "notRendered": {
-    "nextSteps": {
-      "value": "Scaled pilot in progress, with enterprise adoption of 1,000+ planned. Pause, resume, and rollback concepts continue to mature for consequential workflows.",
-      "reason": "The 'What's next' panel was removed from the deep dive. The copy stays in the data so the panel can be restored in one block."
-    }
-  },
   "pendingOwnerSignoff": [
     "The overview's leadership framing — 'directed the design workstream across a cross-functional team' — is condensed from the record rather than quoted from it.",
     "Per-role accountability lines for analysts, admins, and viewers. The data stores users as one comma-separated string."

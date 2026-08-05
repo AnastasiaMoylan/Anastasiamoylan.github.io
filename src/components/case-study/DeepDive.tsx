@@ -100,12 +100,6 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
         </Panel>
       )}
 
-      {/*
-        A "What's next" panel used to close the deep dive, reading from
-        `nextSteps`. It is deliberately not rendered: roadmap for work that is
-        still moving dates itself faster than the rest of the page. The copy is
-        kept in the data so the panel can be restored in one block.
-      */}
     </div>
   );
 }
