@@ -1,0 +1,48 @@
+<svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="hv-title hv-desc">
+  <title id="hv-title">End-to-end journey motif</title>
+  <desc id="hv-desc">An abstract journey from first contact to final action: a horizontal flow of states with a decision point, a recovery branch that dips below the main path and rejoins it, ending in a filled node — the single action. Suggested hero visual, pending owner sign-off.</desc>
+
+  <!-- Faint role lanes: the journey crosses more than one lane -->
+  <g stroke="#e8e0e0" stroke-width="1">
+    <line x1="24" y1="52" x2="696" y2="52" />
+    <line x1="24" y1="100" x2="696" y2="100" stroke-opacity="0" />
+    <line x1="24" y1="148" x2="696" y2="148" />
+    <line x1="24" y1="196" x2="696" y2="196" />
+  </g>
+
+  <!-- Main path -->
+  <g fill="none" stroke="#c09292" stroke-width="2">
+    <line x1="74" y1="100" x2="186" y2="100" />
+    <line x1="214" y1="100" x2="326" y2="100" />
+    <line x1="356" y1="100" x2="466" y2="100" />
+    <line x1="494" y1="100" x2="604" y2="100" />
+  </g>
+
+  <!-- Recovery branch: leaves the decision point, passes through a feedback state, rejoins -->
+  <path d="M 341 115 C 360 160, 380 172, 410 172" fill="none" stroke="#a86d6d" stroke-width="2" stroke-dasharray="5 5" />
+  <path d="M 426 172 C 456 172, 468 132, 479 112" fill="none" stroke="#a86d6d" stroke-width="2" stroke-dasharray="5 5" />
+
+  <!-- States along the journey, deepening through the maroon tint ramp -->
+  <!-- 01 first contact -->
+  <circle cx="60" cy="100" r="14" fill="#f7eded" stroke="#c09292" stroke-width="2" />
+  <!-- 02 handoff (square: ownership changes hands) -->
+  <rect x="188" y="88" width="24" height="24" rx="5" fill="#e2cccc" stroke="#a86d6d" stroke-width="2" />
+  <!-- 03 decision (diamond: where the branch begins) -->
+  <rect x="329" y="89" width="22" height="22" rx="4" transform="rotate(45 340 100)" fill="#c09292" stroke="#7c3030" stroke-width="2" />
+  <!-- feedback state on the recovery branch -->
+  <circle cx="418" cy="172" r="9" fill="#ffffff" stroke="#a86d6d" stroke-width="2" stroke-dasharray="3 3" />
+  <!-- 04 rejoined, deeper -->
+  <circle cx="480" cy="100" r="14" fill="#a86d6d" stroke="#7c3030" stroke-width="2" />
+  <!-- 05 final action: the one solid accent, ringed -->
+  <circle cx="620" cy="100" r="20" fill="none" stroke="#e2cccc" stroke-width="2" />
+  <circle cx="620" cy="100" r="14" fill="#7c3030" />
+  <path d="M 615 93 L 627 100 L 615 107 Z" fill="#ffffff" />
+
+  <!-- Arrowheads on the main path -->
+  <g fill="#c09292">
+    <path d="M 178 96 L 186 100 L 178 104 Z" />
+    <path d="M 318 96 L 326 100 L 318 104 Z" />
+    <path d="M 458 96 L 466 100 L 458 104 Z" />
+    <path d="M 596 96 L 604 100 L 596 104 Z" />
+  </g>
+</svg>

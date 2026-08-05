@@ -100,13 +100,12 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
         </Panel>
       )}
 
-      {content.nextSteps && (
-        <Panel title="What's next">
-          <p className="m-0 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
-            {content.nextSteps}
-          </p>
-        </Panel>
-      )}
+      {/*
+        A "What's next" panel used to close the deep dive, reading from
+        `nextSteps`. It is deliberately not rendered: roadmap for work that is
+        still moving dates itself faster than the rest of the page. The copy is
+        kept in the data so the panel can be restored in one block.
+      */}
     </div>
   );
 }

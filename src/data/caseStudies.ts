@@ -164,7 +164,10 @@ export interface CaseStudy {
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
   solutionSteps?: SolutionStep[];
-  /** Where the work goes next, for the deep dive. */
+  /**
+   * Where the work goes next. Kept, but not currently rendered — see the note
+   * in DeepDive.tsx where the panel that read it used to sit.
+   */
   nextSteps?: string;
   context: string;
   evidence?: Evidence;
