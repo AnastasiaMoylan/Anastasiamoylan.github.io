@@ -17,8 +17,11 @@ import ReflectionBlock from "./ReflectionBlock";
  * summary instead of competing with the argument above it.
  */
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
+  // overflow-hidden so the summary's hover fill is clipped to the rounded
+  // border. Without it the fill keeps its own square corners and paints into
+  // the radius, and the panel reads as square-cornered on hover.
   return (
-    <details className="group rounded-lg border border-border bg-card [&[open]]:bg-background">
+    <details className="group overflow-hidden rounded-lg border border-border bg-card [&[open]]:bg-background">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 text-[0.9375rem] font-semibold text-foreground transition-colors duration-150 hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
         {title}
         <span
