@@ -3,7 +3,8 @@ import { projects } from "../data/projects";
 import { caseStudies } from "../data/caseStudies";
 import Button from "../components/ui/Button";
 import CaseStudyHeader from "../components/case-study/CaseStudyHeader";
-import OverviewSection from "../components/case-study/OverviewSection";
+import StatBand from "../components/case-study/StatBand";
+import PlaceholderFigure from "../components/case-study/PlaceholderFigure";
 import SectionNav from "../components/case-study/SectionNav";
 import buildSections from "../components/case-study/buildSections";
 import { financeCloudAugments } from "../components/case-study/diagrams/financeCloudDiagrams";
@@ -56,7 +57,30 @@ export default function CaseStudyPage() {
           fields={content.snapshotFields}
         />
 
-        <OverviewSection tldr={content.tldr} fields={content.snapshotFields} />
+        {/*
+          The cover sets tone rather than carrying information: every substantive
+          visual on the page is a captioned figure with its own alt text further
+          down, so this one is decorative and stays out of the a11y tree.
+
+          32/9 is half the height 16/9 gave it. A banner rather than a block —
+          the figures inside the case study are the ones worth dwelling on.
+        */}
+        {project.image ? (
+          <img
+            src={project.image}
+            alt=""
+            aria-hidden="true"
+            className="mt-10 aspect-[32/9] w-full rounded-lg border border-border object-cover"
+          />
+        ) : (
+          <div className="mt-10">
+            <PlaceholderFigure caption={`Cover visual for ${project.title} is in production.`} />
+          </div>
+        )}
+
+        {content.stats && content.stats.length > 0 && (
+          <StatBand stats={content.stats} caveat={content.impact?.metricStatus} />
+        )}
 
         <div className="flex flex-col lg:flex-row gap-12 pt-12">
           <SectionNav sections={sections} />

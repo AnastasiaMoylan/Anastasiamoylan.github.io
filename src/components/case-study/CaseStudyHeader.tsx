@@ -34,17 +34,29 @@ export default function CaseStudyHeader({
 
   return (
     /*
-      A grid rather than nested rows, so the tags can sit beside the title on
-      wide screens but drop below the tagline on narrow ones. Nesting them next
-      to the title would push them between the title and the byline when it
-      stacks, which is exactly the adjacency the byline exists to create.
+      One column at every width. The tags used to sit beside the title on wide
+      screens, which split the top of the page into two columns and made the
+      title compete with a row of chips for the first look. Stacked, the reading
+      order is the order of the reader's questions: what, who I was, what it
+      did, what kind of work, and the surrounding facts.
     */
-    <header className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_auto] sm:gap-x-8">
-      <h1 className="m-0 text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground sm:col-start-1 sm:row-start-1">
+    <header className="flex flex-col">
+      <h1 className="m-0 text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground">
         {title}
       </h1>
 
-      <ul className="order-4 m-0 mt-5 flex list-none flex-wrap gap-2 p-0 sm:order-none sm:col-start-2 sm:row-start-1 sm:mt-0 sm:max-w-[26rem] sm:justify-end sm:pt-2">
+      {role && (
+        <p className="mt-2.5 m-0 text-[0.9375rem] font-bold tracking-[0.01em] text-accent">
+          <span className="sr-only">Role: </span>
+          {role.value}
+        </p>
+      )}
+
+      <p className="mt-2.5 m-0 max-w-[46rem] text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground">
+        {tagline}
+      </p>
+
+      <ul className="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
         {tags.map((tag) => (
           <li key={tag}>
             <Badge variant="accent">{tag}</Badge>
@@ -52,24 +64,13 @@ export default function CaseStudyHeader({
         ))}
       </ul>
 
-      {role && (
-        <p className="order-2 mt-2.5 m-0 text-[0.9375rem] font-bold tracking-[0.01em] text-accent sm:order-none sm:col-start-1 sm:row-start-2">
-          <span className="sr-only">Role: </span>
-          {role.value}
-        </p>
-      )}
-
-      <p className="order-3 mt-2.5 m-0 max-w-[46rem] text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground sm:order-none sm:col-start-1 sm:row-start-3">
-        {tagline}
-      </p>
-
       {inlineFields.length > 0 && (
         /*
-          No rule above the facts either. They are small and muted enough that
-          spacing separates them from the tagline, and a rule here put a third
-          horizontal line into the same short stretch as the Overview panel.
+          No rule above the facts. They are small and muted enough that spacing
+          separates them from the tags, and a rule here put a third horizontal
+          line into the same short stretch as the at-a-glance band below.
         */
-        <p className="order-5 mt-6 m-0 text-[0.78125rem] leading-[1.6] text-muted-foreground sm:order-none sm:col-span-2 sm:row-start-4">
+        <p className="mt-6 m-0 text-[0.78125rem] leading-[1.6] text-muted-foreground">
           {inlineFields.map(({ label, value }, i) => (
             <span key={label}>
               {i > 0 && (

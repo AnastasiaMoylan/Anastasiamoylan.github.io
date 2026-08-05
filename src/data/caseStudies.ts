@@ -119,10 +119,53 @@ export interface Reflection {
   principle?: string;
 }
 
+/**
+ * One figure in the at-a-glance band under the header.
+ *
+ * `value` is set in display type, so it stays short — a number, a ratio, or a
+ * single word. Studies whose outcomes are not numerically verified use a
+ * countable design output ("6" status states) or a plain word ("Required")
+ * rather than a metric the project record cannot support.
+ */
+export interface Stat {
+  value: string;
+  label: string;
+}
+
+/**
+ * One line of the 'How I led' section.
+ *
+ * `kind` splits direction from craft: every case study here was led, and the
+ * split is what shows a reader that the same person set the model and drew the
+ * screens. Condensed from `ownedThemes`; the fuller list still renders in the
+ * deep dive.
+ */
+export interface LeadershipPoint {
+  kind: "Direction" | "Hands on";
+  title: string;
+  detail: string;
+}
+
+/** One stage of the solution, carrying two supporting points at most. */
+export interface SolutionStep {
+  title: string;
+  points: string[];
+}
+
 export interface CaseStudy {
   snapshotFields: { label: string; value: string }[];
   team?: TeamMember[];
   tldr: Tldr;
+  /** At-a-glance figures. Absent means the band doesn't render. */
+  stats?: Stat[];
+  /** Two to four sentences answering "what was this, and what did I do here". */
+  overview?: string;
+  /** Direction and craft, split. Absent means the section doesn't render. */
+  leadership?: LeadershipPoint[];
+  /** The solution as an ordered walk, replacing a flat capability list. */
+  solutionSteps?: SolutionStep[];
+  /** Where the work goes next, for the deep dive. */
+  nextSteps?: string;
   context: string;
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
@@ -132,10 +175,11 @@ export interface CaseStudy {
   decisions: Decision[];
   states?: StateRecovery[];
   images?: CaseStudyImage[];
-  /** Renders the pending-visual treatment instead of a gallery. */
-  visualsPending?: boolean;
+  /**
+   * Caption for the placeholder that stands in when a study has no images and
+   * no coded diagrams. Says what the real asset will show.
+   */
   visualsPendingNote?: string;
-  plannedVisuals?: string[];
   impact?: Impact;
   reflection?: Reflection;
 }
@@ -165,6 +209,66 @@ export const caseStudies: Record<string, CaseStudy> = {
       result:
         "Took Finance Cloud from zero to one and scaled it from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Finance leaders got the evidence they needed to trust and approve AI-assisted work.",
     },
+    // Every figure below is already stated in `impact`; the band restates them
+    // in display type rather than introducing anything new.
+    stats: [
+      { value: "0 → 1", label: "Working POC, designed and shipped" },
+      { value: "10 → 300", label: "Pilot users through iterative testing" },
+      { value: "1,000+", label: "Enterprise adoption planned" },
+    ],
+    overview:
+      "At Amdocs Studios, I led design for Finance Cloud — a governed AI platform for an enterprise telecom's finance and payroll teams. The brief: bring AI into financial operations without breaking the audit trail. I directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens, taking the platform from zero to a working POC with the lead product owner and then scaling it from 10 pilot users to 300.",
+    leadership: [
+      {
+        kind: "Direction",
+        title: "Set the product model",
+        detail:
+          "Scoped the problem and established the framework the platform still runs on: Workflow Builder, Sandbox, promotion gates, Production, monitoring.",
+      },
+      {
+        kind: "Direction",
+        title: "Set the boundaries with ML engineering",
+        detail:
+          "Defined where the system acts, recommends, or stops — confidence thresholds as product decisions, not tuning details.",
+      },
+      {
+        kind: "Hands on",
+        title: "Designed the work itself",
+        detail:
+          "The copilot, agent workflows, failure states, and promotion flows — through iterative testing from 10 users to 300.",
+      },
+      {
+        kind: "Hands on",
+        title: "Ran the research program",
+        detail:
+          "Screeners, recruitment, training plans, and moderated sessions — built and run end to end across the POC.",
+      },
+    ],
+    solutionSteps: [
+      {
+        title: "Experiment freely",
+        points: [
+          "A sandbox with no path to production — real analysis, zero risk to financial controls",
+          "A copilot scoped to the task that drafts editable plans, not finished answers",
+        ],
+      },
+      {
+        title: "Promote visibly",
+        points: [
+          "Promotion is a gated, reviewable event — never a hidden setting",
+          "A blocked promotion names the unmet requirement and how to resolve it",
+        ],
+      },
+      {
+        title: "Run governed",
+        points: [
+          "Every output traces to its inputs, transformations, and generated code",
+          "Anomalies route to the accountable role; failure states preserve work, retry, and roll back",
+        ],
+      },
+    ],
+    nextSteps:
+      "Scaled pilot in progress, with enterprise adoption of 1,000+ planned. Pause, resume, and rollback concepts continue to mature for consequential workflows.",
     context:
       "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders remain personally responsible for journal entries, accruals, payroll runs, and close work. A system that produces a number without showing where it came from is not faster, it is unusable, because someone still has to defend that number. Finance Cloud covers reporting, forecasting, variance analysis, anomaly detection, month-end close, and manual journal entries, with copilot assistance and agent-driven workflows running throughout. Every one of those surfaces touches money that has already been committed or is about to be.",
     evidence: {
@@ -384,6 +488,65 @@ export const caseStudies: Record<string, CaseStudy> = {
       result:
         "Turned a model score into a reviewed, edited, and launched action, with monitoring built in and human review required before anything reached a customer.",
     },
+    // No churn, conversion, or revenue metric is verified for this engagement
+    // (see impact.metricStatus), so the band carries countable design outputs
+    // instead: the flow itself, the surfaces in `images`, and the review rule.
+    stats: [
+      { value: "0 → 1", label: "End-to-end mitigation flow, designed from scratch" },
+      { value: "4", label: "Connected surfaces: dashboard, mitigation plan, chatbot, agent view" },
+      { value: "Required", label: "Human review before any AI message reached a customer" },
+    ],
+    overview:
+      "As Lead UX Designer at Amdocs Studios, I designed the connected customer journey for a telecommunications operator that had predictive churn signals but no way to act on them. I led the interaction model across analysts, service teams, and the AI layer, and designed the flow end to end: from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
+    leadership: [
+      {
+        kind: "Direction",
+        title: "Reframed the score as decision support",
+        detail:
+          "Paired predictions with lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
+      },
+      {
+        kind: "Direction",
+        title: "Held the line on human control",
+        detail:
+          "Required users to review and edit AI-assisted communication before it reached a customer, across every channel in the journey.",
+      },
+      {
+        kind: "Hands on",
+        title: "Designed the mitigation flow",
+        detail:
+          "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
+      },
+      {
+        kind: "Hands on",
+        title: "Designed the platform surfaces",
+        detail:
+          "Dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring.",
+      },
+    ],
+    solutionSteps: [
+      {
+        title: "Detect in context",
+        points: [
+          "Segments built dynamically from churn-risk criteria, not static lists",
+          "Risk sits beside behavior, sentiment, journey context, and available actions",
+        ],
+      },
+      {
+        title: "Decide with evidence",
+        points: [
+          "Each offer starts as a hypothesis, testable in a what-if analysis tool",
+          "AI drafts a tone-matched message; the person reviews and edits before it goes out",
+        ],
+      },
+      {
+        title: "Act and monitor",
+        points: [
+          "A chatbot handles routine cases and hands off to a person when sentiment calls for it",
+          "A declined offer loops back to adjustment rather than ending in a dead end",
+        ],
+      },
+    ],
     context:
       "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
     evidence: {
@@ -565,6 +728,66 @@ export const caseStudies: Record<string, CaseStudy> = {
       result:
         "Unblocked recovery of the billing backlog through the first MVP for project querying and package assembly, while preserving a phased path to document integration, editing, review, and automation.",
     },
+    // Backlog volume and handoff time are unverified (see impact.metricStatus).
+    // The counts below come from the status model and the operational flow.
+    stats: [
+      { value: "MVP 1", label: "Delivered — unblocked recovery of the billable-work backlog" },
+      { value: "6", label: "Shared status states, Initiated through Completed" },
+      { value: "5", label: "Roles mapped across the operational flow" },
+    ],
+    overview:
+      "As Design Lead and UX / Product Strategy Lead at Amdocs Studios, I replaced a telecommunications client's manual billing-package assembly with a guided workflow. Work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I led the strategy and the delivery partnership with engineering, and designed the flow, the status model, and the recovery paths that made billable work traceable again.",
+    leadership: [
+      {
+        kind: "Direction",
+        title: "Defined the shared status model",
+        detail:
+          "Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, and audit-trail concepts.",
+      },
+      {
+        kind: "Direction",
+        title: "De-scoped what wasn't feasible",
+        detail:
+          "Surfaced the dashboard dependency and moved it into a visible backlog rather than compromising the active release, protecting the billing workflow that was feasible.",
+      },
+      {
+        kind: "Hands on",
+        title: "Mapped the operational flow",
+        detail:
+          "Across admins, accountants, engineers, owners, and reviewers — including missing evidence, failed automation, validation, handoffs, and recovery without loss of progress.",
+      },
+      {
+        kind: "Hands on",
+        title: "Designed the guided workflow",
+        detail:
+          "Project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion in one flow.",
+      },
+    ],
+    solutionSteps: [
+      {
+        title: "Query and assemble",
+        points: [
+          "The project number is the package's primary key, so resuming is never mistaken for starting over",
+          "Progressive validation flags missing data early and preserves progress when a dependency fails",
+        ],
+      },
+      {
+        title: "Review as its own state",
+        points: [
+          "A reviewer starts a session, makes inline edits with save or discard, and submits with a git-style commit message",
+          "Everyone else sees view-only access until the review completes, so no one edits mid-review",
+        ],
+      },
+      {
+        title: "Finalize with a trail",
+        points: [
+          "Role-based access is a flow branch, not a permissions afterthought",
+          "Ownership, package state, action history, and review handoffs stay visible to every role",
+        ],
+      },
+    ],
+    nextSteps:
+      "A phased roadmap for document integration, in-product editing, expanded review, and automation — with the de-scoped dashboard retained in the backlog as a future opportunity.",
     context:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where it had gone. Assembling a single billing package meant manually pulling project data, screenshots, and invoices from multiple systems with no shared status model or audit trail.",
     evidence: {
@@ -776,6 +999,66 @@ export const caseStudies: Record<string, CaseStudy> = {
       result:
         "Research changed the navigation, document-selection, comparison, guardrail, and synthesis recommendations and unblocked a phased path from sourced Q&A to multi-document analysis and drafting.",
     },
+    // Adoption and efficiency are unattributed (see impact.metricStatus), so the
+    // band counts what research and the design actually produced.
+    stats: [
+      { value: "4", label: "Research findings that changed the product direction" },
+      { value: "2", label: "Comparison modes kept: side-by-side and table" },
+      { value: "1", label: "Workspace where chat and source documents stay together" },
+    ],
+    overview:
+      "As UX and Product Strategy Lead at Amdocs Studios, I led the research and product direction for an enterprise AI platform where business units get their own toolbox on centrally maintained rails. Users could get AI-generated answers but had no way to verify them. I ran the research program that changed the navigation, selection, and comparison model, and specified the phased build that followed.",
+    leadership: [
+      {
+        kind: "Direction",
+        title: "Facilitated requirements and prioritization",
+        detail:
+          "Translated feature requests into capabilities, flows, and phased backlogs with client stakeholders and product.",
+      },
+      {
+        kind: "Direction",
+        title: "Defined the research program",
+        detail:
+          "Set research protocols and usage metrics, and coordinated mixed-method usability and targeted inquiry across the phases.",
+      },
+      {
+        kind: "Hands on",
+        title: "Synthesized findings into direction",
+        detail:
+          "Used affinity mapping to group observations, then turned them into product recommendations, feature priorities, and reusable interaction patterns.",
+      },
+      {
+        kind: "Hands on",
+        title: "Specified the build",
+        detail:
+          "Converted wireframes into product requirements, roadmaps, test plans, and development-ready stories aligned with the enterprise design system.",
+      },
+    ],
+    solutionSteps: [
+      {
+        title: "Ask in context",
+        points: [
+          "A persistent, context-aware chat sits alongside the document content, not in place of it",
+          "Document selection is visible product state, so users know what the answer is drawn from",
+        ],
+      },
+      {
+        title: "Verify without leaving",
+        points: [
+          "Citations are navigation: a generated statement links to its source in the embedded viewer",
+          "Source scope and the original documents stay visible throughout the workflow",
+        ],
+      },
+      {
+        title: "Compare and continue",
+        points: [
+          "Two modes: side-by-side for nuanced reading, tables for scanning structured differences",
+          "Switching sources preserves conversational context; saving stays an intentional privacy action",
+        ],
+      },
+    ],
+    nextSteps:
+      "A phased path from sourced question answering to multi-document comparison and drafting, connected to delivery through living backlogs, roadmaps, and test plans.",
     context:
       "Traditional enterprise search could retrieve documents, but users still had to open files individually, locate relevant sections, reconcile differences, and manually create a summary. An LLM could accelerate that work, but it introduced new risks: generated answers could lose their connection to source material, users could not easily compare several documents at once, switching files could disrupt conversational context, and sensitive information required privacy-aware behavior. The design question became how to help enterprise users move from retrieval to verified understanding without hiding the documents behind the AI.",
     evidence: {
