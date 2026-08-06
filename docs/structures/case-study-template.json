@@ -1,0 +1,145 @@
+{
+  "$schema": "case-study-template/v2-shipped",
+  "name": "Case study template",
+  "status": "shipped",
+  "shippedIn": "PR #31, merged 2026-08-05",
+  "supersedes": "v1-proposal — the ten-beat framework (Frame -> Think -> Land), and the interim decision-quad and three-tier-visual-rail proposals, none of which shipped",
+  "implementation": {
+    "sectionBuilder": "src/components/case-study/buildSections.tsx",
+    "page": "src/pages/CaseStudyPage.tsx",
+    "data": "src/data/caseStudies.ts",
+    "note": "Sections whose data is absent do not render, so a study can ship partially filled without showing empty headings."
+  },
+  "designIntent": {
+    "reader": "A hiring manager triaging portfolios.",
+    "message": "Thought process and problem solving.",
+    "readingContract": "Scannable in about a minute above the deep dive. Everything an interviewer digs into sits behind a summary rather than competing with the argument.",
+    "leadEmphasis": "Every engagement here was led. The direction/craft split inside the deep dive is what shows the same person set the model and drew the screens — a lead title in the header says nothing about that on its own.",
+    "positioningSource": "Notion — My Archetype (Portfolio planning): operating in ambiguity, prototype in code, consult with engineers mid-build, reduce organizational chaos, scoped the problem, established the framework."
+  },
+  "pageFurniture": [
+    {
+      "element": "Header",
+      "component": "src/components/case-study/CaseStudyHeader.tsx",
+      "layout": "Single column at every width: title, role byline, tagline, tags, then Employer · Client · Timeframe.",
+      "note": "Role is a maroon byline directly under the title — the reader's second question after the project name."
+    },
+    {
+      "element": "Cover",
+      "source": "projects.image",
+      "layout": "32/9 banner, decorative (alt=\"\"), falling back to PlaceholderFigure when a project has no image.",
+      "note": "Half the height a 16/9 block gave it. Every substantive visual is a captioned figure further down with its own alt text."
+    },
+    {
+      "element": "At-a-glance band",
+      "component": "src/components/case-study/StatBand.tsx",
+      "source": "caseStudies.stats + impact.metricStatus",
+      "note": "Above the section nav, so a reader deciding whether to read at all hits the figures first. The caveat renders here, once, under the numbers it qualifies."
+    }
+  ],
+  "sections": [
+    {
+      "id": "overview",
+      "nav": "Overview",
+      "heading": "Overview",
+      "order": 1,
+      "purpose": "What this was and what I did here, in two to four sentences, plus the project facts that aren't credentials.",
+      "sourceFields": ["caseStudies.overview", "caseStudies.snapshotFields (Status, Users, Tools)"],
+      "component": "src/components/case-study/OverviewSection.tsx"
+    },
+    {
+      "id": "challenge",
+      "nav": "Challenge",
+      "heading": "The challenge",
+      "order": 2,
+      "purpose": "What was true before the work, as scannable statements, closing on the reframe that turned a list of problems into a position.",
+      "sourceFields": ["caseStudies.evidence.body", "caseStudies.evidence.findings[].finding", "caseStudies.evidence.insight"],
+      "component": "src/components/case-study/ChallengeList.tsx",
+      "note": "Only the `finding` half of each evidence pair renders here. The `response` half belongs to the solution and renders in the deep dive, where findings and the changes they caused sit together."
+    },
+    {
+      "id": "solution",
+      "nav": "Solution",
+      "heading": "The solution",
+      "order": 3,
+      "purpose": "What shipped, as an ordered walk rather than a capability list. Reading the three titles alone should describe the shape of the product.",
+      "sourceFields": ["caseStudies.solutionSteps", "caseStudies.images", "diagram augments"],
+      "component": "src/components/case-study/SolutionSteps.tsx",
+      "visuals": "A study's own captioned images, or its coded diagrams via section augments, or PlaceholderFigure — so a solution never renders with no picture.",
+      "constraint": "Two supporting points per step is the ceiling. A third turns the card back into the feature list this section replaced."
+    },
+    {
+      "id": "results",
+      "nav": "Results",
+      "heading": "Results",
+      "order": 4,
+      "purpose": "What the work produced: headline, the before/after pair, any business/user/organizational lines, and proof points.",
+      "sourceFields": ["caseStudies.impact"],
+      "component": "src/components/case-study/ResultsSection.tsx",
+      "note": "metricStatus deliberately does not repeat here — it renders once, in the at-a-glance band."
+    },
+    {
+      "id": "deep-dive",
+      "nav": "Deep dive",
+      "heading": "The deep dive",
+      "order": 5,
+      "purpose": "The material an interviewer asks about, closed by default.",
+      "component": "src/components/case-study/DeepDive.tsx",
+      "mechanism": "Native <details>. Every route is prerendered and has to stay readable without JS, and the element gives keyboard and screen-reader behaviour for free.",
+      "panels": [
+        {
+          "title": "Leadership and ownership",
+          "purpose": "First, because it is the question an interviewer opens with and the one the rest of the page can't answer on its own.",
+          "sourceFields": ["caseStudies.leadership", "caseStudies.ownedThemes (falls back to owned)", "caseStudies.team"],
+          "shape": "The Direction / Hands on grid leads, then the fuller ownership themes, then the disciplines."
+        },
+        {
+          "title": "The research",
+          "purpose": "What the research found and the change each finding caused.",
+          "sourceFields": ["caseStudies.evidence.findings (finding -> response)"]
+        },
+        {
+          "title": "Edge cases",
+          "purpose": "Failure designed on purpose, not handled after the fact.",
+          "sourceFields": ["caseStudies.states"]
+        },
+        {
+          "title": "Key decisions",
+          "purpose": "Decisions with their rationale, the path not taken, and what it cost. The strongest senior signal on the page.",
+          "sourceFields": ["caseStudies.decisions"]
+        },
+        {
+          "title": "Reflection",
+          "purpose": "What was learned, what scale taught, and the transferable principle.",
+          "sourceFields": ["caseStudies.reflection"]
+        }
+      ],
+      "removedPanel": {
+        "title": "What's next",
+        "reason": "Removed, along with the `nextSteps` field it read from. A roadmap for work that is still moving dates itself faster than anything else on the page."
+      }
+    }
+  ],
+  "dataFields": {
+    "added": {
+      "stats": "Stat[] — { value, label }. `value` is set in display type, so it stays short. Studies whose outcomes are not numerically verified use a countable design output or a plain word rather than a metric the project record cannot support.",
+      "overview": "string — two to four sentences answering 'what was this, and what did I do here'.",
+      "leadership": "LeadershipPoint[] — { kind: 'Direction' | 'Hands on', title, detail }. Condensed from ownedThemes.",
+      "solutionSteps": "SolutionStep[] — { title, points }.",
+      "visualsPendingNote": "string — caption for PlaceholderFigure, saying what the real asset will show."
+    },
+    "removed": ["visualsPending", "plannedVisuals", "nextSteps"],
+    "unchanged": ["snapshotFields", "team", "tldr", "context", "evidence", "owned", "ownedThemes", "decisions", "states", "images", "impact", "reflection"]
+  },
+  "contentRules": [
+    "Content strings come from the existing case-study record. Condensing and tightening is allowed; inventing claims is not.",
+    "Anything authored is flagged for the owner's sign-off at its site in src/data/caseStudies.ts.",
+    "Studies without verified metrics carry countable design outputs in `stats`, never an invented number.",
+    "metricStatus renders visibly rather than being hidden — the honest limit is itself a trust signal.",
+    "Recreated or stand-in visuals are always labelled as such."
+  ],
+  "openItems": [
+    "The condensed copy across all four studies is live but still pending the owner's sign-off — particularly the leadership framing and the `stats` for the three studies without verified metrics.",
+    "Per-role accountability lines for analysts, admins, and viewers on finance-cloud."
+  ]
+}

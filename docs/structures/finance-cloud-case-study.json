@@ -1,0 +1,139 @@
+{
+  "$schema": "case-study-template/v2-shipped",
+  "template": "case-study-template.json",
+  "status": "shipped",
+  "note": "Finance Cloud as it renders on the live site. Content strings are the ones in src/data/caseStudies.ts; structural keys and the flags at the bottom are documentation scaffolding, not page copy.",
+  "meta": {
+    "slug": "finance-cloud",
+    "previousSlug": "governed-ai-finance-workspace",
+    "title": "Finance Cloud",
+    "tagline": "Reporting, forecasting, and month-end close in one governed AI platform for finance and payroll",
+    "featuredOrder": 1,
+    "tags": ["AI Interaction Design", "Complex Workflows", "Governance", "Data and Finance"]
+  },
+  "header": {
+    "role": "Lead UX / Product Designer",
+    "employer": "Amdocs Studios",
+    "client": "Confidential enterprise telecommunications organization",
+    "timeframe": "2024–Present",
+    "cover": "src/assets/case-studies/gaf/cover.jpg — 32/9 banner, decorative"
+  },
+  "atAGlance": {
+    "stats": [
+      { "value": "0 → 1", "label": "Working POC, designed and shipped" },
+      { "value": "10 → 300", "label": "Pilot users through iterative testing" },
+      { "value": "1,000+", "label": "Enterprise adoption planned" }
+    ],
+    "caveat": "Exact adoption dates, efficiency gains, and close cycle improvements are not verified and are not stated."
+  },
+  "sections": {
+    "overview": {
+      "body": "At Amdocs Studios, I led design for Finance Cloud — a governed AI platform for an enterprise telecom's finance and payroll teams. The brief: bring AI into financial operations without breaking the audit trail. I directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens, taking the platform from zero to a working POC with the lead product owner and then scaling it from 10 pilot users to 300.",
+      "facts": {
+        "Status": "Working POC delivered; scaled pilot in progress",
+        "Users": "Accountants, analysts, managers and controllers, finance leaders, admins, and viewers",
+        "Tools": "Figma, FigJam, React, Tailwind CSS, Vite"
+      }
+    },
+    "challenge": {
+      "points": [
+        "A number without provenance cannot be approved, only re-derived by hand.",
+        "Controls that lived only in the backend were invisible to the people accountable for them.",
+        "Automation that fails silently in finance does not just lose work, it breaks trust in every future result.",
+        "Anomalies surfaced too late are indistinguishable from anomalies never surfaced."
+      ],
+      "insight": "Governance people cannot see is not governance they will approve."
+    },
+    "solution": {
+      "steps": [
+        {
+          "title": "Experiment freely",
+          "points": [
+            "A sandbox with no path to production — real analysis, zero risk to financial controls",
+            "A copilot scoped to the task that drafts editable plans, not finished answers"
+          ]
+        },
+        {
+          "title": "Promote visibly",
+          "points": [
+            "Promotion is a gated, reviewable event — never a hidden setting",
+            "A blocked promotion names the unmet requirement and how to resolve it"
+          ]
+        },
+        {
+          "title": "Run governed",
+          "points": [
+            "Every output traces to its inputs, transformations, and generated code",
+            "Anomalies route to the accountable role; failure states preserve work, retry, and roll back"
+          ]
+        }
+      ],
+      "visuals": "Coded diagrams via section augments (src/components/case-study/diagrams/financeCloudDiagrams.tsx): GovernedPipeline, PromotionGate, ConfidenceThresholds. This study has no `images` array.",
+      "diagramsBuiltNotWired": ["CopilotPlan", "AnomalyRouting", "DesignedStates", "InspectabilityLadder", "RoleMatrix"]
+    },
+    "results": {
+      "headline": "Took Finance Cloud from zero to one and scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+      "before": "AI-assisted analysis was either untrusted or unusable in finance, because output arrived without provenance and controls lived where accountable people could not see them.",
+      "after": "A governed platform where experimentation is separated from production, every AI action is inspectable, anomalies reach the accountable role proactively, and consequential work requires human approval.",
+      "organizational": "The working POC gave stakeholders a concrete, testable model for how governed AI could operate inside financial operations, rather than an abstract promise. That model is what made the scaled pilot possible.",
+      "proof": [
+        "Delivered a working POC, then scaled from 10 pilot users to 300 through iterative testing.",
+        "Established the environment separation and promotion gate model now used across the platform.",
+        "Defined confidence thresholds with ML engineering as explicit product boundaries.",
+        "Made anomaly detection actionable by routing it to the accountable role with drivers attached.",
+        "Preserved human responsibility for accruals, journal entries, payroll, and close work."
+      ],
+      "visuals": "ScalingArc, appended to this section."
+    },
+    "deepDive": {
+      "leadershipAndOwnership": {
+        "leadership": [
+          { "kind": "Direction", "title": "Set the product model", "detail": "Scoped the problem and established the framework the platform still runs on: Workflow Builder, Sandbox, promotion gates, Production, monitoring." },
+          { "kind": "Direction", "title": "Set the boundaries with ML engineering", "detail": "Defined where the system acts, recommends, or stops — confidence thresholds as product decisions, not tuning details." },
+          { "kind": "Hands on", "title": "Designed the work itself", "detail": "The copilot, agent workflows, failure states, and promotion flows — through iterative testing from 10 users to 300." },
+          { "kind": "Hands on", "title": "Ran the research program", "detail": "Screeners, recruitment, training plans, and moderated sessions — built and run end to end across the POC." }
+        ],
+        "ownedThemes": [
+          { "label": "The product model", "detail": "Connected Workflow Builder, Sandbox, promotion gates, Production, and monitoring into one governed platform, with experimentation separated from production so nothing could bypass financial controls." },
+          { "label": "Zero to one, then scale", "detail": "Took the platform from zero to one with the lead product owner, then scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned." },
+          { "label": "AI assistance inside the work", "detail": "Designed copilot assistance and agent-driven workflows across reporting, forecasting, variance analysis, and month-end close, plus anomaly detection routed to the accountable role before close." },
+          { "label": "Uncertainty as a designed state", "detail": "Made partial output, failure, blocked promotion, retry, escalation, and rollback first-class states, and set confidence thresholds with ML engineering as product boundaries." },
+          { "label": "Inspectability and audit", "detail": "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history." }
+        ],
+        "team": ["Product", "Engineering", "ML engineering and AI research", "Data", "Finance and compliance stakeholders"]
+      },
+      "research": [
+        { "finding": "A number without provenance cannot be approved, only re-derived by hand.", "response": "Every AI output needed a visible path back to its inputs, its transformations, and the generated code that produced it." },
+        { "finding": "Controls that lived only in the backend were invisible to the people accountable for them.", "response": "Governance needed a surface in the interface: environment labels, promotion checklists, audit entries." },
+        { "finding": "Automation that fails silently in finance does not just lose work, it breaks trust in every future result.", "response": "Failure, partial output, and low confidence needed designed states rather than error toasts." },
+        { "finding": "Anomalies surfaced too late are indistinguishable from anomalies never surfaced.", "response": "Detection had to reach the right person proactively rather than waiting to be discovered in a report." }
+      ],
+      "edgeCases": [
+        { "state": "Partial or low-confidence AI output", "userSees": "Visual indicator and explanation", "recovery": "Option to proceed with review" },
+        { "state": "Failed Python or data operation", "userSees": "Clear error, with work state preserved", "recovery": "Retry and escalation path" },
+        { "state": "Missing permissions", "userSees": "Blocked state with explanation", "recovery": "Request-access path" },
+        { "state": "Blocked promotion", "userSees": "Reason visible", "recovery": "Checklist of unmet requirements" },
+        { "state": "Consequential multi-step workflow", "userSees": "Pause, resume, and rollback controls", "recovery": "Rollback to last approved state" },
+        { "state": "Anomaly detected in a figure", "userSees": "Proactive notification to the accountable role, with variance, drivers, and affected records", "recovery": "Drill into source data, or dismiss with a recorded reason" },
+        { "state": "Agent workflow interrupted mid-run", "userSees": "Completed steps preserved and labelled, remaining steps held", "recovery": "Resume, or roll back the run as a unit" }
+      ],
+      "keyDecisions": [
+        { "decision": "Separated experimentation from production as two distinct environments.", "rejected": "gating a single workspace with permissions" },
+        { "decision": "Designed promotion as a gated checklist with visible unmet requirements.", "rejected": "a one-click publish" },
+        { "decision": "Treated AI uncertainty and failure as first-class interaction states.", "rejected": "hiding them" },
+        { "decision": "Scoped the copilot to the work in front of the user, not the whole platform.", "rejected": "a general-purpose assistant that has to be told what it is looking at" },
+        { "decision": "Set confidence thresholds as product decisions, made with ML engineering rather than inherited from the model.", "rejected": "surfacing a raw confidence score and leaving interpretation to the user" },
+        { "decision": "Made anomaly detection proactive and role-aware.", "rejected": "leaving anomalies to be found during review, or broadcasting alerts to everyone" }
+      ],
+      "reflection": {
+        "learned": "The hardest part wasn't making AI capable, it was making its governance legible. Early on, controls lived in the backend and users had to trust that they existed. The work got better once every control had a visible surface: an environment label, a promotion checklist, an audit entry.",
+        "whatScaleTaught": "Ten pilot users will tolerate ambiguity and ask a person when something looks wrong. Three hundred users will not, and at a thousand there is no person to ask. Everything that worked at pilot scale because someone could explain it had to become something the interface explained by itself.",
+        "principle": "Governance people can't see isn't governance they'll approve."
+      }
+    }
+  },
+  "pendingOwnerSignoff": [
+    "The overview's leadership framing — 'directed the design workstream across a cross-functional team' — is condensed from the record rather than quoted from it.",
+    "Per-role accountability lines for analysts, admins, and viewers. The data stores users as one comma-separated string."
+  ]
+}

@@ -164,8 +164,6 @@ export interface CaseStudy {
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
   solutionSteps?: SolutionStep[];
-  /** Where the work goes next, for the deep dive. */
-  nextSteps?: string;
   context: string;
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
@@ -267,8 +265,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
-    nextSteps:
-      "Scaled pilot in progress, with enterprise adoption of 1,000+ planned. Pause, resume, and rollback concepts continue to mature for consequential workflows.",
     context:
       "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders remain personally responsible for journal entries, accruals, payroll runs, and close work. A system that produces a number without showing where it came from is not faster, it is unusable, because someone still has to defend that number. Finance Cloud covers reporting, forecasting, variance analysis, anomaly detection, month-end close, and manual journal entries, with copilot assistance and agent-driven workflows running throughout. Every one of those surfaces touches money that has already been committed or is about to be.",
     evidence: {
@@ -786,8 +782,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
-    nextSteps:
-      "A phased roadmap for document integration, in-product editing, expanded review, and automation — with the de-scoped dashboard retained in the backlog as a future opportunity.",
     context:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where it had gone. Assembling a single billing package meant manually pulling project data, screenshots, and invoices from multiple systems with no shared status model or audit trail.",
     evidence: {
@@ -1057,8 +1051,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
-    nextSteps:
-      "A phased path from sourced question answering to multi-document comparison and drafting, connected to delivery through living backlogs, roadmaps, and test plans.",
     context:
       "Traditional enterprise search could retrieve documents, but users still had to open files individually, locate relevant sections, reconcile differences, and manually create a summary. An LLM could accelerate that work, but it introduced new risks: generated answers could lose their connection to source material, users could not easily compare several documents at once, switching files could disrupt conversational context, and sensitive information required privacy-aware behavior. The design question became how to help enterprise users move from retrieval to verified understanding without hiding the documents behind the AI.",
     evidence: {

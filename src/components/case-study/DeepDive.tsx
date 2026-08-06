@@ -100,13 +100,6 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
         </Panel>
       )}
 
-      {content.nextSteps && (
-        <Panel title="What's next">
-          <p className="m-0 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
-            {content.nextSteps}
-          </p>
-        </Panel>
-      )}
     </div>
   );
 }
