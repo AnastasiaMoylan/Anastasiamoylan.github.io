@@ -226,30 +226,34 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     overview:
       "At Amdocs Studios, I led design for Finance Cloud — a governed AI platform for an enterprise telecom's finance and payroll teams. The brief: bring AI into financial operations without breaking the audit trail. I directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens, taking the platform from zero to a working POC with the lead product owner and then scaling it from 10 pilot users to 300.",
+    // One card per discipline, content provided by Anastasia (2026-08-12).
+    // The earlier cards' specifics (product model, ML-engineering thresholds,
+    // copilot design, research operations) still render in ownedThemes, the
+    // decisions list, and the solution steps.
     leadership: [
       {
         kind: "Product strategy",
-        title: "Set the product model",
+        title: "Kept one vision across the product",
         detail:
-          "Scoped the problem and established the framework the platform still runs on: Workflow Builder, Sandbox, promotion gates, Production, monitoring.",
+          "Coordinated engineering, UX, stakeholders, and business executives to keep a consistent vision on a multifaceted product.",
       },
       {
-        kind: "Product strategy",
-        title: "Set the boundaries with ML engineering",
+        kind: "Team leadership",
+        title: "Structured the design team",
         detail:
-          "Defined where the system acts, recommends, or stops — confidence thresholds as product decisions, not tuning details.",
+          "Prioritized the work, set the design direction, and gave design feedback.",
       },
       {
         kind: "Design",
-        title: "Designed the work itself",
+        title: "Kept the design language consistent",
         detail:
-          "The copilot, agent workflows, failure states, and promotion flows — through iterative testing from 10 users to 300.",
+          "Design-system usage and shared patterns applied across a complex product.",
       },
       {
         kind: "Research",
-        title: "Ran the research program",
+        title: "Validated what shipped",
         detail:
-          "Screeners, recruitment, training plans, and moderated sessions — built and run end to end across the POC.",
+          "User validation as products shipped and post-ship, to confirm adoption and shape the roadmap.",
       },
     ],
     solutionSteps: [
