@@ -144,13 +144,14 @@ export interface Stat {
 /**
  * One line of the 'How I led' section.
  *
- * `kind` splits direction from craft: every case study here was led, and the
- * split is what shows a reader that the same person set the model and drew the
- * screens. Condensed from `ownedThemes`; the fuller list still renders in the
- * deep dive.
+ * `kind` is the discipline the point belongs to, rendered as the card's
+ * eyebrow. Four subcategories, so a reader sees the same person set strategy,
+ * drew the screens, ran the research, and led the people. Cards stay in
+ * authored order — adjacent same-kind cards read as a group on their own.
+ * Condensed from `ownedThemes`; the fuller list still renders in the deep dive.
  */
 export interface LeadershipPoint {
-  kind: "Direction" | "Hands on";
+  kind: "Product strategy" | "Design" | "Research" | "Team leadership";
   title: string;
   detail: string;
 }
@@ -227,25 +228,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       "At Amdocs Studios, I led design for Finance Cloud — a governed AI platform for an enterprise telecom's finance and payroll teams. The brief: bring AI into financial operations without breaking the audit trail. I directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens, taking the platform from zero to a working POC with the lead product owner and then scaling it from 10 pilot users to 300.",
     leadership: [
       {
-        kind: "Direction",
+        kind: "Product strategy",
         title: "Set the product model",
         detail:
           "Scoped the problem and established the framework the platform still runs on: Workflow Builder, Sandbox, promotion gates, Production, monitoring.",
       },
       {
-        kind: "Direction",
+        kind: "Product strategy",
         title: "Set the boundaries with ML engineering",
         detail:
           "Defined where the system acts, recommends, or stops — confidence thresholds as product decisions, not tuning details.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Designed the work itself",
         detail:
           "The copilot, agent workflows, failure states, and promotion flows — through iterative testing from 10 users to 300.",
       },
       {
-        kind: "Hands on",
+        kind: "Research",
         title: "Ran the research program",
         detail:
           "Screeners, recruitment, training plans, and moderated sessions — built and run end to end across the POC.",
@@ -505,25 +506,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       "As Lead UX Designer at Amdocs Studios, I designed the connected customer journey for a telecommunications operator that had predictive churn signals but no way to act on them. I led the interaction model across analysts, service teams, and the AI layer, and designed the flow end to end: from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
     leadership: [
       {
-        kind: "Direction",
+        kind: "Product strategy",
         title: "Reframed the score as decision support",
         detail:
           "Paired predictions with lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
       },
       {
-        kind: "Direction",
+        kind: "Product strategy",
         title: "Held the line on human control",
         detail:
           "Required users to review and edit AI-assisted communication before it reached a customer, across every channel in the journey.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Designed the mitigation flow",
         detail:
           "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Designed the platform surfaces",
         detail:
           "Dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring.",
@@ -752,25 +753,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       "As Design Lead and UX / Product Strategy Lead at Amdocs Studios, I replaced a telecommunications client's manual billing-package assembly with a guided workflow. Work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I led the strategy and the delivery partnership with engineering, and designed the flow, the status model, and the recovery paths that made billable work traceable again.",
     leadership: [
       {
-        kind: "Direction",
+        kind: "Product strategy",
         title: "Defined the shared status model",
         detail:
           "Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, and audit-trail concepts.",
       },
       {
-        kind: "Direction",
+        kind: "Team leadership",
         title: "De-scoped what wasn't feasible",
         detail:
           "Surfaced the dashboard dependency and moved it into a visible backlog rather than compromising the active release, protecting the billing workflow that was feasible.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Mapped the operational flow",
         detail:
           "Across admins, accountants, engineers, owners, and reviewers — including missing evidence, failed automation, validation, handoffs, and recovery without loss of progress.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Designed the guided workflow",
         detail:
           "Project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion in one flow.",
@@ -1029,25 +1030,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       "As UX and Product Strategy Lead at Amdocs Studios, I led the research and product direction for an enterprise AI platform where business units get their own toolbox on centrally maintained rails. Users could get AI-generated answers but had no way to verify them. I ran the research program that changed the navigation, selection, and comparison model, and specified the phased build that followed.",
     leadership: [
       {
-        kind: "Direction",
+        kind: "Team leadership",
         title: "Facilitated requirements and prioritization",
         detail:
           "Translated feature requests into capabilities, flows, and phased backlogs with client stakeholders and product.",
       },
       {
-        kind: "Direction",
+        kind: "Research",
         title: "Defined the research program",
         detail:
           "Set research protocols and usage metrics, and coordinated mixed-method usability and targeted inquiry across the phases.",
       },
       {
-        kind: "Hands on",
+        kind: "Research",
         title: "Synthesized findings into direction",
         detail:
           "Used affinity mapping to group observations, then turned them into product recommendations, feature priorities, and reusable interaction patterns.",
       },
       {
-        kind: "Hands on",
+        kind: "Design",
         title: "Specified the build",
         detail:
           "Converted wireframes into product requirements, roadmaps, test plans, and development-ready stories aligned with the enterprise design system.",
