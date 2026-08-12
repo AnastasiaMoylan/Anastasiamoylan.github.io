@@ -40,6 +40,15 @@ import diUserFlowsFull from "../assets/case-studies/di/user-flows.jpg";
 export interface CaseStudyImage {
   src: string;
   fullSrc: string;
+  /**
+   * Intrinsic pixels of the source asset. The gallery renders images fluid
+   * (`w-full h-auto`) and lazy, so without these the browser reserves zero
+   * height and the page jumps as each image loads; the attributes only fix the
+   * aspect ratio, so the full-resolution numbers are correct for the downscaled
+   * preview too.
+   */
+  width: number;
+  height: number;
   alt: string;
   /** Required. States the decision the image shows, not what is in the frame. */
   caption: string;
@@ -647,6 +656,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: ccjUserFlow,
         fullSrc: ccjUserFlowFull,
+        width: 2400,
+        height: 1787,
         alt: "User flow diagram for the connected customer journey, showing an analyst path from dashboard alert through offer generation, a customer journey path from risk event through AI chatbot and human customer-service handoff, and a customer-service representative path ending in resolution.",
         caption:
           "End-to-end flow: from churn-risk detection and segment creation, through AI chatbot and human customer-service handoff, to offer resolution and monitoring.",
@@ -654,6 +665,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: ccjDashboard,
         fullSrc: ccjDashboardFull,
+        width: 1600,
+        height: 1024,
         alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
         caption:
           "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
@@ -661,6 +674,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: ccjMitigationPlan,
         fullSrc: ccjMitigationPlanFull,
+        width: 1600,
+        height: 1547,
         alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
         caption:
           "Mitigation plan for an identified KPI risk, pairing the key drivers behind it with an AI-assisted, tone-controlled offer builder and a live preview of the customer-facing message.",
@@ -668,6 +683,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: ccjChatExpanded,
         fullSrc: ccjChatExpandedFull,
+        width: 1600,
+        height: 1024,
         alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
         caption:
           "The representative's chat interface, with an AI-generated customer summary and suggested course of action alongside the live conversation.",
@@ -917,6 +934,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: cwoMvp1Workflow,
         fullSrc: cwoMvp1WorkflowFull,
+        width: 4174,
+        height: 2592,
         alt: "MVP1 user flow diagram showing a user searching a project number, the system matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
         caption:
           "MVP1 flow: searching a project number, matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
@@ -924,6 +943,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: cwoCreationFlow,
         fullSrc: cwoCreationFlowFull,
+        width: 8818,
+        height: 1862,
         alt: "Billing package creation flow diagram showing role-based branching for admin, accountant, engineer, collections, and view-only report roles, from sign-in through review, export, and finalization.",
         caption:
           "Creation flow: role-based branching from sign-in through review, export, and finalization.",
@@ -931,6 +952,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: cwoFlow,
         fullSrc: cwoFlowFull,
+        width: 6368,
+        height: 2536,
         alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
         caption:
           "Review flow: starting a review, making inline edits with save or discard, completing the review, and submitting with a git-style commit message before the package is marked ready for review.",
@@ -938,6 +961,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: cwoStrategyAlignment,
         fullSrc: cwoStrategyAlignmentFull,
+        width: 2600,
+        height: 661,
         alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
         caption:
           "MVP2 scope-definition workshop: goals and outcomes, feature prioritization, and the entity relationships used to plan the next phase.",
@@ -1158,6 +1183,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         src: diUserFlows,
         fullSrc: diUserFlowsFull,
+        width: 9000,
+        height: 2196,
         alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
         caption:
           "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",

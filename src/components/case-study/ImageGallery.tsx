@@ -16,8 +16,21 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
               aria-label={`Enlarge image: ${image.caption}`}
               className="group relative block w-full p-0 rounded-md border border-border overflow-hidden bg-card cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <img src={image.src} alt={image.alt} className="w-full h-auto block" loading="lazy" />
-              <span className="absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-150 pointer-events-none">
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                className="w-full h-auto block"
+                loading="lazy"
+              />
+              {/*
+                Always visible, not hover-revealed: touch devices have no hover,
+                and on desktop a reader scrolling past never learns the flows
+                zoom — which the wide boards need, since they render only a few
+                hundred pixels tall inline.
+              */}
+              <span className="absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-black/50 text-white opacity-90 group-hover:bg-black/70 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-150 pointer-events-none">
                 <ZoomIn size={18} />
               </span>
             </button>
