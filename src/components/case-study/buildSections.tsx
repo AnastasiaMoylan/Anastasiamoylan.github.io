@@ -2,6 +2,7 @@ import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
 import ChallengeList from "./ChallengeList";
 import OverviewSection from "./OverviewSection";
+import LeadershipGrid from "./LeadershipGrid";
 import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
 import PlaceholderFigure from "./PlaceholderFigure";
@@ -20,13 +21,16 @@ export interface SectionAugments {
 
 /**
  * Composes the page a hiring manager actually reads:
- * Overview -> Challenge -> Solution -> Results -> Deep dive.
+ * Overview -> How I led -> Challenge -> Solution -> Results -> Deep dive.
  *
  * The order is deliberate. Everything above the deep dive is scannable in a
- * minute — headings, bullets, and three-step cards. Everything an interviewer
- * digs into (leadership and ownership, research, edge cases, decisions with
- * their rejected paths, reflection) sits behind a summary rather than competing
- * with the argument.
+ * minute — headings, bullets, and three-step cards. "How I led" sits on the
+ * page rather than in the deep dive because the role label under the title is
+ * a claim, and the direction/craft split is its evidence — the one thing the
+ * scannable page couldn't answer on its own. Everything an interviewer digs
+ * into (ownership detail, research, edge cases, decisions with their rejected
+ * paths, reflection) still sits behind a summary rather than competing with
+ * the argument.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -46,6 +50,15 @@ export default function buildSections(
       content: (
         <OverviewSection overview={content.overview} fields={content.snapshotFields} />
       ),
+    });
+  }
+
+  if (content.leadership && content.leadership.length > 0) {
+    sections.push({
+      id: "leadership",
+      nav: "How I led",
+      heading: "How I led",
+      content: <LeadershipGrid points={content.leadership} />,
     });
   }
 
