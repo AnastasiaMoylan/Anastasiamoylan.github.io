@@ -3,10 +3,11 @@ import type { Impact } from "../../data/caseStudies";
 /**
  * What the work produced.
  *
- * The headline leads, then the before/after pair, then the proof points. The
- * `metricStatus` caveat deliberately does not repeat here — it renders once,
- * under the figures it qualifies in the at-a-glance band, rather than twice on
- * one page.
+ * The headline leads, then the before/after pair, then the proof points, then
+ * the `metricStatus` caveat as a closing footnote. It renders here rather than
+ * under the at-a-glance band: the band is the first impression and the caveat
+ * was undercutting the figures before they landed, while Results is where the
+ * figures are actually argued — the honest limits belong with the argument.
  */
 export default function ResultsSection({ impact }: { impact: Impact }) {
   const narrative = [
@@ -75,6 +76,12 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
             ))}
           </ul>
         </>
+      )}
+
+      {impact.metricStatus && (
+        <p className="mt-9 max-w-[46rem] text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
+          {impact.metricStatus}
+        </p>
       )}
     </div>
   );

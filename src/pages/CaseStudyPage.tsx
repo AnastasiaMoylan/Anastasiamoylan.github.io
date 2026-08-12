@@ -62,15 +62,17 @@ export default function CaseStudyPage() {
           visual on the page is a captioned figure with its own alt text further
           down, so this one is decorative and stays out of the a11y tree.
 
-          32/9 is half the height 16/9 gave it. A banner rather than a block —
-          the figures inside the case study are the ones worth dwelling on.
+          21/9 on desktop keeps the banner feel without amputating the frame the
+          way 32/9 did — the covers are screenshots and diagrams, and the strip
+          crop cut most of them away. On mobile the same ratio collapses to a
+          ~90px sliver, so narrow screens relax to 16/9.
         */}
         {project.image ? (
           <img
             src={project.image}
             alt=""
             aria-hidden="true"
-            className="mt-10 aspect-[32/9] w-full rounded-lg border border-border object-cover"
+            className="mt-10 aspect-[16/9] md:aspect-[21/9] w-full rounded-lg border border-border object-cover"
           />
         ) : (
           <div className="mt-10">
@@ -78,9 +80,7 @@ export default function CaseStudyPage() {
           </div>
         )}
 
-        {content.stats && content.stats.length > 0 && (
-          <StatBand stats={content.stats} caveat={content.impact?.metricStatus} />
-        )}
+        {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
 
         <div className="flex flex-col lg:flex-row gap-12 pt-12">
           <SectionNav sections={sections} />

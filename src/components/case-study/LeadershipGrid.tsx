@@ -1,12 +1,12 @@
 import type { LeadershipPoint } from "../../data/caseStudies";
 
 /**
- * 'How I led' — direction and craft, tagged and side by side.
+ * 'How I led' — one card per point, labelled by discipline.
  *
- * The tag is the whole point of the section. A lead role in the header says the
- * title; showing which calls were direction and which were done by hand is what
- * distinguishes leading a team from managing one, and it is the question a
- * hiring manager is actually asking.
+ * The eyebrow is the point's subcategory (Product strategy, Design, Research,
+ * Team leadership): four distinct labels that show the spread of the role,
+ * unlike the earlier Direction/Hands-on pair that repeated two generic words
+ * across every card.
  */
 export default function LeadershipGrid({
   points,

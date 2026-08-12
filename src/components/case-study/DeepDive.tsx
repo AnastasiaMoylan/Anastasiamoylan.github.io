@@ -1,5 +1,4 @@
 import type { CaseStudy } from "../../data/caseStudies";
-import LeadershipGrid from "./LeadershipGrid";
 import RoleTeam from "./RoleTeam";
 import KeyDecisions from "./KeyDecisions";
 import StatesRecovery from "./StatesRecovery";
@@ -48,16 +47,11 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
   return (
     <div className="flex flex-col gap-3">
       {/*
-        Role comes first: it is the question an interviewer opens with, and the
-        one the rest of the page can't answer on its own. The direction/craft
-        split leads, then the fuller ownership themes and the disciplines.
+        The direction/craft split renders on the page as "How I led" (see
+        buildSections); this panel keeps the fuller ownership themes and the
+        disciplines for an interviewer who wants the complete record.
       */}
-      <Panel title="Leadership and ownership">
-        {content.leadership && content.leadership.length > 0 && (
-          <div className="mb-8">
-            <LeadershipGrid points={content.leadership} />
-          </div>
-        )}
+      <Panel title="What I owned, and the team">
         <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
       </Panel>
 

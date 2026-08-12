@@ -28,7 +28,7 @@ export default function WorkPage() {
         <WorkFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
 
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
           aria-live="polite"
           aria-label="Case study results"
         >
@@ -36,6 +36,18 @@ export default function WorkPage() {
             <WorkCard key={project.slug} project={project} />
           ))}
         </div>
+
+        {filtered.length === 0 && (
+          <p className="text-[1.0625rem] text-muted-foreground py-12" role="status">
+            No case studies tagged {activeFilter} yet.{" "}
+            <button
+              className="text-accent underline underline-offset-4 bg-transparent border-0 p-0 cursor-pointer font-inherit text-[1.0625rem]"
+              onClick={() => setActiveFilter("All")}
+            >
+              Show all case studies
+            </button>
+          </p>
+        )}
 
         <div className="mt-20 text-center">
           <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-4">

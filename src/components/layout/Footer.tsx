@@ -13,7 +13,7 @@ export default function Footer() {
           </li>
           <li>
             <a
-              href="https://linkedin.com/in/anastasia-novelly-moylan-76a70052"
+              href="https://linkedin.com/in/anastasiamoylan"
               className="text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline transition-colors duration-150"
               target="_blank"
               rel="noopener noreferrer"
