@@ -4,11 +4,11 @@ import type { Stat } from "../../data/caseStudies";
  * At-a-glance figures, directly under the header.
  *
  * Sits above the section nav rather than inside a beat: a reader deciding
- * whether to read at all should hit the numbers before any prose. `caveat`
- * carries `impact.metricStatus` so the honest limits of a figure travel with it
- * instead of waiting until the Results section.
+ * whether to read at all should hit the numbers before any prose. The
+ * `metricStatus` caveat renders in Results instead — qualifying the figures
+ * where they're argued, not undercutting them at first glance.
  */
-export default function StatBand({ stats, caveat }: { stats: Stat[]; caveat?: string }) {
+export default function StatBand({ stats }: { stats: Stat[] }) {
   return (
     <section aria-label="At a glance" className="mt-12 border-t border-border pt-10">
       <dl className="m-0 grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -29,11 +29,6 @@ export default function StatBand({ stats, caveat }: { stats: Stat[]; caveat?: st
           </div>
         ))}
       </dl>
-      {caveat && (
-        <p className="mt-8 max-w-[46rem] text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
-          {caveat}
-        </p>
-      )}
     </section>
   );
 }

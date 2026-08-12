@@ -80,9 +80,7 @@ export default function CaseStudyPage() {
           </div>
         )}
 
-        {content.stats && content.stats.length > 0 && (
-          <StatBand stats={content.stats} caveat={content.impact?.metricStatus} />
-        )}
+        {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
 
         <div className="flex flex-col lg:flex-row gap-12 pt-12">
           <SectionNav sections={sections} />

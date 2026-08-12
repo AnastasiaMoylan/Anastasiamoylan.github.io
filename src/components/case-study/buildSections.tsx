@@ -7,6 +7,7 @@ import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
 import PlaceholderFigure from "./PlaceholderFigure";
 import ResultsSection from "./ResultsSection";
+import FeaturedDecision, { pickFeaturedDecision } from "./FeaturedDecision";
 import DeepDive from "./DeepDive";
 
 /**
@@ -100,6 +101,16 @@ export default function buildSections(
       nav: "Results",
       heading: "Results",
       content: <ResultsSection impact={content.impact} />,
+    });
+  }
+
+  const featured = pickFeaturedDecision(content.decisions);
+  if (featured) {
+    sections.push({
+      id: "decision",
+      nav: "Key decision",
+      heading: "One decision, up close",
+      content: <FeaturedDecision decision={featured} />,
     });
   }
 
