@@ -64,8 +64,8 @@ export default function ResumeContent() {
             </a>
           </li>
           <li>
-            <a href="https://linkedin.com/in/anastasia-novelly-moylan-76a70052" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150" target="_blank" rel="noopener noreferrer">
-              linkedin.com/in/anastasia-novelly-moylan-76a70052
+            <a href="https://linkedin.com/in/anastasiamoylan" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150" target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/anastasiamoylan
             </a>
           </li>
         </ul>

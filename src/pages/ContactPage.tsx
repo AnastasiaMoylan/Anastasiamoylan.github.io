@@ -29,7 +29,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://linkedin.com/in/anastasia-novelly-moylan-76a70052"
+            href="https://linkedin.com/in/anastasiamoylan"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-5 p-6 bg-card border-2 border-border rounded-md hover:border-primary hover:bg-secondary transition-colors duration-150 group no-underline"

@@ -13,12 +13,12 @@ export default function Hero() {
           </p>
           <h1
             id="hero-heading"
-            className="text-[clamp(2.5rem,7vw,6.5rem)] font-bold leading-[1.05] text-foreground mb-6"
+            className="text-[clamp(2.5rem,6vw,5.5rem)] font-bold leading-[1.05] text-foreground mb-6"
           >
-            Designing end-to-end journeys people can trust.
+            Designing journeys people can trust.
           </h1>
           <p className="text-[clamp(1rem,2vw,1.125rem)] text-muted-foreground leading-[1.7] max-w-[46rem] mb-10">
-            I work where product development and engineering meet, designing platforms that many teams and products depend on. I map the whole journey&mdash;every role and state, including paths needing feedback. From first contact to final action, my focus is turning complex processes into something people can actually use.
+            I work where product development and engineering meet, designing platforms that many teams and products depend on. I map the whole journey: every role, every state, and every path that breaks. From first contact to final action, my focus is turning complex processes into something people can actually use.
           </p>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
             <Button to="/work" variant="primary">

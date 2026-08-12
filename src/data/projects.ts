@@ -92,7 +92,6 @@ export const filterCategories = [
   "AI and Trust",
   "Complex Workflows",
   "B2B SaaS",
-  "Design Systems",
   "Research",
   "Data and Finance",
   "Customer Experience",
