@@ -208,10 +208,26 @@ export default function PhilosophyPage() {
           level={1}
           eyebrow="Design philosophy"
           title="The whole system, not just the screen"
-          subtitle="Principles only matter if they help someone make a decision under pressure. Each of these is short enough to remember, specific enough to act on, and flexible enough to survive new evidence. If a principle here ever stops a better decision, the principle loses."
+          subtitle="Eight proven principles I have verified through real engagements, consistently achieving outstanding results."
         />
 
-        <div className="mt-14 flex max-w-[52rem] flex-col">
+        {/* The thesis quote leads; the decisions-under-pressure paragraph
+            bridges from it into the numbered list. */}
+        <div className="mt-12 max-w-[52rem] border-b border-border pb-12">
+          <blockquote className="m-0 border-l-[3px] border-primary pl-6 text-[clamp(1.25rem,3vw,1.625rem)] font-medium italic leading-[1.5] text-foreground">
+            &ldquo; Good product design is what makes a system understandable: getting the flows
+            right, designing the data well, and treating AI as core to the experience, not an
+            afterthought. &rdquo;
+          </blockquote>
+          <p className="mt-8 m-0 text-base leading-[1.75] text-muted-foreground">
+            Principles only matter if they help someone make a decision under pressure. Each of
+            these is short enough to remember, specific enough to act on, and flexible enough to
+            survive new evidence. If a principle here ever stops a better decision, the principle
+            loses.
+          </p>
+        </div>
+
+        <div className="mt-12 flex max-w-[52rem] flex-col">
           {principles.map(({ title, thesis, body, visual }, i) => {
             const Visual = visual ? visuals[visual] : null;
             return (
