@@ -50,12 +50,9 @@ export default function WorkPage() {
         )}
 
         <div className="mt-20 text-center">
-          <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-4">
+          <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-8">
             Seen enough to want to talk?
           </h2>
-          <p className="text-[1.0625rem] text-muted-foreground mb-8 max-w-[36rem] mx-auto">
-            I&apos;m available for senior product design roles. The best conversations start with a specific solution you&apos;re trying to build.
-          </p>
           <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>
       </div>
