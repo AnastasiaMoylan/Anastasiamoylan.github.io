@@ -32,8 +32,7 @@ const staticMeta: Record<string, { title: string; description: string }> = {
   },
   "/contact": {
     title: `Contact — ${NAME}`,
-    description:
-      "Open to senior product design roles. Reach out directly by email or LinkedIn. No forms, no gatekeeping.",
+    description: "Reach out directly by email or LinkedIn. No forms, no gatekeeping.",
   },
   "/resume": {
     title: `Resume — ${NAME}`,
