@@ -7,7 +7,7 @@ import StatBand from "../components/case-study/StatBand";
 import PlaceholderFigure from "../components/case-study/PlaceholderFigure";
 import SectionNav from "../components/case-study/SectionNav";
 import buildSections from "../components/case-study/buildSections";
-import { financeCloudAugments } from "../components/case-study/diagrams/financeCloudDiagrams";
+import { getAugments } from "../components/case-study/diagrams/augments";
 
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -38,10 +38,7 @@ export default function CaseStudyPage() {
     );
   }
 
-  const sections = buildSections(
-    content,
-    project.slug === "finance-cloud" ? financeCloudAugments() : {},
-  );
+  const sections = buildSections(content, getAugments(project.slug));
 
   return (
     <div className="py-16 pb-24">

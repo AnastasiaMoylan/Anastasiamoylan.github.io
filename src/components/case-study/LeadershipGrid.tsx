@@ -8,15 +8,8 @@ import type { LeadershipPoint } from "../../data/caseStudies";
  * unlike the earlier Direction/Hands-on pair that repeated two generic words
  * across every card.
  */
-export default function LeadershipGrid({
-  points,
-  collaborators,
-}: {
-  points: LeadershipPoint[];
-  collaborators?: string[];
-}) {
+export default function LeadershipGrid({ points }: { points: LeadershipPoint[] }) {
   return (
-    <div>
       <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2">
         {points.map(({ kind, title, detail }) => (
           <li
@@ -33,13 +26,5 @@ export default function LeadershipGrid({
           </li>
         ))}
       </ul>
-
-      {collaborators && collaborators.length > 0 && (
-        <p className="mt-6 m-0 max-w-[46rem] text-[0.875rem] leading-[1.65] text-muted-foreground">
-          <span className="font-semibold text-foreground">Directing across:</span>{" "}
-          {collaborators.join(" · ")}
-        </p>
-      )}
-    </div>
   );
 }

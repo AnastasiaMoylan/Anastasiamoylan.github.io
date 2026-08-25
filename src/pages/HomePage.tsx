@@ -18,6 +18,7 @@ export default function HomePage() {
       <section className="py-20 border-b border-border" aria-labelledby="home-work-heading">
         <div className="content-container">
           <SectionHeading
+            id="home-work-heading"
             eyebrow="Selected work"
             title="End-to-end solutions worth reading about"
             subtitle="Each one was an opportunity to design a connected, end-to-end solution: turning disconnected steps, unclear ownership, and untracked handoffs into a journey people could follow with confidence."
@@ -37,6 +38,7 @@ export default function HomePage() {
         <div className="content-container">
           <div className="max-w-[48rem]">
             <SectionHeading
+              id="philosophy-teaser-heading"
               eyebrow="Design philosophy"
               title="The whole system, not just the screen"
             />

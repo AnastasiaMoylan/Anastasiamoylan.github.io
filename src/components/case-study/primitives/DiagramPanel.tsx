@@ -11,20 +11,14 @@ export default function DiagramPanel({
   subheading,
   quote,
   children,
-  as = "figure",
-  id,
 }: {
   heading: string;
   subheading?: string;
   quote?: React.ReactNode;
   children: React.ReactNode;
-  as?: "figure" | "section";
-  id?: string;
 }) {
-  const Wrapper = as;
-
   return (
-    <Wrapper id={id} className="m-0 scroll-mt-24">
+    <figure className="m-0 scroll-mt-24">
       <h4 className="m-0 text-[1.125rem] font-bold leading-[1.35] text-foreground">{heading}</h4>
       {subheading && (
         <p className="mt-1 text-sm leading-[1.6] text-muted-foreground max-w-[52rem]">{subheading}</p>
@@ -34,9 +28,9 @@ export default function DiagramPanel({
 
       {quote && (
         <div className="mt-10">
-          <PullQuote as={as === "figure" ? "figcaption" : "blockquote"}>{quote}</PullQuote>
+          <PullQuote as="figcaption">{quote}</PullQuote>
         </div>
       )}
-    </Wrapper>
+    </figure>
   );
 }

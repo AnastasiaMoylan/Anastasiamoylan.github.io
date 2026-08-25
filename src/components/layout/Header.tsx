@@ -3,13 +3,7 @@ import { NavLink } from "react-router";
 import { Menu } from "lucide-react";
 import Button from "../ui/Button";
 import MobileNav from "./MobileNav";
-
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/work", label: "Work" },
-  { to: "/philosophy", label: "Philosophy" },
-  { to: "/about", label: "About" },
-];
+import { navLinks } from "../../data/navLinks";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,11 +35,7 @@ export default function Header() {
                     ].join(" ")
                   }
                 >
-                  {({ isActive }) => (
-                    <span aria-current={isActive ? "page" : undefined}>
-                      {label}
-                    </span>
-                  )}
+                  {label}
                 </NavLink>
               </li>
             ))}

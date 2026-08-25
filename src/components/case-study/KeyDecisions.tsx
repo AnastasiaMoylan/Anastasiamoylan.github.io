@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Decision } from "../../data/caseStudies";
+import RejectedPath from "./RejectedPath";
 
 /** Decisions shown before the mobile "show all" control kicks in. */
 const MOBILE_VISIBLE = 3;
@@ -27,7 +28,8 @@ export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
   return (
     <div>
       <ul className="m-0 list-none p-0">
-        {decisions.map(({ decision, rationale, rejected, tradeoff }, i) => {
+        {decisions.map((d, i) => {
+          const { decision, rationale } = d;
           const hiddenOnMobile = collapsible && !expanded && i >= MOBILE_VISIBLE;
           return (
             <li
@@ -40,17 +42,7 @@ export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
               <p className="m-0 text-[0.9375rem] leading-[1.7] text-muted-foreground">
                 <span className="font-bold text-foreground">{decision}</span> {rationale}
               </p>
-              {(rejected || tradeoff) && (
-                <p className="mt-1.5 m-0 text-[0.8125rem] leading-[1.55] text-muted-foreground">
-                  <span className="mr-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-accent">
-                    Instead of
-                  </span>
-                  {rejected}
-                  {rejected && tradeoff && " — "}
-                  {tradeoff}
-                  {rejected && !tradeoff && "."}
-                </p>
-              )}
+              <RejectedPath decision={d} className="mt-1.5 text-[0.8125rem] leading-[1.55]" />
             </li>
           );
         })}

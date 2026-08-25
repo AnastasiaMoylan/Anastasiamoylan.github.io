@@ -16,8 +16,6 @@ import {
 
 // `?preview` yields a downscaled WebP for inline display (see vite.config.ts);
 // the plain import is the full-resolution original used by the lightbox.
-import financeAIFlow from "../imports/Finance_AI_Transformation_-_End-to-End_Flow.png?preview";
-import financeAIFlowFull from "../imports/Finance_AI_Transformation_-_End-to-End_Flow.png";
 import ccjUserFlow from "../assets/case-studies/ccj/user-flow.jpg?preview";
 import ccjUserFlowFull from "../assets/case-studies/ccj/user-flow.jpg";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg?preview";
@@ -205,8 +203,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         value:
           "Accountants, analysts, managers and controllers, finance leaders, admins, and viewers",
       },
-      // No "Team" field here: SnapshotCard renders the `team` array below as its
-      // own row, and listing both duplicated the same disciplines twice.
+      // No "Team" field here: the deep dive renders the `team` array below as
+      // discipline cards, and listing both duplicated the same disciplines twice.
       { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
     ],
     tldr: {

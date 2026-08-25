@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SectionHeading from "../ui/SectionHeading";
+import Eyebrow from "../ui/Eyebrow";
 
 const steps = [
   {
@@ -41,6 +42,7 @@ export default function ProcessPreview() {
     <section className="py-20 border-b border-border" aria-labelledby="process-heading">
       <div className="content-container">
         <SectionHeading
+          id="process-heading"
           eyebrow="How I work"
           title="Building the journey end-to-end"
           subtitle="The same five phases on every engagement, because connected, trustworthy journeys don't happen by accident. Select any phase to see what it looks like in practice."
@@ -59,9 +61,7 @@ export default function ProcessPreview() {
                   : "border-border hover:border-primary hover:bg-secondary",
               ].join(" ")}
             >
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-accent mb-2">
-                {number}
-              </p>
+              <Eyebrow className="mb-2">{number}</Eyebrow>
               <p className={["text-base font-semibold transition-colors duration-150", active === i ? "text-foreground" : "text-muted-foreground"].join(" ")}>
                 {label}
               </p>
@@ -71,9 +71,9 @@ export default function ProcessPreview() {
 
         {active !== null && (
           <div className="mt-4 p-6 bg-card border border-primary/40 rounded-md">
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-accent mb-3">
+            <Eyebrow className="mb-3">
               {steps[active].number} &middot; {steps[active].label}
-            </p>
+            </Eyebrow>
             <p className="text-[0.9375rem] text-muted-foreground leading-[1.7] max-w-[52rem]">
               {steps[active].blurb}
             </p>

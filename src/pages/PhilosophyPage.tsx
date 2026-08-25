@@ -1,4 +1,5 @@
 import SectionHeading from "../components/ui/SectionHeading";
+import Eyebrow from "../components/ui/Eyebrow";
 
 const skills = [
   "End-to-end journey mapping",
@@ -238,9 +239,7 @@ export default function PhilosophyPage() {
                   i > 0 ? "mt-12 border-t border-border pt-12" : "",
                 ].join(" ")}
               >
-                <p className="m-0 text-xs font-semibold uppercase tracking-[0.1em] text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
+                <Eyebrow>{String(i + 1).padStart(2, "0")}</Eyebrow>
                 <h2 className="m-0 text-xl font-bold text-foreground">{title}</h2>
                 {/* AiStat stands in for 08's thesis, so the line isn't repeated. */}
                 {visual === "aiStat" && Visual && <Visual />}
@@ -285,9 +284,7 @@ export default function PhilosophyPage() {
         </div>
 
         <div className="max-w-[52rem] mt-14 pt-12 border-t border-border">
-          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent mb-5">
-            Skills, in practice
-          </p>
+          <Eyebrow className="mb-5">Skills, in practice</Eyebrow>
           <ul className="list-none p-0 m-0 flex flex-wrap gap-2">
             {skills.map((skill) => (
               <li

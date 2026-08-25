@@ -2,6 +2,7 @@ import DiagramPanel from "../primitives/DiagramPanel";
 import TintPanel from "../primitives/TintPanel";
 import ChecklistRow from "../primitives/ChecklistRow";
 import { ArrowConnector } from "../primitives/Connector";
+import FootNote from "../primitives/FootNote";
 
 const sandboxItems = ["Python analysis", "Data transformations", "Datasets", "AI-assisted plans"];
 
@@ -13,15 +14,6 @@ const gateItems = [
 ];
 
 const productionItems = ["Live workflows", "Full audit trail", "Continuous monitoring"];
-
-function FootNote({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <div className="mt-auto border-t border-border pt-4" />
-      <p className="m-0 text-[0.75rem] leading-[1.55] text-muted-foreground">{children}</p>
-    </>
-  );
-}
 
 export default function PromotionGate() {
   const unmet = gateItems.filter((i) => !i.satisfied).length;
