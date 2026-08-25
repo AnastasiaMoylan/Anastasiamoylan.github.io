@@ -11,6 +11,7 @@ dist-server
 CLAUDE.md
 .claude/
 AGENT.md
+DECISIONS.md
 
 # Authoring scaffolding — kept locally, not part of the published portfolio
 docs/
