@@ -1,5 +1,5 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "portfolio",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -25,10 +25,5 @@
     "typescript": "^5.6.3",
     "vite": "6.3.5",
     "vite-imagetools": "^7.1.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "6.3.5"
-    }
   }
 }
