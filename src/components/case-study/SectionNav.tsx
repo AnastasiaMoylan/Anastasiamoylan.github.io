@@ -32,7 +32,7 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
               className={[
                 "block pl-3.5 pr-3 py-1.5 text-sm no-underline border-l-2 transition-colors duration-150",
                 active === s.id
-                  ? "border-primary text-foreground font-medium"
+                  ? "border-tertiary-700 text-foreground font-medium"
                   : "border-transparent text-muted-foreground hover:text-foreground",
               ].join(" ")}
             >

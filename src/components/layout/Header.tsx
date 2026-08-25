@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import { Menu } from "lucide-react";
 import Button from "../ui/Button";
 import MobileNav from "./MobileNav";
-import { navLinks } from "../../data/navLinks";
+import { primaryNavLinks } from "../../data/navLinks";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,26 +11,36 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-background border-b border-border">
-      <div className="content-container flex items-center justify-between h-16">
+      <div className="content-container flex items-center justify-between h-[72px] gap-6">
         <NavLink
           to="/"
-          className="text-base font-semibold text-foreground hover:text-accent no-underline shrink-0 transition-colors duration-150"
+          className="flex items-center gap-2.5 no-underline shrink-0 text-foreground hover:text-accent transition-colors duration-150"
         >
-          Anastasia Novelly Moylan
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            aria-hidden="true"
+            className="shrink-0 text-accent"
+          >
+            <path d="M0 7 L7 0 L14 7 L7 14 Z" fill="currentColor" />
+          </svg>
+          <span className="font-display text-[0.9375rem] font-bold uppercase tracking-[0.02em]">
+            Anastasia Novelly Moylan
+          </span>
         </NavLink>
 
         <nav aria-label="Main navigation" className="hidden lg:block">
-          <ul className="flex items-center gap-8 list-none m-0 p-0">
-            {navLinks.map(({ to, label }) => (
+          <ul className="flex items-center gap-7 list-none m-0 p-0">
+            {primaryNavLinks.map(({ to, label }) => (
               <li key={to}>
                 <NavLink
                   to={to}
-                  end={to === "/"}
                   className={({ isActive }) =>
                     [
-                      "text-[0.9375rem] font-medium no-underline transition-colors duration-150 pb-0.5 border-b-2",
+                      "font-mono text-[0.71875rem] uppercase tracking-[0.06em] no-underline transition-colors duration-150 pb-1 border-b-2",
                       isActive
-                        ? "text-foreground border-primary"
+                        ? "text-foreground border-tertiary-700"
                         : "text-muted-foreground border-transparent hover:text-foreground",
                     ].join(" ")
                   }
@@ -42,9 +52,15 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="hidden lg:flex">
-          <Button to="/contact" variant="primary">
-            Get in Touch
+        {/* The tabs interlock: the slate one tucks under the maroon one's angled edge. */}
+        <div className="hidden lg:flex items-center shrink-0">
+          <span className="inline-flex -mr-4">
+            <Button to="/resume" variant="slate" shape="hex" size="sm">
+              Résumé
+            </Button>
+          </span>
+          <Button to="/contact" variant="primary" shape="hex" size="sm">
+            Get in touch
           </Button>
         </div>
 

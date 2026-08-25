@@ -23,7 +23,7 @@ export default function StatBand({ stats }: { stats: Stat[] }) {
             <dt className="mt-1.5 max-w-[18rem] text-[0.875rem] leading-[1.5] text-muted-foreground">
               {label}
             </dt>
-            <dd className="m-0 text-[clamp(2rem,4.5vw,2.75rem)] font-bold leading-[1.05] tracking-[-0.015em] text-accent tabular-nums">
+            <dd className="m-0 font-display text-[clamp(2rem,4.5vw,2.75rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-accent tabular-nums">
               {value}
             </dd>
           </div>

@@ -9,6 +9,16 @@ interface SectionHeadingProps {
   id?: string;
 }
 
+/*
+  Page titles (level 1) get the display scale; section headings settle at the
+  34px the design uses, so a section never competes with the page title.
+*/
+const titleSize = {
+  1: "text-[clamp(2.25rem,5vw,3.25rem)]",
+  2: "text-[clamp(1.625rem,3vw,2.125rem)]",
+  3: "text-[clamp(1.375rem,2.4vw,1.625rem)]",
+};
+
 export default function SectionHeading({
   eyebrow,
   title,
@@ -21,7 +31,10 @@ export default function SectionHeading({
   return (
     <div className="flex flex-col gap-3">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <HeadingTag id={id} className="text-[clamp(2rem,4vw,3.75rem)] font-bold text-foreground leading-[1.1]">
+      <HeadingTag
+        id={id}
+        className={`font-display font-extrabold text-foreground leading-[1.1] tracking-[-0.03em] ${titleSize[level]}`}
+      >
         {title}
       </HeadingTag>
       {subtitle && (

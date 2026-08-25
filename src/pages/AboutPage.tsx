@@ -71,16 +71,24 @@ function SectionBlock({ label, children }: { label: string; children: React.Reac
 
 export default function AboutPage() {
   return (
-    <div className="py-16 pb-24">
-      <div className="content-container">
-        <SectionHeading
-          level={1}
-          eyebrow="About"
-          title="Anastasia Novelly Moylan"
-          subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
-        />
+    <>
+      {/* Same blueprint header the homepage hero uses, so the page reads as
+          part of the same site rather than a plain document. */}
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="blueprint absolute inset-0" aria-hidden="true" />
+        <div className="content-container relative py-16">
+          <SectionHeading
+            level={1}
+            eyebrow="About"
+            title="Anastasia Novelly Moylan"
+            subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
+          />
+        </div>
+      </section>
 
-        <div className="max-w-[52rem] mt-12">
+      <div className="py-16 pb-24">
+        <div className="content-container">
+        <div className="max-w-[52rem]">
           <SectionBlock label="Who I am">
             <div className="flex flex-col gap-4 text-[1.0625rem] text-muted-foreground leading-[1.75]">
               <p>
@@ -108,16 +116,16 @@ export default function AboutPage() {
                   <li key={company} className="relative pl-10 flex flex-col gap-3">
                     {/* Dot */}
                     <div
-                      className="absolute left-0 top-[5px] w-[15px] h-[15px] rounded-full bg-primary border-[3px] border-background"
+                      className="absolute left-0 top-[5px] w-[15px] h-[15px] rounded-full bg-tertiary-700 border-[3px] border-background"
                       aria-hidden="true"
                     />
 
                     {roles.map(({ title, dates, context }, i) => (
                       <div key={title} className={i > 0 ? "mt-4 pt-4 border-t border-border flex flex-col gap-3" : "flex flex-col gap-3"}>
                         <div>
-                          <p className="text-[1.0625rem] font-semibold text-foreground leading-snug">{title}</p>
+                          <p className="font-display text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground leading-snug">{title}</p>
                           <div className="flex flex-wrap items-center gap-x-2 mt-0.5">
-                            <span className="text-sm font-medium text-accent">{company}</span>
+                            <span className="text-sm font-medium text-tertiary-700">{company}</span>
                             <span className="text-sm text-muted-foreground">·</span>
                             <span className="text-sm text-muted-foreground">{dates}</span>
                           </div>
@@ -134,7 +142,7 @@ export default function AboutPage() {
           <SectionBlock label="Domain experience">
             <ul className="list-none p-0 m-0 flex flex-wrap gap-2">
               {domains.map((d) => (
-                <li key={d} className="text-sm text-muted-foreground bg-card border border-border rounded-sm px-3 py-1.5">
+                <li key={d} className="text-sm text-secondary-foreground bg-secondary rounded-sm px-3 py-1.5">
                   {d}
                 </li>
               ))}
@@ -144,7 +152,7 @@ export default function AboutPage() {
           <SectionBlock label="Tools">
             <ul className="list-none p-0 m-0 flex flex-wrap gap-2">
               {tools.map((t) => (
-                <li key={t} className="text-sm text-muted-foreground bg-card border border-border rounded-sm px-3 py-1.5">
+                <li key={t} className="text-sm text-secondary-foreground bg-secondary rounded-sm px-3 py-1.5">
                   {t}
                 </li>
               ))}
@@ -154,13 +162,13 @@ export default function AboutPage() {
           <SectionBlock label="Education">
             <div className="flex flex-col gap-4">
               <div>
-                <p className="text-base font-semibold text-foreground">The University of Kansas</p>
+                <p className="font-display text-base font-bold tracking-[-0.01em] text-foreground">The University of Kansas</p>
                 <p className="text-[0.9375rem] text-muted-foreground">
                   Bachelor of Science in Journalism (BSJ), Strategic Communications &middot; Lawrence, Kansas
                 </p>
               </div>
               <div>
-                <p className="text-base font-semibold text-foreground">LUMA Institute</p>
+                <p className="font-display text-base font-bold tracking-[-0.01em] text-foreground">LUMA Institute</p>
                 <p className="text-[0.9375rem] text-muted-foreground">LUMA Design Thinking Practitioner</p>
               </div>
             </div>
@@ -168,10 +176,11 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap gap-4 mt-4">
             <Button to="/resume" variant="outline">View Resume</Button>
-            <Button to="/contact" variant="primary">Get in Touch</Button>
+            <Button to="/contact" variant="primary" shape="hex">Get in Touch</Button>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

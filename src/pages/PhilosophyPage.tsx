@@ -1,5 +1,7 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Eyebrow from "../components/ui/Eyebrow";
+import CapabilityGrid from "../components/philosophy/CapabilityGrid";
+import ProcessPreview from "../components/philosophy/ProcessPreview";
 
 const skills = [
   "End-to-end journey mapping",
@@ -203,6 +205,7 @@ const visuals: Record<NonNullable<Principle["visual"]>, () => React.ReactNode> =
 
 export default function PhilosophyPage() {
   return (
+    <>
     <div className="py-16 pb-24">
       <div className="content-container">
         <SectionHeading
@@ -298,5 +301,14 @@ export default function PhilosophyPage() {
         </div>
       </div>
     </div>
+
+    {/*
+      Both sections used to sit on the homepage. The new homepage leads with
+      outcomes and leadership evidence instead, and "what I bring" plus the
+      five-phase process are the same subject as this page.
+    */}
+    <CapabilityGrid />
+    <ProcessPreview />
+    </>
   );
 }

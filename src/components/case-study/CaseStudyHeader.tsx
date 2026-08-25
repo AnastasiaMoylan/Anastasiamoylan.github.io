@@ -41,12 +41,12 @@ export default function CaseStudyHeader({
       did, what kind of work, and the surrounding facts.
     */
     <header className="flex flex-col">
-      <h1 className="m-0 text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.12] tracking-[-0.02em] text-foreground">
+      <h1 className="m-0 font-display text-[clamp(1.875rem,4.5vw,3.25rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-foreground">
         {title}
       </h1>
 
       {role && (
-        <p className="mt-2.5 m-0 text-[0.9375rem] font-bold tracking-[0.01em] text-accent">
+        <p className="mt-3.5 m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
           <span className="sr-only">Role: </span>
           {role.value}
         </p>
@@ -59,7 +59,7 @@ export default function CaseStudyHeader({
       <ul className="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
         {tags.map((tag) => (
           <li key={tag}>
-            <Badge variant="accent">{tag}</Badge>
+            <Badge>{tag}</Badge>
           </li>
         ))}
       </ul>
