@@ -6,62 +6,20 @@
  * screenshot of the real product, and the owner should be able to spot every
  * outstanding asset by scanning for the tag.
  *
- * `caption` states what the real asset will show. `variant` picks the sketch —
- * they carry no meaning beyond looking different from each other.
+ * `caption` states what the real asset will show. The sketch itself is a
+ * generic flow and carries no meaning.
  */
-type Variant = "flow" | "gate" | "panel" | "grid";
+const sketch = (
+  <>
+    <line x1="24" y1="60" x2="456" y2="60" stroke="var(--accent-tint-mid)" strokeWidth="2" />
+    <rect x="30" y="38" width="88" height="44" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" strokeDasharray="5 4" />
+    <rect x="158" y="38" width="88" height="44" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
+    <rect x="286" y="38" width="88" height="44" rx="8" fill="var(--accent-tint-light)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
+    <circle cx="432" cy="60" r="20" fill="var(--accent)" />
+  </>
+);
 
-const sketches: Record<Variant, React.ReactNode> = {
-  flow: (
-    <>
-      <line x1="24" y1="60" x2="456" y2="60" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="30" y="38" width="88" height="44" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" strokeDasharray="5 4" />
-      <rect x="158" y="38" width="88" height="44" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="286" y="38" width="88" height="44" rx="8" fill="var(--accent-tint-light)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <circle cx="432" cy="60" r="20" fill="var(--accent)" />
-    </>
-  ),
-  gate: (
-    <>
-      <rect x="28" y="24" width="168" height="72" rx="10" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" strokeDasharray="5 4" />
-      <rect x="284" y="24" width="168" height="72" rx="10" fill="var(--accent-tint-light)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="222" y="16" width="36" height="88" rx="8" fill="var(--accent)" />
-      <line x1="232" y1="42" x2="248" y2="42" stroke="var(--primary-foreground)" strokeWidth="2.5" />
-      <line x1="232" y1="60" x2="248" y2="60" stroke="var(--primary-foreground)" strokeWidth="2.5" />
-      <line x1="232" y1="78" x2="248" y2="78" stroke="var(--primary-foreground)" strokeWidth="2.5" />
-    </>
-  ),
-  panel: (
-    <>
-      <rect x="28" y="18" width="252" height="84" rx="10" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="48" y="36" width="120" height="12" rx="6" fill="var(--accent-tint-mid)" />
-      <rect x="48" y="60" width="212" height="9" rx="4" fill="var(--accent-tint-light)" />
-      <rect x="48" y="78" width="176" height="9" rx="4" fill="var(--accent-tint-light)" />
-      <rect x="304" y="18" width="148" height="84" rx="10" fill="var(--accent-tint-subtle)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="324" y="36" width="86" height="9" rx="4" fill="var(--accent-tint-mid)" />
-      <rect x="324" y="54" width="108" height="9" rx="4" fill="var(--accent-tint-light)" />
-      <rect x="324" y="76" width="58" height="14" rx="7" fill="var(--accent)" />
-    </>
-  ),
-  grid: (
-    <>
-      <rect x="28" y="18" width="130" height="40" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="174" y="18" width="130" height="40" rx="8" fill="var(--accent-tint-subtle)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="320" y="18" width="130" height="40" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="28" y="70" width="130" height="40" rx="8" fill="var(--accent-tint-light)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="174" y="70" width="130" height="40" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-      <rect x="320" y="70" width="130" height="40" rx="8" fill="var(--card)" stroke="var(--accent-tint-mid)" strokeWidth="2" />
-    </>
-  ),
-};
-
-export default function PlaceholderFigure({
-  caption,
-  variant = "flow",
-}: {
-  caption: string;
-  variant?: Variant;
-}) {
+export default function PlaceholderFigure({ caption }: { caption: string }) {
   return (
     <figure className="m-0">
       <div className="rounded-lg border border-border bg-secondary px-6 py-9">
@@ -71,7 +29,7 @@ export default function PlaceholderFigure({
           role="img"
           aria-label={`Placeholder sketch. ${caption}`}
         >
-          {sketches[variant]}
+          {sketch}
         </svg>
       </div>
       <figcaption className="mt-3 flex flex-wrap items-baseline gap-x-2.5 gap-y-1">

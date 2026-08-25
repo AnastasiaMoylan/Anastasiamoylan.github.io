@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router";
 import { X } from "lucide-react";
 import Button from "../ui/Button";
+import { navLinks } from "../../data/navLinks";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -9,24 +10,21 @@ interface MobileNavProps {
   triggerRef: React.RefObject<HTMLButtonElement>;
 }
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/work", label: "Work" },
-  { to: "/philosophy", label: "Philosophy" },
-  { to: "/about", label: "About" },
-];
-
 export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (isOpen) closeRef.current?.focus();
   }, [isOpen]);
 
+  // Close the drawer after a navigation. Only the path is a dependency so a
+  // re-render of the Header (which hands down a fresh onClose) doesn't fire it.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   useEffect(() => {
-    onClose();
-  }, [location.pathname]);
+    onCloseRef.current();
+  }, [pathname]);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -81,7 +79,6 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary",
                   ].join(" ")
                 }
-                aria-current={location.pathname === to ? "page" : undefined}
               >
                 {label}
               </NavLink>

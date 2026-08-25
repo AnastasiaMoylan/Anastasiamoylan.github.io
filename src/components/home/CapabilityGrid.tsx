@@ -35,6 +35,7 @@ export default function CapabilityGrid() {
     <section className="py-20 border-b border-border" aria-labelledby="capabilities-heading">
       <div className="content-container">
         <SectionHeading
+          id="capabilities-heading"
           eyebrow="What I bring"
           title="The journey behind the screens"
           subtitle="Here's what it actually takes to get there, and why it matters to the teams I work with."

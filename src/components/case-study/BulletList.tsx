@@ -1,4 +1,4 @@
-/** Em-dash bullets, shared by RoleTeam and OutcomeImpact. */
+/** Em-dash bullets for the deep-dive "What I owned" list. */
 export default function BulletList({ items }: { items: string[] }) {
   return (
     <ul className="list-none p-0 m-0 flex flex-col gap-3">

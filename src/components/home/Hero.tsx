@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import Eyebrow from "../ui/Eyebrow";
 
 export default function Hero() {
   return (
@@ -8,9 +9,9 @@ export default function Hero() {
     >
       <div className="content-container grid grid-cols-1">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.1em] text-accent mb-5">
-            Lead Experience Designer &middot; End-to-End Journeys &amp; Systems Design
-          </p>
+          <Eyebrow className="mb-5">
+            Lead UX Designer &middot; Design Systems &amp; AI-Augmented Workflows for Enterprise
+          </Eyebrow>
           <h1
             id="hero-heading"
             className="text-[clamp(2.5rem,6vw,5.5rem)] font-bold leading-[1.05] text-foreground mb-6"

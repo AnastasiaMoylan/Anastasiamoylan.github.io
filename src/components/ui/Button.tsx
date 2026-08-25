@@ -2,13 +2,15 @@ import { Link } from "react-router";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "outline" | "ghost";
+  variant?: "primary" | "outline";
+  /** In-app route; renders a router <Link>. */
   to?: string;
+  /** Plain URL; renders an <a>. Opens in a new tab unless `download` is set. */
   href?: string;
+  download?: string;
   onClick?: () => void;
   type?: "button" | "submit";
   fullWidth?: boolean;
-  disabled?: boolean;
   ariaLabel?: string;
 }
 
@@ -20,8 +22,6 @@ const variants = {
     "bg-primary text-primary-foreground border-primary hover:bg-accent-hover hover:border-accent-hover",
   outline:
     "bg-transparent text-foreground border-border hover:border-muted-foreground hover:bg-card",
-  ghost:
-    "bg-transparent text-accent border-transparent hover:bg-card hover:text-foreground",
 };
 
 export default function Button({
@@ -29,10 +29,10 @@ export default function Button({
   variant = "primary",
   to,
   href,
+  download,
   onClick,
   type = "button",
   fullWidth,
-  disabled,
   ariaLabel,
 }: ButtonProps) {
   const classes = [base, variants[variant], fullWidth ? "w-full" : ""].filter(Boolean).join(" ");
@@ -46,21 +46,16 @@ export default function Button({
   }
 
   if (href) {
+    const external = download ? {} : { target: "_blank", rel: "noopener noreferrer" };
     return (
-      <a href={href} className={classes} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel}>
+      <a href={href} download={download} className={classes} aria-label={ariaLabel} {...external}>
         {children}
       </a>
     );
   }
 
   return (
-    <button
-      type={type}
-      className={classes}
-      onClick={onClick}
-      disabled={disabled}
-      aria-label={ariaLabel}
-    >
+    <button type={type} className={classes} onClick={onClick} aria-label={ariaLabel}>
       {children}
     </button>
   );

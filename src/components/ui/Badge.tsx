@@ -1,12 +1,11 @@
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "default" | "accent" | "status";
+  variant?: "default" | "accent";
 }
 
 const variants = {
   default: "bg-secondary text-foreground border-border",
   accent: "bg-transparent text-muted-foreground border-border",
-  status: "bg-secondary text-foreground border-border",
 };
 
 export default function Badge({ children, variant = "default" }: BadgeProps) {

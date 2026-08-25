@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Footer() {
   return (
     <footer className="border-t border-border mt-24 py-12">
@@ -22,12 +24,12 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a
-              href="/resume"
+            <Link
+              to="/resume"
               className="text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline transition-colors duration-150"
             >
               Resume
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="flex flex-col items-start md:items-end gap-1">

@@ -1,5 +1,6 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Button from "../components/ui/Button";
+import Eyebrow from "../components/ui/Eyebrow";
 
 const timeline = [
   {
@@ -62,7 +63,7 @@ const tools = [
 function SectionBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
-      <p className="text-xs font-semibold uppercase tracking-[0.06em] text-accent mb-5">{label}</p>
+      <Eyebrow className="mb-5">{label}</Eyebrow>
       {children}
     </div>
   );
@@ -76,7 +77,7 @@ export default function AboutPage() {
           level={1}
           eyebrow="About"
           title="Anastasia Novelly Moylan"
-          subtitle="Lead Experience Designer · 10+ years in enterprise product and AI design"
+          subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
         />
 
         <div className="max-w-[52rem] mt-12">
