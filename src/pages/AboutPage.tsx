@@ -76,7 +76,7 @@ export default function AboutPage() {
           level={1}
           eyebrow="About"
           title="Anastasia Novelly Moylan"
-          subtitle="Lead Experience Designer · 10+ years in enterprise product and AI design"
+          subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
         />
 
         <div className="max-w-[52rem] mt-12">

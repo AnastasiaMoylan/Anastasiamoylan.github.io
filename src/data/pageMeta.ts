@@ -11,9 +11,9 @@ export interface PageMeta {
 
 const staticMeta: Record<string, { title: string; description: string }> = {
   "/": {
-    title: `${NAME} — Lead Experience Designer`,
+    title: `${NAME} — Lead UX Designer`,
     description:
-      "Anastasia Novelly Moylan is a Lead Experience Designer specializing in end-to-end journey design and systems for enterprise AI, B2B SaaS, and finance products.",
+      "Anastasia Novelly Moylan is a Lead UX Designer specializing in design systems and AI-augmented workflows for enterprise AI, B2B SaaS, and finance products.",
   },
   "/work": {
     title: `Work — ${NAME}`,
@@ -28,7 +28,7 @@ const staticMeta: Record<string, { title: string; description: string }> = {
   "/about": {
     title: `About — ${NAME}`,
     description:
-      "10+ years designing complex enterprise products across finance, telecommunications, aviation, and AI-enabled B2B software.",
+      "11 years designing complex enterprise products across finance, telecommunications, aviation, and AI-enabled B2B software.",
   },
   "/contact": {
     title: `Contact — ${NAME}`,
@@ -37,7 +37,7 @@ const staticMeta: Record<string, { title: string; description: string }> = {
   "/resume": {
     title: `Resume — ${NAME}`,
     description:
-      "Resume of Anastasia Novelly Moylan, Lead Experience Designer with 10+ years in enterprise product and AI design.",
+      "Resume of Anastasia Novelly Moylan, Lead UX Designer with 11 years in enterprise product and AI design.",
   },
 };
 
