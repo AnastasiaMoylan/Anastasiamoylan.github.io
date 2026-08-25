@@ -14,3 +14,9 @@ CLAUDE.md
 # Authoring scaffolding — kept locally, not part of the published portfolio
 docs/
 instructions/
+
+# Local research notes — positioning briefs, not part of the published site
+research/
+
+# Local agent context brief — duplicate of research/AGENT.md, holds personal contact details
+/AGENT.md
