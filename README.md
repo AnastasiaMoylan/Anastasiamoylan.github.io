@@ -81,10 +81,11 @@ src/
     caseStudies.ts      Long-form case-study content
     ownedStatements.ts  Claims shared by case studies and the résumé
     pageMeta.ts         Per-route title/description/canonical/OG
+    routes.ts           Every prerendered URL; also the sitemap source
   assets/               Case-study imagery
   styles/               Tailwind layer + theme tokens
 scripts/prerender.mjs   Renders each route to dist/<route>/index.html
-public/                 llms.txt, resume.txt, sitemap.xml, robots.txt, favicon
+public/                 llms.txt, resume.txt, robots.txt, 404.html, favicon
 ```
 
 Built with React 18, React Router 7, Vite 6, Tailwind CSS 4, and TypeScript in strict
@@ -98,9 +99,10 @@ Pushes to `main` trigger [`.github/workflows/deploy.yml`](.github/workflows/depl
 which builds and publishes to GitHub Pages. Build output is never committed — CI
 regenerates it on every push.
 
-Adding a route means listing it in
-[`scripts/prerender.mjs`](scripts/prerender.mjs) and
-[`public/sitemap.xml`](public/sitemap.xml).
+Adding a route means listing it in [`src/data/routes.ts`](src/data/routes.ts) and
+declaring its `<Route>` in [`src/app/router.tsx`](src/app/router.tsx). The prerender
+step and `sitemap.xml` both read that one list. Case-study URLs derive from the
+project data, so a new case study needs neither edit.
 
 ---
 
