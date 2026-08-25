@@ -10,3 +10,7 @@ dist-server
 # Claude Code guidance & local session config — local only
 CLAUDE.md
 .claude/
+
+# Authoring scaffolding — kept locally, not part of the published portfolio
+docs/
+instructions/

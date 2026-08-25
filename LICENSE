@@ -1,0 +1,24 @@
+Copyright (c) 2026 Anastasia Novelly Moylan. All rights reserved.
+
+This repository is the source of a personal portfolio published at
+https://anastasiamoylan.github.io. It is public so that the work can be read.
+It is not open source, and it is not a template.
+
+No license is granted to copy, modify, distribute, or reuse the contents of this
+repository, in whole or in part, for any purpose. That includes:
+
+  - The written content: case studies, philosophy, resume, and all site copy.
+  - The imagery, diagrams, and other visual assets.
+  - The name "Anastasia Novelly Moylan" and any associated identity or branding.
+  - The site design, layout, and its implementation as a whole.
+
+The client engagements described in the case studies belong to the organizations
+that commissioned them and are presented here as a record of professional work.
+
+You are welcome to read the source, learn from it, and reference the techniques
+it demonstrates in your own independently written code. You may not fork this
+repository and republish it as your own portfolio.
+
+Third-party dependencies remain under their own licenses. See ATTRIBUTIONS.md.
+
+For any use beyond reading, ask first: https://anastasiamoylan.github.io/contact
