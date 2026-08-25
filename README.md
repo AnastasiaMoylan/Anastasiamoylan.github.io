@@ -1,73 +1,128 @@
 # Anastasia Novelly Moylan — Portfolio
 
-Source for [anastasiamoylan.github.io](https://anastasiamoylan.github.io) — the portfolio site of Anastasia Novelly Moylan, Lead Experience Designer. A React single-page app that is prerendered to static HTML at build time, so every route is readable without JavaScript and by crawlers and social-share cards.
+**[anastasiamoylan.github.io](https://anastasiamoylan.github.io)**
 
-## Tech stack
+The source of my portfolio. I'm a Lead Experience Designer working on enterprise AI,
+B2B SaaS, and finance products — end-to-end journeys and the systems underneath them.
 
-- **React 18** + **React Router 7**
-- **Vite 6** (build + dev server)
-- **Tailwind CSS 4**
-- **TypeScript** (strict; `tsc --noEmit` for checking)
-- **GitHub Pages** for hosting, deployed via GitHub Actions
-- **GA4** analytics (`react-ga4`)
+This repository is public so the work can be read, not so it can be reused. It is the
+site itself: my case studies, my writing, my résumé. It is **not a template, a starter,
+or a boilerplate**, and it isn't built to be cloned and refitted with someone else's
+name. If you're looking for a portfolio starter, this isn't one.
 
-## Getting started
+The reason it's open is simpler: I design through implementation, and the decisions in
+this repo are part of what I'd want a hiring team to see.
 
-```bash
-npm install     # install dependencies
-npm run dev      # start the Vite dev server (http://localhost:5173)
-```
+---
 
-## Scripts
+## The work
 
-| Script | What it does |
+Four case studies, each an end-to-end enterprise engagement:
+
+| Case study | What it was |
 | --- | --- |
-| `npm run dev` | Start the local dev server with HMR. |
-| `npm run build` | Production build: client bundle → SSR bundle → prerender all routes to static HTML → clean up. |
-| `npm run build:client` | Client bundle only (no prerender). |
-| `npm run typecheck` | Type-check the project with `tsc --noEmit`. |
+| **Finance Cloud** | Reporting, forecasting, and month-end close in one governed AI platform |
+| **The Connected Customer Journey** | Turning predictive churn scores into reviewed, accountable action |
+| **An Auditable Billing Workflow** | Replacing manual billing-package assembly to recover backlogged revenue |
+| **A Tailorable Enterprise AI Platform** | Giving business units their own AI toolbox on centrally maintained rails |
 
-## Project structure
+Alongside them: a [philosophy](https://anastasiamoylan.github.io/philosophy) page of
+principles tested against those engagements, and a résumé.
+
+---
+
+## Decisions worth explaining
+
+The parts of this build I'd defend in a design review.
+
+**The résumé and the case studies cannot contradict each other.**
+Claims that appear in both live once, in
+[`src/data/ownedStatements.ts`](src/data/ownedStatements.ts), and are imported into
+both places. These are professional claims about real engagements — a résumé that
+quietly disagrees with the case study describing the same work is worse than either
+document alone. Making drift structurally impossible was cheaper than remembering to
+check.
+
+**Renaming a case study doesn't break links people already have.**
+A retired slug stays live as a `previousSlug` alias and resolves to the current URL,
+with the canonical tag always pointing at the new one. Renaming something is a
+content decision; it shouldn't cost a visitor a 404 or split the page's search history.
+
+**Every route is readable without JavaScript.**
+The site is a React SPA, but `npm run build` prerenders each route to static HTML.
+Crawlers, social-share cards, screen readers, and anyone on a bad connection get real
+content, not an empty `<div id="root">`. A portfolio that a recruiter's link preview
+can't read is a portfolio with a hole in it.
+
+**Metadata is defined once and applied twice.**
+[`src/data/pageMeta.ts`](src/data/pageMeta.ts) is the single source for titles,
+descriptions, canonicals, and Open Graph tags. The prerender step writes them into the
+static HTML at build time; `DocumentHead` reapplies them on client-side navigation.
+Case-study metadata derives automatically from the case-study data, so adding a study
+can't leave its meta behind.
+
+**The site tells AI crawlers what it is.**
+[`public/llms.txt`](public/llms.txt) and a plain-text
+[`resume.txt`](public/resume.txt) exist so language models summarizing me have
+something accurate to read. That's increasingly how people encounter a portfolio.
+
+---
+
+## Structure
 
 ```
-index.html              App shell + base <head> meta (template for prerender)
+index.html              App shell + base <head> meta (prerender template)
 src/
-  main.tsx              Client entry
-  entry-server.tsx      SSR entry used by the prerender step
-  app/
-    App.tsx             Root component (GA init)
-    router.tsx          Routes + per-navigation <head>/scroll/analytics
-  pages/                One component per route (Home, Work, CaseStudy, About, …)
-  components/           Layout, home, work, resume, and shared UI components
+  app/                  Root component, router, per-navigation head/scroll/analytics
+  pages/                One component per route
+  components/           Layout, home, work, case-study, resume, shared UI
   data/
-    projects.ts         Case-study card data
-    pageMeta.ts         Per-route title/description/canonical/OG metadata
-  assets/               Case-study images
-  styles/               Tailwind + theme CSS
-scripts/
-  prerender.mjs         Renders each route to dist/<route>/index.html with route-specific meta
-public/                 Static files served as-is (llms.txt, resume.txt, sitemap.xml, robots.txt, favicon)
+    projects.ts         Case-study cards, slugs, filters, featured order
+    caseStudies.ts      Long-form case-study content
+    ownedStatements.ts  Claims shared by case studies and the résumé
+    pageMeta.ts         Per-route title/description/canonical/OG
+  assets/               Case-study imagery
+  styles/               Tailwind layer + theme tokens
+scripts/prerender.mjs   Renders each route to dist/<route>/index.html
+public/                 llms.txt, resume.txt, sitemap.xml, robots.txt, favicon
 ```
 
-## How prerendering works
+Built with React 18, React Router 7, Vite 6, Tailwind CSS 4, and TypeScript in strict
+mode. Analytics via GA4.
 
-`npm run build` runs three steps (see [`package.json`](package.json)):
-
-1. `vite build` produces the client bundle in `dist/`.
-2. `vite build --ssr src/entry-server.tsx` produces a server bundle in `dist-server/`.
-3. [`scripts/prerender.mjs`](scripts/prerender.mjs) renders each route from that bundle into `dist/<route>/index.html`, injecting per-route `<title>`, description, canonical, and Open Graph tags from [`src/data/pageMeta.ts`](src/data/pageMeta.ts). The temporary server bundle is then removed.
-
-Routes to prerender are listed in [`scripts/prerender.mjs`](scripts/prerender.mjs); the corresponding URLs are also in [`public/sitemap.xml`](public/sitemap.xml). Add a new route in both places when adding a page.
-
-## SEO & metadata
-
-Metadata lives in one place — [`src/data/pageMeta.ts`](src/data/pageMeta.ts) — and is applied twice:
-
-- **At build time** by the prerender step, so the static HTML each route serves has correct meta.
-- **At runtime** by `DocumentHead` in [`src/app/router.tsx`](src/app/router.tsx), which updates `<head>` on client-side navigation.
-
-Case-study meta is derived automatically from [`src/data/projects.ts`](src/data/projects.ts).
+---
 
 ## Deployment
 
-Pushes to `main` trigger [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which runs `npm run build` and publishes `dist/` to GitHub Pages. **Build output is not committed** — CI regenerates it on every push.
+Pushes to `main` trigger [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
+which builds and publishes to GitHub Pages. Build output is never committed — CI
+regenerates it on every push.
+
+Adding a route means listing it in
+[`scripts/prerender.mjs`](scripts/prerender.mjs) and
+[`public/sitemap.xml`](public/sitemap.xml).
+
+---
+
+## Running it locally
+
+For my own reference, and for anyone who wants to verify the build does what I say it
+does.
+
+```bash
+npm install
+npm run dev        # dev server → http://localhost:5173
+npm run build      # client bundle → SSR bundle → prerender → cleanup
+npm run typecheck  # tsc --noEmit
+```
+
+---
+
+## Usage
+
+The code is here to be read. The content — case studies, copy, imagery, résumé, and my
+name — is not licensed for reuse, and the engagements described belong to the clients
+who commissioned them.
+
+If something here is useful to you, I'd rather you asked than forked.
+[Get in touch](https://anastasiamoylan.github.io/contact).
