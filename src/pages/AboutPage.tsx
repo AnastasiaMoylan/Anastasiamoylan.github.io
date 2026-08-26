@@ -106,10 +106,9 @@ function SectionBlock({ label, children }: { label: string; children: React.Reac
 export default function AboutPage() {
   return (
     <>
-      {/* Same blueprint header the homepage hero uses, so the page reads as
-          part of the same site rather than a plain document. */}
+      {/* Same header band the homepage hero uses, so the page reads as part
+          of the same site rather than a plain document. */}
       <section className="relative overflow-hidden border-b border-border">
-        <div className="blueprint absolute inset-0" aria-hidden="true" />
         <div className="content-container relative py-16">
           <SectionHeading
             level={1}
@@ -245,7 +244,7 @@ export default function AboutPage() {
 
           <div className="flex flex-wrap gap-4 mt-4">
             <Button to="/resume" variant="outline">View Résumé</Button>
-            <Button to="/contact" variant="primary" shape="hex">Get in Touch</Button>
+            <Button to="/contact" variant="primary">Get in Touch</Button>
           </div>
         </div>
         </div>

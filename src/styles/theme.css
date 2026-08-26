@@ -46,10 +46,6 @@
   --font-weight-normal: 400;
   --radius: 0.375rem;
 
-  /* Blueprint layer behind the hero: hairline columns plus register marks. */
-  --grid-line: rgba(218, 212, 203, 0.8);
-  --grid-mark: #b9afa2;
-
   /* Maroon tint ramp for case-study diagrams: successive mixes of --accent
      with white. Subtle = tinted rows and callouts, light = first bar and
      lightest card header, mid = middle bar and header. */
