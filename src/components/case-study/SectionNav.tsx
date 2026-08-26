@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import type { Section } from "./types";
 
-/** Sticky in-page nav; highlights the section nearest the top of the viewport. */
+/**
+ * Sticky in-page nav, restyled 2026-08-26: a compact numbered mono rail in the
+ * site's ordinal language rather than a text list with a border indicator.
+ * Narrower than the old rail on purpose — the content column gets the width.
+ */
 export default function SectionNav({ sections }: { sections: Section[] }) {
   const [active, setActive] = useState(sections[0]?.id);
 
@@ -23,23 +27,46 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
   }, [sections]);
 
   return (
-    <nav className="hidden lg:block shrink-0 w-44 self-start sticky top-24" aria-label="On this page">
-      <ul className="list-none p-0 m-0 flex flex-col gap-1">
-        {sections.map((s) => (
-          <li key={s.id}>
-            <a
-              href={`#${s.id}`}
-              className={[
-                "block pl-3.5 pr-3 py-1.5 text-sm no-underline border-l-2 transition-colors duration-150",
-                active === s.id
-                  ? "border-tertiary-700 text-foreground font-medium"
-                  : "border-transparent text-muted-foreground hover:text-foreground",
-              ].join(" ")}
-            >
-              {s.nav}
-            </a>
-          </li>
-        ))}
+    <nav
+      className="hidden lg:block shrink-0 w-36 self-start sticky top-28"
+      aria-label="On this page"
+    >
+      <p className="m-0 mb-4 font-mono text-[0.625rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        On this page
+      </p>
+      <ul className="list-none p-0 m-0 flex flex-col">
+        {sections.map((s, i) => {
+          const isActive = active === s.id;
+          return (
+            <li key={s.id}>
+              <a
+                href={`#${s.id}`}
+                className={[
+                  "group flex items-baseline gap-2.5 py-[0.4375rem] no-underline transition-colors duration-150",
+                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                ].join(" ")}
+              >
+                <span
+                  className={[
+                    "font-mono text-[0.625rem] tabular-nums transition-colors duration-150",
+                    isActive ? "text-accent font-semibold" : "text-tertiary-500 group-hover:text-tertiary-700",
+                  ].join(" ")}
+                  aria-hidden="true"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={[
+                    "font-mono text-[0.6875rem] uppercase tracking-[0.08em]",
+                    isActive ? "font-semibold" : "",
+                  ].join(" ")}
+                >
+                  {s.nav}
+                </span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

@@ -1,8 +1,10 @@
 :root {
   --font-size: 16px;
 
-  /* Blueprint ground. The page sits on warm grey; cards and bands lift to white. */
-  --background: #edeae5;
+  /* Blueprint ground. Brightened 2026-08-26 (owner: "brighten up the background
+     altogether") — warm off-white rather than warm grey; cards still lift to pure
+     white, and the champagne/maroon accents keep their warmth against it. */
+  --background: #f7f5f1;
   --foreground: #283d3b;
   --card: #ffffff;
   --card-foreground: #283d3b;

@@ -45,7 +45,7 @@ export default function CaseStudyPage() {
     <>
       <section className="relative overflow-hidden border-b border-border">
         <div className="blueprint absolute inset-0" aria-hidden="true" />
-        <div className="content-container relative py-14">
+        <div className="content-container-wide relative py-14">
           <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
             &larr; All case studies
           </Link>
@@ -60,7 +60,7 @@ export default function CaseStudyPage() {
       </section>
 
     <div className="pt-4 pb-24">
-      <div className="content-container">
+      <div className="content-container-wide">
 
         {/*
           The cover sets tone rather than carrying information: every substantive
@@ -87,7 +87,7 @@ export default function CaseStudyPage() {
 
         {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
 
-        <div className="flex flex-col lg:flex-row gap-12 pt-12">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 pt-12">
           <SectionNav sections={sections} />
           <div className="flex-1 min-w-0 flex flex-col gap-14">
             {/*
