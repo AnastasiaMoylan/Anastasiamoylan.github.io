@@ -8,7 +8,6 @@ import ImageGallery from "./ImageGallery";
 import PlaceholderFigure from "./PlaceholderFigure";
 import ResultsSection from "./ResultsSection";
 import FeaturedDecision, { pickFeaturedDecision } from "./FeaturedDecision";
-import ResearchTeam from "./ResearchTeam";
 import DeepDive from "./DeepDive";
 
 /**
@@ -22,21 +21,14 @@ export interface SectionAugments {
 }
 
 /**
- * Composes the page a hiring manager actually reads:
- * Overview -> Challenge -> My role -> Solution -> Research and team ->
- * Outcomes and metrics -> Deep dive.
+ * Composes the page as the storyteller arc (case-study-storyteller skill):
+ * Hook (header + stats, outside this file) -> Stakes -> The real problem ->
+ * My role -> What we built -> The turn -> Outcomes (+ the principle) ->
+ * Deep dive.
  *
- * Headings are phrased as the questions a hiring manager asks (the Dovetail
- * pattern from the Mobbin research board); nav labels stay short nouns.
- *
- * The order mirrors how the studies themselves are written (2026-08-26
- * restructure): problem first, then the role claimed against it, then the
- * work, then how it was validated and with whom, then what it produced. The
- * featured decision renders inside the Solution rather than as its own
- * section — it is the call that shaped the solution, not a separate beat.
- * Everything an interviewer digs into (ownership detail, finding-by-finding
- * research, edge cases, the full decision list, reflection) still sits behind
- * a summary rather than competing with the argument.
+ * "The turn" is the messy middle — the pivot or reversal told straight; it
+ * renders only when a study supplies one. The featured decision stays inside
+ * What we built. Research method and the team live in the deep dive.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -51,10 +43,14 @@ export default function buildSections(
   if (content.overview) {
     sections.push({
       id: "overview",
-      nav: "Overview",
-      heading: "Overview",
+      nav: "Stakes",
+      heading: "The stakes",
       content: (
-        <OverviewSection overview={content.overview} fields={content.snapshotFields} />
+        <OverviewSection
+          overview={content.overview}
+          stakes={content.context}
+          fields={content.snapshotFields}
+        />
       ),
     });
   }
@@ -62,8 +58,8 @@ export default function buildSections(
   if (content.evidence) {
     sections.push({
       id: "challenge",
-      nav: "Challenge",
-      heading: "What was broken?",
+      nav: "Problem",
+      heading: "The real problem",
       content: <ChallengeList evidence={content.evidence} />,
     });
   }
@@ -72,15 +68,12 @@ export default function buildSections(
     sections.push({
       id: "role",
       nav: "My role",
-      heading: "What did I lead?",
+      heading: "My role",
       content: <LeadershipGrid points={content.leadership} />,
     });
   }
 
   if (content.solutionSteps && content.solutionSteps.length > 0) {
-    // Visuals sit with the solution: a diagram augment when the study has coded
-    // figures, its own screens when it has them, and a labelled placeholder
-    // when it has neither — so a study never renders a solution with no picture.
     const visuals = content.images && content.images.length > 0
       ? <ImageGallery images={content.images} />
       : append.solution
@@ -91,8 +84,8 @@ export default function buildSections(
 
     sections.push({
       id: "solution",
-      nav: "Solution",
-      heading: "What did we build, and why?",
+      nav: "Built",
+      heading: "What we built",
       content: (
         <div className="flex flex-col gap-12">
           <SolutionSteps steps={content.solutionSteps} />
@@ -110,12 +103,18 @@ export default function buildSections(
     });
   }
 
-  if (content.evidence?.body || (content.team && content.team.length > 0)) {
+  if (content.turn) {
     sections.push({
-      id: "research",
-      nav: "Research & team",
-      heading: "How did we know?",
-      content: <ResearchTeam body={content.evidence?.body} team={content.team} />,
+      id: "turn",
+      nav: "The turn",
+      heading: "The turn",
+      content: (
+        <div className="max-w-[48rem] border-l-2 border-accent pl-6">
+          <p className="m-0 text-[1.0625rem] leading-[1.75] text-muted-foreground">
+            {content.turn}
+          </p>
+        </div>
+      ),
     });
   }
 
@@ -123,8 +122,22 @@ export default function buildSections(
     sections.push({
       id: "results",
       nav: "Outcomes",
-      heading: "What happened?",
-      content: <ResultsSection impact={content.impact} />,
+      heading: "Outcomes",
+      content: (
+        <div className="flex flex-col gap-12">
+          <ResultsSection impact={content.impact} />
+          {content.reflection?.principle && (
+            <div>
+              <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
+                The principle
+              </p>
+              <p className="mt-3 m-0 max-w-[40rem] font-display text-[clamp(1.25rem,2.5vw,1.625rem)] font-bold leading-[1.35] tracking-[-0.02em] text-foreground">
+                {content.reflection.principle}
+              </p>
+            </div>
+          )}
+        </div>
+      ),
     });
   }
 

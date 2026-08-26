@@ -16,16 +16,16 @@ import {
 
 // `?preview` yields a downscaled WebP for inline display (see vite.config.ts);
 // the plain import is the full-resolution original used by the lightbox.
-import ccjUserFlow from "../assets/case-studies/ccj/user-flow.jpg?preview";
-import ccjUserFlowFull from "../assets/case-studies/ccj/user-flow.jpg";
+// user-flow.jpg (the FigJam working board) was unwired 2026-08-26: it is a
+// process artifact, not the story — candidate for a future deep-dive slot.
+import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
+import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg?preview";
 import ccjDashboardFull from "../assets/case-studies/ccj/dashboard-performance.jpg";
 import ccjMitigationPlan from "../assets/case-studies/ccj/mitigation-plan.jpg?preview";
 import ccjMitigationPlanFull from "../assets/case-studies/ccj/mitigation-plan.jpg";
 import ccjChatExpanded from "../assets/case-studies/ccj/chat-expanded.png?preview";
 import ccjChatExpandedFull from "../assets/case-studies/ccj/chat-expanded.png";
-import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
-import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
 import ccjSegmentOfOne from "../assets/case-studies/ccj/segment-of-one.jpg?preview";
 import ccjSegmentOfOneFull from "../assets/case-studies/ccj/segment-of-one.jpg";
 import cwoMvp1Workflow from "../assets/case-studies/cwo/mvp1-workflow.jpg?preview";
@@ -176,6 +176,8 @@ export interface CaseStudy {
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
   solutionSteps?: SolutionStep[];
+  /** The messy middle: the one pivot, failure, or reversal, told straight. */
+  turn?: string;
   context: string;
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
@@ -298,8 +300,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
+    // Trimmed 2026-08-26 to the storyteller arc's stakes shape: situation,
+    // why it mattered, the constraint. The cut detail (access model, silos)
+    // survives in evidence.findings.
     context:
-      "The organization had invested in several valuable finance products, but users experienced them as disconnected tools rather than a coherent platform. The products served distinct needs — data exploration, AI-assisted analysis, journal-entry and reconciliation workflows, AI agents, audit reporting, and access management — but lived in separate repositories and separate app contexts with limited cross-product integration. There was no unified entry point, and in the existing access model users generally saw only the products they were already permitted to use, which made discovery difficult. The program was sometimes described as a single integrated application — a promise the architecture and roadmap could not yet support. And the work had to move inside real constraints: an enterprise identity and approval architecture still evolving, inconsistent terminology across teams, and delivery silos where product, design, and engineering did not always share context before building.",
+      "The organization had invested in six valuable finance product areas — but users experienced them as disconnected tools, with no unified entry point and no shared language, and the program was being described as a single integrated application the architecture could not yet deliver. Left alone, every new product would deepen the fragmentation and the promise would keep outrunning the platform. The constraint underneath everything: an enterprise identity architecture still evolving, and delivery moving too fast for design to wait for it to settle.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "The program's own story was what broke. It was being described as one integrated application — but the architecture couldn't keep that promise, executive expectations had diverged, and one AI workstream had been building alongside design with a shrinking meeting cadence. I took the reframe to the executive sponsor: stop calling it a single application. A suite of independent products with a shared experience layer was a story the architecture could actually keep — and the homepage, the taxonomy, and the shared patterns all fell out of that one sentence.",
     evidence: {
       body:
         "I developed a research approach based on role segmentation, moderated prototype testing, and direct access to domain experts — 45-minute, one-on-one, semi-structured sessions with clickable prototypes, with questions tailored by participant responsibilities rather than treating \u201cfinance users\u201d as a single audience.",
@@ -627,6 +636,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn't an answer. The reset came when we started treating a prediction as the opening of a decision a person still had to make — with the customer's context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
     evidence: {
       body:
         "I ran user research against the hypothesis behind the product vision: that a predictive churn signal changes nothing unless the person responsible for the customer can see why it fired and act on it without leaving the context. The research validated that hypothesis and gave shape to both the problems below and the surfaces that answered them.",
@@ -731,16 +744,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Loops back to offer adjustment rather than ending in a dead end",
       },
     ],
+    // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
+    // plan, journey explorations) -> act (the representative's chat).
     images: [
-      {
-        src: ccjUserFlow,
-        fullSrc: ccjUserFlowFull,
-        width: 2400,
-        height: 1787,
-        alt: "User flow diagram for the connected customer journey, showing an analyst path from dashboard alert through offer generation, a customer journey path from risk event through AI chatbot and human customer-service handoff, and a customer-service representative path ending in resolution.",
-        caption:
-          "End-to-end flow: from churn-risk detection and segment creation, through AI chatbot and human customer-service handoff, to offer resolution and monitoring.",
-      },
       {
         src: ccjDashboard,
         fullSrc: ccjDashboardFull,
@@ -750,23 +756,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         caption:
           "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
       },
-      {
-        src: ccjJourneyExplorations,
-        fullSrc: ccjJourneyExplorationsFull,
-        width: 2400,
-        height: 1531,
-        alt: "Journey exploration screen showing top-up failure paths by entry channel \u2014 mobile app, SMS, and phone system \u2014 with the churned and successfully continued share at each branch.",
-        caption:
-          "Journey exploration: where customers actually fail, split by entry channel, with the churned and continued share on each path rather than one aggregate rate.",
-      },
+      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
       {
         src: ccjSegmentOfOne,
         fullSrc: ccjSegmentOfOneFull,
         width: 2400,
         height: 1536,
-        alt: "Segment-of-one journey timeline showing a single customer's network, app, SMS, and campaign events across dates, with a high churn-risk flag.",
+        alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
         caption:
-          "The segment-of-one timeline: one customer's events replayed against their churn risk, keeping the pattern and the person connected.",
+          "The segment of one: a single customer's journey on a timeline, so a flagged risk resolves to real events \u2014 not just a score \u2014 before anyone chooses a mitigation.",
       },
       {
         src: ccjMitigationPlan,
@@ -776,6 +774,16 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
         caption:
           "Mitigation plan for an identified KPI risk, pairing the key drivers behind it with an AI-assisted, tone-controlled offer builder and a live preview of the customer-facing message.",
+      },
+      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
+      {
+        src: ccjJourneyExplorations,
+        fullSrc: ccjJourneyExplorationsFull,
+        width: 2400,
+        height: 1531,
+        alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
+        caption:
+          "Journey explorations comparing where top-up failures churned by channel — mobile app, SMS, IVR — so mitigation could target the worst path instead of treating every failure the same.",
       },
       {
         src: ccjChatExpanded,
@@ -915,6 +923,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where it had gone. Assembling a single billing package meant manually pulling project data, screenshots, and invoices from multiple systems with no shared status model or audit trail.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "Mid-delivery, the plan lost its dashboard. The planned reporting dashboard turned out not to be feasible inside the release's technical scope, and forcing it in would have put the billing workflow — the thing recovering actual revenue — at risk. I surfaced the dependency, moved the dashboard into a visible backlog, and kept the release on the work that was feasible. Protecting the core flow cost us the most demo-friendly screen.",
     evidence: {
       findings: [
         {
@@ -1206,6 +1218,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "Traditional enterprise search could retrieve documents, but users still had to open files individually, locate relevant sections, reconcile differences, and manually create a summary. An LLM could accelerate that work, but it introduced new risks: generated answers could lose their connection to source material, users could not easily compare several documents at once, switching files could disrupt conversational context, and sensitive information required privacy-aware behavior. The design question became how to help enterprise users move from retrieval to verified understanding without hiding the documents behind the AI.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "Testing broke our navigation. The prototype moved between documents with tabs; in sessions, people lost track of which documents an answer was drawing from — trust evaporated at exactly the moment the product promised verification. We rebuilt around explicit document selection and side-by-side comparison, and kept every citation one interaction away from its source.",
     evidence: {
       body:
         "I led or contributed to research planning, protocol development, stakeholder alignment, execution guidance, and synthesis. Research evaluated pattern clarity, trust and interpretability, feature discoverability, document selection, navigation across tabs or views, comparison preferences, and guardrails and source verification. I used affinity mapping to group observations and translated the findings into product recommendations, feature priorities, and reusable interaction patterns.",

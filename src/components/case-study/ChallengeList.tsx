@@ -14,7 +14,7 @@ import PullQuote from "./primitives/PullQuote";
 export default function ChallengeList({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
 
-  // The research-method `body` renders in the Research and team section, not
+  // The research-method `body` renders in the deep dive's research panel, not
   // here — this section stays a scannable list of what was broken.
   return (
     <div>
