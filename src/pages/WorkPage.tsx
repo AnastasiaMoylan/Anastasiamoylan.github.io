@@ -21,6 +21,9 @@ export default function WorkPage() {
         {/* Numbered editorial rows (see the Mobbin research board): the outcome
             sentence carries each row. Filters were removed — four studies is
             below the point where filtering earns its place. */}
+        {/* sr-only h2 keeps the outline h1 -> h2 -> row h3s; visually the
+            rows follow the page header directly. */}
+        <h2 className="sr-only">Case studies</h2>
         <div aria-label="Case studies">
           {ordered.map((project, i) => (
             <WorkRow key={project.slug} project={project} index={i} />

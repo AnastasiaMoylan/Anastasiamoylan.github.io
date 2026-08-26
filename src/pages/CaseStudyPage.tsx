@@ -43,8 +43,10 @@ export default function CaseStudyPage() {
 
   return (
     <>
+      {/* No blueprint layer here (removed 2026-08-26): the case-study header
+          sits over the plain ground so the title and facts read clean; the
+          grid stays a homepage/About device. */}
       <section className="relative overflow-hidden border-b border-border">
-        <div className="blueprint absolute inset-0" aria-hidden="true" />
         <div className="content-container relative py-16">
           <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
             &larr; All case studies

@@ -1,6 +1,5 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Button from "../components/ui/Button";
-import Eyebrow from "../components/ui/Eyebrow";
 
 const timeline = [
   {
@@ -93,10 +92,14 @@ const numbers = [
 
 function SectionBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
-      <Eyebrow className="mb-5">{label}</Eyebrow>
+    <section className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
+      {/* A real h2 (styled as the eyebrow) so the page has an outline —
+          it previously rendered as a <p>, leaving h1 with no children. */}
+      <h2 className="m-0 mb-5 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
+        {label}
+      </h2>
       {children}
-    </div>
+    </section>
   );
 }
 
