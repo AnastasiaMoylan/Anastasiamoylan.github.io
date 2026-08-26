@@ -1,4 +1,5 @@
 import type { CaseStudy } from "../../data/caseStudies";
+import ImageGallery from "./ImageGallery";
 import RoleTeam from "./RoleTeam";
 import KeyDecisions from "./KeyDecisions";
 import StatesRecovery from "./StatesRecovery";
@@ -80,6 +81,16 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
               </li>
             ))}
           </ul>
+        </Panel>
+      )}
+
+      {content.processImages && content.processImages.length > 0 && (
+        <Panel title="The journey behind the screens">
+          <p className="mb-6 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
+            The working flow the screens were built against — every role, every handoff,
+            and the paths that break.
+          </p>
+          <ImageGallery images={content.processImages} />
         </Panel>
       )}
 

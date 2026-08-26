@@ -16,8 +16,8 @@ import {
 
 // `?preview` yields a downscaled WebP for inline display (see vite.config.ts);
 // the plain import is the full-resolution original used by the lightbox.
-// user-flow.jpg (the FigJam working board) was unwired 2026-08-26: it is a
-// process artifact, not the story — candidate for a future deep-dive slot.
+import ccjUserFlow from "../assets/case-studies/ccj/user-flow.jpg?preview";
+import ccjUserFlowFull from "../assets/case-studies/ccj/user-flow.jpg";
 import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
 import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg?preview";
@@ -178,6 +178,12 @@ export interface CaseStudy {
   solutionSteps?: SolutionStep[];
   /** The messy middle: the one pivot, failure, or reversal, told straight. */
   turn?: string;
+  /**
+   * Process artifacts — working boards, end-to-end flows. Rendered in the deep
+   * dive as "The journey behind the screens", a separate container from the
+   * solution gallery so the story stays product-first.
+   */
+  processImages?: CaseStudyImage[];
   context: string;
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
@@ -746,6 +752,19 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
     // plan, journey explorations) -> act (the representative's chat).
+    // The working end-to-end flow, kept from the live site in its own deep-dive
+    // container rather than the solution gallery. Caption is the original.
+    processImages: [
+      {
+        src: ccjUserFlow,
+        fullSrc: ccjUserFlowFull,
+        width: 2400,
+        height: 1787,
+        alt: "User flow diagram for the connected customer journey, showing an analyst path from dashboard alert through offer generation, a customer journey path from risk event through AI chatbot and human customer-service handoff, and a customer-service representative path ending in resolution.",
+        caption:
+          "End-to-end flow: from churn-risk detection and segment creation, through AI chatbot and human customer-service handoff, to offer resolution and monitoring.",
+      },
+    ],
     images: [
       {
         src: ccjDashboard,
