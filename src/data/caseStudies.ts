@@ -24,6 +24,10 @@ import ccjMitigationPlan from "../assets/case-studies/ccj/mitigation-plan.jpg?pr
 import ccjMitigationPlanFull from "../assets/case-studies/ccj/mitigation-plan.jpg";
 import ccjChatExpanded from "../assets/case-studies/ccj/chat-expanded.png?preview";
 import ccjChatExpandedFull from "../assets/case-studies/ccj/chat-expanded.png";
+import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
+import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
+import ccjSegmentOfOne from "../assets/case-studies/ccj/segment-of-one.jpg?preview";
+import ccjSegmentOfOneFull from "../assets/case-studies/ccj/segment-of-one.jpg";
 import cwoMvp1Workflow from "../assets/case-studies/cwo/mvp1-workflow.jpg?preview";
 import cwoMvp1WorkflowFull from "../assets/case-studies/cwo/mvp1-workflow.jpg";
 import cwoCreationFlow from "../assets/case-studies/cwo/creation-flow.jpg?preview";
@@ -530,6 +534,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Data Science" },
       { role: "Marketing and CX" },
       { role: "AI/NLP Engineering" },
+      { role: "Front-end and back-end engineering" },
       { role: "Product Owners" },
     ],
     tldr: {
@@ -545,11 +550,15 @@ export const caseStudies: Record<string, CaseStudy> = {
     // instead: the flow itself, the surfaces in `images`, and the review rule.
     stats: [
       { value: "0 → 1", label: "End-to-end mitigation flow, designed from scratch" },
-      { value: "4", label: "Connected surfaces: dashboard, mitigation plan, chatbot, agent view" },
+      {
+        value: "6",
+        label:
+          "Connected surfaces: dashboard, journey exploration, segment-of-one timeline, mitigation plan, customer chatbot, representative view",
+      },
       { value: "Required", label: "Human review before any AI message reached a customer" },
     ],
     overview:
-      "As Lead UX Designer at Amdocs Studios, I designed the connected customer journey for a telecommunications operator that had predictive churn signals but no way to act on them. I led the interaction model across analysts, service teams, and the AI layer, and designed the flow end to end: from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
+      "As Lead UX Designer at Amdocs Studios, I implemented the product vision for a connected customer journey at a telecommunications operator that had predictive churn signals but no way to act on them. I worked with engineering, product, and the client's customer teams, and ran the user research that tested the hypothesis behind the vision and gave shape to both the user problems and the solutions. I designed the flow end to end across the three roles it touches \u2014 the analyst who sees the risk, the customer who lives it, and the service representative who resolves it \u2014 from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
     leadership: [
       {
         kind: "Product strategy",
@@ -578,23 +587,32 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     solutionSteps: [
       {
-        title: "Detect in context",
+        title: "Detect the risk",
         points: [
-          "Segments built dynamically from churn-risk criteria, not static lists",
-          "Risk sits beside behavior, sentiment, journey context, and available actions",
+          "The dashboard leads with the business metrics already at risk or predicted to be, each carrying why it is at risk and a direct path to mitigate it",
+          "Segments are built dynamically from churn-risk criteria \u2014 issues, historic behavior, likelihood to churn \u2014 rather than maintained as static lists",
+        ],
+      },
+      {
+        title: "Explain the drop-off",
+        points: [
+          "Journey exploration shows where customers actually fail, split by entry channel, with the churned and successfully continued share on each path",
+          "A segment-of-one timeline replays one customer's events against their churn risk, so the pattern and the person stay connected",
         ],
       },
       {
         title: "Decide with evidence",
         points: [
-          "Each offer starts as a hypothesis, testable in a what-if analysis tool",
-          "AI drafts a tone-matched message; the person reviews and edits before it goes out",
+          "The mitigation plan pairs the KPI at risk with its key drivers and one recommended next action",
+          "Each offer starts as a hypothesis, testable in a what-if analysis tool before anything is deployed",
+          "AI drafts a message against a selected audience and tone; the person reviews and edits the live preview before it goes out",
         ],
       },
       {
         title: "Act and monitor",
         points: [
-          "A chatbot handles routine cases and hands off to a person when sentiment calls for it",
+          "A chatbot handles routine cases and hands off to a representative when sentiment analysis and account context call for a person",
+          "The representative works from an AI-generated customer summary and suggested course of action, with access to offers the automated system does not yet hold",
           "A declined offer loops back to adjustment rather than ending in a dead end",
         ],
       },
@@ -603,7 +621,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
     evidence: {
       body:
-        "The product direction addressed a documented gap between having customer data and being able to act on it.",
+        "I ran user research against the hypothesis behind the product vision: that a predictive churn signal changes nothing unless the person responsible for the customer can see why it fired and act on it without leaving the context. The research validated that hypothesis and gave shape to both the problems below and the surfaces that answered them.",
       findings: [
         {
           finding:
@@ -620,6 +638,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           finding: "A churn score did not explain what happened or what a team should do next.",
           response:
             "Predictive risk had to sit beside behavior, sentiment, journey context, and available actions.",
+        },
+        {
+          finding:
+            "Failures concentrated in specific journey paths \u2014 a repeated top-up failure in the app, or that same failure diverted to the phone system \u2014 but no view showed which path a customer had taken.",
+          response:
+            "Journey exploration had to show the churned and continued share on each channel path, not a single aggregate rate.",
         },
         {
           finding: "AI-assisted messages and offers could affect the customer relationship.",
@@ -717,6 +741,24 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
         caption:
           "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
+      },
+      {
+        src: ccjJourneyExplorations,
+        fullSrc: ccjJourneyExplorationsFull,
+        width: 2400,
+        height: 1531,
+        alt: "Journey exploration screen showing top-up failure paths by entry channel \u2014 mobile app, SMS, and phone system \u2014 with the churned and successfully continued share at each branch.",
+        caption:
+          "Journey exploration: where customers actually fail, split by entry channel, with the churned and continued share on each path rather than one aggregate rate.",
+      },
+      {
+        src: ccjSegmentOfOne,
+        fullSrc: ccjSegmentOfOneFull,
+        width: 2400,
+        height: 1536,
+        alt: "Segment-of-one journey timeline showing a single customer's network, app, SMS, and campaign events across dates, with a high churn-risk flag.",
+        caption:
+          "The segment-of-one timeline: one customer's events replayed against their churn risk, keeping the pattern and the person connected.",
       },
       {
         src: ccjMitigationPlan,
