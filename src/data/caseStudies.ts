@@ -1081,6 +1081,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Reverts cleanly without affecting the rest of the package",
       },
     ],
+    // The MVP2 scope workshop board, moved out of the solution gallery: a
+    // process artifact, and its full-resolution board carries internal release
+    // targets — behind a click here rather than on the page.
+    processImages: [
+      {
+        src: cwoStrategyAlignment,
+        fullSrc: cwoStrategyAlignmentFull,
+        width: 2600,
+        height: 661,
+        alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
+        caption:
+          "MVP2 scope-definition workshop: goals and outcomes, the team-approved must/should/nice prioritization across six feature areas with shipped items marked, and the entity relationships used to plan the next phase.",
+      },
+    ],
     images: [
       {
         src: cwoMvp1Workflow,
@@ -1108,15 +1122,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
         caption:
           "Review flow: starting a review, making inline edits with save or discard, completing the review, and submitting with a git-style commit message before the package is marked ready for review.",
-      },
-      {
-        src: cwoStrategyAlignment,
-        fullSrc: cwoStrategyAlignmentFull,
-        width: 2600,
-        height: 661,
-        alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
-        caption:
-          "MVP2 scope-definition workshop: goals and outcomes, the team-approved must/should/nice prioritization across six feature areas with shipped items marked, and the entity relationships used to plan the next phase.",
       },
     ],
     impact: {
