@@ -36,7 +36,7 @@ export function FeedbackLoop({ label }: { label: string }) {
     <div className="relative mt-6 hidden md:block" aria-hidden="true">
       <div className="border-t border-dashed border-accent/60" />
       <div className="flex justify-center">
-        <span className="-mt-2 bg-background px-3 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent">
+        <span className="-mt-2 bg-background px-3 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent">
           {label}
         </span>
       </div>

@@ -126,7 +126,9 @@
   */
 
   html {
-    font-size: var(--font-size);
+    /* 100%, not a px value: rem must track the user's browser font-size
+       preference (it was a fixed 16px until the 2026-08-26 a11y audit). */
+    font-size: 100%;
   }
 
   h1,

@@ -29,7 +29,7 @@ export default function FramingShift() {
                 : "rounded-lg border border-border bg-card px-5 py-5"
             }
           >
-            <p className="m-0 font-mono text-[0.625rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
+            <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
               {label}
             </p>
             <p className="mt-2.5 m-0 text-[0.9375rem] leading-[1.6] text-foreground">{body}</p>

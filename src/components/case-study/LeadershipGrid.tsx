@@ -19,9 +19,9 @@ export default function LeadershipGrid({ points }: { points: LeadershipPoint[] }
             <p className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-accent">
               {kind}
             </p>
-            <h4 className="mt-2 mb-1.5 text-[0.9375rem] font-bold leading-[1.35] text-foreground">
+            <h3 className="mt-2 mb-1.5 text-[0.9375rem] font-bold leading-[1.35] text-foreground">
               {title}
-            </h4>
+            </h3>
             <p className="m-0 text-[0.875rem] leading-[1.6] text-muted-foreground">{detail}</p>
           </li>
         ))}

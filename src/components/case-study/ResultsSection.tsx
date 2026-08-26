@@ -60,9 +60,9 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
 
       {impact.proof && impact.proof.length > 0 && (
         <>
-          <h4 className="mt-9 mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
+          <h3 className="mt-9 mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
             Proof points
-          </h4>
+          </h3>
           <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {impact.proof.map((point) => (
               <li key={point} className="flex measure gap-3">

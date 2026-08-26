@@ -84,7 +84,7 @@ export default function GovernanceChain() {
             <span
               aria-hidden="true"
               className={[
-                "absolute top-0 flex h-[22px] w-[22px] items-center justify-center rounded-full font-mono text-[0.5625rem] font-medium",
+                "absolute top-0 flex h-[22px] w-[22px] items-center justify-center rounded-full font-mono text-[0.6875rem] font-medium",
                 tone === "gate" ? "left-3 top-2.5" : "left-0",
                 marker[tone],
               ].join(" ")}
@@ -113,7 +113,7 @@ export default function GovernanceChain() {
 
       <div className="mt-6 border-t border-tertiary-100" />
 
-      <figcaption className="mt-4 font-mono text-[0.65625rem] leading-[1.6] text-muted-foreground">
+      <figcaption className="mt-4 font-mono text-[0.6875rem] leading-[1.6] text-muted-foreground">
         Extracted across Finance Cloud, Connected Customer Journey, and the
         Auditable Billing Workflow.
       </figcaption>

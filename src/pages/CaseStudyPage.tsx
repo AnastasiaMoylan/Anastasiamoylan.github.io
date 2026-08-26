@@ -43,8 +43,10 @@ export default function CaseStudyPage() {
 
   return (
     <>
+      {/* No blueprint layer here (removed 2026-08-26): the case-study header
+          sits over the plain ground so the title and facts read clean; the
+          grid stays a homepage/About device. */}
       <section className="relative overflow-hidden border-b border-border">
-        <div className="blueprint absolute inset-0" aria-hidden="true" />
         <div className="content-container relative py-16">
           <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
             &larr; All case studies
@@ -95,9 +97,8 @@ export default function CaseStudyPage() {
             {/*
               Heading hierarchy for every case study:
                 h1  page title
-                h2  Overview
-                h3  section headings (these panel headers)
-                h4  titles nested inside a section — diagrams, sub-labels
+                h2  section headings (these panel headers)
+                h3  titles nested inside a section — steps, cards, diagrams
             */}
             {sections.map(({ id, heading, content: sectionContent }, i) => (
               <section
@@ -110,9 +111,9 @@ export default function CaseStudyPage() {
                   i > 0 ? "border-t border-border pt-16" : "",
                 ].join(" ")}
               >
-                <h3 className="font-display text-[clamp(1.375rem,2.4vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
+                <h2 className="font-display text-[clamp(1.375rem,2.4vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
                   {heading}
-                </h3>
+                </h2>
                 <div className="mt-8">{sectionContent}</div>
               </section>
             ))}

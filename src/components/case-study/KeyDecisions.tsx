@@ -42,7 +42,7 @@ export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
               <p className="m-0 text-[0.9375rem] leading-[1.7] text-muted-foreground">
                 <span className="font-bold text-foreground">{decision}</span> {rationale}
               </p>
-              <RejectedPath decision={d} className="mt-1.5 text-[0.8125rem] leading-[1.55]" />
+              <RejectedPath decision={d} className="mt-1.5 text-[0.8125rem] leading-[1.55] text-muted-foreground" />
             </li>
           );
         })}

@@ -36,7 +36,7 @@ export default function OutcomeNumbers() {
               <dt className="m-0">
                 <Eyebrow tone={pending ? "muted" : "label"}>{label}</Eyebrow>
                 {pending && (
-                  <span className="mt-1.5 block font-mono text-[0.625rem] uppercase tracking-[0.12em] text-accent">
+                  <span className="mt-1.5 block font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-accent">
                     Owner to supply
                   </span>
                 )}

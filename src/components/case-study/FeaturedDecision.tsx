@@ -24,12 +24,12 @@ export function pickFeaturedDecision(decisions: Decision[]): Decision | undefine
 export default function FeaturedDecision({ decision }: { decision: Decision }) {
   return (
     <div className="max-w-[52rem] rounded-lg border border-accent-tint-light bg-secondary px-7 py-6">
-      <p className="m-0 text-[1.0625rem] leading-[1.65] text-muted-foreground">
+      <p className="m-0 text-[1.0625rem] leading-[1.65] text-secondary-foreground">
         <span className="font-bold text-foreground">{decision.decision}</span>{" "}
         {decision.rationale}
       </p>
-      <RejectedPath decision={decision} className="mt-3 text-[0.875rem] leading-[1.6]" />
-      <p className="mt-4 m-0 text-[0.8125rem] leading-[1.6] text-muted-foreground">
+      <RejectedPath decision={decision} className="mt-3 text-[0.875rem] leading-[1.6] text-secondary-foreground" />
+      <p className="mt-4 m-0 text-[0.8125rem] leading-[1.6] text-secondary-foreground">
         Every decision, with the path not taken, is in{" "}
         <a
           href="#deep-dive"

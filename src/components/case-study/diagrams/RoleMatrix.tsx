@@ -44,7 +44,7 @@ export default function RoleMatrix() {
             <tr className="border-b border-border">
               <th
                 scope="col"
-                className="py-3 pr-4 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                className="py-3 pr-4 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
               >
                 Role
               </th>
@@ -52,7 +52,7 @@ export default function RoleMatrix() {
                 <th
                   key={c.id}
                   scope="col"
-                  className="px-3 py-3 align-bottom text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                  className="px-3 py-3 align-bottom text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
                 >
                   {c.label}
                 </th>

@@ -30,7 +30,7 @@ export default function WorkRow({ project, index }: { project: Project; index: n
           <p className="mt-2 m-0 max-w-[38rem] text-[0.9375rem] leading-[1.6] text-muted-foreground">
             {project.tagline}
           </p>
-          <p className="mt-3 m-0 font-mono text-[0.65625rem] uppercase tracking-[0.1em] text-tertiary-700">
+          <p className="mt-3 m-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-tertiary-700">
             {project.role}
             <span className="mx-2 text-border" aria-hidden="true">·</span>
             <span className="normal-case tracking-[0.03em] text-muted-foreground">

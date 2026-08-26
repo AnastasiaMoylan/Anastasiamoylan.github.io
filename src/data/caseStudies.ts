@@ -701,8 +701,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
-    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
-    // this study's own decisions/reflection — no new claims.
+    // Signed off by Anastasia 2026-08-26.
     turn:
       "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn't an answer. The reset came when we started treating a prediction as the opening of a decision a person still had to make — with the customer's context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
     evidence: {

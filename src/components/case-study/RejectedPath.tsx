@@ -5,6 +5,10 @@ import type { Decision } from "../../data/caseStudies";
  * the other one cost. Renders nothing when the decision carries neither.
  * Shared by the featured decision and the deep-dive list so the two stay
  * identical in wording and punctuation.
+ *
+ * Text colour comes from the caller: muted-foreground fails AA (4.35:1) on
+ * the featured decision's champagne panel, so that caller passes
+ * secondary-foreground instead.
  */
 export default function RejectedPath({
   decision: { rejected, tradeoff },
@@ -15,7 +19,7 @@ export default function RejectedPath({
 }) {
   if (!rejected && !tradeoff) return null;
   return (
-    <p className={["m-0 text-muted-foreground", className].filter(Boolean).join(" ")}>
+    <p className={["m-0", className].filter(Boolean).join(" ")}>
       <span className="mr-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-accent">
         Instead of
       </span>

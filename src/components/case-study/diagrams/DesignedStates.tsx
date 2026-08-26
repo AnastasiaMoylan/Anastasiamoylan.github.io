@@ -22,7 +22,7 @@ export default function DesignedStates({ states }: { states: StateRecovery[] }) 
                 <th
                   key={h}
                   scope="col"
-                  className="py-3 pr-6 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                  className="py-3 pr-6 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
                 >
                   {h}
                 </th>

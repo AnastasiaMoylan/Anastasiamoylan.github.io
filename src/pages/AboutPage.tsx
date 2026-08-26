@@ -1,6 +1,5 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Button from "../components/ui/Button";
-import Eyebrow from "../components/ui/Eyebrow";
 
 const timeline = [
   {
@@ -93,10 +92,14 @@ const numbers = [
 
 function SectionBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
-      <Eyebrow className="mb-5">{label}</Eyebrow>
+    <section className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
+      {/* A real h2 (styled as the eyebrow) so the page has an outline —
+          it previously rendered as a <p>, leaving h1 with no children. */}
+      <h2 className="m-0 mb-5 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
+        {label}
+      </h2>
       {children}
-    </div>
+    </section>
   );
 }
 
@@ -148,7 +151,7 @@ export default function AboutPage() {
             <ol className="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-5">
               {principles.map(({ label, detail }, i) => (
                 <li key={label} className="rounded-md border border-border bg-card px-6 py-5">
-                  <p className="m-0 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-tertiary-700">
+                  <p className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <p className="mt-2.5 m-0 font-display text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground">
@@ -164,7 +167,7 @@ export default function AboutPage() {
                   <dd className="m-0 font-display text-[2.25rem] font-extrabold leading-none tracking-[-0.03em] text-accent">
                     {value}
                   </dd>
-                  <dt className="mt-2 m-0 font-mono text-[0.65625rem] uppercase tracking-[0.1em] text-tertiary-700">
+                  <dt className="mt-2 m-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-tertiary-700">
                     {label}
                   </dt>
                 </div>
