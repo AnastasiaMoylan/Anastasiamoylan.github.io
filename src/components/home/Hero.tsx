@@ -5,7 +5,6 @@ import GovernanceChain from "./GovernanceChain";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-border" aria-labelledby="hero-heading">
-      <div className="blueprint absolute inset-0" aria-hidden="true" />
 
       <div className="content-container relative py-16 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_396px] lg:gap-16 lg:items-start">
@@ -27,7 +26,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-9">
-              <Button to="/work" shape="hex">
+              <Button to="/work">
                 See the case studies
               </Button>
             </div>

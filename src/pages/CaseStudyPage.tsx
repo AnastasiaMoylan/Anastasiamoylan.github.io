@@ -130,7 +130,7 @@ export default function CaseStudyPage() {
               {nextProject.title} &rarr;
             </Link>
           </div>
-          <Button to="/contact" variant="primary" shape="hex">Get in Touch</Button>
+          <Button to="/contact" variant="primary">Get in Touch</Button>
         </div>
       </div>
     </div>
