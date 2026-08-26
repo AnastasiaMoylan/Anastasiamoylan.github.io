@@ -23,9 +23,10 @@ export function financeCloudAugments(): SectionAugments {
       solution: (
         <>
           <p className="m-0 max-w-[52rem] text-base leading-[1.7] text-muted-foreground">
-            The platform is one pipeline with governance sitting over every stage. Two mechanisms
-            carry that governance in practice: the gate that controls promotion to production, and
-            the thresholds that decide when the system may act on its own.
+            Beneath the suite’s front door, the analysis products run as one governed
+            pipeline. Two mechanisms carry that governance in practice: the gate that controls
+            promotion to production, and the thresholds that decide when the system may act on
+            its own.
           </p>
           <GovernedPipeline />
           <PromotionGate />

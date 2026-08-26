@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import WorkCard from "../work/WorkCard";
+import WorkRow from "../work/WorkRow";
 import { projects } from "../../data/projects";
 
 const featured = projects
@@ -21,13 +21,13 @@ export default function SelectedWork() {
             to="/work"
             className="font-mono text-[0.75rem] tracking-[0.03em] text-accent hover:text-accent-hover no-underline transition-colors duration-150"
           >
-            All case studies &rarr;
+            All case studies →
           </Link>
         </div>
 
-        <div className="mt-11 grid grid-cols-1 gap-x-7 gap-y-11 md:grid-cols-2">
-          {featured.map((project) => (
-            <WorkCard key={project.slug} project={project} />
+        <div className="mt-10">
+          {featured.map((project, i) => (
+            <WorkRow key={project.slug} project={project} index={i} />
           ))}
         </div>
       </div>

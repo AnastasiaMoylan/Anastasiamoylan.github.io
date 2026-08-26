@@ -224,8 +224,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         value:
           "Analyst, accounting, and finance leadership organizations, plus specialized finance roles",
       },
-      // No "Team" field here: the deep dive renders the `team` array below as
-      // discipline cards, and listing both duplicated the same disciplines twice.
+      // Short header fact (Linear-block pattern); the full disciplines render
+      // as cards in Research and team.
+      {
+        label: "Team",
+        value: "Six application-level designers, plus product, engineering, data, and finance SMEs",
+      },
       { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
     ],
     tldr: {
@@ -526,6 +530,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025" },
       { label: "Status", value: "Completed, April 2025" },
+      {
+        label: "Team",
+        value: "UX design, data science, marketing and CX, AI/NLP engineering, product owners",
+      },
       { label: "Tools", value: "Figma, FigJam" },
       { label: "Users", value: "Marketing and CX teams, service agents, and product/data partners" },
     ],
@@ -812,6 +820,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025, one-year engagement" },
       { label: "Status", value: "Completed" },
+      {
+        label: "Team",
+        value: "Chief Data Office, product, engineering, UI development, finance stakeholders",
+      },
       { label: "Tools", value: "Figma, FigJam" },
       { label: "Users", value: "Admins, accountants, and engineers managing multiple projects and billing packages" },
       { label: "Adoption", value: "100-user target, reached" },
@@ -1113,6 +1125,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2025" },
       { label: "Status", value: "Multi-phase accelerator and product-development work" },
+      {
+        label: "Team",
+        value: "Design, product, engineering, research, client stakeholders",
+      },
       { label: "Users", value: "Enterprise business users, Corporate Communications, Risk and Compliance" },
     ],
     team: [

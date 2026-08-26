@@ -14,14 +14,10 @@ import PullQuote from "./primitives/PullQuote";
 export default function ChallengeList({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
 
+  // The research-method `body` renders in the Research and team section, not
+  // here — this section stays a scannable list of what was broken.
   return (
     <div>
-      {evidence.body && (
-        <p className="mb-7 max-w-[46rem] text-base leading-[1.7] text-muted-foreground">
-          {evidence.body}
-        </p>
-      )}
-
       {findings.length > 0 && (
         <ul className="m-0 flex list-none flex-col gap-4 p-0">
           {findings.map(({ finding }) => (

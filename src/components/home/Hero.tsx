@@ -37,7 +37,7 @@ export default function Hero() {
         </div>
 
         <p className="mt-16 text-center font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted-foreground">
-          Eleven years &middot; Finance &middot; Telecom &middot; Aviation &middot; AI-enabled B2B software
+          St. Marys, Kansas &middot; Remote across the Americas &middot; Eleven years &middot; Finance &middot; Telecom &middot; AI-enabled B2B software
         </p>
       </div>
     </section>

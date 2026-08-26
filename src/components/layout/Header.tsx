@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { NavLink } from "react-router";
 import { Menu } from "lucide-react";
-import Button from "../ui/Button";
 import MobileNav from "./MobileNav";
 import { primaryNavLinks } from "../../data/navLinks";
 
@@ -51,18 +50,6 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-
-        {/* The tabs interlock: the slate one tucks under the maroon one's angled edge. */}
-        <div className="hidden lg:flex items-center shrink-0">
-          <span className="inline-flex -mr-4">
-            <Button to="/resume" variant="slate" shape="hex" size="sm">
-              Résumé
-            </Button>
-          </span>
-          <Button to="/contact" variant="primary" shape="hex" size="sm">
-            Get in touch
-          </Button>
-        </div>
 
         <button
           ref={menuBtnRef}

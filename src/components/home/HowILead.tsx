@@ -3,9 +3,13 @@ import { Link } from "react-router";
 /**
  * Leadership evidence, above the work grid.
  *
- * The third card is a marked content slot, not copy: the cross-practice review
- * program is real, but its cadence, participants and result are the owner's to
- * describe. It renders as an outline so it can't be mistaken for a claim.
+ * Card 03 was a marked content slot until 2026-08-25, when the extraction
+ * interview supplied the scope it was waiting for: a five-product finance
+ * program with six application-level designers. [NEEDS SIGN-OFF]
+ *
+ * The wording avoids "managed" and "my team" on purpose — the designers are not
+ * Anastasia's reports, and a claim of reporting lines is the kind of thing that
+ * collapses under one interview question.
  */
 const cards = [
   {
@@ -20,9 +24,8 @@ const cards = [
   },
   {
     n: "03",
-    title: "Cross-practice design review",
-    body: "Cadence, participants, and what measurably changed as a result.",
-    pending: true,
+    title: "Six designers, five products",
+    body: "Owned the product strategy and directed the six application-level designers building across a finance transformation program, coordinating large cross-functional teams throughout.",
   },
 ];
 
@@ -46,22 +49,9 @@ export default function HowILead() {
         </div>
 
         <ul className="list-none p-0 m-0 mt-9 grid grid-cols-1 gap-6 md:grid-cols-3">
-          {cards.map(({ n, title, body, pending }) => (
-            <li
-              key={n}
-              className={[
-                "flex flex-col rounded-md px-7 py-6",
-                pending
-                  ? "border border-dashed border-accent"
-                  : "bg-card border border-border",
-              ].join(" ")}
-            >
-              <span
-                className={[
-                  "font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em]",
-                  pending ? "text-accent" : "text-tertiary-700",
-                ].join(" ")}
-              >
+          {cards.map(({ n, title, body }) => (
+            <li key={n} className="flex flex-col rounded-md px-7 py-6 bg-card border border-border">
+              <span className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
                 {n}
               </span>
               <h3 className="mt-4 font-display text-[1.1875rem] font-medium leading-[1.25] tracking-[-0.01em] text-foreground">
@@ -70,11 +60,6 @@ export default function HowILead() {
               <p className="mt-2.5 text-[0.90625rem] leading-[1.65] text-muted-foreground">
                 {body}
               </p>
-              {pending && (
-                <span className="mt-4 font-mono text-[0.59375rem] uppercase tracking-[0.12em] text-accent">
-                  Content slot &mdash; owner to supply
-                </span>
-              )}
             </li>
           ))}
         </ul>

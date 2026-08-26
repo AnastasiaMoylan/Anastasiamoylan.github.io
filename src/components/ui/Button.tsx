@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "outline" | "slate";
+  variant?: "primary" | "outline";
   /**
    * `hex` is the angled tab from the design language. It paints its shape on a
    * background span rather than on the button itself, so clipping never eats
@@ -35,14 +35,11 @@ const rectTones = {
     "rounded-sm border-2 bg-primary text-primary-foreground border-primary hover:bg-accent-hover hover:border-accent-hover",
   outline:
     "rounded-sm border-2 bg-transparent text-foreground border-border hover:border-tertiary-500 hover:bg-card",
-  slate:
-    "rounded-sm border-2 bg-tertiary-900 text-background border-tertiary-900 hover:bg-tertiary-700 hover:border-tertiary-700",
 };
 
 const hexTones = {
   primary: { text: "text-primary-foreground", fill: "bg-primary group-hover:bg-accent-hover" },
   outline: { text: "text-foreground", fill: "bg-card group-hover:bg-secondary" },
-  slate: { text: "text-background", fill: "bg-tertiary-900 group-hover:bg-tertiary-700" },
 };
 
 export default function Button({

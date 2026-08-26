@@ -4,7 +4,6 @@ export const navLinks = [
   { to: "/work", label: "Work" },
   { to: "/philosophy", label: "Philosophy" },
   { to: "/about", label: "About" },
-  { to: "/resume", label: "Résumé" },
   { to: "/contact", label: "Contact" },
 ];
 

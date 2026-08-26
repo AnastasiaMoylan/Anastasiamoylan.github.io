@@ -47,12 +47,12 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
   return (
     <div className="flex flex-col gap-3">
       {/*
-        The direction/craft split renders on the page as "How I led" (see
-        buildSections); this panel keeps the fuller ownership themes and the
-        disciplines for an interviewer who wants the complete record.
+        The direction/craft split renders on the page as "My role", and the
+        team grid in "Research and team" (see buildSections); this panel keeps
+        the fuller ownership themes for an interviewer who wants the record.
       */}
-      <Panel title="What I owned, and the team">
-        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+      <Panel title="What I owned">
+        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} />
       </Panel>
 
       {findings.length > 0 && (
