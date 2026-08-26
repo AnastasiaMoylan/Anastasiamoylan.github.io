@@ -21,14 +21,14 @@ export default function StatesRecovery({ states }: { states: StateRecovery[] }) 
           <tr className="border-b border-border">
             <th
               scope="col"
-              className="w-[34%] py-3 pr-6 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+              className="w-[34%] py-3 pr-6 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
             >
               Condition
             </th>
             {showsUserSees && (
               <th
                 scope="col"
-                className="w-[33%] py-3 pr-6 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                className="w-[33%] py-3 pr-6 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
               >
                 What the user sees
               </th>
@@ -36,7 +36,7 @@ export default function StatesRecovery({ states }: { states: StateRecovery[] }) 
             {showsRecovery && (
               <th
                 scope="col"
-                className="py-3 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                className="py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
               >
                 Recovery
               </th>

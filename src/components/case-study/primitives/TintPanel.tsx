@@ -43,7 +43,7 @@ export default function TintPanel({
           <div className="flex items-center justify-between gap-3">
             <div>
               {eyebrow && (
-                <p className="m-0 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent">
+                <p className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent">
                   {eyebrow}
                 </p>
               )}

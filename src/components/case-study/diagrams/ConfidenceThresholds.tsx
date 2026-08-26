@@ -55,7 +55,7 @@ function Dots({ filled }: { filled: number }) {
 function Block({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="m-0 text-[0.625rem] font-semibold uppercase tracking-[0.1em] text-accent">{label}</p>
+      <p className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent">{label}</p>
       <p className="mt-1.5 m-0 text-[0.875rem] leading-[1.6] text-muted-foreground">{children}</p>
     </div>
   );

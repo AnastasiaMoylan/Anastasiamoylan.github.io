@@ -7,6 +7,25 @@ body {
 }
 
 /* Skip-to-content link — not expressible purely in Tailwind */
+/* One focus ring for every interactive element that doesn't style its own.
+   Most links and buttons relied on browser defaults, which vary per platform
+   and disappear against the warm ground. */
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 .skip-link {
   position: absolute;
   top: -9999px;

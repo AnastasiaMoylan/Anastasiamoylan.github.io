@@ -24,7 +24,7 @@ export default function SuiteMap() {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_auto_1fr] md:items-stretch">
         {/* Before: separate repos, separate app contexts, a promised unity. */}
         <div className="flex flex-col rounded-lg border border-dashed border-border bg-background px-5 py-5">
-          <p className="m-0 font-mono text-[0.625rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+          <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-muted-foreground">
             Before &middot; described as &ldquo;one application&rdquo;
           </p>
           <ul className="mt-4 m-0 grid list-none grid-cols-2 gap-2.5 p-0">
@@ -49,7 +49,7 @@ export default function SuiteMap() {
 
         {/* After: the same six, under the shared layer. */}
         <div className="flex flex-col rounded-lg border border-border bg-card px-5 py-5">
-          <p className="m-0 font-mono text-[0.625rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
+          <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
             After &middot; a suite with a shared experience layer
           </p>
           <div className="mt-4 rounded-md bg-accent-tint-subtle border border-accent-tint-light px-3 py-2.5">

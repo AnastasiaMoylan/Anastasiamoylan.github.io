@@ -25,7 +25,7 @@ export default function StatBand({ stats }: { stats: Stat[] }) {
         */}
         {stats.map(({ value, label }) => (
           <div key={label} className="flex flex-col-reverse justify-end gap-2.5 px-7 py-8 sm:px-9">
-            <dt className="max-w-[20rem] font-mono text-[0.65625rem] uppercase tracking-[0.1em] leading-[1.6] text-tertiary-700">
+            <dt className="max-w-[20rem] font-mono text-[0.6875rem] uppercase tracking-[0.1em] leading-[1.6] text-tertiary-700">
               {label}
             </dt>
             <dd className="m-0 font-display text-[clamp(2.25rem,4.5vw,3.25rem)] font-extrabold leading-[1.02] tracking-[-0.03em] text-accent tabular-nums">

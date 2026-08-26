@@ -31,7 +31,7 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
       className="hidden lg:block lg:col-span-2 self-start sticky top-28"
       aria-label="On this page"
     >
-      <p className="m-0 mb-4 font-mono text-[0.625rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <p className="m-0 mb-4 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
         On this page
       </p>
       <ul className="list-none p-0 m-0 flex flex-col">
@@ -48,8 +48,8 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
               >
                 <span
                   className={[
-                    "font-mono text-[0.625rem] tabular-nums transition-colors duration-150",
-                    isActive ? "text-accent font-semibold" : "text-tertiary-500 group-hover:text-tertiary-700",
+                    "font-mono text-[0.6875rem] tabular-nums transition-colors duration-150",
+                    isActive ? "text-accent font-semibold" : "text-tertiary-700 group-hover:text-foreground",
                   ].join(" ")}
                   aria-hidden="true"
                 >

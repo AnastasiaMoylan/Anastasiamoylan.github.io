@@ -21,7 +21,7 @@ export default function ContactPage() {
 
         <dl className="m-0 mt-12 flex flex-col gap-7 border-t border-border pt-10">
           <div>
-            <dt className="m-0 font-mono text-[0.65625rem] uppercase tracking-[0.12em] text-tertiary-700">
+            <dt className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
               Email
             </dt>
             <dd className="mt-1.5 m-0">
@@ -34,7 +34,7 @@ export default function ContactPage() {
             </dd>
           </div>
           <div>
-            <dt className="m-0 font-mono text-[0.65625rem] uppercase tracking-[0.12em] text-tertiary-700">
+            <dt className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
               LinkedIn
             </dt>
             <dd className="mt-1.5 m-0">
@@ -49,7 +49,7 @@ export default function ContactPage() {
             </dd>
           </div>
           <div>
-            <dt className="m-0 font-mono text-[0.65625rem] uppercase tracking-[0.12em] text-tertiary-700">
+            <dt className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
               Location
             </dt>
             <dd className="mt-1.5 m-0 text-[1.0625rem] text-muted-foreground">

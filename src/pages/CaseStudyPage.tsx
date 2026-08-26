@@ -95,9 +95,8 @@ export default function CaseStudyPage() {
             {/*
               Heading hierarchy for every case study:
                 h1  page title
-                h2  Overview
-                h3  section headings (these panel headers)
-                h4  titles nested inside a section — diagrams, sub-labels
+                h2  section headings (these panel headers)
+                h3  titles nested inside a section — steps, cards, diagrams
             */}
             {sections.map(({ id, heading, content: sectionContent }, i) => (
               <section
@@ -110,9 +109,9 @@ export default function CaseStudyPage() {
                   i > 0 ? "border-t border-border pt-16" : "",
                 ].join(" ")}
               >
-                <h3 className="font-display text-[clamp(1.375rem,2.4vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
+                <h2 className="font-display text-[clamp(1.375rem,2.4vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
                   {heading}
-                </h3>
+                </h2>
                 <div className="mt-8">{sectionContent}</div>
               </section>
             ))}

@@ -20,7 +20,7 @@ export default function DiagramPanel({
 }) {
   return (
     <figure className="m-0 scroll-mt-24">
-      <h4 className="m-0 text-[1.125rem] font-bold leading-[1.35] text-foreground">{heading}</h4>
+      <h3 className="m-0 text-[1.125rem] font-bold leading-[1.35] text-foreground">{heading}</h3>
       {subheading && (
         <p className="mt-1 text-sm leading-[1.6] text-muted-foreground max-w-[52rem]">{subheading}</p>
       )}

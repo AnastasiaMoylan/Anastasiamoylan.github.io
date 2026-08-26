@@ -148,7 +148,7 @@ export default function AboutPage() {
             <ol className="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-5">
               {principles.map(({ label, detail }, i) => (
                 <li key={label} className="rounded-md border border-border bg-card px-6 py-5">
-                  <p className="m-0 font-mono text-[0.625rem] uppercase tracking-[0.12em] text-tertiary-700">
+                  <p className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <p className="mt-2.5 m-0 font-display text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground">
@@ -164,7 +164,7 @@ export default function AboutPage() {
                   <dd className="m-0 font-display text-[2.25rem] font-extrabold leading-none tracking-[-0.03em] text-accent">
                     {value}
                   </dd>
-                  <dt className="mt-2 m-0 font-mono text-[0.65625rem] uppercase tracking-[0.1em] text-tertiary-700">
+                  <dt className="mt-2 m-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-tertiary-700">
                     {label}
                   </dt>
                 </div>
