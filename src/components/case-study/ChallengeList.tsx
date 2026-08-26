@@ -21,7 +21,7 @@ export default function ChallengeList({ evidence }: { evidence: Evidence }) {
       {findings.length > 0 && (
         <ul className="m-0 flex list-none flex-col gap-4 p-0">
           {findings.map(({ finding }) => (
-            <li key={finding} className="flex max-w-[46rem] gap-3">
+            <li key={finding} className="flex measure gap-3">
               <span className="mt-[0.35rem] shrink-0 text-accent" aria-hidden="true">
                 &rarr;
               </span>

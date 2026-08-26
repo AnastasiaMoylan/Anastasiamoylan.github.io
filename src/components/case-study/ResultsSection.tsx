@@ -18,7 +18,7 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
 
   return (
     <div>
-      <p className="m-0 max-w-[46rem] text-[1.0625rem] font-medium leading-[1.6] text-foreground">
+      <p className="m-0 measure text-[1.0625rem] font-medium leading-[1.6] text-foreground">
         {impact.headline}
       </p>
 
@@ -44,7 +44,7 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
       )}
 
       {narrative.length > 0 && (
-        <dl className="mt-8 m-0 flex max-w-[46rem] flex-col gap-4">
+        <dl className="mt-8 m-0 flex measure flex-col gap-4">
           {narrative.map(({ label, value }) => (
             <div key={label}>
               <dt className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-accent">
@@ -65,7 +65,7 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
           </h4>
           <ul className="m-0 flex list-none flex-col gap-3 p-0">
             {impact.proof.map((point) => (
-              <li key={point} className="flex max-w-[46rem] gap-3">
+              <li key={point} className="flex measure gap-3">
                 <span className="mt-[0.35rem] shrink-0 text-accent" aria-hidden="true">
                   &rarr;
                 </span>
@@ -79,7 +79,7 @@ export default function ResultsSection({ impact }: { impact: Impact }) {
       )}
 
       {impact.metricStatus && (
-        <p className="mt-9 max-w-[46rem] text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
+        <p className="mt-9 measure text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
           {impact.metricStatus}
         </p>
       )}

@@ -28,7 +28,7 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
 
   return (
     <nav
-      className="hidden lg:block shrink-0 w-36 self-start sticky top-28"
+      className="hidden lg:block lg:col-span-2 self-start sticky top-28"
       aria-label="On this page"
     >
       <p className="m-0 mb-4 font-mono text-[0.625rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">

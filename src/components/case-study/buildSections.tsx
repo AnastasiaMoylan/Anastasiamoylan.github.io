@@ -114,7 +114,7 @@ export default function buildSections(
       nav: "The turn",
       heading: "The turn",
       content: (
-        <div className="max-w-[48rem] border-l-2 border-accent pl-6">
+        <div className="measure border-l-2 border-accent pl-6">
           <p className="m-0 text-[1.0625rem] leading-[1.75] text-muted-foreground">
             {content.turn}
           </p>
@@ -136,7 +136,7 @@ export default function buildSections(
               <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
                 The principle
               </p>
-              <p className="mt-3 m-0 max-w-[40rem] font-display text-[clamp(1.25rem,2.5vw,1.625rem)] font-bold leading-[1.35] tracking-[-0.02em] text-foreground">
+              <p className="mt-3 m-0 measure font-display text-[clamp(1.25rem,2.5vw,1.625rem)] font-bold leading-[1.35] tracking-[-0.02em] text-foreground">
                 {content.reflection.principle}
               </p>
             </div>

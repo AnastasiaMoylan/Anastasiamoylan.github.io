@@ -24,9 +24,9 @@ export default function OverviewSection({
 
   return (
     <div>
-      <p className="m-0 max-w-[46rem] text-base leading-[1.7] text-muted-foreground">{overview}</p>
+      <p className="m-0 measure text-base leading-[1.7] text-muted-foreground">{overview}</p>
       {stakes && (
-        <p className="mt-5 m-0 max-w-[46rem] text-base leading-[1.7] text-muted-foreground">
+        <p className="mt-5 m-0 measure text-base leading-[1.7] text-muted-foreground">
           {stakes}
         </p>
       )}

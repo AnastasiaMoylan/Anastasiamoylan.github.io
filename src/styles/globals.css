@@ -30,6 +30,13 @@ body {
    case-study canvas went full-screen and the owner standardized the rest of
    the site to match. Narrow reading measures come from max-w-* on inner
    blocks, not from this container. */
+/* The reading measure: every prose block in a case study caps here (~70ch at
+   1rem body). Wider elements — cards, diagrams, galleries — use the grid, not
+   this. */
+.measure {
+  max-width: 42rem;
+}
+
 .content-container {
   max-width: 1440px;
   margin-left: auto;

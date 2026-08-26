@@ -6,7 +6,7 @@ interface ButtonProps {
   /**
    * `hex` is the angled tab from the design language. It paints its shape on a
    * background span rather than on the button itself, so clipping never eats
-   * the focus ring.
+   * the focus ring. Defaults by role: primary renders hex, outline renders rect.
    */
   shape?: "rect" | "hex";
   size?: "sm" | "md";
@@ -45,7 +45,7 @@ const hexTones = {
 export default function Button({
   children,
   variant = "primary",
-  shape = "rect",
+  shape,
   size = "md",
   to,
   href,
@@ -55,7 +55,10 @@ export default function Button({
   fullWidth,
   ariaLabel,
 }: ButtonProps) {
-  const isHex = shape === "hex";
+  // Standardized 2026-08-26: the hex tab is the primary-action shape site-wide,
+  // the plain rect is the secondary shape. Explicit `shape` still wins.
+  const resolvedShape = shape ?? (variant === "primary" ? "hex" : "rect");
+  const isHex = resolvedShape === "hex";
   const classes = [
     base,
     sizes[size].box,

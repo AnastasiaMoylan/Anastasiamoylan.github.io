@@ -59,16 +59,16 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
       {findings.length > 0 && (
         <Panel title="The research">
           {content.evidence?.body && (
-            <p className="mb-5 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
+            <p className="mb-5 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
               {content.evidence.body}
             </p>
           )}
-          <p className="mb-6 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
+          <p className="mb-6 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
             What the research found, and the change each finding caused.
           </p>
           <ul className="m-0 flex list-none flex-col gap-5 p-0">
             {findings.map(({ finding, response }) => (
-              <li key={finding} className="max-w-[46rem]">
+              <li key={finding} className="measure">
                 <p className="m-0 text-[0.9375rem] font-semibold leading-[1.55] text-foreground">
                   {finding}
                 </p>
@@ -86,7 +86,7 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
 
       {content.processImages && content.processImages.length > 0 && (
         <Panel title="The journey behind the screens">
-          <p className="mb-6 max-w-[46rem] text-[0.9375rem] leading-[1.7] text-muted-foreground">
+          <p className="mb-6 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
             The working flow the screens were built against — every role, every handoff,
             and the paths that break.
           </p>

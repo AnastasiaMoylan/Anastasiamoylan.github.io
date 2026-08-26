@@ -54,7 +54,7 @@ export default function CaseStudyHeader({
         </p>
       )}
 
-      <p className="mt-2.5 m-0 max-w-[46rem] text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground">
+      <p className="mt-2.5 m-0 measure text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground">
         {tagline}
       </p>
 

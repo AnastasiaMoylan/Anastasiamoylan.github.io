@@ -28,7 +28,7 @@ export default function DiagramPanel({
       <div className="mt-8">{children}</div>
 
       {quote && (
-        <figcaption className="mt-8 m-0 max-w-[46rem] text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
+        <figcaption className="mt-8 m-0 measure text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
           {quote}
         </figcaption>
       )}
