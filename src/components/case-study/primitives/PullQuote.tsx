@@ -8,7 +8,7 @@ export default function PullQuote({
   as?: "blockquote" | "figcaption";
 }) {
   const className =
-    "border-l-[3px] border-accent pl-6 m-0 text-[0.9375rem] italic leading-[1.6] text-foreground/85 max-w-[46rem]";
+    "border-l-[3px] border-accent pl-6 m-0 text-[0.9375rem] italic leading-[1.6] text-foreground/85 measure";
 
   if (as === "figcaption") {
     return <figcaption className={className}>{children}</figcaption>;

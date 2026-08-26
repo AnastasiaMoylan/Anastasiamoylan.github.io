@@ -10,9 +10,12 @@ const CONTEXT_FIELDS = ["Status", "Users", "Tools"];
 
 export default function OverviewSection({
   overview,
+  stakes,
   fields = [],
 }: {
   overview: string;
+  /** The `context` beat: situation, why it mattered, the constraint. */
+  stakes?: string;
   fields?: { label: string; value: string }[];
 }) {
   const contextFields = CONTEXT_FIELDS.flatMap((label) =>
@@ -21,7 +24,12 @@ export default function OverviewSection({
 
   return (
     <div>
-      <p className="m-0 max-w-[46rem] text-base leading-[1.7] text-muted-foreground">{overview}</p>
+      <p className="m-0 measure text-base leading-[1.7] text-muted-foreground">{overview}</p>
+      {stakes && (
+        <p className="mt-5 m-0 measure text-base leading-[1.7] text-muted-foreground">
+          {stakes}
+        </p>
+      )}
 
       {contextFields.length > 0 && (
         <dl className="mt-8 m-0 grid grid-cols-1 gap-x-10 gap-y-4 border-t border-border pt-6 sm:grid-cols-3">

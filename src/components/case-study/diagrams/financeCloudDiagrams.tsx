@@ -1,36 +1,43 @@
 import type { SectionAugments } from "../buildSections";
-import ScalingArc from "./ScalingArc";
+import PlaceholderFigure from "../PlaceholderFigure";
+import SuiteMap from "./SuiteMap";
+import FramingShift from "./FramingShift";
 import GovernedPipeline from "./GovernedPipeline";
 import PromotionGate from "./PromotionGate";
 import ConfidenceThresholds from "./ConfidenceThresholds";
+import ScalingArc from "./ScalingArc";
 
 /**
- * The diagrams that exist as mockups, attached to the beats they explain.
+ * One visual per beat (visual-storytelling skill):
+ * Stakes gets the before/after suite map — the hero that answers "how big was
+ * this really". Problem gets the framing evolution. Built keeps one craft zoom
+ * (the promotion gate) plus the thresholds framework beside the decision it
+ * embodies, and a visible placeholder for the influence artifact only the
+ * owner can supply. The full governed pipeline moved to the deep dive.
+ * Results keeps the scaling arc.
  *
- * Solution carries the three that describe how the platform behaves: the whole
- * pipeline, then the two mechanisms that make its governance real — the
- * promotion gate, and the thresholds that decide when the system may act alone.
- * Results carries the scaling arc.
- *
- * Built but deliberately not wired, to keep the page from becoming a gallery:
- * CopilotPlan, AnomalyRouting, DesignedStates, InspectabilityLadder, RoleMatrix.
- * They live alongside this file and can be slotted in by adding a line below.
- * RoleMatrix additionally stays unpublished until its cell values are confirmed.
+ * Built but unwired: CopilotPlan, AnomalyRouting, DesignedStates,
+ * InspectabilityLadder, RoleMatrix (unpublished until cell values confirmed).
  */
 export function financeCloudAugments(): SectionAugments {
   return {
     append: {
+      overview: <SuiteMap />,
+      challenge: <FramingShift />,
       solution: (
         <>
-          <p className="m-0 max-w-[52rem] text-base leading-[1.7] text-muted-foreground">
-            The platform is one pipeline with governance sitting over every stage. Two mechanisms
-            carry that governance in practice: the gate that controls promotion to production, and
-            the thresholds that decide when the system may act on its own.
-          </p>
-          <GovernedPipeline />
           <PromotionGate />
           <ConfidenceThresholds />
+          <PlaceholderFigure caption="The adopted artifact — the Category \u2192 Driver \u2192 Anchor Signal taxonomy sheet as product and engineering teams use it. Owner to supply." />
         </>
+      ),
+      "deep-dive": (
+        <div className="flex flex-col gap-6">
+          <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
+            The governed pipeline, end to end
+          </p>
+          <GovernedPipeline />
+        </div>
       ),
       results: <ScalingArc />,
     },

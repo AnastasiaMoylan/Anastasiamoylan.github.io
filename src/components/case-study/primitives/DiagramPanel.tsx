@@ -1,10 +1,11 @@
-import PullQuote from "./PullQuote";
-
 /**
- * Panel anatomy for a diagram: heading, subheading, body, closing pull quote.
+ * Panel anatomy for a diagram: heading, subheading, body, quiet closing line.
  *
  * The heading is an h4 and sits a clear step below the section h3 that contains
- * it, so a figure never competes with the section it belongs to.
+ * it, so a figure never competes with the section it belongs to. The closing
+ * line was a PullQuote until 2026-08-26; with several diagrams per page that
+ * meant four maroon-ruled quotes competing, so the page's one pull-quote is the
+ * evidence insight and diagram closers stay quiet.
  */
 export default function DiagramPanel({
   heading,
@@ -27,9 +28,9 @@ export default function DiagramPanel({
       <div className="mt-8">{children}</div>
 
       {quote && (
-        <div className="mt-10">
-          <PullQuote as="figcaption">{quote}</PullQuote>
-        </div>
+        <figcaption className="mt-8 m-0 measure text-[0.8125rem] italic leading-[1.6] text-muted-foreground">
+          {quote}
+        </figcaption>
       )}
     </figure>
   );

@@ -7,9 +7,9 @@ import {
 } from "./ownedStatements";
 // Case study content, keyed by project slug.
 //
-// Shape follows the Case Study Framework's ten beats, rendered in three acts:
-// Frame (snapshot, TL;DR, context) -> Think (evidence, role, decisions, states)
-// -> Land (execution, impact, reflection).
+// Shape follows the Case Study Framework's ten beats. buildSections renders
+// them as: Overview -> Challenge -> My role -> Solution (with the featured
+// decision) -> Research and team -> Outcomes and metrics -> Deep dive.
 //
 // Optional fields render nothing when absent, so a study can ship partially
 // filled rather than showing empty labels.
@@ -18,12 +18,16 @@ import {
 // the plain import is the full-resolution original used by the lightbox.
 import ccjUserFlow from "../assets/case-studies/ccj/user-flow.jpg?preview";
 import ccjUserFlowFull from "../assets/case-studies/ccj/user-flow.jpg";
+import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
+import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
 import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg?preview";
 import ccjDashboardFull from "../assets/case-studies/ccj/dashboard-performance.jpg";
 import ccjMitigationPlan from "../assets/case-studies/ccj/mitigation-plan.jpg?preview";
 import ccjMitigationPlanFull from "../assets/case-studies/ccj/mitigation-plan.jpg";
 import ccjChatExpanded from "../assets/case-studies/ccj/chat-expanded.png?preview";
 import ccjChatExpandedFull from "../assets/case-studies/ccj/chat-expanded.png";
+import ccjSegmentOfOne from "../assets/case-studies/ccj/segment-of-one.jpg?preview";
+import ccjSegmentOfOneFull from "../assets/case-studies/ccj/segment-of-one.jpg";
 import cwoMvp1Workflow from "../assets/case-studies/cwo/mvp1-workflow.jpg?preview";
 import cwoMvp1WorkflowFull from "../assets/case-studies/cwo/mvp1-workflow.jpg";
 import cwoCreationFlow from "../assets/case-studies/cwo/creation-flow.jpg?preview";
@@ -158,6 +162,12 @@ export interface LeadershipPoint {
 export interface SolutionStep {
   title: string;
   points: string[];
+  /**
+   * The evidence for this step, rendered beside it. When any step carries
+   images, the study's separate gallery clump is suppressed — the screen sits
+   with the argument it proves.
+   */
+  images?: CaseStudyImage[];
 }
 
 export interface CaseStudy {
@@ -172,6 +182,14 @@ export interface CaseStudy {
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
   solutionSteps?: SolutionStep[];
+  /** The messy middle: the one pivot, failure, or reversal, told straight. */
+  turn?: string;
+  /**
+   * Process artifacts — working boards, end-to-end flows. Rendered in the deep
+   * dive as "The journey behind the screens", a separate container from the
+   * solution gallery so the story stays product-first.
+   */
+  processImages?: CaseStudyImage[];
   context: string;
   evidence?: Evidence;
   /** What I personally owned. Collaborators live in `team`. */
@@ -191,211 +209,272 @@ export interface CaseStudy {
 }
 
 export const caseStudies: Record<string, CaseStudy> = {
+  // Rewritten 2026-08-25 from Anastasia's own program-level account ("Unified
+  // Finance Product Experience"). The study now tells the suite story — the
+  // narrative reframe, the unified homepage, shared AI interaction principles —
+  // with the governed analysis platform as the depth beneath it (states and the
+  // coded diagrams). All new copy is drawn from her document; lines that had to
+  // be authored to hold the structure together are marked [NEEDS SIGN-OFF].
+  //
+  // Deliberately NOT published, per the extraction-worksheet decisions:
+  //   - the $75M forecast-gap figure (interviews only, unless client-cleared)
+  //   - exact program-increment dates (internal sprint dates, identifying)
+  // Published per her supplied copy, previously flagged: "Fortune 500
+  // telecommunications company" and the Category → Driver → Anchor Signal
+  // taxonomy. Role is "Product Experience Lead" — the fifth title in play
+  // across surfaces; needs reconciling with About/résumé before merge.
   "finance-cloud": {
     snapshotFields: [
-      { label: "Role", value: "Lead UX / Product Designer" },
+      { label: "Role", value: "Product Experience Lead" },
       { label: "Employer", value: "Amdocs Studios" },
-      { label: "Client", value: "Confidential enterprise telecommunications organization" },
+      { label: "Client", value: "Confidential Fortune 500 telecommunications company" },
       { label: "Timeframe", value: "2024–Present" },
-      { label: "Status", value: "Working POC delivered; scaled pilot in progress" },
+      {
+        label: "Status",
+        value: "Analysis platform in scaled pilot; unified homepage MVP in development",
+      },
       {
         label: "Users",
         value:
-          "Accountants, analysts, managers and controllers, finance leaders, admins, and viewers",
+          "Analyst, accounting, and finance leadership organizations, plus specialized finance roles",
       },
-      // No "Team" field here: the deep dive renders the `team` array below as
-      // discipline cards, and listing both duplicated the same disciplines twice.
+      // Short header fact (Linear-block pattern); the full disciplines render
+      // as cards in Research and team.
+      {
+        label: "Team",
+        value: "Six application-level designers, plus product, engineering, data, and finance SMEs",
+      },
       { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
     ],
     tldr: {
       challenge:
-        "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails, and human accountability financial operations require.",
+        "The organization had invested in several valuable finance products, but users experienced them as disconnected tools rather than a coherent platform — no unified entry point, overlapping terminology, and an integration promise the architecture could not yet keep.",
       solution:
-        "A governed platform that separates experimentation from production, makes every AI action inspectable, and requires human approval before anything consequential happens.",
+        "Reframed the program from a single integrated application to a suite of independent finance products with a shared experience layer: one access-aware homepage for discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
       result:
-        "Took Finance Cloud from zero to one and scaled it from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Finance leaders got the evidence they needed to trust and approve AI-assisted work.",
+        "Established the shared experience model across six product areas and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment — while the analysis platform scaled from 10 pilot users to 300.",
     },
-    // Every figure below is already stated in `impact`; the band restates them
-    // in display type rather than introducing anything new.
+    // Every figure below is restated in `impact`; the band restates them in
+    // display type rather than introducing anything new.
     stats: [
-      { value: "0 → 1", label: "Working POC, designed and shipped" },
-      { value: "10 → 300", label: "Pilot users through iterative testing" },
-      { value: "1,000+", label: "Enterprise adoption planned" },
+      { value: "6", label: "Product areas under one experience layer" },
+      { value: "10 → 300", label: "Pilot users scaled on the analysis platform" },
+      { value: "72 hrs", label: "Agent success window — did the analyst act" },
     ],
     overview:
-      "At Amdocs Studios, I led design for Finance Cloud — a governed AI platform for an enterprise telecom's finance and payroll teams. The brief: bring AI into financial operations without breaking the audit trail. I directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens, taking the platform from zero to a working POC with the lead product owner and then scaling it from 10 pilot users to 300.",
-    // One card per discipline, content provided by Anastasia (2026-08-12).
-    // The earlier cards' specifics (product model, ML-engineering thresholds,
-    // copilot design, research operations) still render in ownedThemes, the
-    // decisions list, and the solution steps.
+      "I led the end-to-end product experience for a finance transformation program at a Fortune 500 telecommunications company — a growing suite spanning data exploration and AI-assisted analysis, workflow automation, an AI-agent portfolio, audit tooling, and access management. The products were owned by different teams, built on separate technology stacks, and not yet deeply integrated; my job was to make the ecosystem understandable and usable as one experience. I set the cross-product experience direction, connected workstreams, clarified ambiguous product concepts, and translated executive intent into decisions teams could build against.",
     leadership: [
       {
         kind: "Product strategy",
-        title: "Kept one vision across the product",
+        title: "Reframed the platform narrative",
         detail:
-          "Coordinated engineering, UX, stakeholders, and business executives to keep a consistent vision on a multifaceted product.",
+          "Drove the shift from \u201cone integrated application\u201d to a suite of independent products with a shared design language — acknowledging the current technical reality while keeping a credible path toward a more connected future.",
       },
       {
         kind: "Team leadership",
-        title: "Structured the design team",
+        title: "Owned the strategy, directed the design",
         detail:
-          "Prioritized the work, set the design direction, and gave design feedback.",
+          "Established the UX operating model — program-level experience leadership to connect workstreams and filter noise, paired with application-level design ownership closer to delivery — while directing the six designers building across the program.",
       },
       {
         kind: "Design",
-        title: "Kept the design language consistent",
+        title: "Designed the suite\u2019s front door",
         detail:
-          "Design-system usage and shared patterns applied across a complex product.",
+          "A unified homepage as an app launcher and discovery hub, plus standardized patterns across divergent workflow products — headers, breadcrumbs, status badges, approval history — seeding a finance-wide component library.",
       },
       {
         kind: "Research",
-        title: "Validated what shipped",
+        title: "Stood up the research practice",
         detail:
-          "User validation as products shipped and post-ship, to confirm adoption and shape the roadmap.",
+          "Some workflows had reached only about four unique participants. I built a recruited tester pool of 32 analysts, ran 45-minute moderated sessions against prototypes, and segmented participants by role so each protocol asked people only about work they actually did.",
       },
     ],
     solutionSteps: [
       {
-        title: "Experiment freely",
+        title: "One honest front door",
         points: [
-          "A sandbox with no path to production — real analysis, zero risk to financial controls",
-          "A copilot scoped to the task that drafts editable plans, not finished answers",
+          "A unified homepage as an app launcher and discovery hub — deliberately not a kitchen-sink catalog or dashboard",
+          "A personalized \u201cYour Apps\u201d area surfacing what each person can actually use, with products launching in their own tabs",
         ],
       },
       {
-        title: "Promote visibly",
+        title: "A shared language",
         points: [
-          "Promotion is a gated, reviewable event — never a hidden setting",
-          "A blocked promotion names the unmet requirement and how to resolve it",
+          "A formal taxonomy for the agent portfolio — Category \u2192 Driver \u2192 Anchor Signal — with drivers from a structured catalog, not open text",
+          "Reusable patterns across workflow products: page headers, breadcrumbs, status badges, approval-history components",
         ],
       },
       {
-        title: "Run governed",
+        title: "AI that confirms its assumptions",
         points: [
-          "Every output traces to its inputs, transformations, and generated code",
-          "Anomalies route to the accountable role; failure states preserve work, retry, and roll back",
+          "Understand \u2192 clarify \u2192 confirm assumptions \u2192 plan \u2192 output, so silent assumptions surface before a result does",
+          "Domain experts validate outputs: directionally correct, within an order of magnitude, with thresholds set where action is actually warranted",
         ],
       },
     ],
+    // Trimmed 2026-08-26 to the storyteller arc's stakes shape: situation,
+    // why it mattered, the constraint. The cut detail (access model, silos)
+    // survives in evidence.findings.
     context:
-      "Enterprise finance teams needed AI-assisted analysis and transformation tools without losing the governance controls, audit trails, and human accountability that financial operations require. The core tension: AI can accelerate analysis, but accountants, controllers, and compliance stakeholders remain personally responsible for journal entries, accruals, payroll runs, and close work. A system that produces a number without showing where it came from is not faster, it is unusable, because someone still has to defend that number. Finance Cloud covers reporting, forecasting, variance analysis, anomaly detection, month-end close, and manual journal entries, with copilot assistance and agent-driven workflows running throughout. Every one of those surfaces touches money that has already been committed or is about to be.",
+      "The organization had invested in six valuable finance product areas — but users experienced them as disconnected tools, with no unified entry point and no shared language, and the program was being described as a single integrated application the architecture could not yet deliver. Left alone, every new product would deepen the fragmentation and the promise would keep outrunning the platform. The constraint underneath everything: an enterprise identity architecture still evolving, and delivery moving too fast for design to wait for it to settle.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "The program's own story was what broke. It was being described as one integrated application — but the architecture couldn't keep that promise, executive expectations had diverged, and one AI workstream had been building alongside design with a shrinking meeting cadence. I took the reframe to the executive sponsor: stop calling it a single application. A suite of independent products with a shared experience layer was a story the architecture could actually keep — and the homepage, the taxonomy, and the shared patterns all fell out of that one sentence.",
     evidence: {
+      body:
+        "I developed a research approach based on role segmentation, moderated prototype testing, and direct access to domain experts — 45-minute, one-on-one, semi-structured sessions with clickable prototypes, with questions tailored by participant responsibilities rather than treating \u201cfinance users\u201d as a single audience.",
       findings: [
         {
-          finding: "A number without provenance cannot be approved, only re-derived by hand.",
+          finding:
+            "Users generally saw only the products they were already permitted to use, making discovery of the wider suite difficult.",
           response:
-            "Every AI output needed a visible path back to its inputs, its transformations, and the generated code that produced it.",
+            "Discovery needed a central, access-aware entry point — a homepage that knows what each person can use after login.",
         },
         {
           finding:
-            "Controls that lived only in the backend were invisible to the people accountable for them.",
+            "The program was described as a single integrated application, but the architecture and roadmap could not yet support that promise.",
           response:
-            "Governance needed a surface in the interface: environment labels, promotion checklists, audit entries.",
+            "The narrative had to change before the screens could: a suite of independent products with a shared experience layer.",
         },
         {
           finding:
-            "Automation that fails silently in finance does not just lose work, it breaks trust in every future result.",
+            "Teams used overlapping language for products, roles, and AI concepts — the agent portfolio had no shared object model.",
           response:
-            "Failure, partial output, and low confidence needed designed states rather than error toasts.",
+            "A formal hierarchy — Category \u2192 Driver \u2192 Anchor Signal — had to exist before monitor configuration, thresholds, and briefings could be designed against it.",
         },
         {
           finding:
-            "Anomalies surfaced too late are indistinguishable from anomalies never surfaced.",
+            "One AI workstream had UX and engineering progressing in parallel with unclear expectations and limited cadence.",
           response:
-            "Detection had to reach the right person proactively rather than waiting to be discovered in a report.",
+            "Program-level experience leadership had to reconnect the workstream and bring the end-to-end workflow into view before build.",
+        },
+        {
+          finding:
+            "The enterprise identity and approval architecture was still evolving, which affected what could be shown, requested, and personalized.",
+          response:
+            "Design proceeded on documented access assumptions, with personalization built around what is knowable after login.",
         },
       ],
-      insight: "Governance people cannot see is not governance they will approve.",
+      // [NEEDS SIGN-OFF] Tightened from her line "It acknowledged the current
+      // technical reality while creating a credible path toward a more
+      // connected future."
+      insight:
+        "Instead of promising seamless integration before it existed, the experience provided a common visual language, central discovery, and clear product relationships.",
     },
     owned: [
+      "Led the cross-product experience for the finance transformation program: the platform model, navigation, product relationships, access model, AI interaction principles, research approach, and delivery sequencing.",
+      "Drove the reframe from a single integrated application to a suite of independent finance products with a shared experience layer.",
+      "Designed the unified homepage as an app launcher and discovery hub, on four tenets: modularity and scalability, discoverability, launcher-not-catalog, and a layout that reflects real usage.",
+      "Defined the shared forecasting hierarchy — Category \u2192 Driver \u2192 Anchor Signal — and established that drivers come from a structured catalog rather than open-text labels.",
+      "Set the transparent agent interaction model — understand, clarify, confirm assumptions, plan, output — and brought finance-domain experts into validation sessions.",
       FINANCE_PRODUCT_MODEL,
-      "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls; made environment, data access, permissions, and promotion requirements visible throughout the flow.",
-      "Designed AI uncertainty and failure as first-class interaction states: partial or low-confidence output, failed data/Python operations, missing permissions, blocked promotion, exception handling, preserved work, retry and escalation, plus pause/resume/rollback concepts for consequential workflows.",
-      "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history; preserved human responsibility for accruals, journal entries, close work, and other high-consequence actions.",
-      "Took the platform from zero to one with the lead product owner, translating product requirements into a shipped product, then scaling it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned.",
-      "Designed copilot assistance and agent-driven workflows across reporting, forecasting, variance analysis, and month-end close, so the system could carry the work while a person stayed accountable for the outcome.",
-      "Designed anomaly detection and proactive notifications so unexpected figures reached the right role before close rather than surfacing after submission.",
-      "Worked with ML engineers and AI researchers on interaction models, error states, and confidence thresholds, defining where the system acts automatically, where it recommends, and where it must stop and ask.",
+      "Brought authentication, identity integration, metadata availability, app boundaries, and role-based access constraints into the experience definition early.",
       FINANCE_RESEARCH_ARTIFACTS,
     ],
-    // Condensed from the nine `owned` items above into five themes. Wording is
-    // drawn from those items; the full detail stays in Key decisions and
-    // Execution rather than being restated here.
+    // Condensed from the `owned` items above; wording drawn from them.
     ownedThemes: [
       {
-        label: "The product model",
+        label: "The suite narrative",
         detail:
-          "Connected Workflow Builder, Sandbox, promotion gates, Production, and monitoring into one governed platform, with experimentation separated from production so nothing could bypass financial controls.",
+          "Repositioned the program as a suite of independent finance products with a shared experience layer — an honest product model that let teams ship independently without losing the longer-term platform vision.",
       },
       {
-        label: "Zero to one, then scale",
+        label: "The unified homepage",
         detail:
-          "Took the platform from zero to one with the lead product owner, then scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned.",
+          "An app launcher and discovery hub with a personalized \u201cYour Apps\u201d area, clear product groupings, and a phased roadmap that named what was deferred — favorites, broader filtering, persistent cross-app launchers, centralized notifications — rather than letting it block the MVP.",
       },
       {
-        label: "AI assistance inside the work",
+        label: "Shared language and patterns",
         detail:
-          "Designed copilot assistance and agent-driven workflows across reporting, forecasting, variance analysis, and month-end close, plus anomaly detection routed to the accountable role before close.",
+          "A formal Category \u2192 Driver \u2192 Anchor Signal taxonomy for the agent portfolio, and standardized components across divergent workflow products, seeding a finance-wide library.",
       },
       {
-        label: "Uncertainty as a designed state",
+        label: "AI interaction principles",
         detail:
-          "Made partial output, failure, blocked promotion, retry, escalation, and rollback first-class states, and set confidence thresholds with ML engineering as product boundaries.",
+          "Agents confirm understanding and assumptions before planning; outputs are validated with domain experts for directional accuracy; success is measured as analyst behavior, not forecast precision.",
       },
       {
-        label: "Inspectability and audit",
+        label: "Research and operating model",
         detail:
-          "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history.",
+          "A role-segmented research practice drawing on a 32-analyst pool, paired with a UX operating model of program-level experience leadership over application-level design ownership.",
       },
     ],
-    // Disciplines as listed in the Team snapshot field.
     team: [
-      { role: "Product" },
-      { role: "Engineering" },
-      { role: "ML engineering and AI research" },
-      { role: "Data" },
-      { role: "Finance and compliance stakeholders" },
+      { role: "Program leadership" },
+      { role: "Product management" },
+      { role: "Application-level designers", owned: "Individual product design across the suite" },
+      { role: "Engineering and data specialists" },
+      { role: "Access-management partners" },
+      { role: "Finance subject-matter experts and end users" },
     ],
     decisions: [
       {
-        decision: "Separated experimentation from production as two distinct environments.",
+        decision:
+          "Repositioned the program from a single integrated application to a suite of independent finance products with a shared experience layer.",
         rationale:
-          "Users could test Python analysis, transformations, and AI-assisted plans in a sandbox with no path to silently affecting financial controls. Promotion to production became an explicit, reviewable event instead of a hidden setting.",
-        rejected: "gating a single workspace with permissions",
-      },
-      {
-        decision: "Designed promotion as a gated checklist with visible unmet requirements.",
-        rationale:
-          "A blocked promotion explained exactly which controls, approvals, or data-access conditions weren't yet met, turning governance from an invisible backend rule into something users could see and resolve.",
-        rejected: "a one-click publish",
+          "The architecture and roadmap could not yet support the single-app promise. The reframe acknowledged the current technical reality while creating a credible path toward a more connected future — a common visual language, central discovery, and clear product relationships.",
+        rejected: "continuing to describe the program as one integrated application",
+        tradeoff:
+          "Giving up the seamless-platform story meant the experience layer had to earn coherence through design — shared language, discovery, product relationships — rather than inherit it from architecture.",
       },
       {
         decision:
-          "Treated AI uncertainty and failure as first-class interaction states: partial or low-confidence output, failed data or Python operations, preserved work on error, retry and escalation.",
+          "Designed the homepage as an app launcher and discovery hub, not a dashboard or catalog.",
         rationale:
-          "The workspace stayed trustworthy at exactly the moments AI is least reliable.",
-        rejected: "hiding them",
+          "Four tenets held the scope: modularity and scalability, discoverability, launcher-not-kitchen-sink, and a layout reflecting real usage patterns.",
+        rejected: "a kitchen-sink catalog, or a complex dashboard",
+        tradeoff:
+          "Favorites, broader filtering, persistent cross-app launchers, and centralized notifications were intentionally deferred to a named roadmap rather than allowed to block the MVP.",
       },
       {
-        decision: "Scoped the copilot to the work in front of the user, not the whole platform.",
+        decision: "Launched each product in its own tab, preserving its internal navigation.",
         rationale:
-          "Assistance appeared inside a specific report, forecast, or close task with the relevant data already in context, and produced an editable plan rather than a finished answer. The user could read the plan, change it, and run it.",
-        rejected: "a general-purpose assistant that has to be told what it is looking at",
+          "Launching independent apps in new tabs avoided cross-app token and authentication complexity, and let independently-built products keep shipping.",
+        rejected: "embedding every product inside one shell",
+        tradeoff:
+          "The seams between products stay visible — the suite is coherent at the point of discovery, not continuous during use.",
       },
       {
         decision:
-          "Set confidence thresholds as product decisions, made with ML engineering rather than inherited from the model.",
+          "Personalized \u201cYour Apps\u201d from actual post-login access rather than promoting flagship products to everyone.",
         rationale:
-          "We defined explicitly where the system could act on its own, where it should recommend and wait, and where it had to stop and escalate. Those boundaries were interaction-design decisions with a number attached, not a tuning detail.",
-        rejected: "surfacing a raw confidence score and leaving interpretation to the user",
+          "Homepage personalization depended on knowing app access after login, and the area had to surface the products each person can actually use.",
+        rejected: "a fixed layout over-prioritizing flagship applications",
       },
       {
-        decision: "Made anomaly detection proactive and role-aware.",
+        decision:
+          "Required drivers to come from a structured catalog, under a formal Category \u2192 Driver \u2192 Anchor Signal hierarchy.",
         rationale:
-          "When figures fell outside expected ranges, the platform notified the role accountable for that area, with the variance, its drivers, and the affected records attached, so the notification was actionable rather than an alert to go look somewhere.",
-        rejected: "leaving anomalies to be found during review, or broadcasting alerts to everyone",
+          "The agent portfolio needed one object model for monitor configuration, signal selection, baselines, thresholds, and recurring briefings — overlapping language had made those undesignable.",
+        rejected: "open-text user labels",
+      },
+      {
+        decision:
+          "Made agents confirm their understanding before producing a plan: understand, clarify, confirm assumptions, then plan and output.",
+        rationale:
+          "Systems were making silent assumptions without giving users a chance to correct them before a plan or result was produced — the core trust issue in the portfolio.",
+        rejected: "answering immediately and letting users discover wrong assumptions in the output",
+      },
+      {
+        decision:
+          "Defined agent success as analyst behavior within 72 hours, not forecast accuracy.",
+        rationale:
+          "With domain experts, we established that useful outputs are directionally correct and within an order of magnitude — high/medium/low framing where exact estimates were not appropriate, and signal thresholds set where action is warranted (roughly 3% meaningful in one use case, 1% often noise). The question that matters: did the analyst run a scenario or start a leadership conversation.",
+        rejected: "grading agents on forecast precision",
+      },
+      {
+        decision:
+          "Proceeded on documented access assumptions with explicit break-notification agreements, rather than waiting for the identity architecture to settle.",
+        rationale:
+          "The enterprise identity integration was unresolved and would have blocked design indefinitely. Writing the assumptions down — with agreement that design would be notified when one broke — kept the work moving without pretending the uncertainty away.",
+        rejected: "pausing design until enterprise identity questions resolved",
+        tradeoff:
+          "Some access-dependent behavior may need rework when the architecture lands — accepted, and recorded, so design never stalled.",
       },
     ],
+    // The states describe the governed analysis products inside the suite —
+    // the craft depth beneath the program-level story above.
     states: [
       {
         state: "Partial or low-confidence AI output",
@@ -434,40 +513,34 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Resume, or roll back the run as a unit",
       },
     ],
-    // The end-to-end flow is now the coded GovernedPipeline diagram rather than a
-    // raster image. The source asset stays at
-    // src/imports/Finance_AI_Transformation_-_End-to-End_Flow.png pending confirmation.
-    // Its original alt text, preserved because the coded version splits the same
-    // information across headings, an ordered list, and body copy:
-    //   "End-to-end flow diagram for the Finance AI Transformation, showing
-    //    Governance, Risk and Compliance governing Agentic Workflows, Data Products,
-    //    Command Center, and the full pipeline through User Experiences, Feedback and
-    //    Iteration, Problem Framing, Data Discovery and Ingestion, and Finance Sandbox."
     impact: {
       headline:
-        "Took Finance Cloud from zero to one and scaled it through iterative testing from 10 pilot users to 300, with enterprise adoption of 1,000+ planned. Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+        "Established a shared experience model for a suite spanning data exploration, AI-assisted analysis, finance workflows, AI agents, audit tooling, and access management — and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
       organizational:
-        "The working POC gave stakeholders a concrete, testable model for how governed AI could operate inside financial operations, rather than an abstract promise. That model is what made the scaled pilot possible.",
+        "Reframed the product strategy around modularity, allowing teams to ship independently without losing the longer-term platform vision — and gave the program an operating model in which program-level experience leadership and application-level design ownership reinforce each other.",
       before:
-        "AI-assisted analysis was either untrusted or unusable in finance, because output arrived without provenance and controls lived where accountable people could not see them.",
+        "Valuable finance products experienced as disconnected tools: no unified entry point, overlapping terminology, and an integration promise the architecture could not keep.",
       after:
-        "A governed platform where experimentation is separated from production, every AI action is inspectable, anomalies reach the accountable role proactively, and consequential work requires human approval.",
+        "A suite with an honest narrative and one front door: access-aware discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
       proof: [
-        "Delivered a working POC, then scaled from 10 pilot users to 300 through iterative testing.",
-        "Established the environment separation and promotion gate model now used across the platform.",
-        "Defined confidence thresholds with ML engineering as explicit product boundaries.",
-        "Made anomaly detection actionable by routing it to the accountable role with drivers attached.",
-        "Preserved human responsibility for accruals, journal entries, payroll, and close work.",
+        "Homepage established as the primary discovery mechanism for a flagship analysis product with a 250-user adoption target.",
+        "Scaled the analysis platform from 10 pilot users to 300 through iterative testing, with enterprise adoption of 1,000+ planned.",
+        "Agent success defined as analyst action within 72 hours — a scenario run or a leadership conversation — not forecast precision.",
+        "Signal-interpretation thresholds set with domain experts: roughly 3% meaningful in one use case, 1% often noise.",
+        "Research scaled from about four unique participants on key workflows to moderated studies drawing on a 32-analyst pool.",
+        "Standardized patterns across divergent workflow products — headers, breadcrumbs, status badges, approval history — seeding a finance-wide component library.",
       ],
       metricStatus:
-        "Exact adoption dates, efficiency gains, and close cycle improvements are not verified and are not stated.",
+        "Adoption figures are targets unless stated as delivered. Program-internal dates and client financial figures are known but deliberately not published.",
     },
     reflection: {
+      // [NEEDS SIGN-OFF] Authored from her portfolio-takeaway section; the
+      // wouldChange paragraph is her own earlier reflection, kept verbatim.
       learned:
-        "The hardest part wasn't making AI capable, it was making its governance legible. Early on, controls lived in the backend and users had to trust that they existed. The work got better once every control had a visible surface: an environment label, a promotion checklist, an audit entry.",
+        "The most important design decision here was a sentence, not a screen: stop calling it one application. Once the narrative matched the architecture, everything else — the launcher, the taxonomy, the shared patterns — had a foundation that could not collapse under its own promise.",
       wouldChange:
         "Scaling taught the second lesson. Ten pilot users will tolerate ambiguity and ask a person when something looks wrong. Three hundred users will not, and at a thousand there is no person to ask. Everything that worked at pilot scale because someone could explain it had to become something the interface explained by itself.",
-      principle: "Governance people can't see isn't governance they'll approve.",
+      principle: "Don\u2019t promise integration before it exists.",
     },
   },
 
@@ -478,6 +551,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025" },
       { label: "Status", value: "Completed, April 2025" },
+      {
+        label: "Team",
+        value: "UX design, data science, marketing and CX, AI/NLP engineering, product owners",
+      },
       { label: "Tools", value: "Figma, FigJam" },
       { label: "Users", value: "Marketing and CX teams, service agents, and product/data partners" },
     ],
@@ -486,6 +563,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Data Science" },
       { role: "Marketing and CX" },
       { role: "AI/NLP Engineering" },
+      { role: "Front-end and back-end engineering" },
       { role: "Product Owners" },
     ],
     tldr: {
@@ -501,11 +579,15 @@ export const caseStudies: Record<string, CaseStudy> = {
     // instead: the flow itself, the surfaces in `images`, and the review rule.
     stats: [
       { value: "0 → 1", label: "End-to-end mitigation flow, designed from scratch" },
-      { value: "4", label: "Connected surfaces: dashboard, mitigation plan, chatbot, agent view" },
+      {
+        value: "6",
+        label:
+          "Connected surfaces: dashboard, journey exploration, segment-of-one timeline, mitigation plan, customer chatbot, representative view",
+      },
       { value: "Required", label: "Human review before any AI message reached a customer" },
     ],
     overview:
-      "As Lead UX Designer at Amdocs Studios, I designed the connected customer journey for a telecommunications operator that had predictive churn signals but no way to act on them. I led the interaction model across analysts, service teams, and the AI layer, and designed the flow end to end: from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
+      "As Lead UX Designer at Amdocs Studios, I implemented the product vision for a connected customer journey at a telecommunications operator that had predictive churn signals but no way to act on them. I worked with engineering, product, and the client's customer teams, and ran the user research that tested the hypothesis behind the vision and gave shape to both the user problems and the solutions. I designed the flow end to end across the three roles it touches \u2014 the analyst who sees the risk, the customer who lives it, and the service representative who resolves it \u2014 from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
     leadership: [
       {
         kind: "Product strategy",
@@ -534,32 +616,98 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     solutionSteps: [
       {
-        title: "Detect in context",
+        title: "Detect the risk",
         points: [
-          "Segments built dynamically from churn-risk criteria, not static lists",
-          "Risk sits beside behavior, sentiment, journey context, and available actions",
+          "The dashboard leads with the business metrics already at risk or predicted to be, each carrying why it is at risk and a direct path to mitigate it",
+          "Segments are built dynamically from churn-risk criteria \u2014 issues, historic behavior, likelihood to churn \u2014 rather than maintained as static lists",
+        ],
+        images: [
+          {
+            src: ccjDashboard,
+            fullSrc: ccjDashboardFull,
+            width: 1600,
+            height: 1024,
+            alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
+            caption:
+              "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
+          },
+        ],
+      },
+      {
+        title: "Explain the drop-off",
+        points: [
+          "Journey exploration shows where customers actually fail, split by entry channel, with the churned and successfully continued share on each path",
+          "A segment-of-one timeline replays one customer's events against their churn risk, so the pattern and the person stay connected",
+        ],
+        images: [
+          {
+            src: ccjJourneyExplorations,
+            fullSrc: ccjJourneyExplorationsFull,
+            width: 2400,
+            height: 1531,
+            alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
+            caption:
+                "Top-up failures churn differently by channel — mobile app, SMS, IVR — so mitigation targets the worst path, not every failure equally.",
+          },
+          {
+            src: ccjSegmentOfOne,
+            fullSrc: ccjSegmentOfOneFull,
+            width: 2400,
+            height: 1536,
+            alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
+            caption:
+                "One customer's journey on a timeline — a flagged risk resolves to real events before anyone chooses a mitigation.",
+          },
         ],
       },
       {
         title: "Decide with evidence",
         points: [
-          "Each offer starts as a hypothesis, testable in a what-if analysis tool",
-          "AI drafts a tone-matched message; the person reviews and edits before it goes out",
+          "The mitigation plan pairs the KPI at risk with its key drivers and one recommended next action",
+          "Each offer starts as a hypothesis, testable in a what-if analysis tool before anything is deployed",
+          "AI drafts a message against a selected audience and tone; the person reviews and edits the live preview before it goes out",
+        ],
+        images: [
+          {
+            src: ccjMitigationPlan,
+            fullSrc: ccjMitigationPlanFull,
+            width: 1600,
+            height: 1547,
+            alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
+            caption:
+                "The KPI's key drivers beside an AI-drafted, tone-controlled offer — a person edits the preview before anything launches.",
+          },
         ],
       },
       {
         title: "Act and monitor",
         points: [
-          "A chatbot handles routine cases and hands off to a person when sentiment calls for it",
+          "A chatbot handles routine cases and hands off to a representative when sentiment analysis and account context call for a person",
+          "The representative works from an AI-generated customer summary and suggested course of action, with access to offers the automated system does not yet hold",
           "A declined offer loops back to adjustment rather than ending in a dead end",
+        ],
+        images: [
+          {
+            src: ccjChatExpanded,
+            fullSrc: ccjChatExpandedFull,
+            width: 1600,
+            height: 1024,
+            alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
+            caption:
+                "An AI summary and suggested action beside the live conversation — assistance in view, the representative in control.",
+          },
         ],
       },
     ],
     context:
       "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn't an answer. The reset came when we started treating a prediction as the opening of a decision a person still had to make — with the customer's context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
     evidence: {
       body:
-        "The product direction addressed a documented gap between having customer data and being able to act on it.",
+        "I ran user research against the hypothesis behind the product vision: that a predictive churn signal changes nothing unless the person responsible for the customer can see why it fired and act on it without leaving the context. The research validated that hypothesis and gave shape to both the problems below and the surfaces that answered them.",
       findings: [
         {
           finding:
@@ -576,6 +724,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           finding: "A churn score did not explain what happened or what a team should do next.",
           response:
             "Predictive risk had to sit beside behavior, sentiment, journey context, and available actions.",
+        },
+        {
+          finding:
+            "Failures concentrated in specific journey paths \u2014 a repeated top-up failure in the app, or that same failure diverted to the phone system \u2014 but no view showed which path a customer had taken.",
+          response:
+            "Journey exploration had to show the churned and continued share on each channel path, not a single aggregate rate.",
         },
         {
           finding: "AI-assisted messages and offers could affect the customer relationship.",
@@ -655,7 +809,11 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Loops back to offer adjustment rather than ending in a dead end",
       },
     ],
-    images: [
+    // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
+    // plan, journey explorations) -> act (the representative's chat).
+    // The working end-to-end flow, kept from the live site in its own deep-dive
+    // container rather than the solution gallery. Caption is the original.
+    processImages: [
       {
         src: ccjUserFlow,
         fullSrc: ccjUserFlowFull,
@@ -664,33 +822,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "User flow diagram for the connected customer journey, showing an analyst path from dashboard alert through offer generation, a customer journey path from risk event through AI chatbot and human customer-service handoff, and a customer-service representative path ending in resolution.",
         caption:
           "End-to-end flow: from churn-risk detection and segment creation, through AI chatbot and human customer-service handoff, to offer resolution and monitoring.",
-      },
-      {
-        src: ccjDashboard,
-        fullSrc: ccjDashboardFull,
-        width: 1600,
-        height: 1024,
-        alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
-        caption:
-          "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
-      },
-      {
-        src: ccjMitigationPlan,
-        fullSrc: ccjMitigationPlanFull,
-        width: 1600,
-        height: 1547,
-        alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
-        caption:
-          "Mitigation plan for an identified KPI risk, pairing the key drivers behind it with an AI-assisted, tone-controlled offer builder and a live preview of the customer-facing message.",
-      },
-      {
-        src: ccjChatExpanded,
-        fullSrc: ccjChatExpandedFull,
-        width: 1600,
-        height: 1024,
-        alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
-        caption:
-          "The representative's chat interface, with an AI-generated customer summary and suggested course of action alongside the live conversation.",
       },
     ],
     impact: {
@@ -721,19 +852,24 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   "auditable-billing-workflow": {
     snapshotFields: [
-      { label: "Role", value: "Design Lead and UX / Product Strategy Lead" },
+      { label: "Role", value: "Lead Designer, then Design Lead and UX / Product Strategy Lead" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential telecommunications company" },
-      { label: "Timeframe", value: "2024–2025" },
-      { label: "Status", value: "Completed, first MVP delivered" },
+      { label: "Timeframe", value: "2024–2025, one-year engagement" },
+      { label: "Status", value: "Completed" },
+      {
+        label: "Team",
+        value: "Chief Data Office, product, engineering, UI development, finance stakeholders",
+      },
       { label: "Tools", value: "Figma, FigJam" },
       { label: "Users", value: "Admins, accountants, and engineers managing multiple projects and billing packages" },
+      { label: "Adoption", value: "100-user target, reached" },
     ],
     team: [
       { role: "Chief Data Office" },
+      { role: "Principal designer (early phase, before I took over design leadership)" },
       { role: "Product" },
-      { role: "Engineering" },
-      { role: "UI development" },
+      { role: "Front-end and back-end engineering" },
       { role: "Finance and operations stakeholders" },
     ],
     tldr: {
@@ -742,23 +878,35 @@ export const caseStudies: Record<string, CaseStudy> = {
       solution:
         "A guided B2B workflow with a shared status model, role-based permissions, and a full audit trail replacing manual, ownerless assembly.",
       result:
-        "Unblocked recovery of the billing backlog through the first MVP for project querying and package assembly, while preserving a phased path to document integration, editing, review, and automation.",
+        "Unblocked recovery of the billing backlog with a first MVP for project querying and package assembly, then shipped the dashboard, in-product editing, and the review process over a one-year engagement, reaching the 100-user adoption target.",
     },
     // Backlog volume and handoff time are unverified (see impact.metricStatus).
     // The counts below come from the status model and the operational flow.
     stats: [
-      { value: "MVP 1", label: "Delivered — unblocked recovery of the billable-work backlog" },
+      { value: "100", label: "User adoption target, reached" },
+      { value: "12 of 21", label: "Must-have features shipped against the team-approved prioritization" },
       { value: "6", label: "Shared status states, Initiated through Completed" },
-      { value: "5", label: "Roles mapped across the operational flow" },
     ],
     overview:
-      "As Design Lead and UX / Product Strategy Lead at Amdocs Studios, I replaced a telecommunications client's manual billing-package assembly with a guided workflow. Work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I led the strategy and the delivery partnership with engineering, and designed the flow, the status model, and the recovery paths that made billable work traceable again.",
+      "At Amdocs Studios I joined this telecommunications engagement as lead designer working alongside a principal designer, then took over design leadership when the principal rolled off. The goal was to replace manual billing-package assembly with a guided workflow: work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and coordinated stakeholders with front-end and back-end engineering through testing, UAT, and the backlog. The application reached its 100-user adoption target.",
     leadership: [
       {
         kind: "Product strategy",
         title: "Defined the shared status model",
         detail:
           "Initiated, In Progress, Review, Approved, Finalized, Completed — with permissions, ownership, notifications, activity history, and audit-trail concepts.",
+      },
+      {
+        kind: "Product strategy",
+        title: "Ran feature prioritization with the team",
+        detail:
+          "Sorted the feature set into Must Have, Should Have, and Nice to Have across six areas — System, Package Creation, Configuration, Workflow Management, Review, and Generation — took it to team approval, then tracked each item's ship status against that grid.",
+      },
+      {
+        kind: "Team leadership",
+        title: "Took over design leadership mid-engagement",
+        detail:
+          "Stepped up from lead designer when the principal designer rolled off, coordinating stakeholders and front-end and back-end engineering, and owning testing, UAT, and backlog items through delivery.",
       },
       {
         kind: "Team leadership",
@@ -804,6 +952,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where it had gone. Assembling a single billing package meant manually pulling project data, screenshots, and invoices from multiple systems with no shared status model or audit trail.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "Mid-delivery, the plan lost its dashboard. The planned reporting dashboard turned out not to be feasible inside the release's technical scope, and forcing it in would have put the billing workflow — the thing recovering actual revenue — at risk. I surfaced the dependency, moved the dashboard into a visible backlog, and kept the release on the work that was feasible. Protecting the core flow cost us the most demo-friendly screen.",
     evidence: {
       findings: [
         {
@@ -838,7 +990,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       BILLING_OPERATIONAL_FLOW,
       BILLING_STATUS_MODEL,
       "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
-      "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+      "Delivered the first MVP for interface and project querying, then the dashboard, in-product editing, and the review process across a one-year engagement, leaving whole-package automation as the named next phase.",
     ],
     // Condensed from the `owned` items above; wording drawn from them.
     ownedThemes: [
@@ -863,9 +1015,9 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible backlog instead of compromising the active release.",
       },
       {
-        label: "MVP and roadmap",
+        label: "MVP through completion",
         detail:
-          "Delivered a completed first MVP for interface and project querying, plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
+          "Delivered the first MVP for interface and project querying, then the dashboard, in-product editing, and the review process across a one-year engagement, leaving whole-package automation as the named next phase.",
       },
     ],
     decisions: [
@@ -896,7 +1048,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         decision: "Preserved an interim editing path through Excel.",
         rationale:
-          "Direct editing was not feasible within the immediate technical constraints, so the roadmap retained Excel as a temporary editing mechanism while the product moved toward deeper in-app editing.",
+          "Direct editing was not feasible within the first release's technical constraints, so Excel stayed as a temporary editing mechanism until in-product editing of package, project, and customer details shipped in the review phase.",
         rejected: "shipping an incomplete in-product editor that did not meet the technical constraints",
         tradeoff:
           "A deliberate product tradeoff: preserve operational continuity now while designing a more integrated future state.",
@@ -904,9 +1056,15 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         decision: "De-scoped the planned dashboard without losing the opportunity.",
         rationale:
-          "A planned dashboard was determined not to be feasible. I surfaced the dependency and helped move the work out of the current scope while retaining it in the backlog as a future opportunity.",
+          "The dashboard was not feasible for the first release. I surfaced the dependency and moved it out of that scope while keeping it in the backlog; it was prioritized as a must-have in the next phase and shipped.",
         rejected:
           "forcing the unsupported dashboard into the current scope and putting the feasible billing workflow at risk",
+      },
+      {
+        decision: "Prioritized by feature area, not by screen.",
+        rationale:
+          "The prioritization grid grouped features by the part of the process they served — system integrations, package creation, configuration, workflow management, review, and generation — so the must-have column read as a working end-to-end process rather than a list of screens. Whole-package automation and section export were held as the final area so the manual path shipped first, and the exercise surfaced a labor-hours generation need that had not previously been identified.",
+        rejected: "prioritizing individual screens in isolation, which hides whether the process works end to end",
       },
     ],
     states: [
@@ -933,16 +1091,10 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Reverts cleanly without affecting the rest of the package",
       },
     ],
-    images: [
-      {
-        src: cwoMvp1Workflow,
-        fullSrc: cwoMvp1WorkflowFull,
-        width: 4174,
-        height: 2592,
-        alt: "MVP1 user flow diagram showing a user searching a project number, the system matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
-        caption:
-          "MVP1 flow: searching a project number, matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
-      },
+    // The MVP2 scope workshop board, moved out of the solution gallery: a
+    // process artifact, and its full-resolution board carries internal release
+    // targets — behind a click here rather than on the page.
+    processImages: [
       {
         src: cwoCreationFlow,
         fullSrc: cwoCreationFlowFull,
@@ -953,42 +1105,57 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Creation flow: role-based branching from sign-in through review, export, and finalization.",
       },
       {
-        src: cwoFlow,
-        fullSrc: cwoFlowFull,
-        width: 6368,
-        height: 2536,
-        alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
-        caption:
-          "Review flow: starting a review, making inline edits with save or discard, completing the review, and submitting with a git-style commit message before the package is marked ready for review.",
-      },
-      {
         src: cwoStrategyAlignment,
         fullSrc: cwoStrategyAlignmentFull,
         width: 2600,
         height: 661,
         alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
         caption:
-          "MVP2 scope-definition workshop: goals and outcomes, feature prioritization, and the entity relationships used to plan the next phase.",
+          "MVP2 scope-definition workshop: goals and outcomes, the team-approved must/should/nice prioritization across six feature areas with shipped items marked, and the entity relationships used to plan the next phase.",
+      },
+    ],
+    images: [
+      {
+        src: cwoMvp1Workflow,
+        fullSrc: cwoMvp1WorkflowFull,
+        width: 4174,
+        height: 2592,
+        alt: "MVP1 user flow diagram showing a user searching a project number, the system matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
+        caption:
+          "The project number is the package's primary key — resuming is never mistaken for starting over.",
+      },
+      {
+        src: cwoFlow,
+        fullSrc: cwoFlowFull,
+        width: 6368,
+        height: 2536,
+        alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
+        caption:
+          "Review as its own state machine — inline edits, save or discard, and a commit message before anything is finalized.",
       },
     ],
     impact: {
       headline:
         "The first MVP unblocked recovery of the backlog of unprocessed billable work by giving the team a usable interface for project querying and package assembly.",
+      business:
+        "The application reached its 100-user adoption target.",
       organizational:
-        "Defined a status model that made ownership and handoffs explicit, and laid a phased roadmap for document integration and full automation.",
+        "Defined a status model that made ownership and handoffs explicit, and shipped the review process on top of it; whole-package automation was left as the named next phase.",
       before:
         "Billable work accumulated across fragmented systems, files, screenshots, spreadsheets, and manual handoffs.",
       after:
         "A stepwise workflow coordinated package creation, progressive validation, recovery, ownership, review, status, and history.",
       proof: [
         "Completed the first MVP for interface and project querying.",
-        "Established a phased roadmap for document integration, editing, review, and automation.",
+        "Reached the 100-user adoption target.",
+        "Shipped 12 of the 21 team-approved must-have features, covering package creation, workflow management, and review.",
+        "Shipped the dashboard, in-product editing, and the review process in later phases of the one-year engagement.",
         "Added recoverable screenshot-generation and validation patterns.",
         "Reused role, review, submit, and status patterns across the workflow.",
         "Made ownership, package state, action history, and review handoffs visible.",
       ],
       metricStatus:
-        "The recovered backlog is the verified unblocked outcome available in the project record. Exact backlog volume, defect reduction, handoff time, and final release dates are not verified and are not stated.",
+        "The recovered backlog and the 100-user adoption target are the outcomes available in the project record; the 12-of-21 count is read from the feature-prioritization board. Exact backlog volume, defect reduction, handoff time, and final release dates are not verified and are not stated.",
     },
     reflection: {
       learned:
@@ -1004,6 +1171,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2025" },
       { label: "Status", value: "Multi-phase accelerator and product-development work" },
+      {
+        label: "Team",
+        value: "Design, product, engineering, research, client stakeholders",
+      },
       { label: "Users", value: "Enterprise business users, Corporate Communications, Risk and Compliance" },
     ],
     team: [
@@ -1081,6 +1252,23 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     context:
       "Traditional enterprise search could retrieve documents, but users still had to open files individually, locate relevant sections, reconcile differences, and manually create a summary. An LLM could accelerate that work, but it introduced new risks: generated answers could lose their connection to source material, users could not easily compare several documents at once, switching files could disrupt conversational context, and sensitive information required privacy-aware behavior. The design question became how to help enterprise users move from retrieval to verified understanding without hiding the documents behind the AI.",
+    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
+    // this study's own decisions/reflection — no new claims.
+    turn:
+      "Testing broke our navigation. The prototype moved between documents with tabs; in sessions, people lost track of which documents an answer was drawing from — trust evaporated at exactly the moment the product promised verification. We rebuilt around explicit document selection and side-by-side comparison, and kept every citation one interaction away from its source.",
+    processImages: [
+      {
+        src: diUserFlows,
+        fullSrc: diUserFlowsFull,
+        width: 9000,
+        height: 2196,
+        alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
+        caption:
+          "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
+      },
+        ],
+    visualsPendingNote:
+      "The side-by-side comparison view — abstracted for confidentiality — is in production. Structure and outcomes are accurate.",
     evidence: {
       body:
         "I led or contributed to research planning, protocol development, stakeholder alignment, execution guidance, and synthesis. Research evaluated pattern clarity, trust and interpretability, feature discoverability, document selection, navigation across tabs or views, comparison preferences, and guardrails and source verification. I used affinity mapping to group observations and translated the findings into product recommendations, feature priorities, and reusable interaction patterns.",
@@ -1173,24 +1361,13 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         decision: "Preserved context while switching sources.",
         rationale:
-          "The platform concept supported seamless movement between selected documents while retaining conversational context, source references, search history, and the user's place in the workflow.",
+          "The platform concept let users move between selected documents without losing conversational context, source references, search history, or their place in the workflow.",
       },
       {
         decision: "Made saving an intentional privacy action.",
         rationale:
           "The privacy-first direction avoided retaining user data without an explicit save, giving users clearer control over what became persistent history.",
         rejected: "retaining user data without an explicit save",
-      },
-    ],
-    images: [
-      {
-        src: diUserFlows,
-        fullSrc: diUserFlowsFull,
-        width: 9000,
-        height: 2196,
-        alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
-        caption:
-          "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
       },
     ],
     impact: {

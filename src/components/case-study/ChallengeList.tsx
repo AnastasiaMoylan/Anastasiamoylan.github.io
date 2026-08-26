@@ -14,18 +14,14 @@ import PullQuote from "./primitives/PullQuote";
 export default function ChallengeList({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
 
+  // The research-method `body` renders in the deep dive's research panel, not
+  // here — this section stays a scannable list of what was broken.
   return (
     <div>
-      {evidence.body && (
-        <p className="mb-7 max-w-[46rem] text-base leading-[1.7] text-muted-foreground">
-          {evidence.body}
-        </p>
-      )}
-
       {findings.length > 0 && (
         <ul className="m-0 flex list-none flex-col gap-4 p-0">
           {findings.map(({ finding }) => (
-            <li key={finding} className="flex max-w-[46rem] gap-3">
+            <li key={finding} className="flex measure gap-3">
               <span className="mt-[0.35rem] shrink-0 text-accent" aria-hidden="true">
                 &rarr;
               </span>

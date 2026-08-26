@@ -6,6 +6,7 @@ import CaseStudyHeader from "../components/case-study/CaseStudyHeader";
 import StatBand from "../components/case-study/StatBand";
 import PlaceholderFigure from "../components/case-study/PlaceholderFigure";
 import SectionNav from "../components/case-study/SectionNav";
+import Eyebrow from "../components/ui/Eyebrow";
 import buildSections from "../components/case-study/buildSections";
 import { getAugments } from "../components/case-study/diagrams/augments";
 
@@ -27,7 +28,7 @@ export default function CaseStudyPage() {
     return (
       <div className="py-16 pb-24">
         <div className="content-container">
-          <Link to="/work" className="inline-flex items-center gap-1.5 text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline mb-10 transition-colors duration-150">
+          <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
             &larr; All case studies
           </Link>
           <h1 className="text-[clamp(1.75rem,4vw,3rem)] font-bold text-foreground mb-6">{project.title}</h1>
@@ -41,18 +42,25 @@ export default function CaseStudyPage() {
   const sections = buildSections(content, getAugments(project.slug));
 
   return (
-    <div className="py-16 pb-24">
-      <div className="content-container">
-        <Link to="/work" className="inline-flex items-center gap-1.5 text-[0.9375rem] text-muted-foreground hover:text-foreground no-underline mb-10 transition-colors duration-150">
-          &larr; All case studies
-        </Link>
+    <>
+      <section className="relative overflow-hidden border-b border-border">
+        <div className="blueprint absolute inset-0" aria-hidden="true" />
+        <div className="content-container relative py-16">
+          <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
+            &larr; All case studies
+          </Link>
 
-        <CaseStudyHeader
-          title={project.title}
-          tagline={project.tagline}
-          tags={project.tags}
-          fields={content.snapshotFields}
-        />
+          <CaseStudyHeader
+            title={project.title}
+            tagline={project.tagline}
+            tags={project.tags}
+            fields={content.snapshotFields}
+          />
+        </div>
+      </section>
+
+    <div className="pt-4 pb-24">
+      <div className="content-container">
 
         {/*
           The cover sets tone rather than carrying information: every substantive
@@ -79,9 +87,11 @@ export default function CaseStudyPage() {
 
         {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
 
-        <div className="flex flex-col lg:flex-row gap-12 pt-12">
+        {/* 12-column grid at lg: rail spans 2, content spans 10; 32px gutters.
+            Below lg it stacks. All vertical rhythm on the 8pt grid. */}
+        <div className="flex flex-col gap-12 pt-12 lg:grid lg:grid-cols-12 lg:gap-x-8">
           <SectionNav sections={sections} />
-          <div className="flex-1 min-w-0 flex flex-col gap-14">
+          <div className="min-w-0 flex flex-col gap-16 lg:col-span-10">
             {/*
               Heading hierarchy for every case study:
                 h1  page title
@@ -97,13 +107,13 @@ export default function CaseStudyPage() {
                   "scroll-mt-24",
                   // A hairline above each section is the "new section starts
                   // here" marker, so the h3 never has to carry that job alone.
-                  i > 0 ? "border-t border-border pt-14" : "",
+                  i > 0 ? "border-t border-border pt-16" : "",
                 ].join(" ")}
               >
-                <h3 className="text-[clamp(1.25rem,2.4vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.015em] text-foreground">
+                <h3 className="font-display text-[clamp(1.375rem,2.4vw,1.75rem)] font-bold leading-[1.2] tracking-[-0.02em] text-foreground">
                   {heading}
                 </h3>
-                <div className="mt-7">{sectionContent}</div>
+                <div className="mt-8">{sectionContent}</div>
               </section>
             ))}
           </div>
@@ -111,19 +121,18 @@ export default function CaseStudyPage() {
 
         <div className="mt-16 pt-12 border-t border-border flex flex-wrap justify-between items-center gap-4">
           <div>
-            <p className="text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground mb-2">
-              Next case study
-            </p>
+            <Eyebrow className="mb-2">Next case study</Eyebrow>
             <Link
               to={`/work/${nextProject.slug}`}
-              className="text-base font-semibold text-accent hover:text-foreground no-underline transition-colors duration-150"
+              className="font-display text-base font-bold tracking-[-0.01em] text-accent hover:text-accent-hover no-underline transition-colors duration-150"
             >
               {nextProject.title} &rarr;
             </Link>
           </div>
-          <Button to="/contact" variant="primary">Get in Touch</Button>
+          <Button to="/contact" variant="primary" shape="hex">Get in Touch</Button>
         </div>
       </div>
     </div>
+    </>
   );
 }

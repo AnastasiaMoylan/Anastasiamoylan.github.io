@@ -1,45 +1,64 @@
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: #111111;
+
+  /* Blueprint ground. Brightened 2026-08-26 (owner: "brighten up the background
+     altogether") — warm off-white rather than warm grey; cards still lift to pure
+     white, and the champagne/maroon accents keep their warmth against it. */
+  --background: #f7f5f1;
+  --foreground: #283d3b;
   --card: #ffffff;
-  --card-foreground: #111111;
+  --card-foreground: #283d3b;
   --popover: #ffffff;
-  --popover-foreground: #111111;
-  --primary: #7c3030;
+  --popover-foreground: #283d3b;
+
+  /* Maroon means action: buttons, links, arrows, stat figures. */
+  --primary: #6e2a2a;
   --primary-foreground: #ffffff;
-  --secondary: #f5f0f0;
-  --secondary-foreground: #111111;
-  --muted: #f5f0f0;
-  --muted-foreground: #6b7280;
-  --accent: #7c3030;
+  --accent: #6e2a2a;
   --accent-foreground: #ffffff;
-  --destructive: #dc2626;
+  --accent-text: #6e2a2a;
+  --accent-hover: #5a2222;
+
+  /* Champagne chip fill, teal text on top of it. */
+  --secondary: #edddd4;
+  --secondary-foreground: #283d3b;
+
+  /* Teal means label or location: eyebrows, nav underlines, timeline markers. */
+  --tertiary: #283d3b;
+  --tertiary-100: #d6e3e1;
+  --tertiary-500: #6b8f8a;
+  --tertiary-700: #3e5b58;
+  --tertiary-900: #283d3b;
+
+  --muted: #f2efe9;
+  --muted-foreground: #6b6560;
+  --destructive: #b3261e;
   --destructive-foreground: #ffffff;
-  --border: #e8e0e0;
-  --input: #f5f0f0;
-  --input-background: #faf7f7;
-  --switch-background: #d1c8c8;
+  --border: #dad4cb;
+  --input: #f2efe9;
+  --input-background: #ffffff;
+  --switch-background: #c9c2b8;
+  --ring: #6e2a2a;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #7c3030;
-  --surface: #faf7f7;
-  --surface-raised: #ffffff;
-  --accent-text: #7c3030;
-  --accent-hover: #5e2424;
-  --radius: 0.875rem;
+  --radius: 0.375rem;
+
+  /* Blueprint layer behind the hero: hairline columns plus register marks. */
+  --grid-line: rgba(218, 212, 203, 0.8);
+  --grid-mark: #b9afa2;
 
   /* Maroon tint ramp for case-study diagrams: successive mixes of --accent
      with white. Subtle = tinted rows and callouts, light = first bar and
-     lightest card header, mid = middle bar and header. The base --accent
-     closes the ramp and carries white text reversed out of it. */
-  --accent-tint-subtle: #f7eded;
-  --accent-tint-light: #e2cccc;
-  --accent-tint-mid: #c09292;
+     lightest card header, mid = middle bar and header. */
+  --accent-tint-subtle: #f1eaea;
+  --accent-tint-light: #dbc9c9;
+  --accent-tint-mid: #b69494;
   /* Darkest step of the ramp. Solid --accent is reserved for calls to action,
-     so surfaces that need to read as "deepest" stop here instead. Dark text
-     clears 4.5:1 on it. */
-  --accent-tint-deep: #a86d6d;
+     so surfaces that need to read as "deepest" stop here instead. */
+  --accent-tint-deep: #996a6a;
 }
 
 @theme inline {
@@ -64,10 +83,6 @@
   --color-input-background: var(--input-background);
   --color-switch-background: var(--switch-background);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 6px);
-  --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 6px);
-  --radius-xl: calc(var(--radius) + 10px);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-accent-text: var(--accent-text);
@@ -76,7 +91,22 @@
   --color-accent-tint-light: var(--accent-tint-light);
   --color-accent-tint-mid: var(--accent-tint-mid);
   --color-accent-tint-deep: var(--accent-tint-deep);
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-100: var(--tertiary-100);
+  --color-tertiary-500: var(--tertiary-500);
+  --color-tertiary-700: var(--tertiary-700);
+  --color-tertiary-900: var(--tertiary-900);
+  --color-grid-line: var(--grid-line);
+  --color-grid-mark: var(--grid-mark);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 6px);
+  --radius-xl: calc(var(--radius) + 10px);
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Archivo', 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
@@ -91,28 +121,38 @@
   /**
   * Default typography styles for HTML elements (h1-h4, p, label, button, input).
   * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  *
+  * Headings run in the display family with tight tracking; body copy stays Inter.
   */
 
   html {
     font-size: var(--font-size);
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
   h1 {
     font-size: var(--text-2xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-weight: 800;
+    line-height: 1.15;
   }
 
   h2 {
     font-size: var(--text-xl);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   h3 {
     font-size: var(--text-lg);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.5;
+    font-weight: 700;
+    line-height: 1.25;
   }
 
   h4 {

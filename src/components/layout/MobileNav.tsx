@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router";
 import { X } from "lucide-react";
-import Button from "../ui/Button";
 import { navLinks } from "../../data/navLinks";
 
 interface MobileNavProps {
@@ -85,12 +84,6 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
             </li>
           ))}
         </ul>
-
-        <div className="mt-6 pt-6 border-t border-border">
-          <Button to="/contact" variant="primary" fullWidth>
-            Get in Touch
-          </Button>
-        </div>
       </nav>
     </>
   );

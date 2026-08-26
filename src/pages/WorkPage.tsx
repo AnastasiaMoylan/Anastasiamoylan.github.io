@@ -1,18 +1,11 @@
-import { useState } from "react";
 import SectionHeading from "../components/ui/SectionHeading";
-import WorkCard from "../components/work/WorkCard";
-import WorkFilters from "../components/work/WorkFilters";
+import WorkRow from "../components/work/WorkRow";
 import Button from "../components/ui/Button";
 import { projects } from "../data/projects";
 
+const ordered = [...projects].sort((a, b) => a.featuredOrder - b.featuredOrder);
+
 export default function WorkPage() {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filtered =
-    activeFilter === "All"
-      ? [...projects].sort((a, b) => a.featuredOrder - b.featuredOrder)
-      : projects.filter((p) => p.filterCategories.includes(activeFilter));
-
   return (
     <div className="py-16 pb-24">
       <div className="content-container">
@@ -25,29 +18,14 @@ export default function WorkPage() {
           />
         </div>
 
-        <WorkFilters activeFilter={activeFilter} onFilterChange={setActiveFilter} />
-
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-          aria-live="polite"
-          aria-label="Case study results"
-        >
-          {filtered.map((project) => (
-            <WorkCard key={project.slug} project={project} />
+        {/* Numbered editorial rows (see the Mobbin research board): the outcome
+            sentence carries each row. Filters were removed — four studies is
+            below the point where filtering earns its place. */}
+        <div aria-label="Case studies">
+          {ordered.map((project, i) => (
+            <WorkRow key={project.slug} project={project} index={i} />
           ))}
         </div>
-
-        {filtered.length === 0 && (
-          <p className="text-[1.0625rem] text-muted-foreground py-12" role="status">
-            No case studies tagged {activeFilter} yet.{" "}
-            <button
-              className="text-accent underline underline-offset-4 bg-transparent border-0 p-0 cursor-pointer font-inherit text-[1.0625rem]"
-              onClick={() => setActiveFilter("All")}
-            >
-              Show all case studies
-            </button>
-          </p>
-        )}
 
         <div className="mt-20 text-center">
           <h2 className="text-[clamp(1.5rem,4vw,2.5rem)] font-bold text-foreground mb-8">

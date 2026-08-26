@@ -14,14 +14,14 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
               type="button"
               onClick={() => setActive(image)}
               aria-label={`Enlarge image: ${image.caption}`}
-              className="group relative block w-full p-0 rounded-md border border-border overflow-hidden bg-card cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group relative block w-full p-2 sm:p-3 rounded-md border border-border overflow-hidden bg-card cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <img
                 src={image.src}
                 alt={image.alt}
                 width={image.width}
                 height={image.height}
-                className="w-full h-auto block"
+                className="w-full h-auto block rounded-sm"
                 loading="lazy"
               />
               {/*

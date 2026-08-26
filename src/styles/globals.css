@@ -12,7 +12,7 @@ body {
   top: -9999px;
   left: 1rem;
   background: var(--ring);
-  color: #000;
+  color: #fff;
   padding: 0.5rem 1rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
@@ -26,8 +26,19 @@ body {
 }
 
 /* Reusable max-width container — avoids repeating the breakpoint sequence everywhere */
+/* One container site-wide. Widened 1152 -> 1440 on 2026-08-26, when the
+   case-study canvas went full-screen and the owner standardized the rest of
+   the site to match. Narrow reading measures come from max-w-* on inner
+   blocks, not from this container. */
+/* The reading measure: every prose block in a case study caps here (~70ch at
+   1rem body). Wider elements — cards, diagrams, galleries — use the grid, not
+   this. */
+.measure {
+  max-width: 42rem;
+}
+
 .content-container {
-  max-width: 1152px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;
@@ -45,5 +56,53 @@ body {
   .content-container {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+}
+
+/*
+  Blueprint layer behind the hero. Two tiled gradients rather than a stack of
+  positioned rules, so the grid keeps its 288px column rhythm at any width
+  instead of only at the 1440px design canvas.
+*/
+.blueprint {
+  background-image:
+    /* Register mark at each intersection. Inlined SVG because a data URI can't
+       read a custom property — the stroke here mirrors --grid-mark. */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='288' height='180'%3E%3Cpath d='M281.5 180h13M288 173.5v13' stroke='%23b9afa2' stroke-width='1.3'/%3E%3C/svg%3E"),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size:
+    288px 180px,
+    288px 100%,
+    100% 180px;
+  /* Anchored to the content column, not the viewport, so a rule lands on the
+     text edge at wide sizes the way it does on the 1440px design canvas.
+     528px = half the 1152px container minus its 48px gutter. */
+  background-position:
+    calc(50% - 528px) 0,
+    calc(50% - 528px) 0,
+    0 180px;
+  background-repeat: repeat, repeat-x, repeat-y;
+}
+
+/*
+  Hexagonal button tab. Applied to an absolutely-positioned background span
+  rather than the button itself, so the clip never eats the focus ring.
+  --hex-cut is half the tab height, which is what makes the ends 45°.
+*/
+.hex-tab {
+  clip-path: polygon(
+    0 50%,
+    var(--hex-cut) 0,
+    calc(100% - var(--hex-cut)) 0,
+    100% 50%,
+    calc(100% - var(--hex-cut)) 100%,
+    var(--hex-cut) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

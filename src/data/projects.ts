@@ -29,14 +29,14 @@ export const projects: Project[] = [
     image: financeAIFlow,
     title: "Finance Cloud",
     tagline:
-      "Reporting, forecasting, and month-end close in one governed AI platform for finance and payroll",
+      "Unifying data exploration, AI agents, workflow automation, and audit tooling into one finance product suite",
     problem:
-      "Finance teams needed AI-assisted analysis without losing the audit trails, governance controls, and human accountability that financial operations require. The risk: ship AI features that feel powerful but bypass controls, and the platform becomes a liability.",
-    role: "Lead UX / Product Designer",
+      "The client had invested in valuable finance products, but users experienced them as disconnected tools rather than a coherent platform \u2014 no unified entry point, overlapping terminology, and an integration promise the architecture could not yet keep.",
+    role: "Product Experience Lead",
     status: "Completed",
     tags: ["AI Interaction Design", "Complex Workflows", "Governance", "Data and Finance"],
     outcome:
-      "Defined a product model that separated experimentation from production, made AI activity inspectable at every step, and gave finance leaders the evidence they needed to trust and approve AI-assisted work.",
+      "Reframed the program as a suite of independent products with a shared experience layer, designed the unified homepage as its access-aware front door, and set the AI interaction principles that make agent output worth acting on.",
     featuredOrder: 1,
     filterCategories: ["AI and Trust", "Complex Workflows", "Data and Finance"],
   },
@@ -47,11 +47,11 @@ export const projects: Project[] = [
     tagline: "Replacing manual billing-package assembly to recover backlogged revenue",
     problem:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where.",
-    role: "Design Lead and UX / Product Strategy Lead",
+    role: "Lead Designer, then Design Lead and UX / Product Strategy Lead",
     status: "Completed",
     tags: ["End-to-end Flow", "B2B SaaS", "Workflow Automation"],
     outcome:
-      "Delivered a first MVP that gave every role a shared view of progress, defined a status model that made ownership and handoffs explicit, and laid a phased roadmap for document integration and full automation.",
+      "Over a one-year engagement, delivered an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — reaching the 100-user adoption target on a status model that made ownership and handoffs explicit.",
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },

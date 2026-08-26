@@ -21,17 +21,14 @@ export interface SectionAugments {
 }
 
 /**
- * Composes the page a hiring manager actually reads:
- * Overview -> How I led -> Challenge -> Solution -> Results -> Deep dive.
+ * Composes the page as the storyteller arc (case-study-storyteller skill):
+ * Hook (header + stats, outside this file) -> Stakes -> The real problem ->
+ * My role -> What we built -> The turn -> Outcomes (+ the principle) ->
+ * Deep dive.
  *
- * The order is deliberate. Everything above the deep dive is scannable in a
- * minute — headings, bullets, and three-step cards. "How I led" sits on the
- * page rather than in the deep dive because the role label under the title is
- * a claim, and the direction/craft split is its evidence — the one thing the
- * scannable page couldn't answer on its own. Everything an interviewer digs
- * into (ownership detail, research, edge cases, decisions with their rejected
- * paths, reflection) still sits behind a summary rather than competing with
- * the argument.
+ * "The turn" is the messy middle — the pivot or reversal told straight; it
+ * renders only when a study supplies one. The featured decision stays inside
+ * What we built. Research method and the team live in the deep dive.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -46,50 +43,81 @@ export default function buildSections(
   if (content.overview) {
     sections.push({
       id: "overview",
-      nav: "Overview",
-      heading: "Overview",
+      nav: "Stakes",
+      heading: "The stakes",
       content: (
-        <OverviewSection overview={content.overview} fields={content.snapshotFields} />
+        <OverviewSection
+          overview={content.overview}
+          stakes={content.context}
+          fields={content.snapshotFields}
+        />
       ),
-    });
-  }
-
-  if (content.leadership && content.leadership.length > 0) {
-    sections.push({
-      id: "leadership",
-      nav: "How I led",
-      heading: "How I led",
-      content: <LeadershipGrid points={content.leadership} />,
     });
   }
 
   if (content.evidence) {
     sections.push({
       id: "challenge",
-      nav: "Challenge",
-      heading: "The challenge",
+      nav: "Problem",
+      heading: "The real problem",
       content: <ChallengeList evidence={content.evidence} />,
     });
   }
 
+  if (content.leadership && content.leadership.length > 0) {
+    sections.push({
+      id: "role",
+      nav: "My role",
+      heading: "My role",
+      content: <LeadershipGrid points={content.leadership} />,
+    });
+  }
+
   if (content.solutionSteps && content.solutionSteps.length > 0) {
-    // Visuals sit with the solution: a diagram augment when the study has coded
-    // figures, its own screens when it has them, and a labelled placeholder
-    // when it has neither — so a study never renders a solution with no picture.
-    const visuals = content.images && content.images.length > 0
+    const stepsCarryImages = content.solutionSteps.some(
+      (s) => s.images && s.images.length > 0,
+    );
+    const visuals = stepsCarryImages
+      ? null
+      : content.images && content.images.length > 0
       ? <ImageGallery images={content.images} />
       : append.solution
         ? null
         : <PlaceholderFigure caption={content.visualsPendingNote ?? "Final visuals for this case study are in production."} />;
 
+    const featured = pickFeaturedDecision(content.decisions);
+
     sections.push({
       id: "solution",
-      nav: "Solution",
-      heading: "The solution",
+      nav: "Built",
+      heading: "What we built",
       content: (
         <div className="flex flex-col gap-12">
           <SolutionSteps steps={content.solutionSteps} />
           {visuals}
+          {featured && (
+            <div className="flex flex-col gap-4">
+              <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
+                One decision, up close
+              </p>
+              <FeaturedDecision decision={featured} />
+            </div>
+          )}
+        </div>
+      ),
+    });
+  }
+
+  if (content.turn) {
+    sections.push({
+      id: "turn",
+      nav: "The turn",
+      heading: "The turn",
+      content: (
+        <div className="measure border-l-2 border-accent pl-6">
+          <p className="m-0 text-[1.0625rem] leading-[1.75] text-muted-foreground">
+            {content.turn}
+          </p>
         </div>
       ),
     });
@@ -98,19 +126,23 @@ export default function buildSections(
   if (content.impact) {
     sections.push({
       id: "results",
-      nav: "Results",
-      heading: "Results",
-      content: <ResultsSection impact={content.impact} />,
-    });
-  }
-
-  const featured = pickFeaturedDecision(content.decisions);
-  if (featured) {
-    sections.push({
-      id: "decision",
-      nav: "Key decision",
-      heading: "One decision, up close",
-      content: <FeaturedDecision decision={featured} />,
+      nav: "Outcomes",
+      heading: "Outcomes",
+      content: (
+        <div className="flex flex-col gap-12">
+          <ResultsSection impact={content.impact} />
+          {content.reflection?.principle && (
+            <div>
+              <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
+                The principle
+              </p>
+              <p className="mt-3 m-0 measure font-display text-[clamp(1.25rem,2.5vw,1.625rem)] font-bold leading-[1.35] tracking-[-0.02em] text-foreground">
+                {content.reflection.principle}
+              </p>
+            </div>
+          )}
+        </div>
+      ),
     });
   }
 

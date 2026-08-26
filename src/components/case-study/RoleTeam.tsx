@@ -37,7 +37,7 @@ function OwnedThemes({ themes }: { themes: OwnedTheme[] }) {
  * discipline owned when the case study supplies it, so the section shows the
  * shape of the team rather than just naming it.
  */
-function TeamGrid({ team }: { team: TeamMember[] }) {
+export function TeamGrid({ team }: { team: TeamMember[] }) {
   return (
     <ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 sm:grid-cols-2 lg:grid-cols-3">
       {team.map(({ role, owned }) => (
