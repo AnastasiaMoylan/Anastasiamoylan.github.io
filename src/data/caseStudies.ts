@@ -1298,7 +1298,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         decision: "Preserved context while switching sources.",
         rationale:
-          "The platform concept supported seamless movement between selected documents while retaining conversational context, source references, search history, and the user's place in the workflow.",
+          "The platform concept let users move between selected documents without losing conversational context, source references, search history, or their place in the workflow.",
       },
       {
         decision: "Made saving an intentional privacy action.",
