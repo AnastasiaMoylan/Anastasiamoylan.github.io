@@ -758,6 +758,16 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
       {
+        src: ccjJourneyExplorations,
+        fullSrc: ccjJourneyExplorationsFull,
+        width: 2400,
+        height: 1531,
+        alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
+        caption:
+          "Journey explorations comparing where top-up failures churned by channel — mobile app, SMS, IVR — so mitigation could target the worst path instead of treating every failure the same.",
+      },
+      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
+      {
         src: ccjSegmentOfOne,
         fullSrc: ccjSegmentOfOneFull,
         width: 2400,
@@ -774,16 +784,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
         caption:
           "Mitigation plan for an identified KPI risk, pairing the key drivers behind it with an AI-assisted, tone-controlled offer builder and a live preview of the customer-facing message.",
-      },
-      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
-      {
-        src: ccjJourneyExplorations,
-        fullSrc: ccjJourneyExplorationsFull,
-        width: 2400,
-        height: 1531,
-        alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
-        caption:
-          "Journey explorations comparing where top-up failures churned by channel — mobile app, SMS, IVR — so mitigation could target the worst path instead of treating every failure the same.",
       },
       {
         src: ccjChatExpanded,
