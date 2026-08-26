@@ -26,32 +26,12 @@ body {
 }
 
 /* Reusable max-width container — avoids repeating the breakpoint sequence everywhere */
-/* Case-study canvas: full-screen treatment. Same responsive padding as
-   .content-container via the shared rules below. */
-.content-container-wide {
-  max-width: 1440px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-@media (min-width: 768px) {
-  .content-container-wide {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .content-container-wide {
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
+/* One container site-wide. Widened 1152 -> 1440 on 2026-08-26, when the
+   case-study canvas went full-screen and the owner standardized the rest of
+   the site to match. Narrow reading measures come from max-w-* on inner
+   blocks, not from this container. */
 .content-container {
-  max-width: 1152px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;
