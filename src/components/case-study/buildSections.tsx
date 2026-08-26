@@ -74,7 +74,12 @@ export default function buildSections(
   }
 
   if (content.solutionSteps && content.solutionSteps.length > 0) {
-    const visuals = content.images && content.images.length > 0
+    const stepsCarryImages = content.solutionSteps.some(
+      (s) => s.images && s.images.length > 0,
+    );
+    const visuals = stepsCarryImages
+      ? null
+      : content.images && content.images.length > 0
       ? <ImageGallery images={content.images} />
       : append.solution
         ? null

@@ -162,6 +162,12 @@ export interface LeadershipPoint {
 export interface SolutionStep {
   title: string;
   points: string[];
+  /**
+   * The evidence for this step, rendered beside it. When any step carries
+   images, the study's separate gallery clump is suppressed — the screen sits
+   with the argument it proves.
+   */
+  images?: CaseStudyImage[];
 }
 
 export interface CaseStudy {
@@ -615,12 +621,43 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The dashboard leads with the business metrics already at risk or predicted to be, each carrying why it is at risk and a direct path to mitigate it",
           "Segments are built dynamically from churn-risk criteria \u2014 issues, historic behavior, likelihood to churn \u2014 rather than maintained as static lists",
         ],
+        images: [
+          {
+            src: ccjDashboard,
+            fullSrc: ccjDashboardFull,
+            width: 1600,
+            height: 1024,
+            alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
+            caption:
+              "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
+          },
+        ],
       },
       {
         title: "Explain the drop-off",
         points: [
           "Journey exploration shows where customers actually fail, split by entry channel, with the churned and successfully continued share on each path",
           "A segment-of-one timeline replays one customer's events against their churn risk, so the pattern and the person stay connected",
+        ],
+        images: [
+          {
+            src: ccjJourneyExplorations,
+            fullSrc: ccjJourneyExplorationsFull,
+            width: 2400,
+            height: 1531,
+            alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
+            caption:
+                "Top-up failures churn differently by channel — mobile app, SMS, IVR — so mitigation targets the worst path, not every failure equally.",
+          },
+          {
+            src: ccjSegmentOfOne,
+            fullSrc: ccjSegmentOfOneFull,
+            width: 2400,
+            height: 1536,
+            alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
+            caption:
+                "One customer's journey on a timeline — a flagged risk resolves to real events before anyone chooses a mitigation.",
+          },
         ],
       },
       {
@@ -630,6 +667,17 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Each offer starts as a hypothesis, testable in a what-if analysis tool before anything is deployed",
           "AI drafts a message against a selected audience and tone; the person reviews and edits the live preview before it goes out",
         ],
+        images: [
+          {
+            src: ccjMitigationPlan,
+            fullSrc: ccjMitigationPlanFull,
+            width: 1600,
+            height: 1547,
+            alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
+            caption:
+                "The KPI's key drivers beside an AI-drafted, tone-controlled offer — a person edits the preview before anything launches.",
+          },
+        ],
       },
       {
         title: "Act and monitor",
@@ -637,6 +685,17 @@ export const caseStudies: Record<string, CaseStudy> = {
           "A chatbot handles routine cases and hands off to a representative when sentiment analysis and account context call for a person",
           "The representative works from an AI-generated customer summary and suggested course of action, with access to offers the automated system does not yet hold",
           "A declined offer loops back to adjustment rather than ending in a dead end",
+        ],
+        images: [
+          {
+            src: ccjChatExpanded,
+            fullSrc: ccjChatExpandedFull,
+            width: 1600,
+            height: 1024,
+            alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
+            caption:
+                "An AI summary and suggested action beside the live conversation — assistance in view, the representative in control.",
+          },
         ],
       },
     ],
@@ -763,55 +822,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "User flow diagram for the connected customer journey, showing an analyst path from dashboard alert through offer generation, a customer journey path from risk event through AI chatbot and human customer-service handoff, and a customer-service representative path ending in resolution.",
         caption:
           "End-to-end flow: from churn-risk detection and segment creation, through AI chatbot and human customer-service handoff, to offer resolution and monitoring.",
-      },
-    ],
-    images: [
-      {
-        src: ccjDashboard,
-        fullSrc: ccjDashboardFull,
-        width: 1600,
-        height: 1024,
-        alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
-        caption:
-          "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
-      },
-      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
-      {
-        src: ccjJourneyExplorations,
-        fullSrc: ccjJourneyExplorationsFull,
-        width: 2400,
-        height: 1531,
-        alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
-        caption:
-          "Journey explorations comparing where top-up failures churned by channel — mobile app, SMS, IVR — so mitigation could target the worst path instead of treating every failure the same.",
-      },
-      // [NEEDS SIGN-OFF] New asset added by Anastasia 2026-08-26; caption authored.
-      {
-        src: ccjSegmentOfOne,
-        fullSrc: ccjSegmentOfOneFull,
-        width: 2400,
-        height: 1536,
-        alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
-        caption:
-          "The segment of one: a single customer's journey on a timeline, so a flagged risk resolves to real events \u2014 not just a score \u2014 before anyone chooses a mitigation.",
-      },
-      {
-        src: ccjMitigationPlan,
-        fullSrc: ccjMitigationPlanFull,
-        width: 1600,
-        height: 1547,
-        alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
-        caption:
-          "Mitigation plan for an identified KPI risk, pairing the key drivers behind it with an AI-assisted, tone-controlled offer builder and a live preview of the customer-facing message.",
-      },
-      {
-        src: ccjChatExpanded,
-        fullSrc: ccjChatExpandedFull,
-        width: 1600,
-        height: 1024,
-        alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
-        caption:
-          "The representative's chat interface, with an AI-generated customer summary and suggested course of action alongside the live conversation.",
       },
     ],
     impact: {
@@ -1086,6 +1096,15 @@ export const caseStudies: Record<string, CaseStudy> = {
     // targets — behind a click here rather than on the page.
     processImages: [
       {
+        src: cwoCreationFlow,
+        fullSrc: cwoCreationFlowFull,
+        width: 8818,
+        height: 1862,
+        alt: "Billing package creation flow diagram showing role-based branching for admin, accountant, engineer, collections, and view-only report roles, from sign-in through review, export, and finalization.",
+        caption:
+          "Creation flow: role-based branching from sign-in through review, export, and finalization.",
+      },
+      {
         src: cwoStrategyAlignment,
         fullSrc: cwoStrategyAlignmentFull,
         width: 2600,
@@ -1103,16 +1122,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         height: 2592,
         alt: "MVP1 user flow diagram showing a user searching a project number, the system matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
         caption:
-          "MVP1 flow: searching a project number, matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
-      },
-      {
-        src: cwoCreationFlow,
-        fullSrc: cwoCreationFlowFull,
-        width: 8818,
-        height: 1862,
-        alt: "Billing package creation flow diagram showing role-based branching for admin, accountant, engineer, collections, and view-only report roles, from sign-in through review, export, and finalization.",
-        caption:
-          "Creation flow: role-based branching from sign-in through review, export, and finalization.",
+          "The project number is the package's primary key — resuming is never mistaken for starting over.",
       },
       {
         src: cwoFlow,
@@ -1121,7 +1131,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         height: 2536,
         alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
         caption:
-          "Review flow: starting a review, making inline edits with save or discard, completing the review, and submitting with a git-style commit message before the package is marked ready for review.",
+          "Review as its own state machine — inline edits, save or discard, and a commit message before anything is finalized.",
       },
     ],
     impact: {
@@ -1246,6 +1256,19 @@ export const caseStudies: Record<string, CaseStudy> = {
     // this study's own decisions/reflection — no new claims.
     turn:
       "Testing broke our navigation. The prototype moved between documents with tabs; in sessions, people lost track of which documents an answer was drawing from — trust evaporated at exactly the moment the product promised verification. We rebuilt around explicit document selection and side-by-side comparison, and kept every citation one interaction away from its source.",
+    processImages: [
+      {
+        src: diUserFlows,
+        fullSrc: diUserFlowsFull,
+        width: 9000,
+        height: 2196,
+        alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
+        caption:
+          "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
+      },
+        ],
+    visualsPendingNote:
+      "The side-by-side comparison view — abstracted for confidentiality — is in production. Structure and outcomes are accurate.",
     evidence: {
       body:
         "I led or contributed to research planning, protocol development, stakeholder alignment, execution guidance, and synthesis. Research evaluated pattern clarity, trust and interpretability, feature discoverability, document selection, navigation across tabs or views, comparison preferences, and guardrails and source verification. I used affinity mapping to group observations and translated the findings into product recommendations, feature priorities, and reusable interaction patterns.",
@@ -1345,17 +1368,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "The privacy-first direction avoided retaining user data without an explicit save, giving users clearer control over what became persistent history.",
         rejected: "retaining user data without an explicit save",
-      },
-    ],
-    images: [
-      {
-        src: diUserFlows,
-        fullSrc: diUserFlowsFull,
-        width: 9000,
-        height: 2196,
-        alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
-        caption:
-          "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
       },
     ],
     impact: {
