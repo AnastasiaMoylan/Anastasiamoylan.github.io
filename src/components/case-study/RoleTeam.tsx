@@ -57,20 +57,22 @@ export default function RoleTeam({
   ownedThemes,
   team,
 }: {
-  owned: string[];
+  owned?: string[];
   ownedThemes?: OwnedTheme[];
   team?: TeamMember[];
 }) {
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex flex-col gap-5">
-        <SubLabel>What I owned</SubLabel>
-        {ownedThemes && ownedThemes.length > 0 ? (
-          <OwnedThemes themes={ownedThemes} />
-        ) : (
-          <BulletList items={owned} />
-        )}
-      </div>
+      {(ownedThemes?.length || owned?.length) ? (
+        <div className="flex flex-col gap-5">
+          <SubLabel>What I owned</SubLabel>
+          {ownedThemes && ownedThemes.length > 0 ? (
+            <OwnedThemes themes={ownedThemes} />
+          ) : (
+            <BulletList items={owned ?? []} />
+          )}
+        </div>
+      ) : null}
 
       {team && team.length > 0 && (
         <div className="flex flex-col gap-5">

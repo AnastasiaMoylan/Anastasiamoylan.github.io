@@ -1,17 +1,5 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Eyebrow from "../components/ui/Eyebrow";
-import CapabilityGrid from "../components/philosophy/CapabilityGrid";
-import ProcessPreview from "../components/philosophy/ProcessPreview";
-
-const skills = [
-  "End-to-end journey mapping",
-  "AI interaction and trust design",
-  "Workflow and systems design",
-  "Design systems",
-  "Research and usability testing",
-  "Workshop facilitation",
-  "Prototyping in code",
-];
 
 /**
  * Copy provided by Anastasia (2026-08-13 rewrite). Each principle: a short
@@ -205,14 +193,13 @@ const visuals: Record<NonNullable<Principle["visual"]>, () => React.ReactNode> =
 
 export default function PhilosophyPage() {
   return (
-    <>
     <div className="py-16 pb-24">
       <div className="content-container">
         <SectionHeading
           level={1}
           eyebrow="Design philosophy"
           title="The whole system, not just the screen"
-          subtitle="Eight proven principles I have verified through real engagements, consistently achieving outstanding results."
+          subtitle="Eight principles, each drawn from a real engagement."
         />
 
         {/* The thesis quote leads; the decisions-under-pressure paragraph
@@ -286,29 +273,7 @@ export default function PhilosophyPage() {
           </ul>
         </div>
 
-        <div className="max-w-[52rem] mt-14 pt-12 border-t border-border">
-          <Eyebrow className="mb-5">Skills, in practice</Eyebrow>
-          <ul className="list-none p-0 m-0 flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <li
-                key={skill}
-                className="text-sm text-muted-foreground bg-card border border-border rounded-sm px-3 py-1.5"
-              >
-                {skill}
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
-
-    {/*
-      Both sections used to sit on the homepage. The new homepage leads with
-      outcomes and leadership evidence instead, and "what I bring" plus the
-      five-phase process are the same subject as this page.
-    */}
-    <CapabilityGrid />
-    <ProcessPreview />
-    </>
   );
 }

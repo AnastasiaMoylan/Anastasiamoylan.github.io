@@ -79,6 +79,9 @@ export const projects: Project[] = [
       "A telecommunications client had predictive churn signals but no way to act on them. The gap between a model score and a human taking the right action for the right customer was entirely undesigned.",
     role: "Lead UX Designer",
     status: "Showcase concept, not deployed to customers",
+    // Off the homepage 2026-09-03: a showcase that never reached customers
+    // should not out-rank the three engagements that shipped. Still on /work.
+    hiddenOnHome: true,
     tags: ["Predictive Analytics", "Customer Experience", "AI Decision Support"],
     outcome:
       "Designed an end-to-end mitigation flow that turned a model score into a reviewed, edited, and launched action, with monitoring built in. Human review of AI-assisted messaging was required before anything reached a customer.",

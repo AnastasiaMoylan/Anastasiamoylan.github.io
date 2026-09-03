@@ -1,10 +1,12 @@
 /**
- * Ownership statements that appear in BOTH a case study's `owned` list and the
- * résumé's 'Selected product ownership' bullets.
+ * Ownership statements used by the résumé's 'Selected product ownership' bullets.
  *
- * Defined once so the two cannot drift. These are professional claims about real
- * engagements — a résumé that quietly disagrees with the case study describing
- * the same work is worse than either document alone.
+ * Until 2026-09-03 these also fed each case study's flat `owned` list, so the
+ * two surfaces could not drift. That list never rendered once every study
+ * carried `ownedThemes`, so it was removed; the themes paraphrase these claims.
+ * If a statement here changes, check the matching theme in caseStudies.ts —
+ * a résumé that quietly disagrees with the case study describing the same work
+ * is worse than either document alone.
  */
 
 export const FINANCE_PRODUCT_MODEL =

@@ -1,10 +1,3 @@
-import {
-  FINANCE_PRODUCT_MODEL,
-  FINANCE_RESEARCH_ARTIFACTS,
-  BILLING_OPERATIONAL_FLOW,
-  BILLING_STATUS_MODEL,
-  CCJ_HUMAN_REVIEW,
-} from "./ownedStatements";
 // Case study content, keyed by project slug.
 //
 // Shape follows the Case Study Framework's ten beats. buildSections renders
@@ -205,9 +198,13 @@ export interface CaseStudy {
   processImages?: CaseStudyImage[];
   context: string;
   evidence?: Evidence;
-  /** What I personally owned. Collaborators live in `team`. */
-  owned: string[];
-  /** Condensed version of `owned`. When present it renders instead of the list. */
+  /**
+   * Flat ownership list, rendered only when `ownedThemes` is absent. All four
+   * studies carry themes, so the lists were removed on 2026-09-03 rather than
+   * kept as dead data; the résumé's shared claims live in ownedStatements.ts.
+   */
+  owned?: string[];
+  /** Ownership as short themes. Renders in the deep dive. */
   ownedThemes?: OwnedTheme[];
   decisions: Decision[];
   states?: StateRecovery[];
@@ -313,12 +310,13 @@ export const caseStudies: Record<string, CaseStudy> = {
         detail:
           "Drove the shift from \u201cone integrated application\u201d to a suite of independent products with a shared design language — acknowledging the current technical reality while keeping a credible path toward a more connected future.",
       },
-      // Scorecard session record §4.3, verbatim.
+      // Scorecard session record §4.3, cut to two sentences; the full block
+      // (onboarding, coaching, delegation) lives on About.
       {
         kind: "Team leadership",
         title: "Direction without reporting lines",
         detail:
-          "I set design direction for six designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.",
+          "I set design direction for six designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, and coach on client interaction and information gathering.",
       },
       {
         kind: "Design",
@@ -414,17 +412,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       insight:
         "Instead of promising seamless integration before it existed, the experience provided a common visual language, central discovery, and clear product relationships.",
     },
-    owned: [
-      "Led the cross-product experience for the finance transformation program: the platform model, navigation, product relationships, access model, AI interaction principles, research approach, and delivery sequencing.",
-      "Drove the reframe from a single integrated application to a suite of independent finance products with a shared experience layer.",
-      "Designed the unified homepage as an app launcher and discovery hub, on four tenets: modularity and scalability, discoverability, launcher-not-catalog, and a layout that reflects real usage.",
-      "Defined the shared forecasting hierarchy — Category \u2192 Driver \u2192 Anchor Signal — and established that drivers come from a structured catalog rather than open-text labels.",
-      "Set the transparent agent interaction model — understand, clarify, confirm assumptions, plan, output — and brought finance-domain experts into validation sessions.",
-      FINANCE_PRODUCT_MODEL,
-      "Brought authentication, identity integration, metadata availability, app boundaries, and role-based access constraints into the experience definition early.",
-      FINANCE_RESEARCH_ARTIFACTS,
-    ],
-    // Condensed from the `owned` items above; wording drawn from them.
     ownedThemes: [
       {
         label: "The suite narrative",
@@ -821,13 +808,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       insight:
         "Predictive insight creates value only when the people responsible for the customer can understand the signal and act without losing its context.",
     },
-    owned: [
-      "Designed the data-driven journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring.",
-      "Turned model output into decision support: predictions paired with customer context, lifecycle stage, behavior, sentiment, and available actions, not an opaque score presented as a final answer.",
-      "Created the end-to-end mitigation flow: risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, iteration.",
-      CCJ_HUMAN_REVIEW,
-    ],
-    // Condensed from the `owned` items above; wording drawn from them.
     ownedThemes: [
       {
         label: "The journey platform",
@@ -1091,14 +1071,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       insight:
         "The workflow could recover billable work only if it made dependencies, responsibility, and recovery visible before submission, not after a package failed.",
     },
-    owned: [
-      "Led a guided B2B workflow replacing fragmented billing-package assembly, spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
-      BILLING_OPERATIONAL_FLOW,
-      BILLING_STATUS_MODEL,
-      "Partnered with engineering and UI development during implementation, moving unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
-      "Delivered the first MVP for interface and project querying, then the dashboard, in-product editing, and the review process across a one-year engagement, leaving whole-package automation as the named next phase.",
-    ],
-    // Condensed from the `owned` items above; wording drawn from them.
     ownedThemes: [
       {
         label: "The guided workflow",
@@ -1429,18 +1401,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       insight:
         "Evidence cannot be a final-step disclaimer. Users need to see which documents are active, move from a generated statement to its source, and compare alternatives without losing their place.",
     },
-    owned: [
-      "Facilitated requirements and prioritization workshops.",
-      "Translated feature requests into capabilities, flows, and phased backlogs.",
-      "Converted wireframes into product requirements, roadmaps, test plans, and development-ready stories.",
-      "Defined research protocols and usage metrics.",
-      "Coordinated mixed-method usability and targeted inquiry.",
-      "Synthesized findings into actionable recommendations.",
-      "Supported testing, development, and backend-integration discussions.",
-      "Created scalable patterns aligned with the enterprise design system.",
-    ],
-    // Condensed from the `owned` items above; wording drawn from them. The
-    // eight original items were short and sequential, so they group into five.
     ownedThemes: [
       {
         label: "Requirements and prioritization",
