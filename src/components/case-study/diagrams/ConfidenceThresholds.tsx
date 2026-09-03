@@ -65,8 +65,8 @@ export default function ConfidenceThresholds() {
   return (
     <DiagramPanel
       heading="Where the system acts, and where a person decides"
-      subheading="Confidence thresholds set with ML engineering as product boundaries, not model defaults."
-      quote="Every boundary is an interaction-design decision with a number attached — defined with ML engineering, not inherited from the model."
+      subheading="I defined the three-tier model — act automatically, recommend and wait, stop and escalate — as the product boundary the platform enforces. The thresholds that place a given action in a tier are to be set with ML engineering as the pilot produces confidence data."
+      quote="The design commitment is that thresholds are product decisions with a visible rationale, not model defaults."
     >
       <div
         className="h-2.5 w-full rounded-full"

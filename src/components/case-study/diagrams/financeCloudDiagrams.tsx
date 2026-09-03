@@ -1,20 +1,23 @@
 import type { SectionAugments } from "../buildSections";
-import PlaceholderFigure from "../PlaceholderFigure";
 import SuiteMap from "./SuiteMap";
 import FramingShift from "./FramingShift";
 import GovernedPipeline from "./GovernedPipeline";
 import PromotionGate from "./PromotionGate";
 import ConfidenceThresholds from "./ConfidenceThresholds";
-import ScalingArc from "./ScalingArc";
+import VersionArc from "./VersionArc";
 
 /**
  * One visual per beat (visual-storytelling skill):
  * Stakes gets the before/after suite map — the hero that answers "how big was
  * this really". Problem gets the framing evolution. Built keeps one craft zoom
  * (the promotion gate) plus the thresholds framework beside the decision it
- * embodies, and a visible placeholder for the influence artifact only the
- * owner can supply. The full governed pipeline moved to the deep dive.
- * Results keeps the scaling arc.
+ * embodies. The full governed pipeline moved to the deep dive. Results carries
+ * the version arc: three versions, each redirected by research.
+ *
+ * Removed 2026-09-03: the taxonomy-sheet PlaceholderFigure ("Owner to supply")
+ * — a visible placeholder on a live page. Reinstate as a real figure if the
+ * sheet is cleared for publication. ScalingArc (10 -> 300 -> 1,000+ users) was
+ * replaced by VersionArc because the 300 has no provenance.
  *
  * Built but unwired: CopilotPlan, AnomalyRouting, DesignedStates,
  * InspectabilityLadder, RoleMatrix (unpublished until cell values confirmed).
@@ -28,7 +31,6 @@ export function financeCloudAugments(): SectionAugments {
         <>
           <PromotionGate />
           <ConfidenceThresholds />
-          <PlaceholderFigure caption="The adopted artifact — the Category \u2192 Driver \u2192 Anchor Signal taxonomy sheet as product and engineering teams use it. Owner to supply." />
         </>
       ),
       "deep-dive": (
@@ -39,7 +41,7 @@ export function financeCloudAugments(): SectionAugments {
           <GovernedPipeline />
         </div>
       ),
-      results: <ScalingArc />,
+      results: <VersionArc />,
     },
   };
 }

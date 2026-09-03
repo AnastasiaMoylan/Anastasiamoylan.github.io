@@ -3,6 +3,7 @@ import type { Section } from "./types";
 import ChallengeList from "./ChallengeList";
 import OverviewSection from "./OverviewSection";
 import LeadershipGrid from "./LeadershipGrid";
+import FramingBlock from "./FramingBlock";
 import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
 import PlaceholderFigure from "./PlaceholderFigure";
@@ -22,9 +23,12 @@ export interface SectionAugments {
 
 /**
  * Composes the page as the storyteller arc (case-study-storyteller skill):
- * Hook (header + stats, outside this file) -> Stakes -> The real problem ->
- * My role -> What we built -> The turn -> Outcomes (+ the principle) ->
- * Deep dive.
+ * Hook (header + stats, outside this file) -> Stakes (+ the framing) ->
+ * My role -> The real problem -> What we built -> The turn -> Outcomes
+ * (+ the principle) -> Deep dive.
+ *
+ * My role moved above The real problem on 2026-09-03 so leadership sits above
+ * the fold on every study (scorecard session record, §8 day 1).
  *
  * "The turn" is the messy middle — the pivot or reversal told straight; it
  * renders only when a study supplies one. The featured decision stays inside
@@ -46,21 +50,17 @@ export default function buildSections(
       nav: "Stakes",
       heading: "The stakes",
       content: (
-        <OverviewSection
-          overview={content.overview}
-          stakes={content.context}
-          fields={content.snapshotFields}
-        />
+        <>
+          <OverviewSection
+            overview={content.overview}
+            stakes={content.context}
+            fields={content.snapshotFields}
+          />
+          {content.framing && content.framing.length > 0 && (
+            <FramingBlock items={content.framing} />
+          )}
+        </>
       ),
-    });
-  }
-
-  if (content.evidence) {
-    sections.push({
-      id: "challenge",
-      nav: "Problem",
-      heading: "The real problem",
-      content: <ChallengeList evidence={content.evidence} />,
     });
   }
 
@@ -70,6 +70,15 @@ export default function buildSections(
       nav: "My role",
       heading: "My role",
       content: <LeadershipGrid points={content.leadership} />,
+    });
+  }
+
+  if (content.evidence) {
+    sections.push({
+      id: "challenge",
+      nav: "Problem",
+      heading: "The real problem",
+      content: <ChallengeList evidence={content.evidence} />,
     });
   }
 

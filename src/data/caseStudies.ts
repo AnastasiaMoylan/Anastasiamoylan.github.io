@@ -8,8 +8,8 @@ import {
 // Case study content, keyed by project slug.
 //
 // Shape follows the Case Study Framework's ten beats. buildSections renders
-// them as: Overview -> Challenge -> My role -> Solution (with the featured
-// decision) -> Research and team -> Outcomes and metrics -> Deep dive.
+// them as: Overview (with the framing) -> My role -> Challenge -> Solution
+// (with the featured decision) -> The turn -> Outcomes -> Deep dive.
 //
 // Optional fields render nothing when absent, so a study can ship partially
 // filled rather than showing empty labels.
@@ -72,6 +72,17 @@ export interface TeamMember {
 export interface OwnedTheme {
   label: string;
   detail: string;
+}
+
+/**
+ * One line of the product framing rendered inside The stakes: hypothesis,
+ * success metric, constraint, where it landed. Labels are free text because
+ * the billing study had a KPI set at kickoff while the others state the
+ * metric the author would hold the work to.
+ */
+export interface FramingItem {
+  label: string;
+  text: string;
 }
 
 export interface Tldr {
@@ -178,6 +189,8 @@ export interface CaseStudy {
   stats?: Stat[];
   /** Two to four sentences answering "what was this, and what did I do here". */
   overview?: string;
+  /** Hypothesis, success metric, constraint, and where it landed. Renders after the overview. */
+  framing?: FramingItem[];
   /** Direction and craft, split. Absent means the section doesn't render. */
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
@@ -231,7 +244,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Timeframe", value: "2024–Present" },
       {
         label: "Status",
-        value: "Analysis platform in scaled pilot; unified homepage MVP in development",
+        value: "V3 of the analysis platform in testing; unified homepage MVP in development",
       },
       {
         label: "Users",
@@ -244,7 +257,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Team",
         value: "Six application-level designers, plus product, engineering, data, and finance SMEs",
       },
-      { label: "Tools", value: "Figma, FigJam, React, Tailwind CSS, Vite" },
+      // React/Tailwind/Vite moved to About (2026-09-03): build involvement was a
+      // mix across versions, and listing them here read as a claim.
+      { label: "Tools", value: "Figma, FigJam, Figma Make, Windsurf" },
     ],
     tldr: {
       challenge:
@@ -252,17 +267,45 @@ export const caseStudies: Record<string, CaseStudy> = {
       solution:
         "Reframed the program from a single integrated application to a suite of independent finance products with a shared experience layer: one access-aware homepage for discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
       result:
-        "Established the shared experience model across six product areas and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment — while the analysis platform scaled from 10 pilot users to 300.",
+        "Established the shared experience model across six product areas and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
     },
     // Every figure below is restated in `impact`; the band restates them in
-    // display type rather than introducing anything new.
+    // display type rather than introducing anything new. Rebuilt 2026-09-03
+    // from the scorecard session record (§4.1): the "10 → 300 pilot users"
+    // figure has no provenance and stays off until the PO confirms it.
     stats: [
-      { value: "6", label: "Product areas under one experience layer" },
-      { value: "10 → 300", label: "Pilot users scaled on the analysis platform" },
-      { value: "72 hrs", label: "Agent success window — did the analyst act" },
+      { value: "800+", label: "Business analyses by 40+ users in the hackathon that forced the V1 pivot" },
+      { value: "3", label: "Product versions taken to testing, each redirected by research" },
+      { value: "4", label: "Research engagements: moderated tests, interviews, surveys, hackathons" },
+      { value: "8-figure", label: "Modernization program the research now directs" },
     ],
     overview:
       "I led the end-to-end product experience for a finance transformation program at a Fortune 500 telecommunications company — a growing suite spanning data exploration and AI-assisted analysis, workflow automation, an AI-agent portfolio, audit tooling, and access management. The products were owned by different teams, built on separate technology stacks, and not yet deeply integrated; my job was to make the ecosystem understandable and usable as one experience. I set the cross-product experience direction, connected workstreams, clarified ambiguous product concepts, and translated executive intent into decisions teams could build against.",
+    // Scorecard session record §4.7, Finance Cloud block, with the "Where it
+    // landed" line from the 2026-09-03 plan (hackathon corrected to 40+ users,
+    // 800+ analyses).
+    framing: [
+      {
+        label: "Hypothesis",
+        text:
+          "Finance teams will adopt AI-assisted work if every output is inspectable and every consequential action requires a person's approval.",
+      },
+      {
+        label: "Success metric",
+        text:
+          "None was defined at the outset. The one I would hold it to: share of close work running through the governed pipeline with human sign-off, with AI plans approved without rework as the leading indicator.",
+      },
+      {
+        label: "Constraint that shaped scope",
+        text:
+          "V2 depended on a metadata layer that did not exist and orchestration too rigid for real finance work; research set the V3 direction now in test.",
+      },
+      {
+        label: "Where it landed",
+        text:
+          "A hackathon with 40+ users running 800+ business analyses forced the V1 pivot after showing users could not work in code. V3 is in testing; the research now directs an eight-figure modernization program.",
+      },
+    ],
     leadership: [
       {
         kind: "Product strategy",
@@ -270,11 +313,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         detail:
           "Drove the shift from \u201cone integrated application\u201d to a suite of independent products with a shared design language — acknowledging the current technical reality while keeping a credible path toward a more connected future.",
       },
+      // Scorecard session record §4.3, verbatim.
       {
         kind: "Team leadership",
-        title: "Owned the strategy, directed the design",
+        title: "Direction without reporting lines",
         detail:
-          "Established the UX operating model — program-level experience leadership to connect workstreams and filter noise, paired with application-level design ownership closer to delivery — while directing the six designers building across the program.",
+          "I set design direction for six designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.",
       },
       {
         kind: "Design",
@@ -325,6 +369,14 @@ export const caseStudies: Record<string, CaseStudy> = {
       body:
         "I developed a research approach based on role segmentation, moderated prototype testing, and direct access to domain experts — 45-minute, one-on-one, semi-structured sessions with clickable prototypes, with questions tailored by participant responsibilities rather than treating \u201cfinance users\u201d as a single audience.",
       findings: [
+        // The pivot finding (scorecard session record §4.4), corrected to
+        // 40+ users / 800+ analyses on 2026-09-03.
+        {
+          finding:
+            "V1 assumed finance analysts could read and adjust generated Python. A hackathon that put the platform in front of 40+ users, who ran 800+ business analyses against it, showed they could not and would not.",
+          response:
+            "The product pivoted: users needed to explore data directly and hand multi-step work to an agent. The volume is what made the finding unarguable.",
+        },
         {
           finding:
             "Users generally saw only the products they were already permitted to use, making discovery of the wider suite difficult.",
@@ -524,7 +576,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         "A suite with an honest narrative and one front door: access-aware discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
       proof: [
         "Homepage established as the primary discovery mechanism for a flagship analysis product with a 250-user adoption target.",
-        "Scaled the analysis platform from 10 pilot users to 300 through iterative testing, with enterprise adoption of 1,000+ planned.",
+        "A hackathon put V1 in front of 40+ finance users who ran 800+ business analyses; the result pivoted the product.",
+        "Three product versions taken to testing, each redirected by research; V3 is in testing now.",
+        "Four research engagements to date — moderated tests, one-on-one interviews, surveys, and the hackathon — consumed by program leads and executive sponsors, and now directing an eight-figure modernization program.",
         "Agent success defined as analyst action within 72 hours — a scenario run or a leadership conversation — not forecast precision.",
         "Signal-interpretation thresholds set with domain experts: roughly 3% meaningful in one use case, 1% often noise.",
         "Research scaled from about four unique participants on key workflows to moderated studies drawing on a 32-analyst pool.",
@@ -538,8 +592,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       // wouldChange paragraph is her own earlier reflection, kept verbatim.
       learned:
         "The most important design decision here was a sentence, not a screen: stop calling it one application. Once the narrative matched the architecture, everything else — the launcher, the taxonomy, the shared patterns — had a foundation that could not collapse under its own promise.",
+      // Scorecard session record §4.5 (decision locked: publish as reflection).
+      // Replaced the earlier scaling paragraph, which rested on the unverified
+      // "10 -> 300" figure.
       wouldChange:
-        "Scaling taught the second lesson. Ten pilot users will tolerate ambiguity and ask a person when something looks wrong. Three hundred users will not, and at a thousand there is no person to ask. Everything that worked at pilot scale because someone could explain it had to become something the interface explained by itself.",
+        "Two automations in the suite, anomaly detection and manual journal-entry automation, did not scale. The flows are specialized enough that a model tuned for one does not transfer, and making them work at acceptable cost means the company changing how the work is done, not just tooling it. Leadership is redirecting on cost and scalability; the research program I ran is the evidence behind that decision. What I would do differently: test transferability across two flows before designing deeply for one.",
       principle: "Don\u2019t promise integration before it exists.",
     },
   },
@@ -550,7 +607,9 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025" },
-      { label: "Status", value: "Completed, April 2025" },
+      // "Completed, April 2025" read as shipped; the work never reached
+      // customers. Venue (AWS re:Invent 2024) pending Amdocs permission to name.
+      { label: "Status", value: "Showcase concept, not deployed to customers" },
       {
         label: "Team",
         value: "UX design, data science, marketing and CX, AI/NLP engineering, product owners",
@@ -576,9 +635,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     // No churn, conversion, or revenue metric is verified for this engagement
     // (see impact.metricStatus), so the band carries countable design outputs
-    // instead: the flow itself, the surfaces in `images`, and the review rule.
+    // instead: the roles the flow spans, the surfaces in `images`, and the
+    // review rule. "0 → 1" was dropped 2026-09-03: a showcase concept that never
+    // reached customers is not a zero-to-one product.
     stats: [
-      { value: "0 → 1", label: "End-to-end mitigation flow, designed from scratch" },
+      { value: "3", label: "Roles the flow spans: analyst, customer, service representative" },
       {
         value: "6",
         label:
@@ -588,6 +649,27 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     overview:
       "As Lead UX Designer at Amdocs Studios, I implemented the product vision for a connected customer journey at a telecommunications operator that had predictive churn signals but no way to act on them. I worked with engineering, product, and the client's customer teams, and ran the user research that tested the hypothesis behind the vision and gave shape to both the user problems and the solutions. I designed the flow end to end across the three roles it touches \u2014 the analyst who sees the risk, the customer who lives it, and the service representative who resolves it \u2014 from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
+    // Scorecard session record §4.7, CCJ block. Venue naming pending permission.
+    framing: [
+      {
+        label: "Status",
+        text: "Showcase concept, presented publicly. Not deployed to customers.",
+      },
+      {
+        label: "Hypothesis",
+        text: "A churn score creates value only when the accountable person can act on it with context.",
+      },
+      {
+        label: "Success metric",
+        text:
+          "Not defined; as a showcase, none was expected. If deployed, I would hold it to churn in the contacted at-risk segment against an uncontacted control, with time from signal to launched action as the leading indicator.",
+      },
+      {
+        label: "Constraint",
+        text:
+          "Every AI-drafted message required human review; chatbot-to-human handoff was gated on sentiment.",
+      },
+    ],
     leadership: [
       {
         kind: "Product strategy",
@@ -840,7 +922,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Defined a learning loop for monitoring and adjusting offers based on customer response.",
       ],
       metricStatus:
-        "No churn-reduction, conversion, adoption, or revenue metric is presented because those outcomes are not verified in the project record.",
+        "This was a showcase concept and did not reach customers, so no churn-reduction, conversion, adoption, or revenue metric is presented.",
     },
     reflection: {
       learned:
@@ -888,6 +970,31 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     overview:
       "At Amdocs Studios I joined this telecommunications engagement as lead designer working alongside a principal designer, then took over design leadership when the principal rolled off. The goal was to replace manual billing-package assembly with a guided workflow: work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and coordinated stakeholders with front-end and back-end engineering through testing, UAT, and the backlog. The application reached its 100-user adoption target.",
+    // Scorecard session record §4.7, CWO block. The KPI was defined at kickoff,
+    // which corrects an earlier "no metric defined" draft. Backlog size before
+    // and after MVP1 is still being recovered and is not stated.
+    framing: [
+      {
+        label: "Hypothesis",
+        text:
+          "Work was disappearing because no role owned it and no shared vocabulary existed for where a package was. Make ownership and status explicit and the backlog becomes recoverable.",
+      },
+      {
+        label: "KPI set at kickoff",
+        text:
+          "+20% billing-package submission rate. Submission is the step where packages were dying; if ownership and status became explicit, more packages should reach submission rather than stall.",
+      },
+      {
+        label: "Measurement status",
+        text:
+          "Pending. The status model timestamps every transition, so submission rate and cycle time are both retrievable once the workflow is in steady use. Leading indicator available now: packages reaching Review without a missing-evidence stop.",
+      },
+      {
+        label: "Constraint",
+        text:
+          "Direct editing and the dashboard were not feasible in the release; both moved to a visible backlog rather than delaying the workflow that was.",
+      },
+    ],
     leadership: [
       {
         kind: "Product strategy",
@@ -1044,6 +1151,17 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Immediate feedback when required data was missing, clear loading and retrieval states, recovery actions for failed screenshot generation, and preserved progress when one dependency failed made the workflow error tolerant and reduced the likelihood that defects would surface only at the end.",
         rejected: "waiting until final submission to reveal missing data or evidence",
       },
+      // Featured on the page (2026-09-03): the first decision carrying both a
+      // rejected path and a trade-off, so it leaves the deep dive.
+      {
+        decision: "De-scoped the planned dashboard without losing the opportunity.",
+        rationale:
+          "The dashboard was not feasible for the first release. I surfaced the dependency and moved it out of that scope while keeping it in the backlog; it was prioritized as a must-have in the next phase and shipped.",
+        rejected:
+          "forcing the unsupported dashboard into the current scope and putting the feasible billing workflow at risk",
+        tradeoff:
+          "Protecting the core flow cost the release its most demo-friendly screen.",
+      },
       {
         decision: "Preserved an interim editing path through Excel.",
         rationale:
@@ -1051,13 +1169,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         rejected: "shipping an incomplete in-product editor that did not meet the technical constraints",
         tradeoff:
           "A deliberate product tradeoff: preserve operational continuity now while designing a more integrated future state.",
-      },
-      {
-        decision: "De-scoped the planned dashboard without losing the opportunity.",
-        rationale:
-          "The dashboard was not feasible for the first release. I surfaced the dependency and moved it out of that scope while keeping it in the backlog; it was prioritized as a must-have in the next phase and shipped.",
-        rejected:
-          "forcing the unsupported dashboard into the current scope and putting the feasible billing workflow at risk",
       },
       {
         decision: "Prioritized by feature area, not by screen.",
@@ -1154,7 +1265,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Made ownership, package state, action history, and review handoffs visible.",
       ],
       metricStatus:
-        "The recovered backlog and the 100-user adoption target are the outcomes available in the project record; the 12-of-21 count is read from the feature-prioritization board. Exact backlog volume, defect reduction, handoff time, and final release dates are not verified and are not stated.",
+        "The recovered backlog and the 100-user adoption target are the outcomes available in the project record; the 12-of-21 count is read from the feature-prioritization board. The +20% submission-rate KPI set at kickoff is measurable from the status model's timestamps but not yet measured. Exact backlog volume, defect reduction, handoff time, and final release dates are not verified and are not stated.",
     },
     reflection: {
       learned:
@@ -1200,6 +1311,29 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     overview:
       "As UX and Product Strategy Lead at Amdocs Studios, I led the research and product direction for an enterprise AI platform where business units get their own toolbox on centrally maintained rails. Users could get AI-generated answers but had no way to verify them. I ran the research program that changed the navigation, selection, and comparison model, and specified the phased build that followed.",
+    // Scorecard session record §4.7, Document AI block.
+    framing: [
+      {
+        label: "Hypothesis",
+        text:
+          "Users will trust AI summaries of internal documents only if the path from any statement back to its source is one interaction away.",
+      },
+      {
+        label: "Success metric",
+        text:
+          "Not defined at the outset. I would hold it to verification rate: the share of AI answers where a user opens at least one cited source. Near zero means citations are decoration; high means the pattern is doing what it was designed to do.",
+      },
+      {
+        label: "Constraint",
+        text:
+          "Research reversed the navigation model from tabs to side-by-side, and both comparison modes had to be kept.",
+      },
+      {
+        label: "Where it landed",
+        text:
+          "Research changed navigation, selection, guardrail, and synthesis recommendations and unblocked a phased path from sourced Q&A to multi-document drafting. Shipment and adoption not verified.",
+      },
+    ],
     leadership: [
       {
         kind: "Team leadership",

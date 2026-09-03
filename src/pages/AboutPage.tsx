@@ -6,7 +6,7 @@ const timeline = [
     company: "Amdocs Studios",
     roles: [
       {
-        title: "Lead Experience Designer",
+        title: "Lead Product Designer",
         dates: "2025–Present",
         context:
           "Manages a review program for the agency's finance practice, checking completed work against what's required before it moves forward. Drives integration of AI capabilities into production-ready, enterprise-scale systems for finance, billing, and telecommunications CX platforms, and establishes shared design frameworks and best practices across projects.",
@@ -114,7 +114,7 @@ export default function AboutPage() {
             level={1}
             eyebrow="About"
             title="Anastasia Novelly Moylan"
-            subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
+            subtitle="Lead Product Designer · 11 years in enterprise product and AI design"
           />
         </div>
       </section>
@@ -135,10 +135,15 @@ export default function AboutPage() {
                   Anastasia's ladder runs toward Principal, not management — stated here as
                   positioning rather than as a caveat. */}
               <p>
-                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. I own the strategy and the product, and I direct the six designers building it across the finance transformation program — direction without reporting lines. Much of the job is coordinating large teams and making clarity out of confusion.
+                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. Direction without reporting lines: I set design direction for six designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.
               </p>
               <p>
                 I also manage a review program for my agency's finance practice, checking completed work against what's required and leading critique that explains reasoning instead of just corrections.
+              </p>
+              {/* [NEEDS SIGN-OFF] Added 2026-09-03 from the scorecard session record
+                  (§4.8). Self-reported time-saved figures deliberately omitted. */}
+              <p>
+                I define with AI as well as design with it. I used Figma Make and Windsurf to move from research findings to product requirements, feature breakdown, and a prioritized, story-level backlog in one loop, and to put working prototypes in front of the client rather than static screens. Engineering built from the stories directly.
               </p>
               <p>
                 I don't wait for direction: I set the vision, run the workshops, and drive alignment across an organization to get it built.

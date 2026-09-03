@@ -19,8 +19,8 @@ const cards = [
   },
   {
     n: "02",
-    title: "Zero to one, then scaled",
-    body: "Took Finance Cloud from zero to a working POC with the lead product owner, then scaled it from 10 pilot users to 300 through iterative testing.",
+    title: "Zero to one, then pivoted on evidence",
+    body: "Took Finance Cloud from zero to a working POC with the lead product owner, then ran the hackathon — 40+ users, 800+ analyses — whose result pivoted the product.",
   },
   {
     n: "03",

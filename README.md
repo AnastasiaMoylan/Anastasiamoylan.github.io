@@ -2,7 +2,7 @@
 
 **[anastasiamoylan.github.io](https://anastasiamoylan.github.io)**
 
-The source of my portfolio. I'm a Lead Experience Designer working on enterprise AI,
+The source of my portfolio. I'm a Lead Product Designer working on enterprise AI,
 B2B SaaS, and finance products — end-to-end journeys and the systems underneath them.
 
 This repository is public so the work can be read, not so it can be reused. It is the

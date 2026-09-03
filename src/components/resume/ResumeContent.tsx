@@ -45,7 +45,7 @@ export default function ResumeContent() {
           Anastasia Novelly Moylan
         </h1>
         <p className="resume-tagline text-[1.0625rem] font-medium text-accent mb-5">
-          Lead Experience Designer | Developer Platforms, Enterprise Systems &amp; Partner Experiences
+          Lead Product Designer | Developer Platforms, Enterprise Systems &amp; Partner Experiences
         </p>
         <ul className="resume-contact list-none p-0 m-0 flex flex-wrap gap-x-5 gap-y-1 mb-3">
           <li>
@@ -78,7 +78,7 @@ export default function ResumeContent() {
       <Section id="resume-summary-heading" heading="Summary">
         <div className="flex flex-col gap-3">
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems, developer-facing tooling, and partner integrations into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
+            Lead Product Designer and product design leader with 10+ years of experience turning complex, data-intensive systems, developer-facing tooling, and partner integrations into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
           </p>
           <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
             Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
@@ -96,7 +96,7 @@ export default function ResumeContent() {
           <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">
             Amdocs Studios (formerly Stellar Elements)
           </h3>
-          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Lead Experience Designer | 2025&ndash;Present</p>
+          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Lead Product Designer | 2025&ndash;Present</p>
           <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Senior Experience Designer | July 2021&ndash;July 2025</p>
           <p className="resume-job-meta text-sm text-muted-foreground mt-1 mb-4">St. Marys, Kansas / Distributed enterprise consulting teams</p>
           <Bullets items={[
@@ -143,7 +143,7 @@ export default function ResumeContent() {
               ],
             },
             {
-              title: "Connected Customer Journey (Telecommunications) | Senior UX Designer, completed by April 2025",
+              title: "Connected Customer Journey (Telecommunications) | Senior UX Designer, showcase concept, 2024–2025",
               bullets: [
                 "Designed a complex, data-driven customer journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, journey drop-offs, AI-assisted messaging, offer customization, and performance monitoring.",
                 "Converted model output into decision support by pairing predictions with customer context, lifecycle stage, behavior, sentiment, and available actions instead of presenting an opaque score as a final answer.",
