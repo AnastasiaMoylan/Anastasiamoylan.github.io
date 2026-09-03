@@ -1,8 +1,8 @@
 // Case study content, keyed by project slug.
 //
-// Shape follows the Case Study Framework's ten beats. buildSections renders
-// them as: Overview (with the framing) -> My role -> Challenge -> Solution
-// (with the featured decision) -> The turn -> Outcomes -> Deep dive.
+// buildSections renders the fields as: Overview (with the framing) ->
+// Research -> Role -> Turning point -> Solution (with the featured decision)
+// -> Outcomes -> Reflection -> Details.
 //
 // Optional fields render nothing when absent, so a study can ship partially
 // filled rather than showing empty labels.
@@ -76,13 +76,6 @@ export interface OwnedTheme {
 export interface FramingItem {
   label: string;
   text: string;
-}
-
-export interface Tldr {
-  challenge: string;
-  solution: string;
-  /** The payoff. Carries a metric or an unblocked outcome. */
-  result: string;
 }
 
 /** A research finding paired with the product change it caused. */
@@ -177,7 +170,6 @@ export interface SolutionStep {
 export interface CaseStudy {
   snapshotFields: { label: string; value: string }[];
   team?: TeamMember[];
-  tldr: Tldr;
   /** At-a-glance figures. Absent means the band doesn't render. */
   stats?: Stat[];
   /** Two to four sentences answering "what was this, and what did I do here". */
@@ -196,7 +188,8 @@ export interface CaseStudy {
    * solution gallery so the story stays product-first.
    */
   processImages?: CaseStudyImage[];
-  context: string;
+  /** Situation and constraint. Optional when the overview already carries them. */
+  context?: string;
   evidence?: Evidence;
   /**
    * Flat ownership list, rendered only when `ownedThemes` is absent. All four
@@ -209,11 +202,6 @@ export interface CaseStudy {
   decisions: Decision[];
   states?: StateRecovery[];
   images?: CaseStudyImage[];
-  /**
-   * Caption for the placeholder that stands in when a study has no images and
-   * no coded diagrams. Says what the real asset will show.
-   */
-  visualsPendingNote?: string;
   impact?: Impact;
   reflection?: Reflection;
 }
@@ -243,38 +231,16 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Status",
         value: "V3 of the analysis platform in testing; unified homepage MVP in development",
       },
-      {
-        label: "Users",
-        value:
-          "Analyst, accounting, and finance leadership organizations, plus specialized finance roles",
-      },
-      // Short header fact (Linear-block pattern); the full disciplines render
-      // as cards in Research and team.
-      {
-        label: "Team",
-        value: "Six application-level designers, plus product, engineering, data, and finance SMEs",
-      },
-      // React/Tailwind/Vite moved to About (2026-09-03): build involvement was a
-      // mix across versions, and listing them here read as a claim.
-      { label: "Tools", value: "Figma, FigJam, Figma Make, Windsurf" },
     ],
-    tldr: {
-      challenge:
-        "The organization had invested in several valuable finance products, but users experienced them as disconnected tools rather than a coherent platform — no unified entry point, overlapping terminology, and an integration promise the architecture could not yet keep.",
-      solution:
-        "Reframed the program from a single integrated application to a suite of independent finance products with a shared experience layer: one access-aware homepage for discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
-      result:
-        "Established the shared experience model across six product areas and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
-    },
     // Every figure below is restated in `impact`; the band restates them in
     // display type rather than introducing anything new. Rebuilt 2026-09-03
     // from the scorecard session record (§4.1): the "10 → 300 pilot users"
     // figure has no provenance and stays off until the PO confirms it.
     stats: [
-      { value: "800+", label: "Business analyses by 40+ users in the hackathon that forced the V1 pivot" },
-      { value: "3", label: "Product versions taken to testing, each redirected by research" },
-      { value: "4", label: "Research engagements: moderated tests, interviews, surveys, hackathons" },
-      { value: "8-figure", label: "Modernization program the research now directs" },
+      { value: "800+", label: "Hackathon analyses by 40+ users" },
+      { value: "3", label: "Product versions taken to testing" },
+      { value: "4", label: "Research engagements to date" },
+      { value: "8-figure", label: "Program the research now directs" },
     ],
     overview:
       "I led the end-to-end product experience for a finance transformation program at a Fortune 500 telecommunications company — a growing suite spanning data exploration and AI-assisted analysis, workflow automation, an AI-agent portfolio, audit tooling, and access management. The products were owned by different teams, built on separate technology stacks, and not yet deeply integrated; my job was to make the ecosystem understandable and usable as one experience. I set the cross-product experience direction, connected workstreams, clarified ambiguous product concepts, and translated executive intent into decisions teams could build against.",
@@ -354,27 +320,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
-    // Trimmed 2026-08-26 to the storyteller arc's stakes shape: situation,
-    // why it mattered, the constraint. The cut detail (access model, silos)
-    // survives in evidence.findings.
-    context:
-      "The organization had invested in six valuable finance product areas — but users experienced them as disconnected tools, with no unified entry point and no shared language, and the program was being described as a single integrated application the architecture could not yet deliver. Left alone, every new product would deepen the fragmentation and the promise would keep outrunning the platform. The constraint underneath everything: an enterprise identity architecture still evolving, and delivery moving too fast for design to wait for it to settle.",
-    // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
-    // this study's own decisions/reflection — no new claims.
+    // The pivot (scorecard session record §4.4, hackathon corrected to 40+
+    // users / 800+ analyses). The reframe that used to sit here is told once,
+    // as the featured decision.
     turn:
-      "The program's own story was what broke. It was being described as one integrated application — but the architecture couldn't keep that promise, executive expectations had diverged, and one AI workstream had been building alongside design with a shrinking meeting cadence. I took the reframe to the executive sponsor: stop calling it a single application. A suite of independent products with a shared experience layer was a story the architecture could actually keep — and the homepage, the taxonomy, and the shared patterns all fell out of that one sentence.",
+      "V1 assumed finance analysts could read and adjust generated Python. A hackathon that put the platform in front of 40+ users, who ran 800+ business analyses against it, showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. The volume is what made the finding unarguable. V2 rebuilt the flow around data-product onboarding, role-based access, and limited orchestration, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work actually branches. Research set V3's direction, a data explorer, agentic workflow creation, and tool socialization, now in testing.",
     evidence: {
       body:
         "I developed a research approach based on role segmentation, moderated prototype testing, and direct access to domain experts — 45-minute, one-on-one, semi-structured sessions with clickable prototypes, with questions tailored by participant responsibilities rather than treating \u201cfinance users\u201d as a single audience.",
       findings: [
-        // The pivot finding (scorecard session record §4.4), corrected to
-        // 40+ users / 800+ analyses on 2026-09-03.
-        {
-          finding:
-            "V1 assumed finance analysts could read and adjust generated Python. A hackathon that put the platform in front of 40+ users, who ran 800+ business analyses against it, showed they could not and would not.",
-          response:
-            "The product pivoted: users needed to explore data directly and hand multi-step work to an agent. The volume is what made the finding unarguable.",
-        },
         {
           finding:
             "Users generally saw only the products they were already permitted to use, making discovery of the wider suite difficult.",
@@ -557,10 +511,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Established a shared experience model for a suite spanning data exploration, AI-assisted analysis, finance workflows, AI agents, audit tooling, and access management — and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
       organizational:
         "Reframed the product strategy around modularity, allowing teams to ship independently without losing the longer-term platform vision — and gave the program an operating model in which program-level experience leadership and application-level design ownership reinforce each other.",
-      before:
-        "Valuable finance products experienced as disconnected tools: no unified entry point, overlapping terminology, and an integration promise the architecture could not keep.",
-      after:
-        "A suite with an honest narrative and one front door: access-aware discovery, a shared taxonomy and component patterns, and AI interactions that confirm their assumptions before acting.",
       proof: [
         "Homepage established as the primary discovery mechanism for a flagship analysis product with a 250-user adoption target.",
         "A hackathon put V1 in front of 40+ finance users who ran 800+ business analyses; the result pivoted the product.",
@@ -597,12 +547,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       // "Completed, April 2025" read as shipped; the work never reached
       // customers. Venue (AWS re:Invent 2024) pending Amdocs permission to name.
       { label: "Status", value: "Showcase concept, not deployed to customers" },
-      {
-        label: "Team",
-        value: "UX design, data science, marketing and CX, AI/NLP engineering, product owners",
-      },
-      { label: "Tools", value: "Figma, FigJam" },
-      { label: "Users", value: "Marketing and CX teams, service agents, and product/data partners" },
     ],
     team: [
       { role: "UX Design" },
@@ -612,27 +556,15 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Front-end and back-end engineering" },
       { role: "Product Owners" },
     ],
-    tldr: {
-      challenge:
-        "A telecommunications operator had predictive churn signals but no connected path from a signal to an action anyone could execute.",
-      solution:
-        "One end-to-end mitigation flow: churn detection, AI-assisted messaging, and human review in a single journey, with an AI chatbot handling routine cases and escalating to a person when sentiment called for it.",
-      result:
-        "Turned a model score into a reviewed, edited, and launched action, with monitoring built in and human review required before anything reached a customer.",
-    },
     // No churn, conversion, or revenue metric is verified for this engagement
     // (see impact.metricStatus), so the band carries countable design outputs
     // instead: the roles the flow spans, the surfaces in `images`, and the
     // review rule. "0 → 1" was dropped 2026-09-03: a showcase concept that never
     // reached customers is not a zero-to-one product.
     stats: [
-      { value: "3", label: "Roles the flow spans: analyst, customer, service representative" },
-      {
-        value: "6",
-        label:
-          "Connected surfaces: dashboard, journey exploration, segment-of-one timeline, mitigation plan, customer chatbot, representative view",
-      },
-      { value: "Required", label: "Human review before any AI message reached a customer" },
+      { value: "3", label: "Roles the flow spans" },
+      { value: "6", label: "Connected surfaces designed" },
+      { value: "Required", label: "Human review before any AI message" },
     ],
     overview:
       "As Lead UX Designer at Amdocs Studios, I implemented the product vision for a connected customer journey at a telecommunications operator that had predictive churn signals but no way to act on them. I worked with engineering, product, and the client's customer teams, and ran the user research that tested the hypothesis behind the vision and gave shape to both the user problems and the solutions. I designed the flow end to end across the three roles it touches \u2014 the analyst who sees the risk, the customer who lives it, and the service representative who resolves it \u2014 from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
@@ -918,13 +850,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential telecommunications company" },
       { label: "Timeframe", value: "2024–2025, one-year engagement" },
       { label: "Status", value: "Completed" },
-      {
-        label: "Team",
-        value: "Chief Data Office, product, engineering, UI development, finance stakeholders",
-      },
-      { label: "Tools", value: "Figma, FigJam" },
-      { label: "Users", value: "Admins, accountants, and engineers managing multiple projects and billing packages" },
-      { label: "Adoption", value: "100-user target, reached" },
     ],
     team: [
       { role: "Chief Data Office" },
@@ -933,20 +858,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Front-end and back-end engineering" },
       { role: "Finance and operations stakeholders" },
     ],
-    tldr: {
-      challenge:
-        "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed.",
-      solution:
-        "A guided B2B workflow with a shared status model, role-based permissions, and a full audit trail replacing manual, ownerless assembly.",
-      result:
-        "Unblocked recovery of the billing backlog with a first MVP for project querying and package assembly, then shipped the dashboard, in-product editing, and the review process over a one-year engagement, reaching the 100-user adoption target.",
-    },
     // Backlog volume and handoff time are unverified (see impact.metricStatus).
     // The counts below come from the status model and the operational flow.
     stats: [
       { value: "100", label: "User adoption target, reached" },
-      { value: "12 of 21", label: "Must-have features shipped against the team-approved prioritization" },
-      { value: "6", label: "Shared status states, Initiated through Completed" },
+      { value: "12 of 21", label: "Approved must-have features shipped" },
+      { value: "6", label: "Shared status states" },
     ],
     overview:
       "At Amdocs Studios I joined this telecommunications engagement as lead designer working alongside a principal designer, then took over design leadership when the principal rolled off. The goal was to replace manual billing-package assembly with a guided workflow: work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and coordinated stakeholders with front-end and back-end engineering through testing, UAT, and the backlog. The application reached its 100-user adoption target.",
@@ -992,25 +909,13 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "Team leadership",
         title: "Took over design leadership mid-engagement",
         detail:
-          "Stepped up from lead designer when the principal designer rolled off, coordinating stakeholders and front-end and back-end engineering, and owning testing, UAT, and backlog items through delivery.",
-      },
-      {
-        kind: "Team leadership",
-        title: "De-scoped what wasn't feasible",
-        detail:
-          "Surfaced the dashboard dependency and moved it into a visible backlog rather than compromising the active release, protecting the billing workflow that was feasible.",
+          "Stepped up from lead designer when the principal designer rolled off, coordinating stakeholders and front-end and back-end engineering through testing, UAT, and the backlog. Surfaced the dashboard dependency and moved it into a visible backlog rather than compromising the active release.",
       },
       {
         kind: "Design",
-        title: "Mapped the operational flow",
+        title: "Mapped the flow, then designed it",
         detail:
-          "Across admins, accountants, engineers, owners, and reviewers — including missing evidence, failed automation, validation, handoffs, and recovery without loss of progress.",
-      },
-      {
-        kind: "Design",
-        title: "Designed the guided workflow",
-        detail:
-          "Project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion in one flow.",
+          "The operational flow across admins, accountants, engineers, owners, and reviewers, including missing evidence, failed automation, and recovery without loss of progress; then the guided workflow from project selection through review, approval, and completion.",
       },
     ],
     solutionSteps: [
@@ -1253,11 +1158,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2025" },
       { label: "Status", value: "Multi-phase accelerator and product-development work" },
-      {
-        label: "Team",
-        value: "Design, product, engineering, research, client stakeholders",
-      },
-      { label: "Users", value: "Enterprise business users, Corporate Communications, Risk and Compliance" },
     ],
     team: [
       { role: "Design" },
@@ -1266,20 +1166,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Research" },
       { role: "Client stakeholders" },
     ],
-    tldr: {
-      challenge:
-        "AI could summarize internal documents quickly, but users still needed to verify sources, understand document scope, and compare conflicting information.",
-      solution:
-        "Keep chat and source material together, make citations navigational, expose document selection, and support table and side-by-side comparison.",
-      result:
-        "Research changed the navigation, document-selection, comparison, guardrail, and synthesis recommendations and unblocked a phased path from sourced Q&A to multi-document analysis and drafting.",
-    },
     // Adoption and efficiency are unattributed (see impact.metricStatus), so the
     // band counts what research and the design actually produced.
     stats: [
-      { value: "4", label: "Research findings that changed the product direction" },
-      { value: "2", label: "Comparison modes kept: side-by-side and table" },
-      { value: "1", label: "Workspace where chat and source documents stay together" },
+      { value: "4", label: "Findings that changed direction" },
+      { value: "2", label: "Comparison modes kept" },
+      { value: "1", label: "Workspace for chat and sources" },
     ],
     overview:
       "As UX and Product Strategy Lead at Amdocs Studios, I led the research and product direction for an enterprise AI platform where business units get their own toolbox on centrally maintained rails. Users could get AI-generated answers but had no way to verify them. I ran the research program that changed the navigation, selection, and comparison model, and specified the phased build that followed.",
@@ -1372,8 +1264,6 @@ export const caseStudies: Record<string, CaseStudy> = {
           "End-to-end flow: choosing a domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
       },
         ],
-    visualsPendingNote:
-      "The side-by-side comparison view — abstracted for confidentiality — is in production. Structure and outcomes are accurate.",
     evidence: {
       body:
         "I led or contributed to research planning, protocol development, stakeholder alignment, execution guidance, and synthesis. Research evaluated pattern clarity, trust and interpretability, feature discoverability, document selection, navigation across tabs or views, comparison preferences, and guardrails and source verification. I used affinity mapping to group observations and translated the findings into product recommendations, feature priorities, and reusable interaction patterns.",

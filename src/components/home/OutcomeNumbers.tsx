@@ -12,8 +12,8 @@ import Eyebrow from "../ui/Eyebrow";
  * the site until the product owner confirms what it counted.
  */
 const outcomes = [
-  { figure: "800+", label: "Business analyses by 40+ users in the Finance Cloud hackathon that pivoted V1" },
-  { figure: "3", label: "Finance Cloud versions to testing, each set by research" },
+  { figure: "800+", label: "Finance Cloud hackathon analyses, 40+ users" },
+  { figure: "3", label: "Finance Cloud versions taken to testing" },
   { figure: "2 of 4", label: "Platforms built from zero" },
   { figure: "6", label: "Designers directed across one program" },
 ];

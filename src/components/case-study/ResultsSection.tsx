@@ -3,8 +3,9 @@ import type { Impact } from "../../data/caseStudies";
 /**
  * What the work produced.
  *
- * The headline leads, then the before/after pair, then the proof points, then
- * the `metricStatus` caveat as a closing footnote. It renders here rather than
+ * The headline leads, then the before/after pair where a study supplies one,
+ * then the proof points, then the `metricStatus` caveat as a closing footnote.
+ * The principle moved to the Reflection section (2026-09-03). It renders here rather than
  * under the at-a-glance band: the band is the first impression and the caveat
  * was undercutting the figures before they landed, while Results is where the
  * figures are actually argued — the honest limits belong with the argument.

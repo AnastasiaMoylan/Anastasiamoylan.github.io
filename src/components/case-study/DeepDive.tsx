@@ -3,7 +3,6 @@ import ImageGallery from "./ImageGallery";
 import RoleTeam from "./RoleTeam";
 import KeyDecisions from "./KeyDecisions";
 import StatesRecovery from "./StatesRecovery";
-import ReflectionBlock from "./ReflectionBlock";
 
 /**
  * The material an interviewer asks about, closed by default.
@@ -12,9 +11,10 @@ import ReflectionBlock from "./ReflectionBlock";
  * and has to stay readable without JS, and the element gives keyboard and
  * screen-reader behaviour for free.
  *
- * The panels reuse the beat components the previous template rendered inline.
- * Nothing was lost in the move to a scannable page — the depth moved behind a
- * summary instead of competing with the argument above it.
+ * Research findings and reflection used to live here too. Both are page
+ * sections now (2026-09-03): the findings are the evidence for a research-led
+ * designer, and the reflection is the most senior paragraph on the page.
+ * Coded diagrams a study wants behind a summary arrive as `panels`.
  */
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   // overflow-hidden so the summary's hover fill is clipped to the rounded
@@ -42,57 +42,18 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
-export default function DeepDive({ content }: { content: CaseStudy }) {
-  const findings = content.evidence?.findings ?? [];
-
+export default function DeepDive({
+  content,
+  panels = [],
+}: {
+  content: CaseStudy;
+  panels?: { title: string; content: React.ReactNode }[];
+}) {
   return (
     <div className="flex flex-col gap-3">
-      {/*
-        The direction/craft split renders on the page as "My role"; this panel
-        keeps the fuller ownership themes and the team disciplines for an
-        interviewer who wants the complete record.
-      */}
-      <Panel title="What I owned, and the team">
-        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+      <Panel title="Key decisions">
+        <KeyDecisions decisions={content.decisions} />
       </Panel>
-
-      {findings.length > 0 && (
-        <Panel title="The research">
-          {content.evidence?.body && (
-            <p className="mb-5 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
-              {content.evidence.body}
-            </p>
-          )}
-          <p className="mb-6 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
-            What the research found, and the change each finding caused.
-          </p>
-          <ul className="m-0 flex list-none flex-col gap-5 p-0">
-            {findings.map(({ finding, response }) => (
-              <li key={finding} className="measure">
-                <p className="m-0 text-[0.9375rem] font-semibold leading-[1.55] text-foreground">
-                  {finding}
-                </p>
-                <p className="mt-1.5 m-0 flex gap-2.5 text-[0.875rem] leading-[1.65] text-muted-foreground">
-                  <span className="shrink-0 text-accent" aria-hidden="true">
-                    &rarr;
-                  </span>
-                  {response}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </Panel>
-      )}
-
-      {content.processImages && content.processImages.length > 0 && (
-        <Panel title="The journey behind the screens">
-          <p className="mb-6 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
-            The working flow the screens were built against — every role, every handoff,
-            and the paths that break.
-          </p>
-          <ImageGallery images={content.processImages} />
-        </Panel>
-      )}
 
       {content.states && content.states.length > 0 && (
         <Panel title="Edge cases">
@@ -100,16 +61,25 @@ export default function DeepDive({ content }: { content: CaseStudy }) {
         </Panel>
       )}
 
-      <Panel title="Key decisions">
-        <KeyDecisions decisions={content.decisions} />
-      </Panel>
-
-      {content.reflection && (
-        <Panel title="Reflection">
-          <ReflectionBlock reflection={content.reflection} />
+      {content.processImages && content.processImages.length > 0 && (
+        <Panel title="The flows behind the screens">
+          <p className="mb-6 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
+            The working flow the screens were built against: every role, every handoff,
+            and the paths that break.
+          </p>
+          <ImageGallery images={content.processImages} />
         </Panel>
       )}
 
+      {panels.map(({ title, content: panelContent }) => (
+        <Panel key={title} title={title}>
+          {panelContent}
+        </Panel>
+      ))}
+
+      <Panel title="What I owned, and the team">
+        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+      </Panel>
     </div>
   );
 }
