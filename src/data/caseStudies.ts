@@ -24,8 +24,12 @@ import ccjChatExpanded from "../assets/case-studies/ccj/chat-expanded.png?previe
 import ccjChatExpandedFull from "../assets/case-studies/ccj/chat-expanded.png";
 import ccjSegmentOfOne from "../assets/case-studies/ccj/segment-of-one.jpg?preview";
 import ccjSegmentOfOneFull from "../assets/case-studies/ccj/segment-of-one.jpg";
-import cwoMvp1Workflow from "../assets/case-studies/cwo/mvp1-workflow.jpg?preview";
-import cwoMvp1WorkflowFull from "../assets/case-studies/cwo/mvp1-workflow.jpg";
+import cwoPackageIndex from "../assets/case-studies/cwo/package-index.jpg?preview";
+import cwoPackageIndexFull from "../assets/case-studies/cwo/package-index.jpg";
+import cwoPackageCreateValidation from "../assets/case-studies/cwo/package-create-validation.jpg?preview";
+import cwoPackageCreateValidationFull from "../assets/case-studies/cwo/package-create-validation.jpg";
+import cwoBillingReport from "../assets/case-studies/cwo/billing-report.jpg?preview";
+import cwoBillingReportFull from "../assets/case-studies/cwo/billing-report.jpg";
 import cwoCreationFlow from "../assets/case-studies/cwo/creation-flow.jpg?preview";
 import cwoCreationFlowFull from "../assets/case-studies/cwo/creation-flow.jpg";
 import cwoFlow from "../assets/case-studies/cwo/flow.jpg?preview";
@@ -841,8 +845,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
     // plan, journey explorations) -> act (the representative's chat).
-    // The working end-to-end flow, kept from the live site in its own Details
-    // container rather than the solution gallery. Caption is the original.
+    // The flows behind the screens, all in Details since 2026-09-04: the
+    // creation flow, the review state machine, and the MVP2 scope board. The
+    // Solution section shows product screens instead; the MVP1 workflow board
+    // left the page because the creation flow covers it and the step it
+    // illustrated now carries the real index and create screens.
     processImages: [
       {
         src: ccjUserFlow,
@@ -960,11 +967,34 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     solutionSteps: [
+      // Screens added 2026-09-04 so the solution shows the product, not the
+      // flow: the flow diagrams moved behind Details, where the prose that
+      // already describes them at length can point to them.
       {
         title: "Query and assemble",
         points: [
           "The project number is the package's primary key, so resuming is never mistaken for starting over",
           "Progressive validation flags missing data early and preserves progress when a dependency fails",
+        ],
+        images: [
+          {
+            src: cwoPackageIndex,
+            fullSrc: cwoPackageIndexFull,
+            width: 2400,
+            height: 1537,
+            alt: "Billing package index listing existing packages by package ID, projects, contract number, owner, and last modified, with a project-number filter, sortable columns, and a Start new billing package button.",
+            caption:
+              "The index is keyed to the project number, so a package that already exists is found before a new one is started.",
+          },
+          {
+            src: cwoPackageCreateValidation,
+            fullSrc: cwoPackageCreateValidationFull,
+            width: 1356,
+            height: 1368,
+            alt: "Start a new billing package dialog with a package-owner selector, a comma-separated project-number field, three inline errors marking individual project numbers as invalid, and the accepted projects listed below with remove actions.",
+            caption:
+              "Project numbers validate as they are added: each invalid one is called out on its own and the valid ones stay, so one bad entry never discards the batch.",
+          },
         ],
       },
       {
@@ -979,6 +1009,17 @@ export const caseStudies: Record<string, CaseStudy> = {
         points: [
           "Role-based access is a flow branch, not a permissions afterthought",
           "Ownership, package state, action history, and review handoffs stay visible to every role",
+        ],
+        images: [
+          {
+            src: cwoBillingReport,
+            fullSrc: cwoBillingReportFull,
+            width: 2400,
+            height: 2390,
+            alt: "Billing report for a four-project package showing the breakdown of charges by category, gross and net construction cost, credit lines, previous billings and advance payments, the total amount due, a last-data-sync timestamp beside the title, and a Download PDF button.",
+            caption:
+              "The finalized report shows how the total was built, category by category, with the data-sync time beside the title, so a reviewer can check the number before the PDF leaves the system.",
+          },
         ],
       },
     ],
@@ -1127,26 +1168,6 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Creation flow: role-based branching from sign-in through review, export, and finalization.",
       },
       {
-        src: cwoStrategyAlignment,
-        fullSrc: cwoStrategyAlignmentFull,
-        width: 2600,
-        height: 661,
-        alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
-        caption:
-          "MVP2 scope-definition workshop: goals and outcomes, the team-approved must/should/nice prioritization across six feature areas with shipped items marked, and the entity relationships used to plan the next phase.",
-      },
-    ],
-    images: [
-      {
-        src: cwoMvp1Workflow,
-        fullSrc: cwoMvp1WorkflowFull,
-        width: 4174,
-        height: 2592,
-        alt: "MVP1 user flow diagram showing a user searching a project number, the system matching it to a billing package by primary key, and generating the package with a PDF invoice and screenshots.",
-        caption:
-          "The project number is the package's primary key — resuming is never mistaken for starting over.",
-      },
-      {
         src: cwoFlow,
         fullSrc: cwoFlowFull,
         width: 6368,
@@ -1154,6 +1175,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
         caption:
           "Review as its own state machine — inline edits, save or discard, and a commit message before anything is finalized.",
+      },
+      {
+        src: cwoStrategyAlignment,
+        fullSrc: cwoStrategyAlignmentFull,
+        width: 2600,
+        height: 661,
+        alt: "MVP2 scope-definition workshop board showing goals and outcomes, feature prioritization by must-have, should-have, and nice-to-have, and entity relationships between agreement, billing invoice, project, and vendor invoice.",
+        caption:
+          "MVP2 scope-definition workshop: goals and outcomes, the team-approved must/should/nice prioritization across six feature areas with shipped items marked, and the entity relationships used to plan the next phase.",
       },
     ],
     impact: {
