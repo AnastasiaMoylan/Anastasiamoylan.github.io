@@ -75,22 +75,29 @@ export interface OwnedTheme {
  * success metric, constraint, where it landed. Labels are free text because
  * the billing study had a KPI set at kickoff while the others state the
  * metric the author would hold the work to.
+ *
+ * Budget: four lines, 25 words each, 100 in all. A line that repeats the
+ * turning point or the overview is cut, not shortened.
  */
 export interface FramingItem {
   label: string;
   text: string;
 }
 
-/** A research finding paired with the product change it caused. */
+/**
+ * A research finding paired with the product change it caused. A finding
+ * whose response names no change is cut. Five findings at most.
+ */
 export interface EvidenceFinding {
   finding: string;
   response: string;
 }
 
 export interface Evidence {
+  /** The method, in one line: 30 words. */
   body?: string;
   findings?: EvidenceFinding[];
-  /** The reframing line, rendered as a pull-quote. */
+  /** The reframing line, rendered as a pull-quote in Problem: one sentence, 25 words. */
   insight: string;
   principle?: string;
 }
@@ -110,6 +117,13 @@ export interface StateRecovery {
   recovery?: string;
 }
 
+/**
+ * Outcomes. The stat band already restates the figures in display type, so
+ * this section argues them rather than listing them again.
+ *
+ * Budget: headline 30 words; each narrative line 25; before and after 20
+ * each; four proof points; the metric caveat 50. About 150 in all.
+ */
 export interface Impact {
   headline: string;
   business?: string;
@@ -117,7 +131,7 @@ export interface Impact {
   organizational?: string;
   before?: string;
   after?: string;
-  /** NDA-safe validated proof points. */
+  /** NDA-safe validated proof points. Four at most. */
   proof?: string[];
   /** Why a hard metric is absent, when it is. */
   metricStatus?: string;
@@ -158,7 +172,13 @@ export interface LeadershipPoint {
   detail: string;
 }
 
-/** One stage of the solution, carrying two supporting points at most. */
+/**
+ * One stage of the solution, carrying two supporting points at most.
+ *
+ * Budget: three or four steps, two points of about 15 words each, 120 words
+ * across the section. Captions are counted separately; where a step carries
+ * images, the caption states the decision and the points stay short.
+ */
 export interface SolutionStep {
   title: string;
   points: string[];
@@ -175,15 +195,22 @@ export interface CaseStudy {
   team?: TeamMember[];
   /** At-a-glance figures. Absent means the band doesn't render. */
   stats?: Stat[];
-  /** Two to four sentences answering "what was this, and what did I do here". */
+  /**
+   * Two to four sentences: what this was, what I owned in one clause, the
+   * headline outcome. Budget 70 words. The situation belongs in `context`.
+   */
   overview?: string;
-  /** Hypothesis, success metric, constraint, and where it landed. Renders in Problem. */
+  /** Hypothesis, success metric, constraint, and where it landed. Renders in Problem. Budget 100 words. */
   framing?: FramingItem[];
   /** Direction and craft, split. Absent means the section doesn't render. */
   leadership?: LeadershipPoint[];
   /** The solution as an ordered walk, replacing a flat capability list. */
   solutionSteps?: SolutionStep[];
-  /** The messy middle: the one pivot, failure, or reversal, told straight. */
+  /**
+   * The messy middle: the one pivot, failure, or reversal, told straight in
+   * one paragraph. Budget 75 words. Where a diagram carries the arc, the prose
+   * does not repeat it.
+   */
   turn?: string;
   /**
    * Process artifacts — working boards, end-to-end flows. Rendered in the deep
@@ -191,7 +218,7 @@ export interface CaseStudy {
    * solution gallery so the story stays product-first.
    */
   processImages?: CaseStudyImage[];
-  /** Situation and constraint. Optional when the overview already carries them. */
+  /** Situation and constraint, opening Problem. Budget 60 words. Never restates the role. */
   context?: string;
   evidence?: Evidence;
   /**
@@ -242,8 +269,14 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: String(figures.researchEngagements), label: "Research engagements to date" },
       { value: figures.programScaleShort, label: "Program the research now directs" },
     ],
-    overview:
-      "I led the end-to-end product experience for a finance transformation program at a Fortune 500 telecommunications company — a growing suite spanning data exploration and AI-assisted analysis, workflow automation, an AI-agent portfolio, audit tooling, and access management. The products were owned by different teams, built on separate technology stacks, and not yet deeply integrated; my job was to make the ecosystem understandable and usable as one experience. I set the cross-product experience direction, connected workstreams, clarified ambiguous product concepts, and translated executive intent into decisions teams could build against.",
+    // Cut to the 70-word budget 2026-09-04. The separate-teams situation moved
+    // to `context`; the closing outcome clause matches the stat band's lead
+    // figure. [NEEDS SIGN-OFF] on that clause: hackathon versus "V3 in testing".
+    overview: `I led the end-to-end product experience for a finance transformation program at a Fortune 500 telecommunications company: a suite spanning data exploration, AI-assisted analysis, workflow automation, AI agents, audit tooling, and access management. I set the cross-product experience direction, connected workstreams, and translated executive intent into decisions teams could build against. A hackathon that put V1 in front of ${figures.hackathonUsers} finance users, who ran ${figures.hackathonAnalyses} analyses, redirected the product; V3 is now in testing.`,
+    // Situation and constraint, moved out of the overview 2026-09-04. The
+    // "single integrated application" line is the second research finding.
+    context:
+      "The products were owned by different teams, built on separate technology stacks, and not yet deeply integrated, while the program was described to the business as a single integrated application. My job was to make the ecosystem understandable and usable as one experience without promising integration that did not yet exist.",
     // Scorecard session record §4.7, Finance Cloud block, with the "Where it
     // landed" line from the 2026-09-03 plan (hackathon corrected to 40+ users,
     // 800+ analyses).
@@ -256,17 +289,17 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         label: "Success metric",
         text:
-          "None was defined at the outset. The one I would hold it to: share of close work running through the governed pipeline with human sign-off, with AI plans approved without rework as the leading indicator.",
+          "None defined at the outset. I would hold it to the share of close work running through the governed pipeline with human sign-off; AI plans approved without rework is the leading indicator.",
       },
       {
         label: "Constraint that shaped scope",
         text:
-          "V2 depended on a metadata layer that did not exist and orchestration too rigid for real finance work; research set the V3 direction now in test.",
+          "V2 depended on a metadata layer that did not exist and orchestration too rigid for real finance work.",
       },
       {
         label: "Where it landed",
         text:
-          `A hackathon with ${figures.hackathonUsers} users running ${figures.hackathonAnalyses} business analyses forced the V1 pivot after showing users could not work in code. V3 is in testing; the research now directs an ${figures.programScale} modernization program.`,
+          `V3 is in testing; the research now directs an ${figures.programScale} modernization program.`,
       },
     ],
     leadership: [
@@ -323,11 +356,14 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The pivot (scorecard session record §4.4, hackathon corrected to 40+
     // users / 800+ analyses). The reframe that used to sit here is told once,
     // as the featured decision.
+    // Cut to the 75-word budget 2026-09-04: the version arc beside it carries
+    // what each version was built around, so the prose keeps the finding and
+    // the two constraints only.
     turn:
-      `V1 assumed finance analysts could read and adjust generated Python. A hackathon that put the platform in front of ${figures.hackathonUsers} users, who ran ${figures.hackathonAnalyses} business analyses against it, showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. The volume is what made the finding unarguable. V2 rebuilt the flow around data-product onboarding, role-based access, and limited orchestration, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work actually branches. Research set V3's direction, a data explorer, agentic workflow creation, and tool socialization, now in testing.`,
+      `V1 assumed finance analysts could read and adjust generated Python. A hackathon with ${figures.hackathonUsers} users running ${figures.hackathonAnalyses} business analyses showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. The volume made the finding unarguable. V2 rebuilt the flow around that, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work branches. Research set V3's direction, now in testing.`,
     evidence: {
       body:
-        "I developed a research approach based on role segmentation, moderated prototype testing, and direct access to domain experts — 45-minute, one-on-one, semi-structured sessions with clickable prototypes, with questions tailored by participant responsibilities rather than treating \u201cfinance users\u201d as a single audience.",
+        "Role-segmented, moderated prototype testing with direct access to domain experts: 45-minute one-on-one sessions with clickable prototypes, questions tailored to each participant's responsibilities rather than to \u201cfinance users\u201d as one audience.",
       findings: [
         {
           finding:
@@ -507,18 +543,19 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     impact: {
+      // Cut to the Outcomes budget 2026-09-04. The suite list is in the
+      // overview; the 72-hour agent-success rule and the 3% / 1% thresholds
+      // stay in Key decisions and the thresholds diagram; the 250-user homepage
+      // target is a target, not a result, and the band already carries the
+      // adoption story.
       headline:
-        "Established a shared experience model for a suite spanning data exploration, AI-assisted analysis, finance workflows, AI agents, audit tooling, and access management — and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
+        "Established a shared experience model for the whole suite and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
       organizational:
-        "Reframed the product strategy around modularity, allowing teams to ship independently without losing the longer-term platform vision — and gave the program an operating model in which program-level experience leadership and application-level design ownership reinforce each other.",
+        "Reframed the product strategy around modularity, so teams ship independently without losing the platform vision, and gave the program an operating model in which program-level experience leadership and application-level design ownership reinforce each other.",
       proof: [
-        "Homepage established as the primary discovery mechanism for a flagship analysis product with a 250-user adoption target.",
         `A hackathon put V1 in front of ${figures.hackathonUsers} finance users who ran ${figures.hackathonAnalyses} business analyses; the result pivoted the product.`,
         `${figures.financeCloudVersionsWord} product versions, each redirected by research; V3 is in testing now.`,
-        `${figures.researchEngagementsWord} research engagements to date — moderated tests, one-on-one interviews, surveys, and the hackathon — consumed by program leads and executive sponsors, and now directing an ${figures.programScale} modernization program.`,
-        "Agent success defined as analyst action within 72 hours — a scenario run or a leadership conversation — not forecast precision.",
-        "Signal-interpretation thresholds set with domain experts: roughly 3% meaningful in one use case, 1% often noise.",
-        "Research scaled from about four unique participants on key workflows to moderated studies drawing on a 32-analyst pool.",
+        `${figures.researchEngagementsWord} research engagements to date, scaled from about four participants to a 32-analyst pool, consumed by program leads and executive sponsors, and now directing an ${figures.programScale} modernization program.`,
         "Standardized patterns across divergent workflow products — headers, breadcrumbs, status badges, approval history — seeding a finance-wide component library.",
       ],
       metricStatus:
@@ -568,8 +605,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: "6", label: "Connected surfaces designed" },
       { value: "Required", label: "Human review before any AI message" },
     ],
+    // Cut to the 70-word budget 2026-09-04. The signal-to-monitoring walk it
+    // used to end on is the Solution section's four steps.
     overview:
-      "As a Senior UX Designer at Amdocs Studios leading design on this engagement, I implemented the product vision for a connected customer journey at a telecommunications operator that had predictive churn signals but no way to act on them. I worked with engineering, product, and the client's customer teams, and ran the user research that tested the hypothesis behind the vision and gave shape to both the user problems and the solutions. I designed the flow end to end across the three roles it touches \u2014 the analyst who sees the risk, the customer who lives it, and the service representative who resolves it \u2014 from a risk signal, through the context and options a person needs, to a reviewed message and the monitoring that followed it.",
+      "As a Senior UX Designer at Amdocs Studios leading design on this engagement, I implemented the product vision for a connected customer journey at a telecommunications operator: turning predictive churn signals into action. I ran the research that tested the hypothesis behind the vision, and designed the flow end to end across the analyst who sees the risk, the customer who lives it, and the representative who resolves it.",
     // Scorecard session record §4.7, CCJ block. Venue naming pending permission.
     framing: [
       // Status renders in the header fact line; not repeated here (2026-09-04).
@@ -618,8 +657,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         title: "Detect the risk",
         points: [
-          "The dashboard leads with the business metrics already at risk or predicted to be, each carrying why it is at risk and a direct path to mitigate it",
-          "Segments are built dynamically from churn-risk criteria \u2014 issues, historic behavior, likelihood to churn \u2014 rather than maintained as static lists",
+          "The dashboard leads with the KPIs at risk, each with why and a direct path to mitigate it",
+          "Segments build dynamically from churn-risk criteria rather than static lists",
         ],
         images: [
           {
@@ -636,8 +675,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         title: "Explain the drop-off",
         points: [
-          "Journey exploration shows where customers actually fail, split by entry channel, with the churned and successfully continued share on each path",
-          "A segment-of-one timeline replays one customer's events against their churn risk, so the pattern and the person stay connected",
+          "Journey exploration shows where customers fail by entry channel, with the churned and continued share on each path",
+          "A segment-of-one timeline replays one customer's events against their churn risk",
         ],
         images: [
           {
@@ -663,9 +702,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         title: "Decide with evidence",
         points: [
-          "The mitigation plan pairs the KPI at risk with its key drivers and one recommended next action",
-          "Each offer starts as a hypothesis, testable in a what-if analysis tool before anything is deployed",
-          "AI drafts a message against a selected audience and tone; the person reviews and edits the live preview before it goes out",
+          "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first",
+          "AI drafts a message for a chosen audience and tone; the person edits the live preview before it goes out",
         ],
         images: [
           {
@@ -682,9 +720,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         title: "Act and monitor",
         points: [
-          "A chatbot handles routine cases and hands off to a representative when sentiment analysis and account context call for a person",
-          "The representative works from an AI-generated customer summary and suggested course of action, with access to offers the automated system does not yet hold",
-          "A declined offer loops back to adjustment rather than ending in a dead end",
+          "A chatbot handles routine cases and hands off to a representative when sentiment and context call for a person",
+          "The representative works from an AI summary and suggested action; a declined offer loops back to adjustment",
         ],
         images: [
           {
@@ -699,14 +736,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
+    // Situation only (2026-09-04); the role line it carried is the overview's job.
     context:
-      "A telecommunications operator needed to turn predictive signals into action across several channels: analysts, service teams, an AI layer, and the partner systems feeding it. I designed the connected journey that tied them together, from detection through human reviewed action to launch and monitoring.",
+      "A telecommunications operator had predictive churn signals but no way to act on them. Analysts, service teams, an AI layer, and the partner systems feeding it each held part of the picture, and nothing connected detection to a reviewed action, its launch, and what happened next.",
     // Signed off by Anastasia 2026-08-26.
     turn:
       "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn't an answer. The reset came when we started treating a prediction as the opening of a decision a person still had to make — with the customer's context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
     evidence: {
       body:
-        "I ran user research against the hypothesis behind the product vision: that a predictive churn signal changes nothing unless the person responsible for the customer can see why it fired and act on it without leaving the context. The research validated that hypothesis and gave shape to both the problems below and the surfaces that answered them.",
+        "User research against the hypothesis behind the vision: that a churn signal changes nothing unless the person responsible for the customer can see why it fired and act without leaving the context. It held.",
       findings: [
         {
           finding:
@@ -822,10 +860,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       user:
         "Human review of AI-assisted messaging was required before anything reached a customer.",
       organizational:
-        "Marketing, CX, and service teams gained a shared interaction model for moving from journey evidence to a human-reviewed response across acquisition, retention, and loyalty.",
+        "Marketing, CX, and service teams gained one interaction model for moving from journey evidence to a human-reviewed response.",
       before: "Fragmented customer signals and cross-tool handoffs.",
       after:
-        "One workflow where teams could detect risk, understand the surrounding behavior and sentiment, choose a mitigation action, review the message or offer, and monitor the response.",
+        "One workflow to detect risk, understand the behavior behind it, choose a mitigation, review the message, and monitor the response.",
       proof: [
         "Made journey drop-offs and churn risk visible beside customer context.",
         "Translated predictive models into decision support for non-technical users.",
@@ -866,8 +904,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: String(figures.billingReturningUsers), label: `Returning users, ${figures.billingReturningAsOfShort}` },
       { value: String(figures.billingStatusStates), label: "Shared status states" },
     ],
+    // Cut to the 70-word budget 2026-09-04. The principal-designer handover is
+    // named in the team grid; the disappearing-work problem opens `context`.
     overview:
-      `At Amdocs Studios I joined this telecommunications engagement as lead designer working alongside a principal designer, then took over design leadership when the principal rolled off. Nothing existed before the engagement; this was a zero-to-one build. The goal was to replace manual billing-package assembly with a guided workflow: work was disappearing mid-process because no single role owned it and no shared vocabulary existed for where a package was. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and coordinated stakeholders with front-end and back-end engineering through testing, UAT, and the backlog. The application reached its ${figures.billingAdoptionTarget}-user adoption target.`,
+      `At Amdocs Studios I led design on a zero-to-one build for a telecommunications client, taking over design leadership mid-engagement. The goal was to replace manual billing-package assembly with a guided workflow, because work was disappearing mid-process with no role owning it. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and worked with engineering through testing and UAT. The application reached its ${figures.billingAdoptionTarget}-user adoption target.`,
     // Scorecard session record §4.7, CWO block. The KPI was defined at kickoff,
     // which corrects an earlier "no metric defined" draft. Backlog size before
     // and after MVP1 is still being recovered and is not stated.
@@ -880,12 +920,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         label: "KPI set at kickoff",
         text:
-          "+20% billing-package submission rate. Submission is the step where packages were dying; if ownership and status became explicit, more packages should reach submission rather than stall.",
+          "+20% billing-package submission rate, the step where packages were dying. Explicit ownership and status should carry more packages to submission instead of stalling.",
       },
       {
         label: "Measurement status",
         text:
-          "Pending. The status model timestamps every transition, so submission rate and cycle time are both retrievable once the workflow is in steady use. Leading indicator available now: packages reaching Review without a missing-evidence stop.",
+          "Pending. The status model timestamps every transition, so submission rate and cycle time are retrievable in steady use. Leading indicator now: packages reaching Review without a missing-evidence stop.",
       },
       {
         label: "Constraint",
@@ -1122,22 +1162,21 @@ export const caseStudies: Record<string, CaseStudy> = {
       business:
         `Built from zero, the application reached its ${figures.billingAdoptionTarget}-user adoption target and, as of ${figures.billingReturningAsOf}, has ${figures.billingReturningUsers} returning users.`,
       organizational:
-        "Defined a status model that made ownership and handoffs explicit, and shipped the review process on top of it; whole-package automation was left as the named next phase.",
+        "Defined a status model that made ownership and handoffs explicit, then shipped the review process on top of it.",
       before:
         "Billable work accumulated across fragmented systems, files, screenshots, spreadsheets, and manual handoffs.",
       after:
         "A stepwise workflow coordinated package creation, progressive validation, recovery, ownership, review, status, and history.",
+      // Four proof points (2026-09-04). The first MVP is the headline; the
+      // recoverable-screenshot and reused-pattern lines live in Key decisions.
       proof: [
-        "Completed the first MVP for interface and project querying.",
         `Reached the ${figures.billingAdoptionTarget}-user adoption target; ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}.`,
         `Shipped ${figures.billingMustHaveShipped} team-approved must-have features, covering package creation, workflow management, and review.`,
         "Shipped the dashboard, in-product editing, and the review process in later phases of the one-year engagement.",
-        "Added recoverable screenshot-generation and validation patterns.",
-        "Reused role, review, submit, and status patterns across the workflow.",
-        "Made ownership, package state, action history, and review handoffs visible.",
+        "Made ownership, package state, action history, and review handoffs visible to every role.",
       ],
       metricStatus:
-        `The recovered backlog, the ${figures.billingAdoptionTarget}-user adoption target, and the ${figures.billingReturningUsers} returning users (as of ${figures.billingReturningAsOf}) are the outcomes available in the project record; the ${figures.billingMustHaveShipped} count is read from the feature-prioritization board. The +20% submission-rate KPI set at kickoff is measurable from the status model's timestamps but not yet measured. Exact backlog volume, defect reduction, handoff time, and final release dates are not verified and are not stated.`,
+        `The recovered backlog, the adoption target, and the returning users are the outcomes in the project record; the ${figures.billingMustHaveShipped} count is read from the feature-prioritization board. The +20% submission-rate KPI is measurable from the status model's timestamps but not yet measured. Backlog volume, defect reduction, handoff time, and release dates are not verified and not stated.`,
     },
     reflection: {
       learned:
@@ -1180,7 +1219,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         label: "Success metric",
         text:
-          "Not defined at the outset. I would hold it to verification rate: the share of AI answers where a user opens at least one cited source. Near zero means citations are decoration; high means the pattern is doing what it was designed to do.",
+          "Not defined at the outset. I would hold it to verification rate: the share of AI answers where a user opens a cited source. Near zero means the citations are decoration.",
       },
       {
         label: "Constraint",
@@ -1242,8 +1281,10 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
     ],
+    // Tightened 2026-09-04 to the 60-word budget. The risks it used to list
+    // (comparison, context loss, privacy) are each answered in the solution steps.
     context:
-      "Traditional enterprise search could retrieve documents, but users still had to open files individually, locate relevant sections, reconcile differences, and manually create a summary. An LLM could accelerate that work, but it introduced new risks: generated answers could lose their connection to source material, users could not easily compare several documents at once, switching files could disrupt conversational context, and sensitive information required privacy-aware behavior. The design question became how to help enterprise users move from retrieval to verified understanding without hiding the documents behind the AI.",
+      "Enterprise search could retrieve documents, but users still had to open each file, find the relevant sections, reconcile differences, and write the summary themselves. An LLM could do that faster, at the risk of answers losing their connection to the source. The question was how to move users from retrieval to verified understanding without hiding the documents behind the AI.",
     // [NEEDS SIGN-OFF] The turn (messy middle), told first-person. Drawn from
     // this study's own decisions/reflection — no new claims.
     turn:
@@ -1263,7 +1304,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
     evidence: {
       body:
-        "I led or contributed to research planning, protocol development, stakeholder alignment, execution guidance, and synthesis. Research evaluated pattern clarity, trust and interpretability, feature discoverability, document selection, navigation across tabs or views, comparison preferences, and guardrails and source verification. I used affinity mapping to group observations and translated the findings into product recommendations, feature priorities, and reusable interaction patterns.",
+        "I led research planning, protocols, execution guidance, and synthesis: sessions evaluated trust and interpretability, document selection, navigation, comparison preferences, and source verification, with findings affinity-mapped into recommendations and priorities.",
       findings: [
         {
           finding: "Tabs and document-selection behavior caused confusion.",
