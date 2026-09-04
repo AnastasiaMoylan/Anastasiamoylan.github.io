@@ -26,8 +26,6 @@ import ccjSegmentOfOne from "../assets/case-studies/ccj/segment-of-one.jpg?previ
 import ccjSegmentOfOneFull from "../assets/case-studies/ccj/segment-of-one.jpg";
 import cwoPackageIndex from "../assets/case-studies/cwo/package-index.jpg?preview";
 import cwoPackageIndexFull from "../assets/case-studies/cwo/package-index.jpg";
-import cwoPackageCreateValidation from "../assets/case-studies/cwo/package-create-validation.jpg?preview";
-import cwoPackageCreateValidationFull from "../assets/case-studies/cwo/package-create-validation.jpg";
 import cwoBillingReport from "../assets/case-studies/cwo/billing-report.jpg?preview";
 import cwoBillingReportFull from "../assets/case-studies/cwo/billing-report.jpg";
 import cwoCreationFlow from "../assets/case-studies/cwo/creation-flow.jpg?preview";
@@ -985,15 +983,6 @@ export const caseStudies: Record<string, CaseStudy> = {
             alt: "Billing package index listing existing packages by package ID, projects, contract number, owner, and last modified, with a project-number filter, sortable columns, and a Start new billing package button.",
             caption:
               "The index is keyed to the project number, so a package that already exists is found before a new one is started.",
-          },
-          {
-            src: cwoPackageCreateValidation,
-            fullSrc: cwoPackageCreateValidationFull,
-            width: 1356,
-            height: 1368,
-            alt: "Start a new billing package dialog with a package-owner selector, a comma-separated project-number field, three inline errors marking individual project numbers as invalid, and the accepted projects listed below with remove actions.",
-            caption:
-              "Project numbers validate as they are added: each invalid one is called out on its own and the valid ones stay, so one bad entry never discards the batch.",
           },
         ],
       },
