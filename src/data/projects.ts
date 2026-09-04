@@ -1,3 +1,4 @@
+import { figures } from "./figures";
 export interface Project {
   slug: string;
   /** Retired slug kept working as a route alias, so existing links survive a rename. */
@@ -51,7 +52,7 @@ export const projects: Project[] = [
     status: "Completed",
     tags: ["End-to-end Flow", "B2B SaaS", "Workflow Automation"],
     outcome:
-      "Over a one-year engagement, delivered an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — reaching the 100-user adoption target on a status model that made ownership and handoffs explicit.",
+      `Built from zero over a one-year engagement: an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — reaching the ${figures.billingAdoptionTarget}-user adoption target, with ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}, on a status model that made ownership and handoffs explicit.`,
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },
@@ -74,17 +75,17 @@ export const projects: Project[] = [
     slug: "connected-customer-journey",
     image: ccjDashboard,
     title: "The Connected Customer Journey",
-    tagline: "Reducing churn by connecting a fragmented customer journey",
+    tagline: "Designing the path from a churn score to a human decision",
     problem:
       "A telecommunications client had predictive churn signals but no way to act on them. The gap between a model score and a human taking the right action for the right customer was entirely undesigned.",
-    role: "Lead UX Designer",
+    role: "Senior UX Designer, leading design on the engagement",
     status: "Showcase concept, not deployed to customers",
     // Off the homepage 2026-09-03: a showcase that never reached customers
     // should not out-rank the three engagements that shipped. Still on /work.
     hiddenOnHome: true,
     tags: ["Predictive Analytics", "Customer Experience", "AI Decision Support"],
     outcome:
-      "Designed an end-to-end mitigation flow that turned a model score into a reviewed, edited, and launched action, with monitoring built in. Human review of AI-assisted messaging was required before anything reached a customer.",
+      "A showcase concept: an end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits, and monitors. Human review of AI-assisted messaging was required by design. Not deployed to customers.",
     featuredOrder: 2,
     filterCategories: ["AI and Trust", "Customer Experience", "Data and Finance"],
   },

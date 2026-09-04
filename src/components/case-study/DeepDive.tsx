@@ -1,6 +1,5 @@
 import type { CaseStudy } from "../../data/caseStudies";
 import ImageGallery from "./ImageGallery";
-import RoleTeam from "./RoleTeam";
 import KeyDecisions from "./KeyDecisions";
 import StatesRecovery from "./StatesRecovery";
 
@@ -11,10 +10,12 @@ import StatesRecovery from "./StatesRecovery";
  * and has to stay readable without JS, and the element gives keyboard and
  * screen-reader behaviour for free.
  *
- * Research findings and reflection used to live here too. Both are page
- * sections now (2026-09-03): the findings are the evidence for a research-led
- * designer, and the reflection is the most senior paragraph on the page.
- * Coded diagrams a study wants behind a summary arrive as `panels`.
+ * Research findings, reflection, and the role-and-team block used to live
+ * here too. All three are page sections now (2026-09-03 and 2026-09-04): the
+ * findings are the evidence for a research-led designer, the reflection is
+ * the most senior paragraph on the page, and role without team reads as a
+ * solo-hero claim. Coded diagrams a study wants behind a summary arrive as
+ * `panels`.
  */
 function Panel({ title, children }: { title: string; children: React.ReactNode }) {
   // overflow-hidden so the summary's hover fill is clipped to the rounded
@@ -76,10 +77,6 @@ export default function DeepDive({
           {panelContent}
         </Panel>
       ))}
-
-      <Panel title="What I owned, and the team">
-        <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
-      </Panel>
     </div>
   );
 }

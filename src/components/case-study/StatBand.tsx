@@ -13,23 +13,30 @@ import type { Stat } from "../../data/caseStudies";
  * so the numbers share one baseline no matter how many lines a label wraps —
  * the old bottom-packed layout let a two-line label push its figure upward.
  *
- * Three figures run in one row from `sm`. Four split 2x2 at `sm` and run in
- * one row at `lg`; the dividers are set per cell so the 2x2 grid gets a
- * horizontal rule between its rows and a vertical one between its columns.
+ * Two or three figures run in one row from `sm`. Four or more split into two
+ * columns at `sm` and run in one row at `lg` (capped at four across; a fifth
+ * wraps and keeps its rules). Dividers are set per cell: a rule above every
+ * cell that starts a new row and a rule to the left of every cell that is not
+ * first in its row, at each breakpoint. `stats` is unbounded in the type, so
+ * the arithmetic is by column count rather than by special-casing 3 and 4.
  */
+const LG_COLUMNS = 4;
+
 function cellBorders(index: number, count: number): string {
   if (index === 0) return "";
-  if (count < 4) return "border-t sm:border-t-0 sm:border-l";
-  return [
-    "border-t",
-    index === 1 ? "sm:border-t-0 sm:border-l" : "",
-    index === 2 ? "lg:border-t-0 lg:border-l" : "",
-    index >= 3 ? "sm:border-l lg:border-t-0" : "",
-  ].join(" ");
+  if (count <= 3) return "border-t sm:border-t-0 sm:border-l";
+  const SM_COLUMNS = 2;
+  const smTop = index >= SM_COLUMNS ? "sm:border-t" : "sm:border-t-0";
+  const smLeft = index % SM_COLUMNS === 0 ? "sm:border-l-0" : "sm:border-l";
+  const lgTop = index >= LG_COLUMNS ? "lg:border-t" : "lg:border-t-0";
+  const lgLeft = index % LG_COLUMNS === 0 ? "lg:border-l-0" : "lg:border-l";
+  return ["border-t", smTop, smLeft, lgTop, lgLeft].join(" ");
 }
 
+const COLUMN_CLASSES: Record<number, string> = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3" };
+
 export default function StatBand({ stats }: { stats: Stat[] }) {
-  const columns = stats.length >= 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3";
+  const columns = COLUMN_CLASSES[stats.length] ?? "sm:grid-cols-2 lg:grid-cols-4";
   return (
     <section aria-label="At a glance" className="mt-10 rounded-lg border border-border bg-card">
       <dl className={["m-0 grid grid-cols-1", columns].join(" ")}>

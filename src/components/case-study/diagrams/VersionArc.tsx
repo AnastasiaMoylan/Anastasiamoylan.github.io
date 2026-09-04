@@ -1,5 +1,6 @@
 import DiagramPanel from "../primitives/DiagramPanel";
 import AccentRule from "../primitives/AccentRule";
+import { figures } from "../../../data/figures";
 
 /**
  * Three product versions, each redirected by research.
@@ -17,7 +18,7 @@ const versions = [
     assumed:
       "Finance users would read and adjust generated Python. No agentic integration, no direct data exploration.",
     learned:
-      "A hackathon put the platform in front of 40+ users who ran 800+ business analyses. They could not and would not work in code; they needed to explore data directly and hand multi-step work to an agent.",
+      `A hackathon put the platform in front of ${figures.hackathonUsers} users who ran ${figures.hackathonAnalyses} business analyses. They could not and would not work in code; they needed to explore data directly and hand multi-step work to an agent.`,
     status: "Pivoted",
   },
   {
@@ -35,7 +36,7 @@ const versions = [
     assumed:
       "A data explorer, agentic workflow creation, and tool socialization, with LangGraph as the orchestrator behind the front end.",
     learned:
-      "In testing. The research program that redirected V1 and V2 now directs an eight-figure modernization program.",
+      `In testing. The research program that redirected V1 and V2 now directs an ${figures.programScale} modernization program.`,
     status: "In testing",
   },
 ];
@@ -45,7 +46,7 @@ export default function VersionArc() {
     <DiagramPanel
       heading="Three versions, each redirected by research"
       subheading="What each version assumed, what the research showed, and where it landed."
-      quote="The volume is what made the finding unarguable: 800+ analyses is sustained use, not a demo."
+      quote={`The volume is what made the finding unarguable: ${figures.hackathonAnalyses} analyses is sustained use, not a demo.`}
     >
       <ol className="m-0 grid list-none grid-cols-1 gap-8 p-0 md:grid-cols-3 md:gap-10">
         {versions.map((v) => (

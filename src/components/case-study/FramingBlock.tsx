@@ -6,7 +6,7 @@ import type { FramingItem } from "../../data/caseStudies";
  * that shaped scope, and where the work landed.
  *
  * Added 2026-09-03 from the scorecard session record (§4.7). Renders inside
- * The stakes, after the overview, so a reader meets the framing before any
+ * Problem, after the context, so a reader meets the framing before any
  * screen. Labels are data, not fixed, because the billing study has a KPI
  * that was actually set at kickoff while the others state the metric the
  * author would hold the work to.

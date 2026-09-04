@@ -30,12 +30,12 @@ export default function FeaturedDecision({ decision }: { decision: Decision }) {
       </p>
       <RejectedPath decision={decision} className="mt-3 text-[0.875rem] leading-[1.6] text-secondary-foreground" />
       <p className="mt-4 m-0 text-[0.8125rem] leading-[1.6] text-secondary-foreground">
-        Every decision, with the path not taken, is in{" "}
+        Every decision, with the path not taken, is under{" "}
         <a
           href="#deep-dive"
           className="font-semibold text-accent no-underline transition-colors duration-150 hover:text-foreground"
         >
-          the deep dive
+          Details
         </a>
         .
       </p>

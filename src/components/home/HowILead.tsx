@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { figures } from "../../data/figures";
 
 /**
  * Leadership evidence, above the work grid.
@@ -20,12 +21,12 @@ const cards = [
   {
     n: "02",
     title: "Zero to one, then pivoted on evidence",
-    body: "Took Finance Cloud from zero to a working POC with the lead product owner, then ran the hackathon — 40+ users, 800+ analyses — whose result pivoted the product.",
+    body: `Took Finance Cloud from zero to a working POC with the lead product owner, then ran the hackathon — ${figures.hackathonUsers} users, ${figures.hackathonAnalyses} analyses — whose result pivoted the product.`,
   },
   {
     n: "03",
-    title: "Six designers, five products",
-    body: "Owned the product strategy and directed the six application-level designers building across a finance transformation program, coordinating large cross-functional teams throughout.",
+    title: `${figures.designersDirectedTitle} designers, five products`,
+    body: `Owned the product strategy and directed the ${figures.designersDirectedWord} application-level designers building across a finance transformation program, coordinating large cross-functional teams throughout.`,
   },
 ];
 

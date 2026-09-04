@@ -1,13 +1,12 @@
 import type { Evidence } from "../../data/caseStudies";
-import PullQuote from "./primitives/PullQuote";
 
 /**
  * What the research found, and the change each finding caused.
  *
- * The method paragraph leads, each finding sits with its response, and the
- * insight closes the section as the page's one pull-quote. Until 2026-09-03
- * the findings rendered here without their responses and again in the deep
- * dive with them; one section now carries the whole pair.
+ * The method paragraph leads and each finding sits with its response. The
+ * insight used to close this section; since 2026-09-04 it renders in Problem,
+ * where it reframes the problem before the reader reaches the solution, and
+ * this section is the proof layer behind that reframe.
  */
 export default function ChallengeList({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
@@ -37,10 +36,6 @@ export default function ChallengeList({ evidence }: { evidence: Evidence }) {
           ))}
         </ul>
       )}
-
-      <div className="mt-10">
-        <PullQuote>{evidence.insight}</PullQuote>
-      </div>
     </div>
   );
 }

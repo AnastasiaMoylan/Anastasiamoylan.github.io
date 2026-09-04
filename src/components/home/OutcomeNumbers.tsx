@@ -1,21 +1,19 @@
 import Eyebrow from "../ui/Eyebrow";
+import { figures } from "../../data/figures";
 
 /**
  * Outcome band, directly under the hero.
  *
- * Rebuilt 2026-09-03 from the scorecard session record. Every figure traces
- * to Anastasia's own account: the hackathon is 40+ users running 800+
- * business analyses (corrected from the earlier "30 users, 300 queries"), the
- * three versions are V1 -> V2 -> V3 of the analysis platform, and only Finance
- * Cloud and the billing workflow were built from zero. The "10 -> 300 pilot
- * users" figure that used to lead this band has no provenance and stays off
- * the site until the product owner confirms what it counted.
+ * Rebuilt 2026-09-03 from the scorecard session record; the figures and their
+ * provenance live in data/figures.ts. The "10 -> 300 pilot users" figure that
+ * used to lead this band has no provenance and stays off the site until the
+ * product owner confirms what it counted.
  */
 const outcomes = [
-  { figure: "800+", label: "Finance Cloud hackathon analyses, 40+ users" },
-  { figure: "3", label: "Finance Cloud versions taken to testing" },
-  { figure: "2 of 4", label: "Platforms built from zero" },
-  { figure: "6", label: "Designers directed across one program" },
+  { figure: figures.hackathonAnalyses, label: `Finance Cloud hackathon analyses, ${figures.hackathonUsers} users` },
+  { figure: String(figures.financeCloudVersions), label: "Finance Cloud versions, each redirected by research" },
+  { figure: String(figures.platformsFromZero), label: "Platforms built from zero" },
+  { figure: String(figures.designersDirected), label: "Designers directed across one program" },
 ];
 
 export default function OutcomeNumbers() {

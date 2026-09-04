@@ -1,5 +1,6 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Button from "../components/ui/Button";
+import { figures } from "../data/figures";
 
 const timeline = [
   {
@@ -104,7 +105,7 @@ export default function AboutPage() {
                   Anastasia's ladder runs toward Principal, not management — stated here as
                   positioning rather than as a caveat. */}
               <p>
-                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. Direction without reporting lines: I set design direction for six designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.
+                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. Direction without reporting lines: I set design direction for {figures.designersDirectedWord} designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.
               </p>
               <p>
                 I also manage a review program for my agency's finance practice, checking completed work against what's required and leading critique that explains reasoning instead of just corrections.

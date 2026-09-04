@@ -61,19 +61,10 @@ export default function RoleTeam({
   ownedThemes?: OwnedTheme[];
   team?: TeamMember[];
 }) {
+  // Team before ownership (2026-09-04): naming who was around the work makes
+  // the ownership claim that follows credible rather than inflated.
   return (
     <div className="flex flex-col gap-10">
-      {(ownedThemes?.length || owned?.length) ? (
-        <div className="flex flex-col gap-5">
-          <SubLabel>What I owned</SubLabel>
-          {ownedThemes && ownedThemes.length > 0 ? (
-            <OwnedThemes themes={ownedThemes} />
-          ) : (
-            <BulletList items={owned ?? []} />
-          )}
-        </div>
-      ) : null}
-
       {team && team.length > 0 && (
         <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -85,6 +76,17 @@ export default function RoleTeam({
           <TeamGrid team={team} />
         </div>
       )}
+
+      {(ownedThemes?.length || owned?.length) ? (
+        <div className="flex flex-col gap-5">
+          <SubLabel>What I owned</SubLabel>
+          {ownedThemes && ownedThemes.length > 0 ? (
+            <OwnedThemes themes={ownedThemes} />
+          ) : (
+            <BulletList items={owned ?? []} />
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

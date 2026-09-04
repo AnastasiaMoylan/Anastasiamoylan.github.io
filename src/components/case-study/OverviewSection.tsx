@@ -1,10 +1,10 @@
 /**
- * The overview paragraph, then the situation and constraint.
+ * The overview paragraph: what this was, what I owned, the headline outcome.
  *
- * The project facts (status, users, tools) used to render here as a second
- * fact list under the header's first one. Status moved into the header line
- * and the rest were cut (2026-09-03): users are described in the overview,
- * tools are not a case-study fact, and the team renders in Details.
+ * The situation and constraint used to trail it here; since 2026-09-04 they
+ * open Problem instead, so this section stays the two-to-four-sentence
+ * summary a screener reads first. `context` is still accepted for any caller
+ * that wants the old pairing.
  */
 export default function OverviewSection({
   overview,

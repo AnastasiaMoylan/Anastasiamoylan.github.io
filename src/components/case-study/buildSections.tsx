@@ -2,8 +2,9 @@ import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
 import ChallengeList from "./ChallengeList";
 import OverviewSection from "./OverviewSection";
+import ProblemSection from "./ProblemSection";
+import RoleTeam from "./RoleTeam";
 import LeadershipGrid from "./LeadershipGrid";
-import FramingBlock from "./FramingBlock";
 import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
 import ResultsSection from "./ResultsSection";
@@ -24,17 +25,24 @@ export interface SectionAugments {
 }
 
 /**
- * Page order (revised 2026-09-03):
- * Hook (header + stats, outside this file) -> Overview (with the framing) ->
- * Research -> Role -> Turning point -> Solution -> Outcomes -> Reflection ->
- * Details.
+ * Page order (revised 2026-09-04, see research/context/case-study-architecture.md):
+ *
+ * Layer 1, the trailer — what a screener reads in five minutes:
+ * Hook (header + stats, outside this file) -> Overview -> Problem (context,
+ * framing, the reframing insight) -> Turning point -> Solution (with the one
+ * featured decision) -> Outcomes.
+ *
+ * Layer 2, the proof — what a hiring manager or panel reads next:
+ * Role and team -> Research -> Reflection -> Details.
  *
  * Section headings are plain nouns, the same on every study, so the study's
- * own sub-headings carry the specifics. The turning point is the one pivot or
- * reversal, told straight; it sits between what the research showed and what
- * was built because that is when it happened. Reflection is a page section,
- * not a disclosure panel: the honest "what did not work" paragraph is the
- * most senior thing on the page and should not be hidden.
+ * own sub-headings carry the specifics. The turning point stays in the
+ * trailer between problem and solution because a pivot persuades at the point
+ * it happened; reflection (what did not work, what would change) is hindsight
+ * and sits in the proof layer, still as a page section rather than a
+ * disclosure. Role is named in the header and overview, so the fuller role
+ * and team section can follow the outcomes without the reader crediting the
+ * team for them.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -51,32 +59,20 @@ export default function buildSections(
       id: "overview",
       nav: "Overview",
       heading: "Overview",
+      content: <OverviewSection overview={content.overview} />,
+    });
+  }
+
+  const hasFraming = !!content.framing && content.framing.length > 0;
+  const insight = content.evidence?.insight;
+  if (content.context || hasFraming || insight) {
+    sections.push({
+      id: "problem",
+      nav: "Problem",
+      heading: "Problem",
       content: (
-        <>
-          <OverviewSection overview={content.overview} context={content.context} />
-          {content.framing && content.framing.length > 0 && (
-            <FramingBlock items={content.framing} />
-          )}
-        </>
+        <ProblemSection context={content.context} framing={content.framing} insight={insight} />
       ),
-    });
-  }
-
-  if (content.evidence) {
-    sections.push({
-      id: "challenge",
-      nav: "Research",
-      heading: "Research",
-      content: <ChallengeList evidence={content.evidence} />,
-    });
-  }
-
-  if (content.leadership && content.leadership.length > 0) {
-    sections.push({
-      id: "role",
-      nav: "Role",
-      heading: "Role",
-      content: <LeadershipGrid points={content.leadership} />,
     });
   }
 
@@ -133,6 +129,35 @@ export default function buildSections(
       nav: "Outcomes",
       heading: "Outcomes",
       content: <ResultsSection impact={content.impact} />,
+    });
+  }
+
+  const hasLeadership = !!content.leadership && content.leadership.length > 0;
+  const hasRoleTeam =
+    !!content.team?.length || !!content.ownedThemes?.length || !!content.owned?.length;
+  if (hasLeadership || hasRoleTeam) {
+    sections.push({
+      id: "role",
+      nav: "Role and team",
+      heading: "Role and team",
+      content: (
+        <div className="flex flex-col gap-14">
+          {hasRoleTeam && (
+            <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+          )}
+          {hasLeadership && <LeadershipGrid points={content.leadership!} />}
+        </div>
+      ),
+    });
+  }
+
+  const hasFindings = !!content.evidence?.findings?.length || !!content.evidence?.body;
+  if (content.evidence && hasFindings) {
+    sections.push({
+      id: "challenge",
+      nav: "Research",
+      heading: "Research",
+      content: <ChallengeList evidence={content.evidence} />,
     });
   }
 

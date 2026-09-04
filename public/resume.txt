@@ -1,5 +1,5 @@
 ANASTASIA NOVELLY MOYLAN
-Lead Experience Designer | Developer Platforms, Enterprise Systems & Partner Experiences
+Lead Product Designer | Developer Platforms, Enterprise Systems & Partner Experiences
 
 1 (785) 844-3388
 anastasiamoylan.design@gmail.com
@@ -11,7 +11,7 @@ St. Marys, Kansas, United States - Open to remote work across the Americas
 
 SUMMARY
 
-Lead Experience Designer and product design leader with 10+ years of experience turning complex, data-intensive systems, developer-facing tooling, and partner integrations into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
+Lead Product Designer and product design leader with 10+ years of experience turning complex, data-intensive systems, developer-facing tooling, and partner integrations into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
 
 Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
 
@@ -22,7 +22,7 @@ Brings a specific point of view to AI product design: generated output should be
 EXPERIENCE
 
 Amdocs Studios (formerly Stellar Elements)
-Lead Experience Designer | 2025-Present
+Lead Product Designer | 2025-Present
 Senior Experience Designer | July 2021-July 2025
 St. Marys, Kansas / Distributed enterprise consulting teams
 
