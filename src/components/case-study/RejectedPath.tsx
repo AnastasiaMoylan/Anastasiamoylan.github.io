@@ -3,7 +3,7 @@ import type { Decision } from "../../data/caseStudies";
 /**
  * "Instead of …" line under a decision: the path not taken and what choosing
  * the other one cost. Renders nothing when the decision carries neither.
- * Shared by the featured decision and the deep-dive list so the two stay
+ * Shared by the featured decision and the Details list so the two stay
  * identical in wording and punctuation.
  *
  * Text colour comes from the caller: muted-foreground fails AA (4.35:1) on

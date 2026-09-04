@@ -17,7 +17,7 @@ export function pickFeaturedDecision(decisions: Decision[]): Decision | undefine
 
 /**
  * One decision surfaced onto the scannable page, verbatim from the same list
- * the deep dive still carries in full. A skimmer who never opens an accordion
+ * Details still carries in full. A skimmer who never opens an accordion
  * should still meet one real call: what was chosen, why, and what was given
  * up — the judgment the rest of the page can only assert.
  */
@@ -32,7 +32,7 @@ export default function FeaturedDecision({ decision }: { decision: Decision }) {
       <p className="mt-4 m-0 text-[0.8125rem] leading-[1.6] text-secondary-foreground">
         Every decision, with the path not taken, is under{" "}
         <a
-          href="#deep-dive"
+          href="#details"
           className="font-semibold text-accent no-underline transition-colors duration-150 hover:text-foreground"
         >
           Details

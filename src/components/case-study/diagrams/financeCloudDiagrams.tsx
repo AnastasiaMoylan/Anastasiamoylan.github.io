@@ -6,8 +6,10 @@ import ConfidenceThresholds from "./ConfidenceThresholds";
 import VersionArc from "./VersionArc";
 
 /**
- * One visual per beat. Overview gets the before/after suite map, the one
- * telling of the reframe in picture form. The turning point gets the version
+ * One visual per section. Problem gets the before/after suite map, the one
+ * telling of the reframe in picture form, beside the reframing pull-quote it
+ * illustrates (it sat under Overview until 2026-09-04; Overview is now the
+ * bare summary a screener reads first). The turning point gets the version
  * arc, V1 -> V2 -> V3, beside the pivot paragraph it illustrates. Solution
  * keeps one craft zoom (the promotion gate) plus the thresholds framework.
  * The full governed pipeline sits behind a Details panel.
@@ -20,7 +22,7 @@ import VersionArc from "./VersionArc";
 export function financeCloudAugments(): SectionAugments {
   return {
     append: {
-      overview: <SuiteMap />,
+      problem: <SuiteMap />,
       turn: <VersionArc />,
       solution: (
         <>

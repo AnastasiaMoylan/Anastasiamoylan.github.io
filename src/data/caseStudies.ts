@@ -61,9 +61,9 @@ export interface TeamMember {
 /**
  * A condensed theme of ownership: a short lead plus one supporting line.
  *
- * Preferred over the flat `owned` list, which tends to grow into a résumé dump —
- * the detail belongs in Key decisions and Execution, so this section only has to
- * orient the reader. Case studies without themes fall back to `owned`.
+ * Replaced a flat `owned` list, which tended to grow into a résumé dump — the
+ * detail belongs in Key decisions, so this section only has to orient the
+ * reader. The flat list and its fallback were removed 2026-09-04.
  */
 export interface OwnedTheme {
   label: string;
@@ -195,12 +195,9 @@ export interface CaseStudy {
   context?: string;
   evidence?: Evidence;
   /**
-   * Flat ownership list, rendered only when `ownedThemes` is absent. All four
-   * studies carry themes, so the lists were removed on 2026-09-03 rather than
-   * kept as dead data; the résumé's shared claims live in ownedStatements.ts.
+   * Ownership as short themes. Renders in Role and team. The résumé's shared
+   * claims live in ownedStatements.ts; keep the two agreeing.
    */
-  owned?: string[];
-  /** Ownership as short themes. Renders in Role and team. */
   ownedThemes?: OwnedTheme[];
   decisions: Decision[];
   states?: StateRecovery[];
@@ -806,7 +803,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
     // plan, journey explorations) -> act (the representative's chat).
-    // The working end-to-end flow, kept from the live site in its own deep-dive
+    // The working end-to-end flow, kept from the live site in its own Details
     // container rather than the solution gallery. Caption is the original.
     processImages: [
       {

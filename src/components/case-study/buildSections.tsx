@@ -44,6 +44,9 @@ export interface SectionAugments {
  * and team section can follow the outcomes without the reader crediting the
  * team for them.
  *
+ * Each section carries its layer so the rail can mark where the trailer ends
+ * and the proof begins.
+ *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
  */
@@ -57,6 +60,7 @@ export default function buildSections(
   if (content.overview) {
     sections.push({
       id: "overview",
+      layer: "trailer",
       nav: "Overview",
       heading: "Overview",
       content: <OverviewSection overview={content.overview} />,
@@ -68,6 +72,7 @@ export default function buildSections(
   if (content.context || hasFraming || insight) {
     sections.push({
       id: "problem",
+      layer: "trailer",
       nav: "Problem",
       heading: "Problem",
       content: (
@@ -79,6 +84,7 @@ export default function buildSections(
   if (content.turn) {
     sections.push({
       id: "turn",
+      layer: "trailer",
       nav: "Turning point",
       heading: "Turning point",
       content: (
@@ -104,6 +110,7 @@ export default function buildSections(
 
     sections.push({
       id: "solution",
+      layer: "trailer",
       nav: "Solution",
       heading: "Solution",
       content: (
@@ -125,7 +132,8 @@ export default function buildSections(
 
   if (content.impact) {
     sections.push({
-      id: "results",
+      id: "outcomes",
+      layer: "trailer",
       nav: "Outcomes",
       heading: "Outcomes",
       content: <ResultsSection impact={content.impact} />,
@@ -133,17 +141,17 @@ export default function buildSections(
   }
 
   const hasLeadership = !!content.leadership && content.leadership.length > 0;
-  const hasRoleTeam =
-    !!content.team?.length || !!content.ownedThemes?.length || !!content.owned?.length;
+  const hasRoleTeam = !!content.team?.length || !!content.ownedThemes?.length;
   if (hasLeadership || hasRoleTeam) {
     sections.push({
       id: "role",
+      layer: "proof",
       nav: "Role and team",
       heading: "Role and team",
       content: (
         <div className="flex flex-col gap-14">
           {hasRoleTeam && (
-            <RoleTeam owned={content.owned} ownedThemes={content.ownedThemes} team={content.team} />
+            <RoleTeam ownedThemes={content.ownedThemes} team={content.team} />
           )}
           {hasLeadership && <LeadershipGrid points={content.leadership!} />}
         </div>
@@ -154,7 +162,8 @@ export default function buildSections(
   const hasFindings = !!content.evidence?.findings?.length || !!content.evidence?.body;
   if (content.evidence && hasFindings) {
     sections.push({
-      id: "challenge",
+      id: "research",
+      layer: "proof",
       nav: "Research",
       heading: "Research",
       content: <ChallengeList evidence={content.evidence} />,
@@ -164,6 +173,7 @@ export default function buildSections(
   if (content.reflection) {
     sections.push({
       id: "reflection",
+      layer: "proof",
       nav: "Reflection",
       heading: "Reflection",
       content: <ReflectionBlock reflection={content.reflection} />,
@@ -171,7 +181,8 @@ export default function buildSections(
   }
 
   sections.push({
-    id: "deep-dive",
+    id: "details",
+    layer: "proof",
     nav: "Details",
     heading: "Details",
     content: <DeepDive content={content} panels={panels} />,

@@ -1,5 +1,4 @@
 import type { OwnedTheme, TeamMember } from "../../data/caseStudies";
-import BulletList from "./BulletList";
 
 function SubLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +8,8 @@ function SubLabel({ children }: { children: React.ReactNode }) {
 
 /**
  * Ownership as numbered themes: a short lead the eye can scan, with one
- * supporting line under it. Replaces a flat list of long bullets.
+ * supporting line under it. Replaced a flat list of long bullets, whose
+ * fallback rendering was removed 2026-09-04 once no study carried one.
  */
 function OwnedThemes({ themes }: { themes: OwnedTheme[] }) {
   return (
@@ -53,11 +53,9 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
 }
 
 export default function RoleTeam({
-  owned,
   ownedThemes,
   team,
 }: {
-  owned?: string[];
   ownedThemes?: OwnedTheme[];
   team?: TeamMember[];
 }) {
@@ -77,16 +75,12 @@ export default function RoleTeam({
         </div>
       )}
 
-      {(ownedThemes?.length || owned?.length) ? (
+      {ownedThemes && ownedThemes.length > 0 && (
         <div className="flex flex-col gap-5">
           <SubLabel>What I owned</SubLabel>
-          {ownedThemes && ownedThemes.length > 0 ? (
-            <OwnedThemes themes={ownedThemes} />
-          ) : (
-            <BulletList items={owned ?? []} />
-          )}
+          <OwnedThemes themes={ownedThemes} />
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
