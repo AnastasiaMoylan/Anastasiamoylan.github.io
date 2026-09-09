@@ -55,14 +55,45 @@ that drifts.
 
 ---
 
+## Structure
+
+Everything you can read on the site — every sentence, number, and claim — is data, not
+markup. The components render it; they don't contain it. So if you came here to read the
+work rather than the code, `src/data/` is the whole story:
+
+| To read | Open |
+| --- | --- |
+| A case study, in full | [`caseStudies.ts`](src/data/caseStudies.ts) |
+| How the studies are titled, tagged, and ordered | [`projects.ts`](src/data/projects.ts) |
+| The résumé | [`resume.ts`](src/data/resume.ts) |
+| The design principles | [`philosophy.ts`](src/data/philosophy.ts) |
+| A claim the résumé and a case study both make | [`ownedStatements.ts`](src/data/ownedStatements.ts) |
+| Every repeated number, with where it came from | [`figures.ts`](src/data/figures.ts) |
+
+The rest of it, in one screen:
+
+```
+src/
+  data/         the content above — edit here, not in the components
+  pages/        one component per route
+  components/   layout, home, work, case study, résumé, shared UI
+  app/          root component, router, per-navigation head / scroll / analytics
+  assets/       case-study imagery
+  styles/       Tailwind layer and theme tokens
+scripts/        prerender.mjs — renders each route to static HTML, then writes
+                sitemap.xml, llms.txt, and resume.txt
+public/         robots.txt, favicon, 404.html
+index.html      app shell and base <head>, used as the prerender template
+```
+
+---
+
 ## Technical notes
 
 React 18, React Router 7, Vite 6, Tailwind CSS 4, TypeScript in strict mode, GA4.
 
-Content lives in `src/data/` — case studies, résumé, philosophy, shared claims, and
-the figures behind every number. `scripts/prerender.mjs` renders each route to static
-HTML at build time and generates `sitemap.xml`, `llms.txt`, and `resume.txt` into
-`dist/`; those files are deliberately not checked in.
+`sitemap.xml`, `llms.txt`, and `resume.txt` are generated into `dist/` at build time and
+deliberately not checked in — a checked-in copy is a copy that drifts.
 
 ```bash
 npm install
