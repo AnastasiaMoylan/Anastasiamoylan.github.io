@@ -95,13 +95,6 @@ React 18, React Router 7, Vite 6, Tailwind CSS 4, TypeScript in strict mode, GA4
 `sitemap.xml`, `llms.txt`, and `resume.txt` are generated into `dist/` at build time and
 deliberately not checked in — a checked-in copy is a copy that drifts.
 
-```bash
-npm install
-npm run dev        # dev server → http://localhost:5173
-npm run build      # client bundle → SSR bundle → prerender → cleanup
-npm run typecheck  # tsc --noEmit
-```
-
 ---
 
 ## Usage
