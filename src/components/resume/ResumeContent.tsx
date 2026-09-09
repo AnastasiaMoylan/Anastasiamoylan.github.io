@@ -1,11 +1,17 @@
 import {
-  FINANCE_PRODUCT_MODEL,
-  FINANCE_RESEARCH_ARTIFACTS,
-  BILLING_OPERATIONAL_FLOW,
-  BILLING_STATUS_MODEL,
-  CCJ_HUMAN_REVIEW,
-} from "../../data/ownedStatements";
+  resumeHeader,
+  resumeSummary,
+  resumeExperience,
+  resumeSkills,
+  resumeEducation,
+} from "../../data/resume";
 import "./ResumeContent.css";
+
+/**
+ * Renders `src/data/resume.ts`. The same data is emitted as `resume.txt` by
+ * `buildResumeTxt()`, so the page and the plain-text résumé cannot disagree —
+ * add content to the data file, not to this markup.
+ */
 
 function Section({ id, heading, children }: { id: string; heading: string; children: React.ReactNode }) {
   return (
@@ -42,165 +48,99 @@ export default function ResumeContent() {
       {/* ── Header ── */}
       <header>
         <h1 className="resume-name text-[clamp(2rem,5vw,3rem)] font-bold text-foreground leading-[1.1] mb-2">
-          Anastasia Novelly Moylan
+          {resumeHeader.name}
         </h1>
         <p className="resume-tagline text-[1.0625rem] font-medium text-accent mb-5">
-          Lead Product Designer | Developer Platforms, Enterprise Systems &amp; Partner Experiences
+          {resumeHeader.tagline}
         </p>
         <ul className="resume-contact list-none p-0 m-0 flex flex-wrap gap-x-5 gap-y-1 mb-3">
-          <li>
-            <a href="tel:17858443388" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150">
-              1 (785) 844-3388
-            </a>
-          </li>
-          <li>
-            <a href="mailto:anastasiamoylan.design@gmail.com" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150">
-              anastasiamoylan.design@gmail.com
-            </a>
-          </li>
-          <li>
-            <a href="https://anastasiamoylan.github.io" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150" target="_blank" rel="noopener noreferrer">
-              anastasiamoylan.github.io
-            </a>
-          </li>
-          <li>
-            <a href="https://linkedin.com/in/anastasiamoylan" className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150" target="_blank" rel="noopener noreferrer">
-              linkedin.com/in/anastasiamoylan
-            </a>
-          </li>
+          {resumeHeader.contacts.map(({ label, href }) => {
+            const external = href.startsWith("http");
+            return (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="resume-contact-link text-[0.9375rem] text-accent hover:text-foreground no-underline transition-colors duration-150"
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
         <p className="resume-location text-[0.9375rem] text-muted-foreground">
-          St. Marys, Kansas, United States &middot; Open to remote work across the Americas
+          {resumeHeader.location}
         </p>
       </header>
 
       {/* ── Summary ── */}
       <Section id="resume-summary-heading" heading="Summary">
         <div className="flex flex-col gap-3">
-          <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Lead Product Designer and product design leader with 10+ years of experience turning complex, data-intensive systems, developer-facing tooling, and partner integrations into clear, trustworthy product experiences. Owns work from solution framing and product strategy through end-to-end flows, research, prototyping, design-system decisions, implementation support, and design QA. Experienced across enterprise B2B software, telecommunications, finance, aviation, home security, AI-assisted knowledge tools, workflow automation, and predictive customer experiences.
-          </p>
-          <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Designs systems rather than isolated screens, defining roles, permissions, states, edge cases, failure conditions, handoffs, and recovery paths before they surface during implementation. Partners closely with product managers, engineers, data teams, architects, finance stakeholders, and client leaders to make tradeoffs explicit and preserve the user experience through delivery. Uses Figma, React, Tailwind CSS, Vite, and AI-assisted development tools to build interaction prototypes, test system behavior, and reduce ambiguity between design and engineering.
-          </p>
-          <p className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
-            Brings a specific point of view to AI product design: generated output should be inspectable, consequential actions should be reversible, latency and partial results require designed states, and users should retain control through evidence, review, versioning, and recovery. Leads critique with clear rationale, manages a review program that checks completed work against what's required, and changes direction when research or technical evidence reveals a better path.
-          </p>
+          {resumeSummary.map((para, i) => (
+            <p key={i} className="text-[0.9375rem] text-muted-foreground leading-[1.75]">
+              {para}
+            </p>
+          ))}
         </div>
       </Section>
 
       {/* ── Experience ── */}
       <Section id="resume-experience-heading" heading="Experience">
-        {/* Amdocs */}
-        <div className="mb-10">
-          <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">
-            Amdocs Studios (formerly Stellar Elements)
-          </h3>
-          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Lead Product Designer | 2025&ndash;Present</p>
-          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground">Senior Experience Designer | July 2021&ndash;July 2025</p>
-          <p className="resume-job-meta text-sm text-muted-foreground mt-1 mb-4">St. Marys, Kansas / Distributed enterprise consulting teams</p>
-          <Bullets items={[
-            "Own UX and product design across concurrent enterprise B2B engagements, managing a review program for the finance practice that checks completed work against requirements, while partnering with product, engineering, data, finance, architecture, and client stakeholders from early strategy through implementation.",
-            "Translate ambiguous business and technical needs into product direction, requirements, capability maps, information architecture, and end-to-end flows covering roles, permissions, loading states, empty states, validation, exceptions, approval paths, and recovery behavior.",
-            "Stay involved beyond handoff by creating development-ready flows, acceptance criteria, decision logs, asynchronous walkthroughs, Definition of Ready and Definition of Done gates, accessibility checks, and design-QA reviews; partner with engineering to assess UI feasibility, surface regressions, and protect interaction quality during delivery.",
-            "Build code-aware interaction prototypes with React, Tailwind CSS, Vite, Windsurf, Figma Make, and enterprise UI libraries to validate behavior and reduce implementation ambiguity.",
-            "Work as an experienced design-system practitioner across Figma variables and components, Flywheel React/Tailwind UI, and DCU patterns; extend systems with reusable validation, status, role, review-and-submit, audit-history, and workflow patterns.",
-            "Lead requirements workshops, co-creation, usability research, working-POC evaluations, critique, backlog prioritization, roadmap definition, sprint planning, test planning, and executive storytelling across teams in the United States, Europe, APAC, and Israel.",
-            "Review completed work through pairing, structured critique, requirements clarification, and delivery reviews, checking it against what was required.",
-            "Led an AI-heavy 2025 portfolio spanning finance transformation, enterprise knowledge tools, document intelligence, predictive customer experiences, workflow automation, and rapid proofs of concept.",
-          ]} />
-
-          <p className="text-[0.8125rem] font-semibold italic text-accent mt-5 mb-3">Selected product ownership and outcomes:</p>
-
-          {[
-            {
-              title: "Finance Transformation / CFO.ai | Lead UX / Product Designer, 2025–2026",
-              bullets: [
-                FINANCE_PRODUCT_MODEL,
-                "Separated experimentation from production so users could test Python analysis, transformations, datasets, and AI-assisted plans without bypassing financial controls.",
-                "Designed AI uncertainty and failure as first-class interaction states, including partial or low-confidence output, failed operations, missing permissions, blocked promotion, exception handling, retry/escalation, and pause/resume/rollback for consequential workflows.",
-                "Made AI activity inspectable through previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals, and audit history.",
-                FINANCE_RESEARCH_ARTIFACTS,
-              ],
-            },
-            {
-              title: "Custom Work Orders | Design Lead and UX / Product Strategy Lead, 2024–2025",
-              bullets: [
-                "Led a telecommunications client engagement that replaced fragmented billing-package assembly with a guided B2B workflow spanning project selection, evidence retrieval, screenshot generation, document merging, review, approval, and completion.",
-                BILLING_OPERATIONAL_FLOW,
-                BILLING_STATUS_MODEL,
-                "Partnered with engineering and UI development during implementation and moved unsupported dashboard functionality into a visible future backlog instead of compromising the active release.",
-                "Delivered a completed first MVP for interface and project querying plus a phased roadmap for document integration, in-product editing, expanded review, and automation.",
-              ],
-            },
-            {
-              title: "Document Insights / Enterprise Knowledge LLM | UX and Product Strategy Lead, 2025",
-              bullets: [
-                "Shaped a multi-phase AI document workspace spanning semantic search, document selection, sourced chat, inline citations, an embedded PDF viewer, related questions, side-by-side and table comparison, and AI-assisted drafting.",
-                "Treated citations as navigation rather than decoration, kept selected-document state explicit, and preserved conversation and source context so generated answers remained verifiable.",
-                "Designed privacy-aware persistence, requiring an intentional save rather than retaining user activity by default.",
-                "Led or contributed to mixed-method research, protocol development, affinity synthesis, usage-metric definition, and roadmap prioritization; changed navigation and comparison recommendations based on evidence about tab confusion, trust, and preference for side-by-side review.",
-              ],
-            },
-            {
-              title: "Connected Customer Journey (Telecommunications) | Senior UX Designer, showcase concept, 2024–2025",
-              bullets: [
-                "Designed a complex, data-driven customer journey platform connecting dynamic segmentation, predictive churn signals, sentiment and NPS health, journey drop-offs, AI-assisted messaging, offer customization, and performance monitoring.",
-                "Converted model output into decision support by pairing predictions with customer context, lifecycle stage, behavior, sentiment, and available actions instead of presenting an opaque score as a final answer.",
-                "Created an end-to-end mitigation flow from segment and risk detection through context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
-                CCJ_HUMAN_REVIEW,
-              ],
-            },
-          ].map(({ title, bullets }) => (
-            <div key={title} className="resume-sub-job mt-6 pl-4 border-l-2 border-border">
-              <h4 className="resume-sub-job-title text-[0.9375rem] font-bold text-foreground mb-3">{title}</h4>
-              <Bullets items={bullets} />
+        {resumeExperience.map((job, jobIndex) => (
+          <div
+            key={job.company}
+            className={jobIndex < resumeExperience.length - 1 ? "mb-10" : undefined}
+          >
+            <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">
+              {job.company}
+            </h3>
+            {job.titles.map((title) => (
+              <p
+                key={title}
+                className={[
+                  "resume-job-title text-[0.9375rem] font-semibold text-muted-foreground",
+                  // A single-title job carries the bottom margin itself; a
+                  // stacked pair lets the meta line below it do that instead.
+                  job.meta ? "" : "mb-1",
+                ].join(" ")}
+              >
+                {title}
+              </p>
+            ))}
+            {job.meta && (
+              <p className="resume-job-meta text-sm text-muted-foreground mt-1 mb-4">{job.meta}</p>
+            )}
+            <div className={job.meta ? undefined : "mt-3"}>
+              <Bullets items={job.bullets} />
             </div>
-          ))}
-        </div>
 
-        {/* American Airlines */}
-        <div className="mb-10">
-          <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">American Airlines</h3>
-          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground mb-1">Senior Product Designer | December 2019&ndash;July 2021 | Dallas&ndash;Fort Worth, Texas</p>
-          <div className="mt-3">
-            <Bullets items={[
-              "Redesigned the travel checkout experience, modernizing outdated flows and establishing an incremental approach to evolving the design system and UI over time.",
-              "Led the design team's migration to new design software, partnering closely with the team to support the transition.",
-              "Redesigned the homepage with a new look and feel, balancing a visual refresh against maintaining conversion.",
-            ]} />
+            {job.subJobsLabel && (
+              <p className="text-[0.8125rem] font-semibold italic text-accent mt-5 mb-3">
+                {job.subJobsLabel}
+              </p>
+            )}
+            {job.subJobs?.map(({ title, bullets }) => (
+              <div key={title} className="resume-sub-job mt-6 pl-4 border-l-2 border-border">
+                <h4 className="resume-sub-job-title text-[0.9375rem] font-bold text-foreground mb-3">
+                  {title}
+                </h4>
+                <Bullets items={bullets} />
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* Brinks */}
-        <div>
-          <h3 className="resume-job-company text-[1.0625rem] font-bold text-foreground mb-1">Brinks Home Security</h3>
-          <p className="resume-job-title text-[0.9375rem] font-semibold text-muted-foreground mb-1">Lead UI/UX Designer | June 2015&ndash;December 2019 | Greater Chicago Area</p>
-          <div className="mt-3">
-            <Bullets items={[
-              "Built and owned the design system from scratch, delivering customer-facing mobile products alongside internal dealer and operations tooling across a full redesign cycle.",
-              "Led data-driven design and conversion-rate optimization, including a new lead-generation testing framework and iterative A/B testing on SEM landing pages and flows.",
-              "Managed the designer internship program from hiring through development, and led a content-strategy rollout with copywriters, developers, and executive leadership.",
-            ]} />
-          </div>
-        </div>
+        ))}
       </Section>
 
       {/* ── Skills ── */}
       <Section id="resume-skills-heading" heading="Skills">
         <div className="flex flex-col gap-5">
-          {[
-            { label: "Product design and ownership", body: "End-to-end product-area ownership, product/UX strategy, complex B2B SaaS and enterprise platforms, developer-facing tooling, API and workflow design, service design, systems thinking and information architecture, end-to-end flows/state models/edge cases/recovery paths, interaction design, workflow automation, requirements/PRDs/acceptance criteria, roadmaps/backlogs/prioritization, design QA and accessibility review." },
-            { label: "AI interaction design", body: "AI-assisted workflows and LLM interaction design, uncertainty/latency/partial results/reversibility, human-in-the-loop review, evidence/citations/explainability, generated-plan and generated-code inspection, agent activity/logs/lineage/versioning/auditability, predictive analytics and decision-support interfaces, experimentation and promotion gates." },
-            { label: "Flow literacy and complex systems", body: "Role and permission modeling, loading/empty/error/blocked/success states, progressive validation and preserved-progress patterns, approval/exception/escalation/retry/rollback paths, audit trails and compliance-aware workflows." },
-            { label: "Design systems and implementation", body: "Figma variables, components, and libraries; design-system adoption and extension; Flywheel React/Tailwind UI and DCU; React and Tailwind CSS prototyping; Vite, Heroicons, Windsurf, Figma Make; engineering pairing, UI feasibility review, regression identification." },
-            { label: "Research, communication, and leadership", body: "Moderated usability and working-POC testing, qualitative/quantitative research planning, affinity mapping and synthesis, stakeholder workshops, client consulting, executive storytelling, critique/review/pairing, multi-team/multi-time-zone delivery." },
-            { label: "Tools", body: "Figma, FigJam, Figma Make, React, Tailwind CSS, Vite, Flywheel UI, DCU, Heroicons, Windsurf, Jira, Notion, Excel, Markdown, Word, PowerPoint, Mermaid, draw.io, ChatGPT, Claude, MCP-enabled workflows." },
-            { label: "Domain experience", body: "Enterprise finance and financial operations, telecommunications and customer-experience platforms, aviation, home security and technology, AI-enabled B2B software, enterprise knowledge and document intelligence, data governance and analytics." },
-          ].map(({ label, body }) => (
+          {resumeSkills.map(({ label, body }) => (
             <div key={label}>
               <p className="resume-skills-label text-sm font-bold text-foreground mb-1">{label}</p>
-              <p className="resume-skills-body text-[0.9375rem] text-muted-foreground leading-[1.65]">{body}</p>
+              <p className="resume-skills-body text-[0.9375rem] text-muted-foreground leading-[1.65]">
+                {body}
+              </p>
             </div>
           ))}
         </div>
@@ -209,14 +149,12 @@ export default function ResumeContent() {
       {/* ── Education ── */}
       <Section id="resume-education-heading" heading="Education">
         <div className="flex flex-col gap-5">
-          <div>
-            <p className="resume-edu-school text-base font-bold text-foreground">The University of Kansas</p>
-            <p className="resume-edu-degree text-[0.9375rem] text-muted-foreground">Bachelor of Science in Journalism (BSJ), Strategic Communications &middot; Lawrence, Kansas</p>
-          </div>
-          <div>
-            <p className="resume-edu-school text-base font-bold text-foreground">LUMA Institute</p>
-            <p className="resume-edu-degree text-[0.9375rem] text-muted-foreground">LUMA Design Thinking Practitioner</p>
-          </div>
+          {resumeEducation.map(({ school, degree }) => (
+            <div key={school}>
+              <p className="resume-edu-school text-base font-bold text-foreground">{school}</p>
+              <p className="resume-edu-degree text-[0.9375rem] text-muted-foreground">{degree}</p>
+            </div>
+          ))}
         </div>
       </Section>
     </article>

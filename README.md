@@ -62,9 +62,12 @@ Case-study metadata derives automatically from the case-study data, so adding a 
 can't leave its meta behind.
 
 **The site tells AI crawlers what it is.**
-[`public/llms.txt`](public/llms.txt) and a plain-text
-[`resume.txt`](public/resume.txt) exist so language models summarizing me have
-something accurate to read. That's increasingly how people encounter a portfolio.
+`llms.txt` and a plain-text `resume.txt` exist so language models summarizing me
+have something accurate to read. That's increasingly how people encounter a
+portfolio — which is also why neither is written by hand. Both are generated at
+build time from the same data the pages render
+([`src/data/textOutputs.ts`](src/data/textOutputs.ts)), so the summary a model
+reads can't quietly fall behind the site it describes.
 
 ---
 
@@ -81,11 +84,19 @@ src/
     caseStudies.ts      Long-form case-study content
     ownedStatements.ts  Claims shared by case studies and the résumé
     pageMeta.ts         Per-route title/description/canonical/OG
+    figures.ts          Every repeated number, with its provenance
+    resume.ts           Résumé content, rendered as a page and as text
+    philosophy.ts       The design principles, shared by the page and llms.txt
+    textOutputs.ts      Builds llms.txt and resume.txt from the data above
   assets/               Case-study imagery
   styles/               Tailwind layer + theme tokens
-scripts/prerender.mjs   Renders each route to dist/<route>/index.html
-public/                 llms.txt, resume.txt, sitemap.xml, robots.txt, favicon
+scripts/prerender.mjs   Renders each route to dist/<route>/index.html,
+                        then writes sitemap.xml, llms.txt, and resume.txt
+public/                 robots.txt, favicon, 404.html
 ```
+
+`sitemap.xml`, `llms.txt`, and `resume.txt` are **generated into `dist/`** and are
+deliberately absent from `public/` — a checked-in copy is a copy that drifts.
 
 Built with React 18, React Router 7, Vite 6, Tailwind CSS 4, and TypeScript in strict
 mode. Analytics via GA4.

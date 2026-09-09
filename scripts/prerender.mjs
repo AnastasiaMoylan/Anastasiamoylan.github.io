@@ -8,9 +8,8 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(root, "dist-server");
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
-const { render, getPageMeta, prerenderRoutes, buildSitemap } = await import(
-  path.join(serverDir, "entry-server.js")
-);
+const { render, getPageMeta, prerenderRoutes, buildSitemap, buildLlmsTxt, buildResumeTxt } =
+  await import(path.join(serverDir, "entry-server.js"));
 
 const escapeAttr = (s) =>
   s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -61,3 +60,15 @@ for (const route of prerenderRoutes) {
 const sitemapPath = path.join(distDir, "sitemap.xml");
 fs.writeFileSync(sitemapPath, buildSitemap());
 console.log(`generated sitemap  -> ${path.relative(root, sitemapPath)} (${prerenderRoutes.length} urls)`);
+
+// Same reason as the sitemap: llms.txt and resume.txt are built from the data
+// the pages render, so they cannot drift from the site. There are deliberately
+// no hand-maintained copies in public/.
+for (const [name, build] of [
+  ["llms.txt", buildLlmsTxt],
+  ["resume.txt", buildResumeTxt],
+]) {
+  const outPath = path.join(distDir, name);
+  fs.writeFileSync(outPath, build());
+  console.log(`generated ${name.padEnd(10)} -> ${path.relative(root, outPath)}`);
+}
