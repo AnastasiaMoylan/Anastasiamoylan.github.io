@@ -10,6 +10,15 @@ import Eyebrow from "../components/ui/Eyebrow";
 import buildSections from "../components/case-study/buildSections";
 import { getAugments } from "../components/case-study/diagrams/augments";
 
+/**
+ * The cover visual under the header is off for every study (2026-09-04)
+ * until better visuals exist; the current covers are screenshots and
+ * diagrams that the 21/9 crop cuts to pieces. Flip to true to bring the
+ * cover (or its placeholder) back. Card covers on the home and Work grids
+ * are unaffected.
+ */
+const SHOW_COVER = false;
+
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
   // Retired slugs stay reachable, so existing links and résumé references survive
@@ -74,18 +83,19 @@ export default function CaseStudyPage() {
           crop cut most of them away. On mobile the same ratio collapses to a
           ~90px sliver, so narrow screens relax to 16/9.
         */}
-        {project.image ? (
-          <img
-            src={project.image}
-            alt=""
-            aria-hidden="true"
-            className="mt-10 aspect-[16/9] md:aspect-[21/9] w-full rounded-lg border border-border object-cover"
-          />
-        ) : (
-          <div className="mt-10">
-            <PlaceholderFigure caption={`Cover visual for ${project.title} is in production.`} />
-          </div>
-        )}
+        {SHOW_COVER &&
+          (project.image ? (
+            <img
+              src={project.image}
+              alt=""
+              aria-hidden="true"
+              className="mt-10 aspect-[16/9] md:aspect-[21/9] w-full rounded-lg border border-border object-cover"
+            />
+          ) : (
+            <div className="mt-10">
+              <PlaceholderFigure caption={`Cover visual for ${project.title} is in production.`} />
+            </div>
+          ))}
 
         {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
 

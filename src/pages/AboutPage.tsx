@@ -1,12 +1,13 @@
 import SectionHeading from "../components/ui/SectionHeading";
 import Button from "../components/ui/Button";
+import { figures } from "../data/figures";
 
 const timeline = [
   {
     company: "Amdocs Studios",
     roles: [
       {
-        title: "Lead Experience Designer",
+        title: "Lead Product Designer",
         dates: "2025–Present",
         context:
           "Manages a review program for the agency's finance practice, checking completed work against what's required before it moves forward. Drives integration of AI capabilities into production-ready, enterprise-scale systems for finance, billing, and telecommunications CX platforms, and establishes shared design frameworks and best practices across projects.",
@@ -59,37 +60,6 @@ const tools = [
   "Claude Code", "Windsurf", "Jira", "Notion",
 ];
 
-/**
- * [NEEDS SIGN-OFF] Added 2026-08-26 from the Mobbin research board's About
- * pattern (manifesto + labeled principles grid). Wording drawn from
- * Anastasia's own operating-principles document; tightened, not invented.
- */
-const principles = [
-  {
-    label: "Fix the terminology first",
-    detail: "If two people can use the same word and mean different objects, there is nothing to design yet.",
-  },
-  {
-    label: "Trace the mechanism",
-    detail: "Ask what powers the surface \u2014 the data, the orchestration, the constraints \u2014 before drawing it.",
-  },
-  {
-    label: "Scope to a provable MVP",
-    detail: "Cut to the smallest thing that proves value, and record what was deferred so it isn't lost.",
-  },
-  {
-    label: "Document the non-goals",
-    detail: "Agreed goals and explicit non-goals, written down \u2014 a line in the sand the whole team can point to.",
-  },
-];
-
-/** One honest number set (Sketch pattern) \u2014 figures grounded in the case studies. */
-const numbers = [
-  { value: "6", label: "Designers directed across one program" },
-  { value: "6", label: "Product areas under one experience layer" },
-  { value: "11", label: "Years in enterprise product design" },
-];
-
 function SectionBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <section className="mb-14 pb-14 border-b border-border last:border-b-0 last:mb-0">
@@ -114,7 +84,7 @@ export default function AboutPage() {
             level={1}
             eyebrow="About"
             title="Anastasia Novelly Moylan"
-            subtitle="Lead UX Designer · 11 years in enterprise product and AI design"
+            subtitle="Lead Product Designer · 11 years in enterprise product and AI design"
           />
         </div>
       </section>
@@ -135,43 +105,20 @@ export default function AboutPage() {
                   Anastasia's ladder runs toward Principal, not management — stated here as
                   positioning rather than as a caveat. */}
               <p>
-                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. I own the strategy and the product, and I direct the six designers building it across the finance transformation program — direction without reporting lines. Much of the job is coordinating large teams and making clarity out of confusion.
+                I lead on the individual-contributor track: my org's path runs toward Principal rather than people management. Direction without reporting lines: I set design direction for {figures.designersDirectedWord} designers across the finance program and decide who works on what. I translate the program lead's and product owners' intent into direction designers can execute, onboard new designers to the program's patterns and client, and coach on client interaction and information gathering. When my capacity ran out, I handed one designer's mentoring to another lead and charged a third with standardizing the research program across engagements.
               </p>
               <p>
                 I also manage a review program for my agency's finance practice, checking completed work against what's required and leading critique that explains reasoning instead of just corrections.
+              </p>
+              {/* [NEEDS SIGN-OFF] Added 2026-09-03 from the scorecard session record
+                  (§4.8). Self-reported time-saved figures deliberately omitted. */}
+              <p>
+                I define with AI as well as design with it. I used Figma Make and Windsurf to move from research findings to product requirements, feature breakdown, and a prioritized, story-level backlog in one loop, and to put working prototypes in front of the client rather than static screens. Engineering built from the stories directly.
               </p>
               <p>
                 I don't wait for direction: I set the vision, run the workshops, and drive alignment across an organization to get it built.
               </p>
             </div>
-          </SectionBlock>
-
-          <SectionBlock label="How I work">
-            <ol className="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {principles.map(({ label, detail }, i) => (
-                <li key={label} className="rounded-md border border-border bg-card px-6 py-5">
-                  <p className="m-0 font-mono text-[0.6875rem] uppercase tracking-[0.12em] text-tertiary-700">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <p className="mt-2.5 m-0 font-display text-[1.0625rem] font-bold tracking-[-0.01em] text-foreground">
-                    {label}
-                  </p>
-                  <p className="mt-1.5 m-0 text-[0.9375rem] leading-[1.6] text-muted-foreground">{detail}</p>
-                </li>
-              ))}
-            </ol>
-            <dl className="m-0 mt-8 grid grid-cols-1 gap-6 border-t border-border pt-6 sm:grid-cols-3">
-              {numbers.map(({ value, label }) => (
-                <div key={label}>
-                  <dd className="m-0 font-display text-[2.25rem] font-extrabold leading-none tracking-[-0.03em] text-accent">
-                    {value}
-                  </dd>
-                  <dt className="mt-2 m-0 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-tertiary-700">
-                    {label}
-                  </dt>
-                </div>
-              ))}
-            </dl>
           </SectionBlock>
 
           <SectionBlock label="Career timeline">
@@ -243,6 +190,7 @@ export default function AboutPage() {
           </SectionBlock>
 
           <div className="flex flex-wrap gap-4 mt-4">
+            <Button to="/philosophy" variant="outline">Read the Philosophy</Button>
             <Button to="/resume" variant="outline">View Résumé</Button>
             <Button to="/contact" variant="primary">Get in Touch</Button>
           </div>

@@ -1,0 +1,42 @@
+/**
+ * The figures the site repeats: every number that appears in more than one
+ * place lives here once, with its provenance, and the copy that carries it
+ * reads from this file. Change a figure here and every page follows.
+ *
+ * Provenance is in the comments. A figure without a verified source says so.
+ * `llms.txt` and `resume.txt` are generated from this data at build time by
+ * `textOutputs.ts`, so a figure changed here reaches them too — they were
+ * hand-maintained until 2026-09-08 and had drifted.
+ */
+export const figures = {
+  // Finance Cloud — Anastasia's own account, scorecard session v2 (§2, §4.4),
+  // hackathon corrected 2026-09-03 from "30 users, 300 queries".
+  hackathonUsers: "40+",
+  hackathonAnalyses: "800+",
+  financeCloudVersions: 3,
+  financeCloudVersionsWord: "Three",
+  researchEngagements: 4,
+  researchEngagementsWord: "Four",
+  programScale: "eight-figure",
+  programScaleShort: "8-figure",
+  // Application-level designers Anastasia directs; not reports. Extraction
+  // interview 2026-08-25.
+  designersDirected: 6,
+  designersDirectedWord: "six",
+  designersDirectedTitle: "Six",
+  // Finance Cloud and the billing workflow. CCJ was dropped from this count
+  // 2026-09-03 (a showcase concept, never deployed).
+  platformsFromZero: 2,
+
+  // Billing workflow (CWO) — project record and the prioritization board.
+  // A `billingAdoptionTarget: 100` lived here until 2026-09-08. Anastasia has
+  // no record of setting a 100-user target, so it was removed rather than
+  // restated with a weaker source; the returning-user count is what's left.
+  billingMustHaveShipped: "12 of 21",
+  billingStatusStates: 6,
+  // Anastasia's own account, 2026-09-04. The return window is unconfirmed, so
+  // this is stated as a bare count, never as a rate or a share of a target.
+  billingReturningUsers: 70,
+  billingReturningAsOf: "September 2026",
+  billingReturningAsOfShort: "Sep 2026",
+} as const;

@@ -2,33 +2,50 @@ import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
 import ChallengeList from "./ChallengeList";
 import OverviewSection from "./OverviewSection";
+import ProblemSection from "./ProblemSection";
+import RoleTeam from "./RoleTeam";
 import LeadershipGrid from "./LeadershipGrid";
 import SolutionSteps from "./SolutionSteps";
 import ImageGallery from "./ImageGallery";
-import PlaceholderFigure from "./PlaceholderFigure";
 import ResultsSection from "./ResultsSection";
+import ReflectionBlock from "./ReflectionBlock";
 import FeaturedDecision, { pickFeaturedDecision } from "./FeaturedDecision";
 import DeepDive from "./DeepDive";
 
 /**
  * Per-case-study additions, keyed by section id. `append` renders after a
- * section's default content, `replace` stands in for it entirely. Case studies
- * that pass nothing are unaffected.
+ * section's default content, `replace` stands in for it entirely, and `panels`
+ * become closed disclosure panels inside Details. Case studies that pass
+ * nothing are unaffected.
  */
 export interface SectionAugments {
   append?: Record<string, React.ReactNode>;
   replace?: Record<string, React.ReactNode>;
+  panels?: { title: string; content: React.ReactNode }[];
 }
 
 /**
- * Composes the page as the storyteller arc (case-study-storyteller skill):
- * Hook (header + stats, outside this file) -> Stakes -> The real problem ->
- * My role -> What we built -> The turn -> Outcomes (+ the principle) ->
- * Deep dive.
+ * Page order (revised 2026-09-04, see research/context/case-study-architecture.md):
  *
- * "The turn" is the messy middle — the pivot or reversal told straight; it
- * renders only when a study supplies one. The featured decision stays inside
- * What we built. Research method and the team live in the deep dive.
+ * Layer 1, the trailer — what a screener reads in five minutes:
+ * Hook (header + stats, outside this file) -> Overview -> Problem (context,
+ * framing, the reframing insight) -> Turning point -> Solution (with the one
+ * featured decision) -> Outcomes.
+ *
+ * Layer 2, the proof — what a hiring manager or panel reads next:
+ * Role and team -> Research -> Reflection -> Details.
+ *
+ * Section headings are plain nouns, the same on every study, so the study's
+ * own sub-headings carry the specifics. The turning point stays in the
+ * trailer between problem and solution because a pivot persuades at the point
+ * it happened; reflection (what did not work, what would change) is hindsight
+ * and sits in the proof layer, still as a page section rather than a
+ * disclosure. Role is named in the header and overview, so the fuller role
+ * and team section can follow the outcomes without the reader crediting the
+ * team for them.
+ *
+ * Each section carries its layer so the rail can mark where the trailer ends
+ * and the proof begins.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -37,73 +54,29 @@ export default function buildSections(
   content: CaseStudy,
   augments: SectionAugments = {},
 ): Section[] {
-  const { append = {}, replace = {} } = augments;
+  const { append = {}, replace = {}, panels = [] } = augments;
   const sections: Section[] = [];
 
   if (content.overview) {
     sections.push({
       id: "overview",
-      nav: "Stakes",
-      heading: "The stakes",
-      content: (
-        <OverviewSection
-          overview={content.overview}
-          stakes={content.context}
-          fields={content.snapshotFields}
-        />
-      ),
+      layer: "trailer",
+      nav: "Overview",
+      heading: "Overview",
+      content: <OverviewSection overview={content.overview} />,
     });
   }
 
-  if (content.evidence) {
+  const hasFraming = !!content.framing && content.framing.length > 0;
+  const insight = content.evidence?.insight;
+  if (content.context || hasFraming || insight) {
     sections.push({
-      id: "challenge",
+      id: "problem",
+      layer: "trailer",
       nav: "Problem",
-      heading: "The real problem",
-      content: <ChallengeList evidence={content.evidence} />,
-    });
-  }
-
-  if (content.leadership && content.leadership.length > 0) {
-    sections.push({
-      id: "role",
-      nav: "My role",
-      heading: "My role",
-      content: <LeadershipGrid points={content.leadership} />,
-    });
-  }
-
-  if (content.solutionSteps && content.solutionSteps.length > 0) {
-    const stepsCarryImages = content.solutionSteps.some(
-      (s) => s.images && s.images.length > 0,
-    );
-    const visuals = stepsCarryImages
-      ? null
-      : content.images && content.images.length > 0
-      ? <ImageGallery images={content.images} />
-      : append.solution
-        ? null
-        : <PlaceholderFigure caption={content.visualsPendingNote ?? "Final visuals for this case study are in production."} />;
-
-    const featured = pickFeaturedDecision(content.decisions);
-
-    sections.push({
-      id: "solution",
-      nav: "Built",
-      heading: "What we built",
+      heading: "Problem",
       content: (
-        <div className="flex flex-col gap-12">
-          <SolutionSteps steps={content.solutionSteps} />
-          {visuals}
-          {featured && (
-            <div className="flex flex-col gap-4">
-              <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
-                One decision, up close
-              </p>
-              <FeaturedDecision decision={featured} />
-            </div>
-          )}
-        </div>
+        <ProblemSection context={content.context} framing={content.framing} insight={insight} />
       ),
     });
   }
@@ -111,8 +84,9 @@ export default function buildSections(
   if (content.turn) {
     sections.push({
       id: "turn",
-      nav: "The turn",
-      heading: "The turn",
+      layer: "trailer",
+      nav: "Turning point",
+      heading: "Turning point",
       content: (
         <div className="measure border-l-2 border-accent pl-6">
           <p className="m-0 text-[1.0625rem] leading-[1.75] text-muted-foreground">
@@ -123,22 +97,32 @@ export default function buildSections(
     });
   }
 
-  if (content.impact) {
+  if (content.solutionSteps && content.solutionSteps.length > 0) {
+    const stepsCarryImages = content.solutionSteps.some(
+      (s) => s.images && s.images.length > 0,
+    );
+    const gallery =
+      !stepsCarryImages && content.images && content.images.length > 0 ? (
+        <ImageGallery images={content.images} />
+      ) : null;
+
+    const featured = pickFeaturedDecision(content.decisions);
+
     sections.push({
-      id: "results",
-      nav: "Outcomes",
-      heading: "Outcomes",
+      id: "solution",
+      layer: "trailer",
+      nav: "Solution",
+      heading: "Solution",
       content: (
         <div className="flex flex-col gap-12">
-          <ResultsSection impact={content.impact} />
-          {content.reflection?.principle && (
-            <div>
+          <SolutionSteps steps={content.solutionSteps} />
+          {gallery}
+          {featured && (
+            <div className="flex flex-col gap-4">
               <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
-                The principle
+                Key decision
               </p>
-              <p className="mt-3 m-0 measure font-display text-[clamp(1.25rem,2.5vw,1.625rem)] font-bold leading-[1.35] tracking-[-0.02em] text-foreground">
-                {content.reflection.principle}
-              </p>
+              <FeaturedDecision decision={featured} />
             </div>
           )}
         </div>
@@ -146,11 +130,62 @@ export default function buildSections(
     });
   }
 
+  if (content.impact) {
+    sections.push({
+      id: "outcomes",
+      layer: "trailer",
+      nav: "Outcomes",
+      heading: "Outcomes",
+      content: <ResultsSection impact={content.impact} />,
+    });
+  }
+
+  const hasLeadership = !!content.leadership && content.leadership.length > 0;
+  const hasRoleTeam = !!content.team?.length || !!content.ownedThemes?.length;
+  if (hasLeadership || hasRoleTeam) {
+    sections.push({
+      id: "role",
+      layer: "proof",
+      nav: "Role and team",
+      heading: "Role and team",
+      content: (
+        <div className="flex flex-col gap-14">
+          {hasRoleTeam && (
+            <RoleTeam ownedThemes={content.ownedThemes} team={content.team} />
+          )}
+          {hasLeadership && <LeadershipGrid points={content.leadership!} />}
+        </div>
+      ),
+    });
+  }
+
+  const hasFindings = !!content.evidence?.findings?.length || !!content.evidence?.body;
+  if (content.evidence && hasFindings) {
+    sections.push({
+      id: "research",
+      layer: "proof",
+      nav: "Research",
+      heading: "Research",
+      content: <ChallengeList evidence={content.evidence} />,
+    });
+  }
+
+  if (content.reflection) {
+    sections.push({
+      id: "reflection",
+      layer: "proof",
+      nav: "Reflection",
+      heading: "Reflection",
+      content: <ReflectionBlock reflection={content.reflection} />,
+    });
+  }
+
   sections.push({
-    id: "deep-dive",
-    nav: "Deep dive",
-    heading: "The deep dive",
-    content: <DeepDive content={content} />,
+    id: "details",
+    layer: "proof",
+    nav: "Details",
+    heading: "Details",
+    content: <DeepDive content={content} panels={panels} />,
   });
 
   return sections.map((section) => {

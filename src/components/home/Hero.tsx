@@ -10,7 +10,7 @@ export default function Hero() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_396px] lg:gap-16 lg:items-start">
           <div>
             <Eyebrow>
-              Lead UX Designer &middot; Design Systems &amp; AI-Augmented Workflows for Enterprise
+              Lead Product Designer &middot; AI Workflow Patterns for Enterprise
             </Eyebrow>
 
             <h1

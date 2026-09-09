@@ -12,13 +12,12 @@ import Badge from "../ui/Badge";
  * telecommunications organization" — sit on one line. Their labels survive as
  * screen-reader text, so nothing is lost for assistive technology.
  *
- * Project context (status, users, tools) renders in the Overview; the full
- * team renders as discipline cards in Research and team. The short Team fact
- * up here follows the Linear-style header block from the Mobbin research:
- * Role · Team · Timeline above the fold, impact in the stat band below.
+ * One fact line, not two (2026-09-03): status joined this line and the
+ * Overview's separate status/users/tools list was cut. The team renders as
+ * discipline cards in Details.
  */
 const BYLINE_FIELD = "Role";
-const INLINE_FIELDS = ["Employer", "Client", "Team", "Timeframe"];
+const INLINE_FIELDS = ["Employer", "Client", "Timeframe", "Status"];
 
 export default function CaseStudyHeader({
   title,

@@ -15,7 +15,7 @@ export default function SelectedWork() {
             id="home-work-heading"
             className="font-display text-[clamp(1.625rem,3vw,2.125rem)] font-bold leading-[1.1] tracking-[-0.03em] text-foreground"
           >
-            Four platforms people had to trust.
+            Platforms people had to trust.
           </h2>
           <Link
             to="/work"

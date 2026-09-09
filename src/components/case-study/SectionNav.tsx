@@ -5,6 +5,12 @@ import type { Section } from "./types";
  * Sticky in-page nav, restyled 2026-08-26: a compact numbered mono rail in the
  * site's ordinal language rather than a text list with a border indicator.
  * Narrower than the old rail on purpose — the content column gets the width.
+ *
+ * Since 2026-09-04 the rail marks where the trailer ends and the proof begins:
+ * a hairline and a micro-label before the first proof-layer section. The
+ * numbering keeps running across the break, so anchors and the reading order
+ * are unchanged; the label only tells a screener where the five-minute read
+ * stops.
  */
 export default function SectionNav({ sections }: { sections: Section[] }) {
   const [active, setActive] = useState(sections[0]?.id);
@@ -37,8 +43,14 @@ export default function SectionNav({ sections }: { sections: Section[] }) {
       <ul className="list-none p-0 m-0 flex flex-col">
         {sections.map((s, i) => {
           const isActive = active === s.id;
+          const startsProof = s.layer === "proof" && sections[i - 1]?.layer === "trailer";
           return (
-            <li key={s.id}>
+            <li key={s.id} className={startsProof ? "mt-3 border-t border-border pt-3" : ""}>
+              {startsProof && (
+                <p className="m-0 mb-1 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                  The proof
+                </p>
+              )}
               <a
                 href={`#${s.id}`}
                 className={[

@@ -1,5 +1,4 @@
 import type { OwnedTheme, TeamMember } from "../../data/caseStudies";
-import BulletList from "./BulletList";
 
 function SubLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +8,8 @@ function SubLabel({ children }: { children: React.ReactNode }) {
 
 /**
  * Ownership as numbered themes: a short lead the eye can scan, with one
- * supporting line under it. Replaces a flat list of long bullets.
+ * supporting line under it. Replaced a flat list of long bullets, whose
+ * fallback rendering was removed 2026-09-04 once no study carried one.
  */
 function OwnedThemes({ themes }: { themes: OwnedTheme[] }) {
   return (
@@ -53,25 +53,16 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
 }
 
 export default function RoleTeam({
-  owned,
   ownedThemes,
   team,
 }: {
-  owned: string[];
   ownedThemes?: OwnedTheme[];
   team?: TeamMember[];
 }) {
+  // Team before ownership (2026-09-04): naming who was around the work makes
+  // the ownership claim that follows credible rather than inflated.
   return (
     <div className="flex flex-col gap-10">
-      <div className="flex flex-col gap-5">
-        <SubLabel>What I owned</SubLabel>
-        {ownedThemes && ownedThemes.length > 0 ? (
-          <OwnedThemes themes={ownedThemes} />
-        ) : (
-          <BulletList items={owned} />
-        )}
-      </div>
-
       {team && team.length > 0 && (
         <div className="flex flex-col gap-5">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -81,6 +72,13 @@ export default function RoleTeam({
             </p>
           </div>
           <TeamGrid team={team} />
+        </div>
+      )}
+
+      {ownedThemes && ownedThemes.length > 0 && (
+        <div className="flex flex-col gap-5">
+          <SubLabel>What I owned</SubLabel>
+          <OwnedThemes themes={ownedThemes} />
         </div>
       )}
     </div>
