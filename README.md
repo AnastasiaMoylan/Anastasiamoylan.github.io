@@ -73,30 +73,39 @@ reads can't quietly fall behind the site it describes.
 
 ## Structure
 
+Everything you can read on the site — every sentence, number, and claim — is data, not
+markup. The components render it; they don't contain it. So if you came here to read the
+work rather than the code, `src/data/` is the whole story:
+
+| To read | Open |
+| --- | --- |
+| A case study, in full | [`caseStudies.ts`](src/data/caseStudies.ts) |
+| How the studies are titled, tagged, and ordered | [`projects.ts`](src/data/projects.ts) |
+| The résumé | [`resume.ts`](src/data/resume.ts) |
+| The design principles | [`philosophy.ts`](src/data/philosophy.ts) |
+| A claim the résumé and a case study both make | [`ownedStatements.ts`](src/data/ownedStatements.ts) |
+| Every repeated number, with where it came from | [`figures.ts`](src/data/figures.ts) |
+
+And the rest of it, in one screen:
+
 ```
-index.html              App shell + base <head> meta (prerender template)
 src/
-  app/                  Root component, router, per-navigation head/scroll/analytics
-  pages/                One component per route
-  components/           Layout, home, work, case-study, resume, shared UI
-  data/
-    projects.ts         Case-study cards, slugs, filters, featured order
-    caseStudies.ts      Long-form case-study content
-    ownedStatements.ts  Claims shared by case studies and the résumé
-    pageMeta.ts         Per-route title/description/canonical/OG
-    figures.ts          Every repeated number, with its provenance
-    resume.ts           Résumé content, rendered as a page and as text
-    philosophy.ts       The design principles, shared by the page and llms.txt
-    textOutputs.ts      Builds llms.txt and resume.txt from the data above
-  assets/               Case-study imagery
-  styles/               Tailwind layer + theme tokens
-scripts/prerender.mjs   Renders each route to dist/<route>/index.html,
-                        then writes sitemap.xml, llms.txt, and resume.txt
-public/                 robots.txt, favicon, 404.html
+  data/         the content above — edit here, not in the components
+  pages/        one component per route
+  components/   layout, home, work, case study, résumé, shared UI
+  app/          root component, router, per-navigation head / scroll / analytics
+  assets/       case-study imagery
+  styles/       Tailwind layer and theme tokens
+scripts/        prerender.mjs — renders each route to static HTML, then writes
+                sitemap.xml, llms.txt, and resume.txt
+public/         robots.txt, favicon, 404.html
+index.html      app shell and base <head>, used as the prerender template
 ```
 
 `sitemap.xml`, `llms.txt`, and `resume.txt` are **generated into `dist/`** and are
 deliberately absent from `public/` — a checked-in copy is a copy that drifts.
+[`textOutputs.ts`](src/data/textOutputs.ts) builds the last two from the same data the
+pages render.
 
 Built with React 18, React Router 7, Vite 6, Tailwind CSS 4, and TypeScript in strict
 mode. Analytics via GA4.
