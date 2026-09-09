@@ -64,13 +64,6 @@ the figures behind every number. `scripts/prerender.mjs` renders each route to s
 HTML at build time and generates `sitemap.xml`, `llms.txt`, and `resume.txt` into
 `dist/`; those files are deliberately not checked in.
 
-```bash
-npm install
-npm run dev        # dev server → http://localhost:5173
-npm run build      # client bundle → SSR bundle → prerender → cleanup
-npm run typecheck  # tsc --noEmit
-```
-
 ---
 
 ## Usage
