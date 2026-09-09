@@ -362,7 +362,12 @@ export const caseStudies: Record<string, CaseStudy> = {
     // what each version was built around, so the prose keeps the finding and
     // the two constraints only.
     turn:
-      `V1 assumed finance analysts could read and adjust generated Python. A hackathon with ${figures.hackathonUsers} users running ${figures.hackathonAnalyses} business analyses showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. The volume made the finding unarguable. V2 rebuilt the flow around that, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work branches. Research set V3's direction, now in testing.`,
+      // The hackathon figures are deliberately absent here. VersionArc is this
+      // study's `turn` diagram, so it renders directly below this paragraph and
+      // states both numbers twice already — once in the V1 cell and once in its
+      // pull-quote. Saying them a third time in the same section is the
+      // duplication the two-layer order exists to prevent.
+      `V1 assumed finance analysts could read and adjust generated Python. Putting it in front of real finance users at a hackathon showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. V2 rebuilt the flow around that, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work branches. Research set V3's direction, now in testing.`,
     evidence: {
       body:
         "Role-segmented, moderated prototype testing with direct access to domain experts: 45-minute one-on-one sessions with clickable prototypes, questions tailored to each participant's responsibilities rather than to \u201cfinance users\u201d as one audience.",
@@ -546,10 +551,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     impact: {
       // Cut to the Outcomes budget 2026-09-04. The suite list is in the
-      // overview; the 72-hour agent-success rule and the 3% / 1% thresholds
-      // stay in Key decisions and the thresholds diagram; the 250-user homepage
-      // target is a target, not a result, and the band already carries the
-      // adoption story.
+      // overview; the 72-hour agent-success rule and the 3% / 1% signal
+      // thresholds stay in Key decisions — the thresholds diagram covers the
+      // separate question of model-confidence tiers and carries no percentages;
+      // the 250-user homepage target is a target, not a result, and the band
+      // already carries the adoption story.
       headline:
         "Established a shared experience model for the whole suite and defined the homepage MVP, navigation scenarios, access assumptions, and phased roadmap in time for development within the same program increment.",
       organizational:
@@ -843,11 +849,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
     // plan, journey explorations) -> act (the representative's chat).
-    // The flows behind the screens, all in Details since 2026-09-04: the
-    // creation flow, the review state machine, and the MVP2 scope board. The
-    // Solution section shows product screens instead; the MVP1 workflow board
-    // left the page because the creation flow covers it and the step it
-    // illustrated now carries the real index and create screens.
+    // One diagram, in Details since 2026-09-04: the end-to-end user flow. The
+    // Solution section shows the product screens instead, so the flow sits
+    // behind a click for the reader who wants the whole path at once.
     processImages: [
       {
         src: ccjUserFlow,
@@ -901,18 +905,18 @@ export const caseStudies: Record<string, CaseStudy> = {
       { role: "Finance and operations stakeholders" },
     ],
     // Backlog volume and handoff time are unverified (see impact.metricStatus).
+    // A 100-user adoption target was dropped 2026-09-08 as unsourced.
     // The counts below come from the status model and the operational flow.
     // Provenance for every figure is in ./figures.
     stats: [
       { value: "0 → 1", label: "Built from zero" },
-      { value: String(figures.billingAdoptionTarget), label: "User adoption target, reached" },
       { value: String(figures.billingReturningUsers), label: `Returning users, ${figures.billingReturningAsOfShort}` },
       { value: String(figures.billingStatusStates), label: "Shared status states" },
     ],
     // Cut to the 70-word budget 2026-09-04. The principal-designer handover is
     // named in the team grid; the disappearing-work problem opens `context`.
     overview:
-      `At Amdocs Studios I led design on a zero-to-one build for a telecommunications client, taking over design leadership mid-engagement. The goal was to replace manual billing-package assembly with a guided workflow, because work was disappearing mid-process with no role owning it. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and worked with engineering through testing and UAT. The application reached its ${figures.billingAdoptionTarget}-user adoption target.`,
+      `At Amdocs Studios I led design on a zero-to-one build for a telecommunications client, taking over design leadership mid-engagement. The goal was to replace manual billing-package assembly with a guided workflow, because work was disappearing mid-process with no role owning it. I set the product vision, ran feature prioritization, designed the flow, status model, and recovery paths, and worked with engineering through testing and UAT.`,
     // Scorecard session record §4.7, CWO block. The KPI was defined at kickoff,
     // which corrects an earlier "no metric defined" draft. Backlog size before
     // and after MVP1 is still being recovered and is not stated.
@@ -1093,8 +1097,20 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Immediate feedback when required data was missing, clear loading and retrieval states, recovery actions for failed screenshot generation, and preserved progress when one dependency failed made the workflow error tolerant and reduced the likelihood that defects would surface only at the end.",
         rejected: "waiting until final submission to reveal missing data or evidence",
       },
-      // Featured on the page (2026-09-03): the first decision carrying both a
-      // rejected path and a trade-off, so it leaves the deep dive.
+      // Featured on the page (2026-09-08): `pickFeaturedDecision` takes the
+      // first decision carrying both a rejected path and a trade-off. The
+      // dashboard de-scope used to sit here and qualified first, but `turn`
+      // already narrates that same decision — the page told it twice. This one
+      // qualifies equally and is not told anywhere else, so it comes first and
+      // the dashboard story stays in Details, told once.
+      {
+        decision: "Preserved an interim editing path through Excel.",
+        rationale:
+          "Direct editing was not feasible within the first release's technical constraints, so Excel stayed as a temporary editing mechanism until in-product editing of package, project, and customer details shipped in the review phase.",
+        rejected: "shipping an incomplete in-product editor that did not meet the technical constraints",
+        tradeoff:
+          "A deliberate product tradeoff: preserve operational continuity now while designing a more integrated future state.",
+      },
       {
         decision: "De-scoped the planned dashboard without losing the opportunity.",
         rationale:
@@ -1103,14 +1119,6 @@ export const caseStudies: Record<string, CaseStudy> = {
           "forcing the unsupported dashboard into the current scope and putting the feasible billing workflow at risk",
         tradeoff:
           "Protecting the core flow cost the release its most demo-friendly screen.",
-      },
-      {
-        decision: "Preserved an interim editing path through Excel.",
-        rationale:
-          "Direct editing was not feasible within the first release's technical constraints, so Excel stayed as a temporary editing mechanism until in-product editing of package, project, and customer details shipped in the review phase.",
-        rejected: "shipping an incomplete in-product editor that did not meet the technical constraints",
-        tradeoff:
-          "A deliberate product tradeoff: preserve operational continuity now while designing a more integrated future state.",
       },
       {
         decision: "Prioritized by feature area, not by screen.",
@@ -1143,9 +1151,17 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Reverts cleanly without affecting the rest of the package",
       },
     ],
-    // The MVP2 scope workshop board, moved out of the solution gallery: a
-    // process artifact, and its full-resolution board carries internal release
-    // targets — behind a click here rather than on the page.
+    // The flows behind the screens, all in Details since 2026-09-04: the
+    // creation flow, the review state machine, and the MVP2 scope board. The
+    // Solution section shows product screens instead. Two notes on why these
+    // are behind a click: the MVP1 workflow board left the page because the
+    // creation flow covers it, and the scope board's full-resolution version
+    // carries internal release targets.
+    //
+    // `package-create-validation.jpg` sits unimported in this study's assets:
+    // the create dialog was dropped from Solution (2026-09-08, "for now"), so
+    // the screenshot is kept for when it returns. Unimported files are not
+    // bundled, so it costs the build nothing.
     processImages: [
       {
         src: cwoCreationFlow,
@@ -1179,7 +1195,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       headline:
         "The first MVP unblocked recovery of the backlog of unprocessed billable work by giving the team a usable interface for project querying and package assembly.",
       business:
-        `Built from zero, the application reached its ${figures.billingAdoptionTarget}-user adoption target and, as of ${figures.billingReturningAsOf}, has ${figures.billingReturningUsers} returning users.`,
+        `Built from zero, the application has ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}.`,
       organizational:
         "Defined a status model that made ownership and handoffs explicit, then shipped the review process on top of it.",
       before:
@@ -1189,13 +1205,13 @@ export const caseStudies: Record<string, CaseStudy> = {
       // Four proof points (2026-09-04). The first MVP is the headline; the
       // recoverable-screenshot and reused-pattern lines live in Key decisions.
       proof: [
-        `Reached the ${figures.billingAdoptionTarget}-user adoption target; ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}.`,
+        `${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}.`,
         `Shipped ${figures.billingMustHaveShipped} team-approved must-have features, covering package creation, workflow management, and review.`,
         "Shipped the dashboard, in-product editing, and the review process in later phases of the one-year engagement.",
         "Made ownership, package state, action history, and review handoffs visible to every role.",
       ],
       metricStatus:
-        `The recovered backlog, the adoption target, and the returning users are the outcomes in the project record; the ${figures.billingMustHaveShipped} count is read from the feature-prioritization board. The +20% submission-rate KPI is measurable from the status model's timestamps but not yet measured. Backlog volume, defect reduction, handoff time, and release dates are not verified and not stated.`,
+        `The recovered backlog is the outcome in the project record and the ${figures.billingMustHaveShipped} count is read from the feature-prioritization board. The ${figures.billingReturningUsers} returning users is my own count and the return window is unconfirmed, so it is stated as a count rather than a rate. The +20% submission-rate KPI is measurable from the status model's timestamps but not yet measured. Backlog volume, defect reduction, handoff time, and release dates are not verified and not stated.`,
     },
     reflection: {
       learned:

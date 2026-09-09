@@ -33,7 +33,14 @@ function cellBorders(index: number, count: number): string {
   return ["border-t", smTop, smLeft, lgTop, lgLeft].join(" ");
 }
 
-const COLUMN_CLASSES: Record<number, string> = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3" };
+// 1 is listed explicitly: without it a single stat fell through to the 4-column
+// default and rendered in a quarter-width cell inside a full-width card. No
+// study ships one stat today, but a partially filled one is allowed to.
+const COLUMN_CLASSES: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+};
 
 export default function StatBand({ stats }: { stats: Stat[] }) {
   const columns = COLUMN_CLASSES[stats.length] ?? "sm:grid-cols-2 lg:grid-cols-4";

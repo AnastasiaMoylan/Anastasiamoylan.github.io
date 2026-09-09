@@ -3,8 +3,10 @@
  * place lives here once, with its provenance, and the copy that carries it
  * reads from this file. Change a figure here and every page follows.
  *
- * Provenance is in the comments. A figure without a verified source says so;
- * `public/llms.txt` is a static file and has to be updated by hand.
+ * Provenance is in the comments. A figure without a verified source says so.
+ * `llms.txt` and `resume.txt` are generated from this data at build time by
+ * `textOutputs.ts`, so a figure changed here reaches them too — they were
+ * hand-maintained until 2026-09-08 and had drifted.
  */
 export const figures = {
   // Finance Cloud — Anastasia's own account, scorecard session v2 (§2, §4.4),
@@ -27,11 +29,13 @@ export const figures = {
   platformsFromZero: 2,
 
   // Billing workflow (CWO) — project record and the prioritization board.
-  billingAdoptionTarget: 100,
+  // A `billingAdoptionTarget: 100` lived here until 2026-09-08. Anastasia has
+  // no record of setting a 100-user target, so it was removed rather than
+  // restated with a weaker source; the returning-user count is what's left.
   billingMustHaveShipped: "12 of 21",
   billingStatusStates: 6,
-  // Anastasia, 2026-09-04. Return window and relation to the 100 unconfirmed;
-  // stated as a count, not a rate.
+  // Anastasia's own account, 2026-09-04. The return window is unconfirmed, so
+  // this is stated as a bare count, never as a rate or a share of a target.
   billingReturningUsers: 70,
   billingReturningAsOf: "September 2026",
   billingReturningAsOfShort: "Sep 2026",

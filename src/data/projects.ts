@@ -52,7 +52,7 @@ export const projects: Project[] = [
     status: "Completed",
     tags: ["End-to-end Flow", "B2B SaaS", "Workflow Automation"],
     outcome:
-      `Built from zero over a one-year engagement: an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — reaching the ${figures.billingAdoptionTarget}-user adoption target, with ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}, on a status model that made ownership and handoffs explicit.`,
+      `Built from zero over a one-year engagement: an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — with ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}, on a status model that made ownership and handoffs explicit.`,
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },
