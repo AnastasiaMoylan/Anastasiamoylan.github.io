@@ -313,7 +313,7 @@ Read the whole file above first; nothing in it is superseded except where this b
 | 3 | Finance Cloud migration to the eight-child shape | ✅ (migrated by a parallel session; coherence repaired here) |
 | 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ✅ |
 | 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ✅ (drawn diagrams wired by the parallel session; flow panels wired here) |
-| 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | ⬜ |
+| 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | 🟡 script and citations done; the three local docs need the paste below |
 
 **Decisions this run applies, with their source.** The "10 → 300 → 1,000+" figures return as Finance
 Cloud's tagline and headline result (owner's decision 2026-09-09, recorded in memory
@@ -447,3 +447,99 @@ own sticky notes (the research questions, a "current pain point" callout). Every
 `[NEEDS SIGN-OFF]`.
 
 **Gates:** `npm run typecheck` and `npm run build` pass.
+
+---
+
+## Phase 7 — what is done, and the one step left
+
+**Done.** `scripts/casestudy-md.mjs` reports the three-parent order and cites the framework doc
+instead of `case-study-layout.md`. No code cites `research/decisions/case-study-architecture.md`
+any more; the type and builder comments point at the framework and the implementation session.
+The flow figures are cropped to legible panels (Phase 6). The craft screenshots the image brief
+lists as **ANASTASIA** are the only visual work left, and none of it can be done from the repo.
+
+**Left: three gitignored docs in the main checkout still describe the retired order.** They exist
+only in the shared checkout, which a worktree session cannot edit. Apply these replacements from a
+session running in the main checkout (or by hand), then delete this section.
+
+### `CLAUDE.md` — replace the paragraph beginning "`caseStudies.ts` follows a fixed two-layer order"
+
+> `caseStudies.ts` follows the principal framework (revised 2026-09-09, framework in
+> `research/design/principal-ux-case-study-framework.md`; the earlier two-layer trailer/proof order
+> in `research/decisions/case-study-architecture.md` is history): three parents, eight children,
+> nothing behind a disclosure — **01 Framing** (Overview → Product framing → The problem), **02 The
+> work** (Scope and ownership → Key decisions → Evidence), **03 Results** (Outcome → What I
+> learned). `buildSections()` in `src/components/case-study/buildSections.tsx` composes the children
+> in that order and **skips any section whose data is absent**, so a study can ship partially
+> filled without rendering empty headings; `Part.tsx` draws the parents and `OnThisPage.tsx` is the
+> page's one navigation. Section headings are plain nouns, identical on every study. The header
+> leads with `claim` (the h1, falling back to `overview.result`, then the tagline — a study showing
+> its tagline as the h1 has not had its claim written). A figure that proves one decision goes on
+> that decision's `images`; a wide flow panel gets `displayScale` so its labels stay legible. Each
+> field on the `CaseStudy` type carries a word budget in its doc comment. Add content by filling
+> the typed fields, not by adding markup to the page. `node scripts/casestudy-md.mjs` emits a
+> review copy of each study with word counts against those budgets (into gitignored
+> `research/generated/`).
+
+### `CLAUDE.md` — replace the paragraph beginning "The résumé's 'Selected product ownership' bullets"
+
+> The résumé's 'Selected product ownership' bullets live in `src/data/ownedStatements.ts` as named
+> constants. They used to also feed each study's flat `owned` list, then its `ownedThemes`; both
+> are gone, and each study's `scope.owned` paragraph now paraphrases these claims. When a constant
+> changes, check the matching study's `scope.owned` in `caseStudies.ts` so the two surfaces keep
+> agreeing.
+
+### `AGENT.md` — replace the paragraph beginning "Case studies follow a fixed **two-layer order**"
+
+> Case studies follow the **principal framework** (since 2026-09-09): three parents, eight
+> children, nothing behind a disclosure — 01 Framing (Overview → Product framing → The problem),
+> 02 The work (Scope and ownership → Key decisions → Evidence), 03 Results (Outcome → What I
+> learned). `buildSections()` skips any section whose data is absent. Typed fields already cover
+> the things that matter at this level: `claim`, `productFraming`, `hmw`, `constraints`, a four-way
+> `scope` (owned / led / influenced / workedWith), `rejected`, `tradeoff`, `recovery`,
+> `evidence.findings`, `impact.before` / `after` / `proof` / `measureNext` / `metricStatus`. Each
+> field's doc comment states its word budget. Fill fields; don't add markup. (The role column in
+> the table above is older than the site; the site's snapshot fields are the current values,
+> several still awaiting sign-off.)
+
+### `DECISIONS.md` — replace the entry "**A case study is a trailer, then the proof.**"
+
+> **A case study answers scope, judgment, and outcome, in that order, with nothing behind a click.**
+> Three parts, same on every study: Framing (why the work mattered), The work (what I decided and
+> why), Results (what changed and what I learned). Reviewers scan for scope, judgment, and outcome
+> before they read anything, so the page answers those three in order and the header leads with
+> the claim rather than the project name. This replaced an earlier trailer-then-proof order
+> (2026-09-04) on 2026-09-09, and three of its calls were reversed on purpose. The turning point is
+> no longer its own section: a pivot is a decision, and the framework has one place for decisions,
+> so it is numbered among them. The solution walk is gone: its content is the overview's approach
+> line and the ownership block, and each screen sits on the decision it proves. And the Details
+> disclosure is gone, because key decisions and evidence are what a reviewer came for and they
+> were sitting behind a click. The framework is in
+> `research/design/principal-ux-case-study-framework.md`; the superseded reasoning is kept in
+> `research/decisions/case-study-architecture.md`.
+> *(Rewritten 2026-09-09 by Claude with the restructure; self-authored draft, awaiting sign-off
+> like the rest of this file.)*
+
+---
+
+## Where this leaves the build — resume point as of the end of this session
+
+**Branch:** `case-study/principal-framework`, worktree `.claude/worktrees/case-study-rebuild`,
+branched from `tooling/case-study-review-md` at `7cbdbd4`. Fast-forward the base branch to it when
+ready (from the main checkout, on `tooling/case-study-review-md` with a clean tree:
+`merge --ff-only case-study/principal-framework`). **Do not open or merge a PR without explicit
+go-ahead.**
+
+**Phases 1–6 are complete; Phase 7 is complete except the three local-doc pastes above.** Every
+study is on the eight-child shape, the legacy fields and fallbacks are gone, every figure is
+wired, every flow is legible, and both gates pass.
+
+**What only Anastasia can do next**, in the order a reviewer would feel it:
+
+1. The sign-off walk: every `[NEEDS SIGN-OFF]` in `src/data/caseStudies.ts` and `projects.ts`,
+   plus the blocking decisions listed earlier in this file. The Finance Cloud client descriptor
+   and status, the billing role, and the Document AI title are the ones that change what the
+   card, H1 and title tag say.
+2. The vocabulary check on the flow panels (Phase 6 note above).
+3. The product screenshots the image brief ranks first: Finance Cloud and Document AI have no
+   product screen at all.
