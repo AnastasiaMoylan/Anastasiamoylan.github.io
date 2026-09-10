@@ -103,6 +103,39 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Archivo', 'Inter', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /**
+   * The type scale (added 2026-09-09). Eight steps on a 1.25 ratio with a
+   * hard floor of 11px, exposed as Tailwind utilities: text-label, text-small,
+   * text-body, text-lead, text-h3, text-h2, text-h1, text-figure.
+   *
+   * This exists because the case-study pages had drifted to sixteen distinct
+   * sizes with eight instances at 9 or 10px — under the 11px floor the
+   * 2026-08-26 a11y pass set. Sizes were being used to make things secondary;
+   * that job belongs to WEIGHT and COLOUR. `text-label` is 11px and always
+   * pairs with font-medium or font-semibold, which is what makes it legible.
+   *
+   * Leading is declared with each step rather than as a global ratio, because
+   * a 33px heading and 17px body do not want the same multiplier.
+   *
+   * Use these. An arbitrary value like text-[0.625rem] is 10px and is a bug.
+   */
+  --text-label: 0.6875rem;      /* 11 — mono micro-labels, eyebrows, tags     */
+  --text-label--line-height: 1.4;
+  --text-small: 0.875rem;       /* 14 — captions, table cells, secondary copy */
+  --text-small--line-height: 1.6;
+  --text-body: 1.0625rem;       /* 17 — body copy                             */
+  --text-body--line-height: 1.7;
+  --text-lead: 1.3125rem;       /* 21 — decks, pull quotes, section intros    */
+  --text-lead--line-height: 1.5;
+  --text-h3: 1.625rem;          /* 26 — child section headings                */
+  --text-h3--line-height: 1.25;
+  --text-h2: 2.0625rem;         /* 33 — part headings                         */
+  --text-h2--line-height: 1.15;
+  --text-h1: clamp(2rem, 4.4vw, 3.25rem);   /* 32–52 — the claim             */
+  --text-h1--line-height: 1.06;
+  --text-figure: clamp(1.75rem, 3.2vw, 2.625rem); /* 28–42 — a stat figure   */
+  --text-figure--line-height: 1;
 }
 
 @layer base {
