@@ -260,3 +260,43 @@ attributes exist to prevent. All three now declare 2400×1502.
 **Two gaps the agent deliberately left unbuilt**, both correctly: a billing role-and-team matrix
 (nineteen of twenty cells would have been invented) and a Document AI widget framework (the record
 names exactly one widget).
+
+---
+
+## Update — diagrams wired
+
+**Phase 6 advanced.** All five new diagrams are wired and building:
+
+| Diagram | Study | Section |
+|---|---|---|
+| Front-door flow | Finance Cloud | Key decisions |
+| Scope and ownership | Customer Journey | Scope and ownership |
+| Scope and ownership | Document AI | Scope and ownership |
+| Comparison modes | Document AI | Key decisions |
+| Citation round trip | Document AI | Key decisions |
+
+`diDiagrams.tsx` is new — Document AI had **no entry in `augments.ts` at all**, which is why its
+Key decisions section argued in prose alone. Every study now carries figures: Finance Cloud 2,
+billing 6, Customer Journey 8, Document AI 4.
+
+Alt text on each new figure is lifted verbatim from the diagram's own `<desc>` so the two cannot
+drift. All five captions are authored and carry `[NEEDS SIGN-OFF]`.
+
+**The colour cross-reference is in.** In Scope and ownership the four terms — Owned, Led,
+Influenced beyond the design lane, Worked with — are tinted to the bands they name in the figure
+directly below, with the convention announced once in a sentence instead of drawn as a legend.
+Colour is never the only signal; each term also carries an underline.
+
+### Where the Lede stands
+
+Done in `src/`: the lede header (kicker, claim, byline, deck, scope grid), the type scale with an
+11px floor, one navigation, the stat-band reveal, the colour cross-reference.
+
+Not yet ported from the `c-lede` prototype, in the order they are worth doing:
+
+1. **The parking lot** — what did not make the release and why. Needs a `parked` field; the billing
+   content already exists as a restatement of its own decisions.
+2. **The close-up plus context opener** — the pair of images under the lede. Blocked on assets;
+   see the image brief.
+3. **The annotated screen** — numbered pins keyed to lines of reasoning. Works, but pin
+   coordinates need tuning per asset.
