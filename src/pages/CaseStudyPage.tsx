@@ -76,12 +76,18 @@ export default function CaseStudyPage() {
   return (
     <>
       <section className="border-b border-border">
-        <div className="content-container pt-12 pb-10 md:pt-14 md:pb-12">
-          <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-label font-medium uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
-            &larr; All case studies
-          </Link>
-
+        <div className="content-container pt-8 pb-8 md:pt-10 md:pb-10">
+          {/*
+            The back link shares the kicker's line rather than taking one of
+            its own: the lede has to fit the numbers on the first screen, and
+            every row above the claim costs it.
+          */}
           <CaseStudyHeader
+            backLink={
+              <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-label font-medium uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline transition-colors duration-150">
+                &larr; All case studies
+              </Link>
+            }
             title={project.title}
             claim={claim}
             deck={deck}

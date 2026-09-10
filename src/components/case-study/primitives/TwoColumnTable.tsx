@@ -8,8 +8,9 @@
  * caps. Rows take no hover ground: they are not clickable, and a hover state
  * on something you cannot press is a promise the page breaks.
  *
- * It scrolls inside its own container on narrow screens, so the page never
- * scrolls sideways.
+ * Below `md` each row stacks, term above consequence, the way the prototype's
+ * ledger does under 720px. It never scrolls sideways: the consequence column
+ * is the half a reader came for, and a min-width would push it off a phone.
  */
 export default function TwoColumnTable({
   caption,
@@ -21,34 +22,32 @@ export default function TwoColumnTable({
   rows: { term: string; detail: string }[];
 }) {
   return (
-    <div className="-mx-1 max-w-[60rem] overflow-x-auto px-1">
-      <table className="w-full min-w-[32rem] border-collapse text-left">
-        <caption className="sr-only">{caption}</caption>
-        <thead className="sr-only">
-          <tr>
-            <th scope="col">{headers[0]}</th>
-            <th scope="col">{headers[1]}</th>
+    <table className="w-full max-w-[60rem] border-collapse text-left max-md:block">
+      <caption className="sr-only">{caption}</caption>
+      <thead className="sr-only">
+        <tr>
+          <th scope="col">{headers[0]}</th>
+          <th scope="col">{headers[1]}</th>
+        </tr>
+      </thead>
+      <tbody className="max-md:block">
+        {rows.map(({ term, detail }) => (
+          <tr key={term} className="border-t border-border max-md:block max-md:py-3">
+            <th
+              scope="row"
+              className="w-1/2 py-4 pr-8 align-top text-small font-semibold leading-[1.5] text-foreground max-md:block max-md:w-auto max-md:py-1 max-md:pr-0"
+            >
+              {term}
+            </th>
+            <td className="py-4 align-top text-small leading-[1.65] text-muted-foreground max-md:block max-md:py-1">
+              <span aria-hidden="true" className="text-accent">
+                &rarr;{" "}
+              </span>
+              {detail}
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {rows.map(({ term, detail }) => (
-            <tr key={term} className="border-t border-border">
-              <th
-                scope="row"
-                className="w-1/2 py-4 pr-8 align-top text-small font-semibold leading-[1.5] text-foreground"
-              >
-                {term}
-              </th>
-              <td className="py-4 align-top text-small leading-[1.65] text-muted-foreground">
-                <span aria-hidden="true" className="text-accent">
-                  &rarr;{" "}
-                </span>
-                {detail}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
 }

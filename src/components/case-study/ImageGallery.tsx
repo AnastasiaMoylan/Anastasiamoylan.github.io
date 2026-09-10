@@ -20,7 +20,11 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
               type="button"
               onClick={() => setActive(image)}
               aria-label={`Enlarge image: ${image.caption}`}
-              className="group relative block w-full cursor-zoom-in overflow-hidden rounded-lg border border-border bg-card p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className={[
+                "group relative block cursor-zoom-in overflow-hidden rounded-lg border border-border bg-card p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                // A scaled panel's frame hugs the panel; a fitted image fills the column.
+                image.displayScale ? "w-fit max-w-full" : "w-full",
+              ].join(" ")}
             >
               {/*
                 A panel with a display scale renders at that fraction of its

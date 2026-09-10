@@ -100,6 +100,30 @@ easier. Either place counts.
   on a table row instead of the column header they mean. They are now rendering on the
   billing page (the `annotated.pins` block in `caseStudies.ts`, x and y as percentages);
   tune them in the browser, a five-minute check.
+- [ ] **C6. Five decision titles read as activity, not consequence.** The design critic's
+  strongest finding on the built page. In C the mechanism label names the thing and the
+  card title states why it was right; on the site four of six titles restate their own
+  label. Copy, so yours to change in `caseStudies.ts` (`decision` on billing 01–05):
+
+  | Mechanism | Site title today | C's title |
+  |---|---|---|
+  | Progressive validation | Used progressive validation as users moved through package building. | Catch the gap where it happens, not at submission |
+  | The project-number key | Made billing-package identity explicit: the package's primary key is the project number. | A package can be resumed, never accidentally recreated |
+  | The six-state status model | Made package status a first-class object. | A package can never sit in an undefined state |
+  | The review session | Separated ownership from review. | The handoff moves into the product, so it has a history |
+  | The interim editing path | Preserved an interim editing path through Excel. | Continuity now was worth more than a half-built editor |
+
+- [ ] **C7. Two screenshots, five placements.** The package index appears in the opener, on
+  decision 02, and as the annotated screen; the billing report in the opener and on
+  decision 04. The critic reads that as thin asset coverage. Options: drop decision 02's
+  figure (the annotated screen is the same image with pins), or swap in the screens the
+  image brief asks for when they exist.
+- [ ] **C8. The flows section is about six laptop screens long.** Nine creation and
+  review panels plus the stories board sit at the end of Key decisions. Keep them all,
+  keep a subset, or move the rest behind the lightbox only. Judgement call, not a defect.
+- [ ] **A8. An accent phrase in the h1.** C tints the claim's payload ("the mechanism that
+  keeps it clear") maroon. The site's claim is one plain string. Adding an emphasised
+  phrase needs a field and the phrase itself; say if you want it.
 - [ ] **C5. Claim headings on the other three studies.** The billing study carries C's
   headings verbatim. Finance Cloud, Document AI and the Customer Journey still show the
   nouns; writing their claim headings needs the facts interview (B9 to B11), not a guess.

@@ -20,9 +20,11 @@ import type { Stat } from "../../data/caseStudyTypes";
  * needs its claim written.
  *
  * Users, team and status are the framework's metadata fields. Layout C has no
- * slot for them in the lede, so they sit as a small labelled grid between the
- * deck and the figures rather than being dropped.
+ * slot for them in the lede, so they sit as a small labelled grid after the
+ * figures rather than being dropped: below the numbers, they cost the first
+ * screen nothing.
  */
+import type { ReactNode } from "react";
 const BYLINE_FIELD = "Role";
 const KICKER_FIELDS = ["Employer", "Client", "Timeframe"];
 const SCOPE_FIELDS = ["Users", "Team", "Status"];
@@ -32,6 +34,7 @@ const MARK = "AM";
 const NAME = "Anastasia Novelly Moylan";
 
 export default function CaseStudyHeader({
+  backLink,
   title,
   claim,
   deck,
@@ -40,6 +43,8 @@ export default function CaseStudyHeader({
   stats,
   caveat,
 }: {
+  /** The route back to the index, set on the kicker's line. */
+  backLink?: ReactNode;
   title: string;
   /** The news. Rendered as the h1. */
   claim: string;
@@ -60,20 +65,23 @@ export default function CaseStudyHeader({
   return (
     <header className="flex flex-col">
       {/* Kicker: what this was and when, small, above the news. */}
-      <p className="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1.5 font-mono text-label font-medium uppercase tracking-[0.12em]">
-        <span className="font-semibold text-foreground">{title}</span>
-        {kicker.map(({ label, value }) => (
-          <span key={label} className="flex items-baseline gap-3 text-muted-foreground">
-            <span aria-hidden="true" className="text-tertiary-500">
-              &middot;
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <p className="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1.5 font-mono text-label font-medium uppercase tracking-[0.12em]">
+          <span className="font-semibold text-foreground">{title}</span>
+          {kicker.map(({ label, value }) => (
+            <span key={label} className="flex items-baseline gap-3 text-muted-foreground">
+              <span aria-hidden="true" className="text-tertiary-500">
+                &middot;
+              </span>
+              <span className="sr-only">{label}: </span>
+              {value}
             </span>
-            <span className="sr-only">{label}: </span>
-            {value}
-          </span>
-        ))}
-      </p>
+          ))}
+        </p>
+        {backLink}
+      </div>
 
-      <h1 className="mt-5 m-0 max-w-[24ch] font-display text-h1 font-extrabold tracking-[-0.035em] text-foreground">
+      <h1 className="mt-4 m-0 max-w-[24ch] font-display text-h1 font-extrabold tracking-[-0.035em] text-foreground">
         {claim}
       </h1>
 
@@ -100,8 +108,10 @@ export default function CaseStudyHeader({
         <p className="mt-5 m-0 max-w-[46ch] text-lead text-muted-foreground">{deck}</p>
       )}
 
+      {stats && stats.length > 0 && <StatBand stats={stats} caveat={caveat} />}
+
       {scope.length > 0 && (
-        <dl className="m-0 mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <dl className="m-0 mt-6 grid grid-cols-1 gap-5 border-t border-border pt-5 sm:grid-cols-3">
           {scope.map(({ label, value }) => (
             <div key={label}>
               <dt className="m-0 font-mono text-label font-semibold uppercase tracking-[0.12em] text-tertiary-700">
@@ -112,8 +122,6 @@ export default function CaseStudyHeader({
           ))}
         </dl>
       )}
-
-      {stats && stats.length > 0 && <StatBand stats={stats} caveat={caveat} />}
 
       <ul className="m-0 mt-6 flex list-none flex-wrap gap-2 p-0">
         {tags.map((tag) => (
