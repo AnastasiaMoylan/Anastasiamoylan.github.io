@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="gaf-door-title gaf-door-desc">
+      <title id="gaf-door-title">The suite's front door, from sign-in to a launched product</title>
+      <desc id="gaf-door-desc">A four-stage user flow. A person signs in; their access is resolved after login. The homepage then answers two questions at once: a personalized Your Apps area lists the products that person can actually use, and a discovery area shows the wider suite they cannot yet see, which is what research found people were missing. Choosing a product launches it in its own tab with its internal navigation intact, so independently built products keep shipping. Two rejected alternatives are recorded: a kitchen-sink catalog or a complex dashboard in place of a launcher, and embedding every product inside one shell.</desc><defs><style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap');</style></defs>
+
+      <rect width="100%" height="100%" fill="#f7f5f1"/>
+
+      <text x="24" y="48" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.18em">ONE HONEST FRONT DOOR TO A SUITE OF INDEPENDENT PRODUCTS</text>
+
+      <!-- Stage 1 — sign in -->
+      <rect x="24" y="184" width="168" height="120" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="108" y="232" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Sign in</text>
+      <text x="108" y="258" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">Access resolved</text>
+      <text x="108" y="274" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">after login</text>
+
+      <path d="M 192 244 L 244 244" fill="none" stroke="#6b6560" stroke-width="1"/>
+      <path d="M 244 244 l -6 -3.5 v 7 z" fill="#6b6560"/>
+
+      <!-- Stage 2 — the homepage (focal) -->
+      <rect x="248" y="128" width="368" height="232" rx="8" fill="#6e2a2a" fill-opacity="0.08" stroke="#6e2a2a" stroke-width="1.2"/>
+      <rect x="264" y="120" width="152" height="14" fill="#f7f5f1"/>
+      <text x="272" y="130" fill="#6e2a2a" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.14em">HOMEPAGE · APP LAUNCHER</text>
+
+      <rect x="272" y="160" width="152" height="112" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="348" y="188" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Your Apps</text>
+      <rect x="288" y="200" width="120" height="16" rx="3" fill="#283d3b" fill-opacity="0.08"/>
+      <rect x="288" y="220" width="120" height="16" rx="3" fill="#283d3b" fill-opacity="0.08"/>
+      <rect x="288" y="240" width="120" height="16" rx="3" fill="#283d3b" fill-opacity="0.08"/>
+      <text x="348" y="288" fill="#283d3b" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">What you can</text>
+      <text x="348" y="304" fill="#283d3b" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">actually use</text>
+
+      <rect x="440" y="160" width="152" height="112" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="516" y="188" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Discovery</text>
+      <rect x="456" y="200" width="120" height="16" rx="3" fill="#ffffff" stroke="#283d3b" stroke-opacity="0.25" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <rect x="456" y="220" width="120" height="16" rx="3" fill="#ffffff" stroke="#283d3b" stroke-opacity="0.25" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <rect x="456" y="240" width="120" height="16" rx="3" fill="#ffffff" stroke="#283d3b" stroke-opacity="0.25" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <text x="516" y="288" fill="#283d3b" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">The wider suite</text>
+      <text x="516" y="304" fill="#283d3b" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">you could not see</text>
+
+      <text x="432" y="336" fill="#6e2a2a" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">A LAUNCHER — NOT A KITCHEN-SINK CATALOG, NOT A DASHBOARD</text>
+
+      <path d="M 616 244 L 668 244" fill="none" stroke="#6b6560" stroke-width="1"/>
+      <path d="M 668 244 l -6 -3.5 v 7 z" fill="#6b6560"/>
+      <rect x="622" y="212" width="56" height="14" fill="#f7f5f1"/>
+      <text x="626" y="222" fill="#283d3b" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LAUNCH</text>
+
+      <!-- Stage 3 — the product, in its own tab -->
+      <rect x="672" y="184" width="264" height="120" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <rect x="688" y="200" width="48" height="14" rx="3" fill="#283d3b" fill-opacity="0.10"/>
+      <rect x="740" y="200" width="48" height="14" rx="3" fill="#283d3b" fill-opacity="0.04" stroke="#283d3b" stroke-opacity="0.20" stroke-width="0.8"/>
+      <rect x="792" y="200" width="48" height="14" rx="3" fill="#283d3b" fill-opacity="0.04" stroke="#283d3b" stroke-opacity="0.20" stroke-width="0.8"/>
+      <text x="804" y="248" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">The product, in its own tab</text>
+      <text x="804" y="274" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">Its internal navigation intact</text>
+      <text x="804" y="290" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">No cross-app token complexity</text>
+
+      <!-- Editorial callout -->
+      <text x="24" y="424" fill="#283d3b" font-size="16" font-style="italic" font-family="'Instrument Serif', serif">The seams between products stay visible: the suite is coherent</text>
+      <text x="24" y="448" fill="#283d3b" font-size="16" font-style="italic" font-family="'Instrument Serif', serif">at the point of discovery, not continuous during use.</text>
+      <path d="M 448 440 Q 632 444 756 310" fill="none" stroke="#283d3b" stroke-opacity="0.40" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="758" cy="306" r="2" fill="#283d3b"/>
+
+      <!-- The rejected paths -->
+      <rect x="24" y="488" width="912" height="72" rx="6" fill="#283d3b" fill-opacity="0.02" stroke="#283d3b" stroke-opacity="0.20" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="48" y="514" fill="#8f8a83" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">REJECTED</text>
+      <text x="48" y="536" fill="#6b6560" font-size="11" font-family="'Inter', sans-serif">A kitchen-sink catalog or a complex dashboard in place of a launcher.</text>
+      <text x="48" y="554" fill="#6b6560" font-size="11" font-family="'Inter', sans-serif">Embedding every product inside one shell — which would have stopped independently built products from shipping.</text>
+    </svg>
