@@ -227,3 +227,36 @@ independently rather than one large one:
 
 **Do not open or merge a PR without explicit go-ahead** — repo rule, and it needs its own approval
 each time.
+
+---
+
+## Update — 2026-09-09, later
+
+**Phase 6 (visual assets) advanced.** A background agent delivered
+`research/design/2026-09-09-image-brief-all-studies.md` covering all four studies at slot level,
+plus five new diagrams: a front-door flow for Finance Cloud, ownership diagrams for the Customer
+Journey and Document AI, and comparison-modes and citation-loop diagrams for Document AI. **None of
+them is wired** — `src/components/` was out of bounds for that agent, and `augments.ts` has no
+`enterprise-document-knowledge` key at all. Wiring is the next step of phase 6.
+
+**One real bug found and fixed.** `cwo/status-model.png`, `gaf/operating-model.png` and
+`ccj/three-role-loop.png` were declared 1920×1200 in `caseStudies.ts`, `financeCloudDiagrams.tsx`
+and `ccjDiagrams.tsx`, but the exporter writes 2400×1502. A wrong intrinsic size makes the browser
+reserve the wrong box and the page shift as the image loads, which is the exact thing those
+attributes exist to prevent. All three now declare 2400×1502.
+
+**Six contradictions recorded in the brief, not resolved here.** The sharpest three:
+
+1. **Finance Cloud's diagrams describe a different product from its prose.** `GovernedPipeline`
+   renders a sandbox stage and `PromotionGate` a promotion model; neither appears anywhere in the
+   live copy, which now tells the suite, homepage and taxonomy story. Both trace back to the
+   rewrite document.
+2. **The gated 10 → 300 pilot figure is live in a source document that feeds the site**
+   (`finance-cloud-principal-framework.md`) while `caseStudies.ts` holds it back. The document
+   carries no gate marker.
+3. **The billing study claims a "ten-stage decomposition" and enumerates six.** Either the ten get
+   written down or the copy says six.
+
+**Two gaps the agent deliberately left unbuilt**, both correctly: a billing role-and-team matrix
+(nineteen of twenty cells would have been invented) and a Document AI widget framework (the record
+names exactly one widget).
