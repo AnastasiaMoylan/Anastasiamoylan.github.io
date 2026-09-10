@@ -1,64 +1,49 @@
-import { useState } from "react";
 import type { Decision } from "../../data/caseStudies";
+import ImageGallery from "./ImageGallery";
 import RejectedPath from "./RejectedPath";
 
-/** Decisions shown before the mobile "show all" control kicks in. */
-const MOBILE_VISIBLE = 3;
-
 /**
- * Decisions as hairline-separated rows: the choice as a bold lead-in to its own
- * reasoning, with the path not taken on its own line beneath.
+ * The core of the case study: three to six decisions, numbered, each carrying
+ * the decision, the reasoning, and the rejected alternative.
  *
- * Deliberately not an accordion per decision — each is only ~250–320 characters,
- * so hiding the rationale costs more interaction than it saves scroll, and the
- * rationale is the point of the section. Deliberately not cards either: their
- * padding and borders cost roughly a third of the section's height for no
- * information.
+ * On the page in full since 2026-09-09. It used to sit inside a closed Details
+ * disclosure with a single decision surfaced above it, which put the section
+ * that proves judgment behind a click. The framework's position, and the
+ * hiring-manager sources behind it, is that this is what a reviewer came for.
  *
- * The collapse is mobile-only. Desktop has the room and always shows every
- * decision; narrow screens get the first few plus a control, because the full
- * set runs past a screen and a half on a phone.
+ * The mobile "show all" control went with the same change: a disclosure is a
+ * disclosure at any width, and the numbered list is the argument.
  *
- * Decisions are parallel choices, not a sequence, so the list is unordered.
+ * A figure attached to a decision renders under it, because a visual earns its
+ * place by carrying evidence for a specific claim.
  */
 export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
-  const [expanded, setExpanded] = useState(false);
-  const collapsible = decisions.length > MOBILE_VISIBLE;
-
   return (
-    <div>
-      <ul className="m-0 list-none p-0">
-        {decisions.map((d, i) => {
-          const { decision, rationale } = d;
-          const hiddenOnMobile = collapsible && !expanded && i >= MOBILE_VISIBLE;
-          return (
-            <li
-              key={decision}
-              className={[
-                "border-t border-border py-4 first:border-t-0 first:pt-0",
-                hiddenOnMobile ? "hidden md:list-item" : "",
-              ].join(" ")}
-            >
-              <p className="m-0 text-[0.9375rem] leading-[1.7] text-muted-foreground">
-                <span className="font-bold text-foreground">{decision}</span> {rationale}
-              </p>
-              <RejectedPath decision={d} className="mt-1.5 text-[0.8125rem] leading-[1.55] text-muted-foreground" />
-            </li>
-          );
-        })}
-      </ul>
-
-      {collapsible && (
-        <button
-          type="button"
-          onClick={() => setExpanded((v) => !v)}
-          aria-expanded={expanded}
-          className="mt-5 inline-flex min-h-[44px] cursor-pointer items-center gap-1.5 border-0 bg-transparent p-0 font-sans text-[0.875rem] font-semibold text-accent transition-colors duration-150 hover:text-accent-hover md:hidden"
-        >
-          {expanded ? "Show fewer decisions" : `Show all ${decisions.length} decisions`}
-          <span aria-hidden="true">{expanded ? "↑" : "↓"}</span>
-        </button>
-      )}
-    </div>
+    <ol className="m-0 flex list-none flex-col gap-8 p-0">
+      {decisions.map((d, i) => (
+        <li key={d.decision} className="flex gap-5">
+          <span
+            className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-tint-subtle font-mono text-[0.75rem] font-bold tabular-nums text-accent"
+            aria-hidden="true"
+          >
+            {String(i + 1).padStart(2, "0")}
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="m-0 measure text-[0.9375rem] leading-[1.7] text-muted-foreground">
+              <span className="font-bold text-foreground">{d.decision}</span> {d.rationale}
+            </p>
+            <RejectedPath
+              decision={d}
+              className="mt-2 measure text-[0.8125rem] leading-[1.55] text-muted-foreground"
+            />
+            {d.images && d.images.length > 0 && (
+              <div className="mt-6">
+                <ImageGallery images={d.images} />
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
   );
 }

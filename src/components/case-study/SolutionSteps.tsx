@@ -10,10 +10,10 @@ function StepCard({ step, index }: { step: SolutionStep; index: number }) {
       >
         {index + 1}
       </span>
-      <h3 className="m-0 text-[0.9375rem] font-bold leading-[1.35] text-foreground">
+      <h4 className="m-0 text-[0.9375rem] font-bold leading-[1.35] text-foreground">
         <span className="sr-only">Step {index + 1}: </span>
         {step.title}
-      </h3>
+      </h4>
       <ul className="mt-3 m-0 flex list-none flex-col gap-2.5 p-0">
         {step.points.map((point) => (
           <li key={point} className="flex gap-2.5">
