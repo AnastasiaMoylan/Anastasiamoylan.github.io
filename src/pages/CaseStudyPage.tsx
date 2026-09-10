@@ -3,24 +3,29 @@ import { projects } from "../data/projects";
 import { caseStudies } from "../data/caseStudies";
 import Button from "../components/ui/Button";
 import CaseStudyHeader from "../components/case-study/CaseStudyHeader";
-import StatBand from "../components/case-study/StatBand";
-import PlaceholderFigure from "../components/case-study/PlaceholderFigure";
-import OnThisPage from "../components/case-study/OnThisPage";
+import Opener from "../components/case-study/Opener";
+import ChapterBar from "../components/case-study/ChapterBar";
 import Part from "../components/case-study/Part";
+import Credits from "../components/case-study/Credits";
 import { SECTION_GROUPS } from "../components/case-study/sectionGroups";
 import Eyebrow from "../components/ui/Eyebrow";
 import buildSections from "../components/case-study/buildSections";
 import { getAugments } from "../components/case-study/diagrams/augments";
 
 /**
- * The cover visual under the header is off for every study (2026-09-04)
- * until better visuals exist; the current covers are screenshots and
- * diagrams that the 21/9 crop cuts to pieces. Flip to true to bring the
- * cover (or its placeholder) back. Card covers on the home and Work grids
- * are unaffected.
+ * The case-study page, in Layout C's order (2026-09-09):
+ *
+ *   lede        kicker, claim, byline, deck, figures
+ *   opener      close-up and context images on the teal ground
+ *   chapter bar the one navigation, sticky under the site header
+ *   three parts each with its children
+ *   credits     who the work was built with
+ *   close       next study and the call to action
+ *
+ * This file holds routing, the order above, and the section frame. Each beat
+ * is its own component; `buildSections` decides which children render and
+ * what each is headed.
  */
-const SHOW_COVER = false;
-
 export default function CaseStudyPage() {
   const { slug } = useParams<{ slug: string }>();
   // Retired slugs stay reachable, so existing links and résumé references survive
@@ -30,7 +35,7 @@ export default function CaseStudyPage() {
   if (!project) return <Navigate to="/work" replace />;
 
   const content = caseStudies[project.slug];
-  // Resolved project, not the URL slug — otherwise reaching the page through a
+  // Resolved project, not the URL slug: otherwise reaching the page through a
   // retired alias finds no match and "next" wraps around to this study itself.
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
@@ -51,30 +56,27 @@ export default function CaseStudyPage() {
   }
 
   const sections = buildSections(content, getAugments(project.slug));
+  const groups = SECTION_GROUPS.filter((g) => sections.some((s) => s.group === g.id));
 
   /*
-    The lede's three pieces, each with a fallback so an un-migrated study still
+    The lede's pieces, each with a fallback so an un-migrated study still
     renders something true.
 
     `claim` is the news and becomes the h1. Falling through to the tagline is
-    the signal that a study still needs its claim written — a tagline describes
+    the signal that a study still needs its claim written: a tagline describes
     the work, and this slot has to assert what changed.
 
     `deck` is the approach in one sentence, and only exists once a study's
     overview has been split into its three lines.
   */
   const overview = content.overview;
-  const isSplit = typeof overview === "object" && overview !== null;
-  const claim = content.claim ?? (isSplit ? overview.result : undefined) ?? project.tagline;
-  const deck = isSplit ? overview.approach : undefined;
+  const claim = content.claim ?? overview?.result ?? project.tagline;
+  const deck = overview?.approach;
 
   return (
     <>
-      {/* No blueprint layer here (removed 2026-08-26): the case-study header
-          sits over the plain ground so the title and facts read clean; the
-          grid stays a homepage/About device. */}
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="content-container relative py-16">
+      <section className="border-b border-border">
+        <div className="content-container pt-12 pb-10 md:pt-14 md:pb-12">
           <Link to="/work" className="inline-flex items-center gap-1.5 font-mono text-label font-medium uppercase tracking-[0.12em] text-muted-foreground hover:text-foreground no-underline mb-8 transition-colors duration-150">
             &larr; All case studies
           </Link>
@@ -85,96 +87,54 @@ export default function CaseStudyPage() {
             deck={deck}
             tags={project.tags}
             fields={content.snapshotFields}
+            stats={content.stats}
+            caveat={content.impact?.metricStatus}
           />
         </div>
       </section>
 
-    <div className="pt-4 pb-24">
+      {content.opener && <Opener opener={content.opener} />}
+
+      <ChapterBar title={project.title} groups={groups} />
+
       <div className="content-container">
-
         {/*
-          The cover sets tone rather than carrying information: every substantive
-          visual on the page is a captioned figure with its own alt text further
-          down, so this one is decorative and stays out of the a11y tree.
-
-          21/9 on desktop keeps the banner feel without amputating the frame the
-          way 32/9 did — the covers are screenshots and diagrams, and the strip
-          crop cut most of them away. On mobile the same ratio collapses to a
-          ~90px sliver, so narrow screens relax to 16/9.
+          Heading hierarchy for every case study:
+            h1  the claim
+            h2  part name: Framing, The work, Results
+            h3  child section headings, the study's own claims
+            h4  titles nested inside a child: decisions, cards, diagrams
         */}
-        {SHOW_COVER &&
-          (project.image ? (
-            <img
-              src={project.image}
-              alt=""
-              aria-hidden="true"
-              className="mt-10 aspect-[16/9] md:aspect-[21/9] w-full rounded-lg border border-border object-cover"
-            />
-          ) : (
-            <div className="mt-10">
-              <PlaceholderFigure caption={`Cover visual for ${project.title} is in production.`} />
-            </div>
-          ))}
-
-        {content.stats && content.stats.length > 0 && <StatBand stats={content.stats} />}
-
-        {/* 12-column grid at lg: the one navigation spans 3, content spans 9.
-            Below lg it stacks and the nav becomes a chip strip. */}
-        <div className="flex flex-col gap-10 pt-12 lg:grid lg:grid-cols-12 lg:gap-x-12">
-          <OnThisPage sections={sections} />
-          <div className="min-w-0 flex flex-col gap-20 lg:col-span-9">
-            {/*
-              Three parts, each holding its children (revised 2026-09-09; the
-              scannability pass later that day gave them shape — see Part.tsx
-              for the mechanism). The 2px rule that used to open a parent is
-              gone: the part's cover and the band carry the boundary now, and
-              the rule read as a heavier child divider rather than a chapter
-              break. Nothing is behind a disclosure.
-
-              Heading hierarchy for every case study:
-                h1  page title
-                h2  part name — Framing, The work, Results
-                h3  child section headings
-                h4  titles nested inside a child — steps, cards, diagrams
-            */}
-            {SECTION_GROUPS.map((group) => {
-              const groupSections = sections.filter((s) => s.group === group.id);
-              if (groupSections.length === 0) return null;
-
-              return (
-                <Part key={group.id} group={group}>
-                  {groupSections.map((section, i) => (
-                    <section
-                      key={section.id}
-                      id={section.id}
-                      className={["scroll-mt-24", i > 0 ? "border-t border-border pt-12" : ""].join(" ")}
-                    >
-                      <h3 className="m-0 max-w-[24ch] font-display text-h3 font-bold tracking-[-0.02em] text-foreground">
-                        {section.heading}
-                      </h3>
-                      <div className="mt-6">{section.content}</div>
-                    </section>
-                  ))}
-                </Part>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-16 pt-12 border-t border-border flex flex-wrap justify-between items-center gap-4">
-          <div>
-            <Eyebrow className="mb-2">Next case study</Eyebrow>
-            <Link
-              to={`/work/${nextProject.slug}`}
-              className="font-display text-base font-bold tracking-[-0.01em] text-accent hover:text-accent-hover no-underline transition-colors duration-150"
-            >
-              {nextProject.title} &rarr;
-            </Link>
-          </div>
-          <Button to="/contact" variant="primary">Get in Touch</Button>
-        </div>
+        {groups.map((group) => (
+          <Part key={group.id} group={group}>
+            {sections
+              .filter((s) => s.group === group.id)
+              .map((section) => (
+                <section key={section.id} id={section.id} className="scroll-mt-32">
+                  <h3 className="m-0 max-w-[26ch] font-display text-h3 font-bold tracking-[-0.015em] text-foreground">
+                    {section.heading}
+                  </h3>
+                  <div className="mt-6">{section.content}</div>
+                </section>
+              ))}
+          </Part>
+        ))}
       </div>
-    </div>
+
+      {content.scope?.workedWith && <Credits workedWith={content.scope.workedWith} />}
+
+      <div className="content-container flex flex-wrap items-center justify-between gap-6 border-t border-border py-[clamp(2.5rem,5vw,4rem)]">
+        <div>
+          <Eyebrow className="mb-2">Next case study</Eyebrow>
+          <Link
+            to={`/work/${nextProject.slug}`}
+            className="font-display text-body font-bold tracking-[-0.01em] text-accent hover:text-accent-hover no-underline transition-colors duration-150"
+          >
+            {nextProject.title} &rarr;
+          </Link>
+        </div>
+        <Button to="/contact" variant="primary">Get in touch</Button>
+      </div>
     </>
   );
 }

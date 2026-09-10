@@ -1,22 +1,27 @@
 import Badge from "../ui/Badge";
+import StatBand from "./StatBand";
+import type { Stat } from "../../data/caseStudyTypes";
 
 /**
- * The lede: kicker, claim, byline, deck.
+ * The lede (Layout C): kicker, claim, byline, deck, figures.
  *
- * Rebuilt 2026-09-09. The header used to lead with the project title in the
- * largest type on the page and put the outcome underneath it, which meant the
- * biggest thing a reviewer saw carried the least information. It now runs in
- * newspaper order: the project name shrinks to a kicker, the claim becomes the
- * headline, the byline names who did it directly beneath, and one deck sentence
- * carries the approach. Reviewers give a case study ten to thirty seconds and
- * screen for level first, so the role has to be legible in plain language
- * without hunting for it.
+ * Newspaper order. The project name shrinks to a kicker, the claim is the
+ * headline and the largest type on the page, the byline names who did it
+ * directly beneath, one deck sentence carries the approach, and the numbers
+ * are on the same screen as the news. Reviewers give a case study ten to
+ * thirty seconds and screen for level first, so nothing in the first viewport
+ * is bigger than the claim and the role is legible in plain language without
+ * hunting for it.
  *
  * The claim falls back through three sources so a study that has not been
  * migrated still renders something true: an explicit `claim`, then the
  * overview's result line, then the tagline. Only the last of those is a
  * description rather than an outcome, which is the signal that the study still
  * needs its claim written.
+ *
+ * Users, team and status are the framework's metadata fields. Layout C has no
+ * slot for them in the lede, so they sit as a small labelled grid between the
+ * deck and the figures rather than being dropped.
  */
 const BYLINE_FIELD = "Role";
 const KICKER_FIELDS = ["Employer", "Client", "Timeframe"];
@@ -32,6 +37,8 @@ export default function CaseStudyHeader({
   deck,
   tags,
   fields,
+  stats,
+  caveat,
 }: {
   title: string;
   /** The news. Rendered as the h1. */
@@ -40,6 +47,10 @@ export default function CaseStudyHeader({
   deck?: string;
   tags: string[];
   fields: { label: string; value: string }[];
+  /** At-a-glance figures, on the same screen as the claim. */
+  stats?: Stat[];
+  /** The source line under the figures: what they are and are not. */
+  caveat?: string;
 }) {
   const find = (label: string) => fields.find((f) => f.label === label);
   const role = find(BYLINE_FIELD);
@@ -50,7 +61,7 @@ export default function CaseStudyHeader({
     <header className="flex flex-col">
       {/* Kicker: what this was and when, small, above the news. */}
       <p className="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1.5 font-mono text-label font-medium uppercase tracking-[0.12em]">
-        <span className="text-foreground">{title}</span>
+        <span className="font-semibold text-foreground">{title}</span>
         {kicker.map(({ label, value }) => (
           <span key={label} className="flex items-baseline gap-3 text-muted-foreground">
             <span aria-hidden="true" className="text-tertiary-500">
@@ -62,22 +73,22 @@ export default function CaseStudyHeader({
         ))}
       </p>
 
-      <h1 className="mt-5 m-0 max-w-[26ch] font-display text-h1 font-extrabold tracking-[-0.035em] text-foreground">
+      <h1 className="mt-5 m-0 max-w-[24ch] font-display text-h1 font-extrabold tracking-[-0.035em] text-foreground">
         {claim}
       </h1>
 
       {/* Byline: who, and at what level, in plain language. */}
-      <div className="mt-8 flex items-center gap-4 border-t border-border pt-6">
+      <div className="mt-6 flex items-center gap-3.5 border-t border-border pt-5">
         <span
           aria-hidden="true"
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-tertiary-900 font-display text-small font-bold text-background"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-tertiary-900 font-display text-small font-bold text-background"
         >
           {MARK}
         </span>
         <div className="min-w-0">
-          <p className="m-0 text-body font-semibold leading-[1.3] text-foreground">{NAME}</p>
+          <p className="m-0 text-body font-semibold leading-[1.35] text-foreground">{NAME}</p>
           {role && (
-            <p className="mt-0.5 m-0 text-small text-muted-foreground">
+            <p className="mt-0.5 m-0 text-small leading-[1.45] text-muted-foreground">
               <span className="sr-only">Role: </span>
               {role.value}
             </p>
@@ -86,17 +97,11 @@ export default function CaseStudyHeader({
       </div>
 
       {deck && (
-        <p className="mt-6 m-0 max-w-[44ch] text-lead text-muted-foreground">{deck}</p>
+        <p className="mt-5 m-0 max-w-[46ch] text-lead text-muted-foreground">{deck}</p>
       )}
 
-      {/*
-        Users, team and status as a labelled grid rather than appended to the
-        byline. Run inline they wrapped to two lines of small grey type and read
-        as a caption; a reviewer is scanning for scope and needs to pick one
-        field out, not parse a sentence.
-      */}
       {scope.length > 0 && (
-        <dl className="m-0 mt-8 grid grid-cols-1 gap-6 border-t border-border pt-6 sm:grid-cols-3">
+        <dl className="m-0 mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {scope.map(({ label, value }) => (
             <div key={label}>
               <dt className="m-0 font-mono text-label font-semibold uppercase tracking-[0.12em] text-tertiary-700">
@@ -107,6 +112,8 @@ export default function CaseStudyHeader({
           ))}
         </dl>
       )}
+
+      {stats && stats.length > 0 && <StatBand stats={stats} caveat={caveat} />}
 
       <ul className="m-0 mt-6 flex list-none flex-wrap gap-2 p-0">
         {tags.map((tag) => (

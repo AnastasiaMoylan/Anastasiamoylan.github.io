@@ -83,14 +83,3 @@ body {
     scroll-behavior: auto;
   }
 }
-
-/* Paints an element's ground out to both viewport edges without leaving the
-   container it sits in: the spread shadow carries the fill sideways and the
-   clip-path stops that overflow from adding a horizontal scrollbar. Vertical
-   extent is the element's own box, so pad the element for breathing room.
-   Used by the case-study part band (CaseStudyPage). */
-.full-bleed-ground {
-  background-color: var(--muted);
-  box-shadow: 0 0 0 100vmax var(--muted);
-  clip-path: inset(0 -100vmax);
-}
