@@ -11,7 +11,7 @@
 //
 // Section order and names follow the principal framework
 // (research/design/principal-ux-case-study-framework.md) as `buildSections`
-// renders it: three parents, eight children. Rewritten 2026-09-09 when the
+// renders it: three parents, nine children (Layout C added the parking lot). Rewritten 2026-09-09 when the
 // two-layer trailer/proof order went; the budgets are the ones on the type.
 
 import { build } from "esbuild";
@@ -32,6 +32,8 @@ const BUDGET = {
   evidenceBody: 30,
   impact: 150,
   metricStatus: 50,
+  heading: 12,
+  parkedWhy: 30,
 };
 const LIMIT = {
   constraints: [4, 6],
@@ -95,6 +97,12 @@ function render(slug, cs) {
 
   // Lede: kicker, claim, byline, deck, scope grid, tags, stat band.
   const ov = cs.overview ?? {};
+  // Layout C: a child's heading is the study's own claim when `headings`
+  // carries one, else its noun; the problem defaults to the how-might-we.
+  const hd = (id, noun) => {
+    const own = cs.headings?.[id];
+    return own ? `${own}  *(heading ${budgetTag(words(own), BUDGET.heading)})*` : `${noun}  *(no claim heading written)*`;
+  };
   const claim = cs.claim ?? ov.result ?? p?.tagline;
   const claimSource = cs.claim ? "claim" : ov.result ? "overview.result (no claim written)" : "tagline (no claim written — describes the work, does not assert an outcome)";
   counts.claim = words(claim);
@@ -110,13 +118,20 @@ function render(slug, cs) {
     L.push("", "At a glance:");
     for (const s of cs.stats) L.push(`- **${s.value}** — ${s.label}`);
   }
+  if (cs.opener) {
+    L.push("", "Opener pair:");
+    L.push(`- *Close-up:* ${cs.opener.detail.caption}`);
+    L.push(`- *In context:* ${cs.opener.context.caption}`);
+  } else {
+    L.push("", "*No opener pair — the first screen has no image.*");
+  }
   L.push("");
 
   // 01 Framing
   h(2, "01 Framing — why this work mattered");
 
   counts.overview = words(ov.challenge) + words(ov.result) + words(ov.approach);
-  h(3, `Overview  (${budgetTag(counts.overview, BUDGET.overview)})`);
+  h(3, `${hd("overview", "Overview")}  (${budgetTag(counts.overview, BUDGET.overview)})`);
   if (ov.challenge) L.push(`- **Challenge.** ${ov.challenge}`);
   if (ov.result) L.push(`- **Result.** ${ov.result}`);
   if (ov.approach) L.push(`- **Approach.** ${ov.approach}`);
@@ -125,7 +140,7 @@ function render(slug, cs) {
   counts.productFraming = words(cs.productFraming);
   counts.framing = sum((cs.framing ?? []).map((f) => words(f.text)));
   if (cs.productFraming || cs.framing?.length) {
-    h(3, `Product framing  (${budgetTag(counts.productFraming, BUDGET.productFraming)})`);
+    h(3, `${hd("product-framing", "Product framing")}  (${budgetTag(counts.productFraming, BUDGET.productFraming)})`);
     para(cs.productFraming);
     if (cs.framing?.length) {
       L.push(`Hypothesis and metric block  (${budgetTag(counts.framing, BUDGET.framing)}):`);
@@ -139,8 +154,13 @@ function render(slug, cs) {
   counts.constraints = sum((cs.constraints ?? []).map((c) => words(c.constraint) + words(c.implication)));
   const nConstraints = cs.constraints?.length ?? 0;
   if (cs.hmw || nConstraints || cs.evidence?.insight) {
-    h(3, `The problem  (how-might-we ${budgetTag(counts.hmw, BUDGET.hmw)}; ${countTag(nConstraints, LIMIT.constraints, "constraints")}, ${counts.constraints} words)`);
-    if (cs.hmw) para(`**${cs.hmw}**`);
+    const problemHeading = cs.headings?.problem
+      ? hd("problem", "The problem")
+      : cs.hmw
+        ? `${cs.hmw}  *(the how-might-we is the heading)*`
+        : "The problem  *(no how-might-we and no claim heading written)*";
+    h(3, `${problemHeading}  (how-might-we ${budgetTag(counts.hmw, BUDGET.hmw)}; ${countTag(nConstraints, LIMIT.constraints, "constraints")}, ${counts.constraints} words)`);
+    if (cs.hmw && cs.headings?.problem) para(`**${cs.hmw}**`);
     if (nConstraints) {
       L.push("| Constraint | Implication for the product |", "|---|---|");
       for (const c of cs.constraints) L.push(`| ${c.constraint} | ${c.implication} |`);
@@ -164,7 +184,7 @@ function render(slug, cs) {
   ].filter(([k]) => sc[k]);
   counts.scope = sum(scopeBlocks.map(([k]) => words(sc[k])));
   if (scopeBlocks.length) {
-    h(3, `Scope and ownership  (${scopeBlocks.length} of 4 blocks, ${counts.scope} words)`);
+    h(3, `${hd("scope", "Scope and ownership")}  (${scopeBlocks.length} of 4 blocks, ${counts.scope} words)`);
     for (const [k, label] of scopeBlocks) L.push(`- **${label}.** ${sc[k]}  *(${words(sc[k])} words)*`);
     const missing = ["owned", "led", "influenced", "workedWith"].filter((k) => !sc[k]);
     if (missing.length) L.push("", `*Absent: ${missing.join(", ")}.*`);
@@ -175,9 +195,10 @@ function render(slug, cs) {
   counts.decisions = sum(decisions.map((d) => words(d.decision) + words(d.rationale) + words(d.rejected) + words(d.tradeoff)));
   const noRejected = decisions.filter((d) => !d.rejected).length;
   const noCost = decisions.filter((d) => !d.tradeoff).length;
-  h(3, `Key decisions  (${countTag(decisions.length, LIMIT.decisions, "decisions")}; ${counts.decisions} words; ${noRejected} without a rejected path, ${noCost} without a stated cost)`);
+  const noMechanism = decisions.filter((d) => !d.mechanism).length;
+  h(3, `${hd("decisions", "Key decisions")}  (${countTag(decisions.length, LIMIT.decisions, "decisions")}; ${counts.decisions} words; ${noRejected} without a rejected path, ${noCost} without a stated cost, ${noMechanism} without a named mechanism)`);
   decisions.forEach((d, i) => {
-    L.push(`${i + 1}. **${d.decision}**`);
+    L.push(`${i + 1}. **${d.decision}**${d.mechanism ? `  — *${d.mechanism}*` : ""}`);
     L.push(`   - Why: ${d.rationale}`);
     L.push(`   - Rejected: ${d.rejected ?? "*(none stated — the framework asks for one)*"}`);
     if (d.tradeoff) L.push(`   - Cost: ${d.tradeoff}`);
@@ -201,10 +222,26 @@ function render(slug, cs) {
     for (const s of cs.states) L.push(`| ${s.state} | ${s.userSees ?? ""} | ${s.recovery ?? ""} |`);
     L.push("");
   }
+  if (cs.annotated) {
+    L.push(`Annotated screen  (${cs.annotated.pins.length} pins):`, "");
+    cs.annotated.pins.forEach((pin, i) => L.push(`${i + 1}. ${pin.text}  *(at ${pin.x}%, ${pin.y}% — tune against the asset)*`));
+    L.push("", `*${cs.annotated.caption}*`, "");
+  }
   if (cs.processImages?.length) {
     L.push("The flows behind the screens:");
     for (const img of cs.processImages) L.push(`- ${img.caption}`);
     L.push("");
+  }
+
+  const parked = cs.parked ?? [];
+  counts.parked = sum(parked.map((x) => words(x.item) + words(x.why)));
+  if (parked.length) {
+    h(3, `${hd("parked", "What did not make the release")}  (${parked.length} entries, ${counts.parked} words; reasons ${parked.map((x) => budgetTag(words(x.why), BUDGET.parkedWhy)).join(" · ")})`);
+    L.push("| Held back | Why |", "|---|---|");
+    for (const x of parked) L.push(`| ${x.item} | ${x.why} |`);
+    L.push("");
+  } else {
+    h(3, "What did not make the release  *(no parking lot — the section does not render)*");
   }
 
   const ev = cs.evidence ?? {};
@@ -212,7 +249,7 @@ function render(slug, cs) {
   const findings = ev.findings ?? [];
   counts.findings = sum(findings.map((f) => words(f.finding) + words(f.response)));
   if (ev.body || findings.length) {
-    h(3, `Evidence  (method ${budgetTag(counts.evidenceBody, BUDGET.evidenceBody)}; ${countTag(findings.length, LIMIT.findings, "findings")}, ${counts.findings} words)`);
+    h(3, `${hd("evidence", "Evidence")}  (method ${budgetTag(counts.evidenceBody, BUDGET.evidenceBody)}; ${countTag(findings.length, LIMIT.findings, "findings")}, ${counts.findings} words)`);
     para(ev.body);
     if (findings.length) {
       L.push("| Research finding | Product response |", "|---|---|");
@@ -229,7 +266,7 @@ function render(slug, cs) {
     words(im.before) + words(im.after) + sum((im.proof ?? []).map(words)) + words(im.measureNext) + words(im.metricStatus);
   const nProof = im.proof?.length ?? 0;
   if (cs.impact) {
-    h(3, `Outcome  (${budgetTag(counts.impact, BUDGET.impact)}; ${countTag(nProof, LIMIT.proof, "proof points")})`);
+    h(3, `${hd("outcome", "Outcome")}  (${budgetTag(counts.impact, BUDGET.impact)}; ${countTag(nProof, LIMIT.proof, "proof points")})`);
     L.push(`- **Before.** ${im.before ?? "—"}  *(${words(im.before)} words)*`);
     L.push(`- **After.** ${im.after ?? "—"}  *(${words(im.after)} words)*`);
     if (nProof) {
@@ -245,7 +282,7 @@ function render(slug, cs) {
   const r = cs.reflection ?? {};
   counts.reflection = words(r.learned) + words(r.wouldChange) + words(r.principle);
   if (cs.reflection) {
-    h(3, `What I learned  (${counts.reflection} words${r.wouldChange ? "; two paragraphs, the framework asks for one" : ""})`);
+    h(3, `${hd("learned", "What I learned")}  (${counts.reflection} words${r.wouldChange ? "; two paragraphs, the framework asks for one" : ""})`);
     if (r.learned) para(r.learned);
     if (r.wouldChange) para(r.wouldChange);
     if (r.principle) para(`> ${r.principle}`);
@@ -271,6 +308,7 @@ function render(slug, cs) {
     ["Key decisions", counts.decisions, ""],
     ["Figure captions", counts.captions, ""],
     ["States", counts.states, ""],
+    ["Parking lot", counts.parked, ""],
     ["Evidence method", counts.evidenceBody, BUDGET.evidenceBody],
     ["Evidence findings", counts.findings, ""],
     ["Outcome", counts.impact, BUDGET.impact],
