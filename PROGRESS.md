@@ -309,8 +309,8 @@ Read the whole file above first; nothing in it is superseded except where this b
 
 | Step | What | Status |
 |---|---|---|
-| 0 | Commit the uncommitted tree in the split commits listed under *Committing*, then continue in a worktree on branch `case-study/principal-framework` | 🟡 |
-| 3 | Finance Cloud migration to the eight-child shape | ⬜ |
+| 0 | Commit the uncommitted tree in the split commits listed under *Committing*, then continue in a worktree on branch `case-study/principal-framework` | ✅ |
+| 3 | Finance Cloud migration to the eight-child shape | ✅ (migrated by a parallel session; coherence repaired here) |
 | 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ⬜ |
 | 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ⬜ |
 | 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | ⬜ |
@@ -352,3 +352,41 @@ the page: the band keeps the hackathon, the claim and Outcome carry the arc.
 stale module graph — deleted components still resolving, none of the new type tokens present.
 Restarting it was the fix. If the layout ever looks unchanged, restart `npm run dev` before
 debugging anything else.
+
+---
+
+## Update — Finance Cloud coherence repaired (branch `case-study/principal-framework`)
+
+**Two sessions worked this branch at once.** While this session was reading, a parallel session
+committed the Finance Cloud migration (`d334c54`) and the diagram wiring into the shared checkout.
+This session then committed the rest of the working tree in five reviewable commits and moved to a
+worktree on `case-study/principal-framework`, branched from `7cbdbd4`. **Everything from here on is on
+that branch**; `tooling/case-study-review-md` is its base and fast-forwards to it.
+
+**What the repair changed, and why.** The first-pass migration replaced the whole study with the
+rewrite's platform story, which left five figures and all four stat-band numbers describing things
+the prose no longer said (SuiteMap, VersionArc, the operating model, the front-door flow, and the
+hackathon / versions / research / program figures). The repair keeps the platform layer leading and
+folds her 2026-08-25 program-level account back in where a figure depends on it:
+
+- **Role back to "Product Experience Lead"** on card and snapshot. Resolved with Anastasia
+  2026-08-26 (résumé title and engagement role are different layers); the rewrite's "Lead Product
+  Designer" is not applied and should not be re-flagged.
+- **Status back to the 2026-09-08 account** ("V3 in testing; homepage MVP in development"); the
+  rewrite's own verify list asks for its status to be refreshed. `[NEEDS SIGN-OFF]`.
+- **Thresholds softened** to the 2026-09-03 correction the ConfidenceThresholds diagram already
+  states: tiers defined, model-confidence cut-offs pending. Applied in `scope.influenced`, decision 7
+  and the proof list.
+- **Eight decisions, two layers**: reframe, front door (her three homepage decisions merged; the
+  front-door flow is attached to it as `images`, no longer an augment), the V1→V3 pivot (was
+  `turn`), sandbox + gate (the rewrite's two, one figure), states, copilot + confirm-assumptions,
+  thresholds, access assumptions. The rewrite's anomaly decision is not a decision: the
+  constraints, evidence and states tables already carry it three times.
+- **Evidence table** no longer repeats the constraints table word for word; it carries the
+  hackathon and her three program-level findings plus the rewrite's scale finding.
+- **Proof list** argues the four stat-band figures first, so the band shows nothing the page does
+  not argue. **Reflection** regains her "would change" paragraph and the principle.
+- **Product framing** gains her pre-migration `context` (the single-application promise), joined by
+  one authored clause. **Constraints** row 6 is now that promise, replacing the scale row.
+
+Gates at this point: `npm run typecheck` passes.

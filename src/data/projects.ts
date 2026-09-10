@@ -35,10 +35,12 @@ export const projects: Project[] = [
       "A governed AI platform for finance and payroll, taken from zero to one and scaled from 10 pilot users to 300",
     problem:
       "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails and human accountability that financial operations require \u2014 a platform producing numbers without provenance would be either untrusted and unused, or trusted and indefensible.",
-    // [NEEDS SIGN-OFF] Role and status both changed; they must stay identical
-    // to the case study's snapshot fields and to the r\u00e9sum\u00e9.
-    role: "Lead Product Designer",
-    status: "Working POC delivered; scaled pilot in progress",
+    // Role resolved 2026-08-26: the engagement role, distinct from the
+    // employment title on the r\u00e9sum\u00e9. Status is the 2026-09-08 account; the
+    // rewrite's own verify list asks for it to be refreshed. [NEEDS SIGN-OFF]
+    // on status. Both must stay identical to the study's snapshot fields.
+    role: "Product Experience Lead",
+    status: "V3 of the analysis platform in testing; unified homepage MVP in development",
     // "Complex Workflows" dropped per the rewrite: it is true of every study
     // here, so it does no sorting work.
     tags: ["AI Interaction Design", "Governance", "Data and Finance"],

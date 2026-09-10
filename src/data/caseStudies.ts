@@ -38,6 +38,8 @@ import cwoStrategyAlignmentFull from "../assets/case-studies/cwo/strategy-alignm
 // .html beside it, exported to .svg and .png (see research/decisions/case-study-diagrams.md).
 import cwoStatusModel from "../assets/case-studies/cwo/status-model.png?preview";
 import cwoStatusModelFull from "../assets/case-studies/cwo/status-model.png";
+import gafFrontDoor from "../assets/case-studies/gaf/front-door-flow.png?preview";
+import gafFrontDoorFull from "../assets/case-studies/gaf/front-door-flow.png";
 import diUserFlows from "../assets/case-studies/di/user-flows.jpg?preview";
 import diUserFlowsFull from "../assets/case-studies/di/user-flows.jpg";
 
@@ -341,22 +343,33 @@ export const caseStudies: Record<string, CaseStudy> = {
   // across surfaces; needs reconciling with About/résumé before merge.
   "finance-cloud": {
     // Migrated 2026-09-09 from research/design/updated-case-studies/finance-cloud-principal-framework.md,
-    // which is Anastasia's own account. Every field below is her text unless a
-    // comment says otherwise. The migration also resolves a standing conflict:
-    // the coded diagrams on this study (SuiteMap, PromotionGate,
-    // ConfidenceThresholds, GovernedPipeline) render the sandbox-and-promotion
-    // product, which the previous copy no longer described. The prose and the
-    // figures now tell the same story again.
+    // which is Anastasia's own account of the governed analysis platform.
+    // Every field below is her text unless a comment says otherwise.
+    //
+    // This study carries two layers and the page has figures for both, so the
+    // copy has to as well. The platform layer (sandbox, promotion gate,
+    // designed states, thresholds) is the rewrite and leads: it is what the
+    // PromotionGate, ConfidenceThresholds and GovernedPipeline diagrams draw.
+    // The program layer (the suite reframe, the homepage as front door, the
+    // V1-to-V3 pivot, direction across six designers) is her 2026-08-25
+    // program-level account, kept because SuiteMap, VersionArc, the operating
+    // model, the front-door flow and every figure in the stat band come from
+    // it; a first pass of this migration dropped that layer and left those
+    // five figures and the band describing things the prose no longer said.
     snapshotFields: [
-      // [NEEDS SIGN-OFF] Role changed from "Product Experience Lead" and the
-      // client descriptor from "Confidential Fortune 500 telecommunications
-      // company". Both follow the rewrite; the rewrite itself flags the role
-      // as needing confirmation across card, H1, next link and title tag.
-      { label: "Role", value: "Lead Product Designer" },
+      // Role: "Product Experience Lead" is the engagement role on the finance
+      // program and "Lead Experience Designer" the employment title; both are
+      // correct at their own layer (resolved with Anastasia 2026-08-26). The
+      // rewrite's "Lead Product Designer" is not applied. [NEEDS SIGN-OFF] on
+      // the client descriptor only: it follows the rewrite, replacing
+      // "Confidential Fortune 500 telecommunications company".
+      { label: "Role", value: "Product Experience Lead" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2024\u2013Present" },
-      { label: "Status", value: "Working POC delivered; scaled pilot in progress" },
+      // The rewrite's own verify list says to refresh its status line before
+      // publishing; this is the more recent account (2026-09-08). [NEEDS SIGN-OFF]
+      { label: "Status", value: "V3 of the analysis platform in testing; unified homepage MVP in development" },
       { label: "Users", value: "Accountants, analysts, managers and controllers, finance leaders, admins and viewers" },
       { label: "Team", value: "Product, engineering, ML engineering and AI research, data, finance and compliance stakeholders" },
     ],
@@ -380,7 +393,11 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Separate experimentation from production, make every AI action inspectable, and require human approval before anything consequential happens.",
     },
     productFraming:
-      "The organization wanted AI inside its finance and payroll operations: reporting, forecasting, variance analysis, anomaly detection, month-end close and manual journal entries. Every one of those surfaces touches money that has already been committed or is about to be, and the accountants, controllers and compliance stakeholders who work there remain personally responsible for the numbers regardless of what produced them. The bet was that AI could carry a meaningful share of the analysis without moving that responsibility, and the risk was that a platform which produced numbers without provenance would be either untrusted and unused, or trusted and indefensible. Design was in the room because the problem was not model capability. It was making governance legible enough that the people accountable for the output could see it, act on it and approve it. That is a product-model question, and it is why I owned the model rather than the screens.",
+      "The organization wanted AI inside its finance and payroll operations: reporting, forecasting, variance analysis, anomaly detection, month-end close and manual journal entries. Every one of those surfaces touches money that has already been committed or is about to be, and the accountants, controllers and compliance stakeholders who work there remain personally responsible for the numbers regardless of what produced them. The bet was that AI could carry a meaningful share of the analysis without moving that responsibility, and the risk was that a platform which produced numbers without provenance would be either untrusted and unused, or trusted and indefensible. Design was in the room because the problem was not model capability. It was making governance legible enough that the people accountable for the output could see it, act on it and approve it. That is a product-model question, and it is why I owned the model rather than the screens. The platform sat inside a wider finance program \u2014 data exploration, AI-assisted analysis, workflow automation, AI agents, audit tooling and access management \u2014 whose products were owned by different teams, built on separate technology stacks and not yet deeply integrated, while the program was described to the business as a single integrated application. My job widened to making that ecosystem understandable and usable as one experience without promising integration that did not yet exist.",
+    // [NEEDS SIGN-OFF] The last two sentences above are her pre-migration
+    // `context` and overview, joined by one authored clause ("sat inside a
+    // wider finance program"). Over the 90-word budget, like the other two
+    // studies' framing, because it carries both layers.
     // Two of the four framing lines were cut in the migration: the constraint
     // is a row in the table below, and where it landed is now the Outcome.
     // The hypothesis and the metric stay because open question 1 \u2014 whether
@@ -427,44 +444,64 @@ export const caseStudies: Record<string, CaseStudy> = {
         constraint: "Anomalies surfaced too late are indistinguishable from anomalies never surfaced",
         implication: "Detection had to reach the accountable role proactively, not wait to be found in a report",
       },
+      // Replaced the rewrite's sixth row (pilot-to-enterprise scale), which
+      // the evidence table's last finding and the lesson both already carry.
+      // This row is the reframe decision's rationale, in her words.
       {
-        constraint: "The platform had to scale from a handful of pilot users to an enterprise rollout",
-        implication: "Anything a person explained during pilot had to become something the interface explained by itself",
+        constraint:
+          "The program was described to the business as a single integrated application that the architecture and roadmap could not yet support",
+        implication:
+          "Coherence had to be earned through design \u2014 a common visual language, central discovery, clear product relationships \u2014 rather than inherited from architecture",
       },
     ],
     scope: {
       owned:
-        "The product model for Finance Cloud, connecting Workflow Builder, Sandbox, promotion gates, Production and monitoring across six user roles. The environment separation and promotion-gate model. The copilot and agent-driven workflow patterns across reporting, forecasting, variance analysis and month-end close. The anomaly detection and proactive notification design. The full set of AI uncertainty and failure states, and the inspectability layer: previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals and audit history. PRDs, flows, role models, screeners, recruitment materials and training plans.",
-      led: `The zero-to-one build with the lead product owner, translating product requirements into a shipped POC. Moderated research for the POC, and the iterative testing program that took the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
+        "The product model for Finance Cloud, connecting Workflow Builder, Sandbox, promotion gates, Production and monitoring across six user roles. The environment separation and promotion-gate model. The copilot and agent-driven workflow patterns across reporting, forecasting, variance analysis and month-end close. The anomaly detection and proactive notification design. The full set of AI uncertainty and failure states, and the inspectability layer: previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, human approvals and audit history. PRDs, flows, role models, screeners, recruitment materials and training plans. At program level, the cross-product experience direction: the suite narrative, the unified homepage as the suite\u2019s front door, and the standardized patterns across workflow products \u2014 headers, breadcrumbs, status badges, approval history.",
+      // The second and third sentences are her "Direction without reporting
+      // lines" and "Stood up the research practice" leadership cards, which
+      // the operating-model figure below draws.
+      led: `The zero-to-one build with the lead product owner, translating product requirements into a shipped POC. Moderated research for the POC, and the iterative testing program that took the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}. Design direction for ${figures.designersDirectedWord} designers across the finance program, deciding who works on what and translating the program lead\u2019s and product owners\u2019 intent into direction designers can execute. The research practice: some workflows had reached only about four unique participants, so I built a recruited tester pool of 32 analysts, ran 45-minute moderated sessions against prototypes, and segmented participants by role so each protocol asked people only about work they actually did.`,
+      // The thresholds sentence is softened to the 2026-09-03 correction the
+      // ConfidenceThresholds diagram already states: the three-tier model is
+      // defined, the confidence cut-offs are still to be set. The rewrite's
+      // "now used across the platform" is on its own verify list. [NEEDS SIGN-OFF]
       influenced:
-        "Confidence thresholds, defined with ML engineering and AI research as explicit product boundaries rather than inherited from the model. The environment separation and promotion-gate model is now used across the platform, not only in the surfaces I designed. Preserved human responsibility for accruals, journal entries, payroll and close work as a product principle, which shaped what engineering built as automated versus what stayed as a review step.",
+        "The three-tier model \u2014 act, recommend and wait, stop and escalate \u2014 defined with ML engineering and AI research as explicit product boundaries rather than inherited from the model; the confidence cut-offs that place an action in a tier are still to be set as the pilot produces data. The environment separation and promotion-gate model is now used across the platform, not only in the surfaces I designed. Preserved human responsibility for accruals, journal entries, payroll and close work as a product principle, which shaped what engineering built as automated versus what stayed as a review step. And the program narrative itself: the shift from \u201cone integrated application\u201d to a suite of independent products with a shared design language.",
+      // Composed from the rewrite's "Worked with" line and the pre-migration
+      // team grid, so no discipline is lost with the grid. [NEEDS SIGN-OFF]
       workedWith:
-        "Product, engineering, ML engineering and AI research, data, and finance and compliance stakeholders.",
+        `Program leadership, product management, ${figures.designersDirectedWord} application-level designers each owning one product, engineering and data specialists, ML engineering and AI research, access-management partners, and finance subject-matter experts, compliance stakeholders and end users.`,
     },
     evidence: {
-      body: `Moderated research for the working POC, run with screeners and recruitment materials I created, followed by the iterative testing program that scaled the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}. Participant counts for the POC research are not recorded and are not stated; the scaling figures are user counts, not study counts.`,
+      body: `Role-segmented, moderated prototype testing with direct access to domain experts: 45-minute one-on-one sessions with clickable prototypes, questions tailored to each participant\u2019s responsibilities rather than to \u201cfinance users\u201d as one audience. Also moderated research for the working POC, run with screeners and recruitment materials I created, and the iterative testing program that scaled the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}. Participant counts for the POC research are not recorded and are not stated; the scaling figures are user counts, not study counts.`,
+      // The rewrite's first four findings restate the constraints table above
+      // word for word, so they are not repeated here. These are the findings
+      // that changed something the constraints do not already state: the
+      // hackathon (the pivot VersionArc draws) and her three program-level
+      // findings, plus the rewrite's one finding about scale.
       findings: [
         {
-          finding: "A number without provenance cannot be approved, only re-derived by hand.",
+          finding: `A hackathon put V1 in front of ${figures.hackathonUsers} finance users, who ran ${figures.hackathonAnalyses} business analyses: they could not and would not read and adjust generated Python.`,
           response:
-            "Inspectability at every step: previews, editable plans, generated-code visibility, evidence, logs, lineage, versions, approvals, audit history.",
+            "V2 rebuilt the flow around direct data exploration and handing multi-step work to an agent; V3 was set by the research that followed.",
         },
         {
           finding:
-            "Controls that lived only in the backend were invisible to the people accountable for them.",
+            "Users generally saw only the products they were already permitted to use, making discovery of the wider suite difficult.",
           response:
-            "Governance given a surface in the interface: environment labels, promotion checklist, audit entries.",
-        },
-        {
-          finding: "Automation that fails silently breaks trust in every future result.",
-          response:
-            "Designed states for partial output, failed operations and interrupted runs, with work preserved and recovery paths.",
+            "Discovery needed a central, access-aware entry point \u2014 a homepage that knows what each person can use after login.",
         },
         {
           finding:
-            "Anomalies surfaced too late are indistinguishable from anomalies never surfaced.",
+            "Teams used overlapping language for products, roles and AI concepts \u2014 the agent portfolio had no shared object model.",
           response:
-            "Proactive, role-aware notification with variance, drivers and affected records attached.",
+            "A formal hierarchy \u2014 Category \u2192 Driver \u2192 Anchor Signal \u2014 had to exist before monitor configuration, thresholds and briefings could be designed against it.",
+        },
+        {
+          finding:
+            "One AI workstream had UX and engineering progressing in parallel with unclear expectations and limited cadence.",
+          response:
+            "Program-level experience leadership had to reconnect the workstream and bring the end-to-end workflow into view before build.",
         },
         {
           finding:
@@ -475,20 +512,67 @@ export const caseStudies: Record<string, CaseStudy> = {
       ],
       insight: "Governance people cannot see is not governance they will approve.",
     },
+    // Eight decisions, two over the framework's six, because the study has two
+    // layers and each figure on the page needs the decision it proves in
+    // prose: decisions 1 to 3 are the program layer (SuiteMap, the front-door
+    // flow, VersionArc), 4 to 7 the platform layer (PromotionGate and
+    // GovernedPipeline, the states table, ConfidenceThresholds). The rewrite's
+    // sandbox and gate decisions share one figure, so they are one decision;
+    // its anomaly decision is not here because the constraints, evidence and
+    // states tables already carry it three times. Decisions 1 to 3 and 8 are
+    // her 2026-08-25 account; 4 to 7 the rewrite.
     decisions: [
       {
-        decision: "Separated experimentation from production as two distinct environments.",
+        decision:
+          "Repositioned the program from a single integrated application to a suite of independent finance products with a shared experience layer.",
         rationale:
-          "Finance users needed room to explore, and the organization needed certainty that exploration could not touch committed numbers. A sandbox for Python analysis, transformations, datasets and AI-assisted plans has no silent path into financial controls; promotion to production is an explicit, reviewable event. Two environments make that boundary visible and physical.",
-        rejected: "gating one workspace with permissions",
+          "The architecture and roadmap could not yet support the single-app promise. The reframe acknowledged the current technical reality while creating a credible path toward a more connected future \u2014 a common visual language, central discovery, and clear product relationships.",
+        rejected: "continuing to describe the program as one integrated application",
         tradeoff:
-          "A single workspace with permissions makes the boundary a setting someone has to remember exists.",
+          "Giving up the seamless-platform story meant the experience layer had to earn coherence through design \u2014 shared language, discovery, product relationships \u2014 rather than inherit it from architecture.",
+      },
+      // Her launcher, own-tab and "Your Apps" decisions, merged because the
+      // front-door flow beneath proves all three at once. [NEEDS SIGN-OFF]
+      // on the merge; every sentence is hers.
+      {
+        decision:
+          "Designed the homepage as an app launcher and discovery hub, personalized from actual post-login access, with each product launching in its own tab.",
+        rationale:
+          "Four tenets held the scope: modularity and scalability, discoverability, launcher-not-kitchen-sink, and a layout reflecting real usage patterns. \u201cYour Apps\u201d surfaces the products each person can actually use, and launching independent apps in new tabs avoided cross-app token and authentication complexity and let independently built products keep shipping.",
+        rejected:
+          "a kitchen-sink catalog or a complex dashboard; a fixed layout over-prioritizing flagship applications; embedding every product inside one shell",
+        tradeoff:
+          "The seams between products stay visible \u2014 the suite is coherent at the point of discovery, not continuous during use \u2014 and favorites, broader filtering, persistent cross-app launchers and centralized notifications were deferred to a named roadmap rather than allowed to block the MVP.",
+        images: [
+          {
+            src: gafFrontDoor,
+            fullSrc: gafFrontDoorFull,
+            width: 2400,
+            height: 1502,
+            alt: "A four-stage user flow. A person signs in; their access is resolved after login. The homepage then answers two questions at once: a personalized Your Apps area lists the products that person can actually use, and a discovery area shows the wider suite they cannot yet see, which is what research found people were missing. Choosing a product launches it in its own tab with its internal navigation intact, so independently built products keep shipping. Two rejected alternatives are recorded: a kitchen-sink catalog or a complex dashboard in place of a launcher, and embedding every product inside one shell.",
+            // [NEEDS SIGN-OFF] Caption authored 2026-09-09 with the wiring.
+            caption:
+              "The homepage answers two questions at once: what you can use, and what else exists. Launching in a tab was a stated cost, not an oversight.",
+          },
+        ],
+      },
+      // The pivot that used to be the Turning point section, in her words.
+      // VersionArc, appended below the list, draws it; no rejected path is
+      // stated because the record does not name one.
+      {
+        decision:
+          "Rebuilt the analysis flow around direct data exploration and agent handoff after the hackathon, rather than around generated code.",
+        rationale:
+          "V1 assumed finance analysts could read and adjust generated Python. Putting it in front of real finance users at a hackathon showed they could not and would not: they needed to explore data directly and hand multi-step work to an agent. V2 rebuilt the flow around that, then hit two constraints: a metadata layer that did not exist and orchestration too deterministic for how finance work branches. Research set V3\u2019s direction, now in testing.",
       },
       {
-        decision: "Designed promotion as a gated checklist with visible unmet requirements.",
+        decision:
+          "Separated experimentation from production as two distinct environments, with promotion as a gated checklist that shows unmet requirements.",
         rationale:
-          "Governance that lives as a backend rule reads to the user as \u201cit won\u2019t let me\u201d, which is indistinguishable from a bug. A blocked promotion states exactly which control, approval or data-access condition is missing, and the checklist is the path to resolving it.",
-        rejected: "one-click publish",
+          "Finance users needed room to explore, and the organization needed certainty that exploration could not touch committed numbers. A sandbox for Python analysis, transformations, datasets and AI-assisted plans has no silent path into financial controls; promotion to production is an explicit, reviewable event, and a blocked promotion states exactly which control, approval or data-access condition is missing. Governance that lives as a backend rule reads to the user as \u201cit won\u2019t let me\u201d, which is indistinguishable from a bug.",
+        rejected: "gating one workspace with permissions, or a one-click publish",
+        tradeoff:
+          "A single workspace with permissions makes the boundary a setting someone has to remember exists.",
       },
       {
         decision: "Treated AI uncertainty and failure as first-class interaction states.",
@@ -497,23 +581,35 @@ export const caseStudies: Record<string, CaseStudy> = {
         rejected:
           "hiding failure behind generic errors, or treating it as an edge case to handle later",
       },
+      // The rewrite's copilot decision, carrying her "understand, clarify,
+      // confirm assumptions, then plan" principle from the earlier copy.
       {
-        decision: "Scoped the copilot to the work in front of the user.",
+        decision:
+          "Scoped the copilot to the work in front of the user, and made it confirm its understanding before producing a plan.",
         rationale:
-          "A plan is inspectable; an answer is not. Assistance appears inside a specific report, forecast or close task with the relevant data already in context, and produces an editable plan the user reads, changes and runs.",
-        rejected: "a general-purpose assistant that has to be told what it is looking at",
+          "A plan is inspectable; an answer is not. Assistance appears inside a specific report, forecast or close task with the relevant data already in context, and runs understand, clarify, confirm assumptions, then plan and output, so silent assumptions surface before a result does. The user reads the plan, changes it and runs it.",
+        rejected:
+          "a general-purpose assistant that has to be told what it is looking at, answering immediately and letting users discover wrong assumptions in the output",
       },
+      // Softened from the rewrite's "set confidence thresholds ... with numbers
+      // attached" to the 2026-09-03 correction: the tiers are defined, the
+      // model-confidence cut-offs are pending. The signal thresholds and the
+      // 72-hour success definition are her earlier account. [NEEDS SIGN-OFF]
       {
-        decision: "Set confidence thresholds as product decisions, made with ML engineering.",
+        decision:
+          "Defined where the system acts, where it recommends and waits, and where it stops and escalates as product boundaries, not model defaults.",
         rationale:
-          "A raw confidence score pushes interpretation onto the user, who has no basis for deciding whether a given score is safe enough for an accrual. Where the system acts on its own, where it recommends and waits, and where it must stop and escalate are interaction design decisions with numbers attached.",
+          "A raw confidence score pushes interpretation onto the user, who has no basis for deciding whether a given score is safe enough for an accrual. The three tiers are interaction design decisions; the model-confidence cut-offs that place an action in a tier are still to be set with ML engineering as the pilot produces confidence data. With domain experts we set the signal thresholds separately \u2014 useful outputs are directionally correct and within an order of magnitude, and a threshold sits where action is warranted, roughly 3% meaningful in one use case and 1% often noise \u2014 and defined agent success as analyst behavior within 72 hours, not forecast precision: did the analyst run a scenario or start a leadership conversation.",
         rejected: "surfacing a raw confidence score and leaving interpretation to the user",
       },
       {
-        decision: "Made anomaly detection proactive and role-aware.",
+        decision:
+          "Proceeded on documented access assumptions with explicit break-notification agreements, rather than waiting for the identity architecture to settle.",
         rationale:
-          "An alert that says \u201cgo look somewhere\u201d is a task, not a finding. When a figure falls outside expected ranges the platform notifies the role accountable for that area, with the variance, its drivers and the affected records attached.",
-        rejected: "leaving anomalies to be found during review, or broadcasting alerts to everyone",
+          "The enterprise identity integration was unresolved and would have blocked design indefinitely. Writing the assumptions down \u2014 with agreement that design would be notified when one broke \u2014 kept the work moving without pretending the uncertainty away.",
+        rejected: "pausing design until enterprise identity questions resolved",
+        tradeoff:
+          "Some access-dependent behavior may need rework when the architecture lands \u2014 accepted, and recorded, so design never stalled.",
       },
     ],
     states: [
@@ -558,25 +654,38 @@ export const caseStudies: Record<string, CaseStudy> = {
       before:
         "AI-assisted analysis was either untrusted or unusable in finance, because output arrived without provenance and controls lived where accountable people could not see them.",
       after: `A governed platform where experimentation is separated from production, every AI action is inspectable, anomalies reach the accountable role proactively, and consequential work requires human approval; scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with enterprise adoption of ${figures.financePlannedUsers} planned.`,
+      // Seven proof points, over the four the type budgets for. The first four
+      // are what the stat band restates in display type, so the band never
+      // shows a figure the page does not argue; the last three are what
+      // shipped or shifted on each layer. The rewrite's thresholds, anomaly,
+      // states and human-responsibility points are decisions above, and its
+      // "concrete, testable model" line is the overview's result.
       proof: [
+        `A hackathon put V1 in front of ${figures.hackathonUsers} finance users who ran ${figures.hackathonAnalyses} business analyses; the result pivoted the product.`,
         `Delivered a working POC from zero, then scaled it through iterative testing from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
+        `${figures.financeCloudVersionsWord} product versions, each redirected by research; V3 is in testing now.`,
+        `${figures.researchEngagementsWord} research engagements to date, scaled from about four participants to a 32-analyst pool, consumed by program leads and executive sponsors, and now directing an ${figures.programScale} modernization program.`,
+        // "now used across the platform" is on the rewrite's own verify list.
         "Established the environment separation and promotion-gate model now used across the platform.",
-        "Defined confidence thresholds with ML engineering as explicit product boundaries: act, recommend and wait, stop and escalate.",
-        "Made anomaly detection actionable by routing it to the accountable role with drivers and records attached.",
-        "Designed the full set of AI uncertainty, failure and recovery states, including pause, resume and rollback for consequential workflows.",
-        "Preserved human responsibility for accruals, journal entries, payroll and close work.",
-        "Gave finance leaders a concrete, testable model for governed AI rather than an abstract promise, which is what made the scaled pilot possible.",
+        "Established a shared experience model for the whole suite and defined the homepage MVP, navigation scenarios, access assumptions and phased roadmap in time for development within the same program increment.",
+        "Gave the program an operating model in which program-level experience leadership and application-level design ownership reinforce each other.",
       ],
       measureNext:
         "Share of promotions blocked at the gate and then resolved without escalation, the rate at which anomaly notifications are acted on versus dismissed with a reason, and how often copilot plans are edited before they run. All three are available from the audit history the product already keeps, without new instrumentation.",
       // [NEEDS SIGN-OFF] The pilot-scale figures were off the site as unsourced
       // until 2026-09-09, when Anastasia said to keep them. This caveat is what
       // makes that publishable: they are her account, not a project record.
-      metricStatus: `The ${figures.financePilotUsers} \u2192 ${figures.financeScaledUsers} scaling figures are my own account rather than figures read from a project record, and what ${figures.financeScaledUsers} counts \u2014 provisioned, onboarded or active \u2014 is not confirmed. The ${figures.financePlannedUsers} is a plan, not a delivery. Exact adoption dates, efficiency gains and close-cycle improvements are not verified and are not stated.`,
+      metricStatus: `The ${figures.financePilotUsers} \u2192 ${figures.financeScaledUsers} scaling figures are my own account rather than figures read from a project record, and what ${figures.financeScaledUsers} counts \u2014 provisioned, onboarded or active \u2014 is not confirmed. The ${figures.financePlannedUsers} is a plan, not a delivery. Exact adoption dates, efficiency gains and close-cycle improvements are not verified and are not stated. Program-internal dates and client financial figures are known but deliberately not published.`,
     },
     reflection: {
       learned:
         "The hardest part was not making the AI capable. It was making its governance legible, and I underestimated how much of that legibility was being carried by people rather than the product. Early on, controls lived in the backend and users trusted that they existed; at ten pilot users that worked, because anyone who saw something odd could ask someone who knew. At three hundred they could not, and the design had to absorb every explanation a person had been giving: an environment label, a promotion checklist, an audit entry, a stated reason for a block. I would now design for the thousandth user from the first sketch, because the pilot hides exactly the gaps that scale exposes.",
+      // Scorecard session record \u00a74.5 (decision locked: publish as
+      // reflection). The tense of "leadership is redirecting" is on the
+      // 2026-09-08 Granola list to confirm; the decision was pending then.
+      wouldChange:
+        "Two automations in the suite, anomaly detection and manual journal-entry automation, did not scale. The flows are specialized enough that a model tuned for one does not transfer, and making them work at acceptable cost means the company changing how the work is done, not just tooling it. Leadership is redirecting on cost and scalability; the research program I ran is the evidence behind that decision. What I would do differently: test transferability across two flows before designing deeply for one.",
+      principle: "Don\u2019t promise integration before it exists.",
     },
   },
   "connected-customer-journey": {

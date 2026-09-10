@@ -6,10 +6,11 @@ import { figures } from "../../../data/figures";
  * Three product versions, each redirected by research.
  *
  * Replaced ScalingArc on 2026-09-03. That diagram charted adoption as
- * 10 -> 300 -> 1,000+ users, and the 300 has no provenance in the project
- * record. The version history does: it is Anastasia's own account from the
- * scorecard session (v2 §2, §4.4), so this figure re-keys the same slot to
- * what the research actually changed.
+ * 10 -> 300 -> 1,000+ users, which at the time had no provenance in the
+ * project record. The figures returned 2026-09-09 on Anastasia's instruction
+ * (see figures.ts) and now sit in the claim and Outcome; this figure stays
+ * keyed to the version history, her own account from the scorecard session
+ * (v2 §2, §4.4), because that is what the research actually changed.
  */
 const versions = [
   {
