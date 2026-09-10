@@ -90,7 +90,7 @@ easier. Either place counts.
 ## C. Sign-offs already flagged in the data (`grep -n "NEEDS SIGN-OFF" src/data/caseStudies.ts`)
 
 - [ ] **C1.** Roughly forty lines across the four studies, listed in
-  `research/generated/case-studies/<slug>.page.md` after `node scripts/casestudy-md.mjs`.
+  `docs/generated/case-studies/<slug>.page.md` after `node scripts/casestudy-md.mjs`.
   The role labels (B3, B9, B10) resolve most of them at once.
 - [ ] **C2.** The billing copy claims a "ten-stage decomposition" and enumerates six. Write
   the ten or change the copy to six.
@@ -133,9 +133,9 @@ easier. Either place counts.
 ## D. Things found on the way that are not in the plan
 
 - [ ] **D1. `context/` is back.** The 2026-09-08 reorganisation dissolved a `context/` folder
-  into `research/`. This one is committed (not gitignored) because you asked for
+  into `docs/`. This one is committed (not gitignored) because you asked for
   `context/facts.md` as the single source of truth and a gitignored file dies with the
-  worktree. If you would rather it live at `research/source/facts.md`, say so.
+  worktree. If you would rather it live at `docs/source/facts.md`, say so.
 - [ ] **D2. Philosophy page figures.** The `~90%` now lives in `figures.ts` as
   `aiDrivenShare` with its provenance (your own estimate, not measured). The five status
   chips were **left at five**: principle 01's own body copy on that page lists five states

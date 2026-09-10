@@ -13,7 +13,7 @@ import ccjScopeFull from "../../../assets/case-studies/ccj/scope-ownership.png";
  * they were made inside, so it closes the section.
  *
  * Drawn 2026-09-08 with the diagram-design plugin (source .html beside the
- * .png; plan in research/decisions/case-study-diagrams.md).
+ * .png; plan in docs/case-study/case-study-diagrams.md).
  */
 const loop: CaseStudyImage = {
   src: threeRoleLoop,

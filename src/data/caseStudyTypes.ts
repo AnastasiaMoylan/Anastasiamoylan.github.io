@@ -1,6 +1,6 @@
 /**
  * The case-study content types, in the fields the principal framework asks
- * for (research/design/principal-ux-case-study-framework.md).
+ * for (docs/case-study/principal-ux-case-study-framework.md).
  *
  * Split out of caseStudies.ts on 2026-09-09 so that a type change and a
  * content change never have to touch the same file: the content file is
@@ -191,7 +191,7 @@ export interface Stat {
 
 /**
  * One case study, in the fields the principal framework asks for
- * (research/design/principal-ux-case-study-framework.md). The pre-2026-09-09
+ * (docs/case-study/principal-ux-case-study-framework.md). The pre-2026-09-09
  * shape — a single overview paragraph, `context`, `turn`, `solutionSteps`,
  * `team`, `ownedThemes`, `leadership` — was removed once the last study was
  * migrated, along with the transitional rendering that carried it. A study

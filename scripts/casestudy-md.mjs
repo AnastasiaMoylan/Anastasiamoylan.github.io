@@ -1,7 +1,7 @@
 // Emits one reviewable Markdown file per case study, in the order the page
 // renders it, with a word count per section against the budgets recorded on
-// the `CaseStudy` type. Output goes to research/generated/case-studies/<slug>.page.md
-// (research/ is gitignored), so the review copy can never drift from the site:
+// the `CaseStudy` type. Output goes to docs/generated/case-studies/<slug>.page.md
+// (docs/ is gitignored), so the review copy can never drift from the site:
 // it is generated from src/data, the same rule llms.txt and resume.txt follow.
 //
 //   node scripts/casestudy-md.mjs            # all studies
@@ -10,7 +10,7 @@
 // Images are stubbed to their import path, so no Vite is needed.
 //
 // Section order and names follow the principal framework
-// (research/design/principal-ux-case-study-framework.md) as `buildSections`
+// (docs/case-study/principal-ux-case-study-framework.md) as `buildSections`
 // renders it: three parents, nine children (Layout C added the parking lot). Rewritten 2026-09-09 when the
 // two-layer trailer/proof order went; the budgets are the ones on the type.
 
@@ -18,7 +18,7 @@ import { build } from "esbuild";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const OUT_DIR = "research/generated/case-studies";
+const OUT_DIR = "docs/generated/case-studies";
 
 // Word budgets from the CaseStudy type comments. Counts (rows, items) are the
 // framework's own limits.

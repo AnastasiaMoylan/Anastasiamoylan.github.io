@@ -9,10 +9,10 @@
 ## 1. What got crossed
 
 The site shipped **Layout F ("The Lede, second pass")**, not **Layout C ("The Lede")**.
-`research/design/layout-prototypes/index.html` calls F "the current direction", and
+`docs/case-study/prototypes/index.html` calls F "the current direction", and
 `PROGRESS.md` records "**F is the direction that shipped**". F was built as C with two
 fixes — a type scale and one vertical navigation — but in doing so it dropped most of what
-makes C read as a newspaper front page. `research/design/rendered-case-study.html` is the
+makes C read as a newspaper front page. `docs/archive/renders/rendered-case-study.html` is the
 prerendered output of that F build.
 
 ### What C has that the site does not
@@ -33,7 +33,7 @@ prerendered output of that F build.
 
 ### The improvements you remembered — where they are documented
 
-1. **`research/design/2026-09-09-case-study-design-review.md`**
+1. **`docs/case-study/2026-09-09-case-study-design-review.md`**
    - "What was added to prototype C": the **colour cross-reference** (shipped) and the
      **parking lot** (not shipped).
    - Round three: the **annotated screenshot with numbered pins** (in C, not shipped); status
@@ -299,7 +299,7 @@ pre-filled with **what the repo currently claims, with the file that claims it**
 interview question is "confirm or correct" rather than "tell me from scratch". Every row
 has a `confirmed` column that starts empty; case-study copy is written only from confirmed
 rows. Publishable facts only: the repo is public, so real client names and NDA material
-stay out of it (the `research/source/` notes remain the private record).
+stay out of it (the `docs/source/` notes remain the private record).
 
 The interview runs one question at a time, study by study, starting with the billing
 workflow because Task D depends on it.
