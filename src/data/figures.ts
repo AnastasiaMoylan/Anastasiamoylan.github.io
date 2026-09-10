@@ -19,6 +19,15 @@ export const figures = {
   researchEngagementsWord: "Four",
   programScale: "eight-figure",
   programScaleShort: "8-figure",
+  // Pilot scale. Removed 2026-09-03 as unsourced, restored 2026-09-09 on
+  // Anastasia's explicit instruction ("keep these figures"). Her own account;
+  // not read from a project record, which `impact.metricStatus` says on the
+  // page. What "300" counts — provisioned, onboarded or active — is still
+  // unconfirmed, and the 1,000+ is a plan rather than a delivery.
+  financePilotUsers: 10,
+  financeScaledUsers: 300,
+  financePlannedUsers: "1,000+",
+
   // Application-level designers Anastasia directs; not reports. Extraction
   // interview 2026-08-25.
   designersDirected: 6,
@@ -31,12 +40,19 @@ export const figures = {
   // Billing workflow (CWO) — project record and the prioritization board.
   // A `billingAdoptionTarget: 100` lived here until 2026-09-08. Anastasia has
   // no record of setting a 100-user target, so it was removed rather than
-  // restated with a weaker source; the returning-user count is what's left.
-  billingMustHaveShipped: "12 of 21",
+  // restated with a weaker source; the user count is what's left.
+  //
+  // `billingMustHaveShipped: "12 of 21"` was removed 2026-09-09: the rewrite's
+  // validated-proof list does not carry it, and a figure kept here with no
+  // surface reading it is a figure waiting to drift.
   billingStatusStates: 6,
-  // Anastasia's own account, 2026-09-04. The return window is unconfirmed, so
-  // this is stated as a bare count, never as a rate or a share of a target.
-  billingReturningUsers: 70,
-  billingReturningAsOf: "September 2026",
-  billingReturningAsOfShort: "Sep 2026",
+  // Anastasia's own account, 2026-09-09. Both were restated that day: the
+  // count moved from "returning" to "active" users, and the backlog it cleared
+  // is stated as a size rather than left implicit. Neither is read from the
+  // project record, which `impact.metricStatus` says on the page. Refresh the
+  // user count before publishing.
+  billingActiveUsers: 70,
+  billingActiveAsOf: "September 2026",
+  billingActiveAsOfShort: "Sep 2026",
+  billingBacklogSize: "a few hundred",
 } as const;

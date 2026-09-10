@@ -322,3 +322,33 @@ left on the hackathon). The Finance Cloud role stays "Product Experience Lead" (
 the rewrite's "Lead Product Designer" is not applied). The rewrite's "confidence thresholds set with
 ML engineering" is not applied: the 2026-09-03 correction stands (model defined, cut-offs pending).
 Every composed or changed line carries `[NEEDS SIGN-OFF]` in the data.
+
+---
+
+## Update — Finance Cloud migrated
+
+**Phase 3 is now 3 of 4.** Finance Cloud carries the three-line overview, `claim`, `productFraming`,
+`hmw`, six `constraints`, `scope`, six rewritten decisions, the five-finding evidence table,
+`measureNext` and a new metric caveat. Its seven pre-migration fields are gone; `states` and the
+stat band were kept, both unchanged. Only the Connected Customer Journey is left, and it has no
+rewrite document.
+
+**It resolved a standing contradiction rather than adding one.** The coded diagrams on this study
+render the sandbox-and-promotion product, which the previous copy no longer described. The prose and
+the figures now tell the same story again.
+
+**The pilot-scale figures are back.** `financePilotUsers`, `financeScaledUsers` and
+`financePlannedUsers` are in `figures.ts` with provenance, restored on Anastasia's explicit
+instruction after being pulled as unsourced on 2026-09-03. `impact.metricStatus` states plainly that
+they are her account rather than a project record, that what 300 counts is unconfirmed, and that the
+1,000+ is a plan.
+
+**Still open on this study:** the role changed to Lead Product Designer and the status to a working
+POC, both needing confirmation across the card, the H1, the next link, the title tag and the résumé.
+And open question 3 is untouched — whether the hackathon or the pilot arc should lead. Both are on
+the page: the band keeps the hackathon, the claim and Outcome carry the arc.
+
+**Dev-server note.** A Vite process had been running since before the rebuild and was serving a
+stale module graph — deleted components still resolving, none of the new type tokens present.
+Restarting it was the fix. If the layout ever looks unchanged, restart `npm run dev` before
+debugging anything else.
