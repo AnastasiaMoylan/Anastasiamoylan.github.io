@@ -312,7 +312,7 @@ Read the whole file above first; nothing in it is superseded except where this b
 | 0 | Commit the uncommitted tree in the split commits listed under *Committing*, then continue in a worktree on branch `case-study/principal-framework` | ✅ |
 | 3 | Finance Cloud migration to the eight-child shape | ✅ (migrated by a parallel session; coherence repaired here) |
 | 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ✅ |
-| 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ⬜ |
+| 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ✅ (drawn diagrams wired by the parallel session; flow panels wired here) |
 | 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | ⬜ |
 
 **Decisions this run applies, with their source.** The "10 → 300 → 1,000+" figures return as Finance
@@ -419,3 +419,31 @@ the résumé check at `scope.owned`.
 reports the lede, the eight children, and counts against the type budgets and the framework's
 limits (constraints 4–6, decisions 3–6, findings ≤5, proof ≤4, tags ≤3), and flags a claim that
 fell through to the tagline.
+
+---
+
+## Update — Phase 6 done: every flow on the site is legible
+
+**The ten billing panels were never wired.** The earlier note in this file said each "displays at 62%
+of source"; in fact `caseStudies.ts` still imported the two 8,818px and 6,368px originals and
+nothing referenced the panels. They are wired now, in `processImages`, nine flow panels at a display
+scale of 0.55 (labels about 16px), with the review user stories under Evidence via `cwoDiagrams.tsx`.
+The two originals stay in the folder, unimported.
+
+**The mechanism:** `CaseStudyImage.displayScale`. A panel renders at that fraction of its intrinsic
+width in CSS pixels and scrolls sideways inside its own container when wider than the column; the
+page never scrolls sideways. `ImageGallery` honours it; images without it fit the column as before.
+
+**The Document AI flow got the same treatment.** `di/user-flows.jpg` (9,000 × 2,196) has no
+ink-free columns, so it was cut at the three columns where a cut crosses only a connector line and
+no node (found programmatically as the columns with the least ink: 2,530 / 4,773 / 6,964), then
+each panel cropped to its content. Four panels, `di/user-flow-01…04.jpg`, at display scale 0.75:
+the board's type is small and 0.75 is the lowest scale that keeps its labels near the 11px floor.
+The original stays in the folder, unimported.
+
+**Vocabulary to confirm before shipping** (all flagged in the data): billing panel 01 reads "Enter
+Attuid" and names the roles; the report panel says "BOC"; the Document AI panels carry the team's
+own sticky notes (the research questions, a "current pain point" callout). Every new caption is
+`[NEEDS SIGN-OFF]`.
+
+**Gates:** `npm run typecheck` and `npm run build` pass.

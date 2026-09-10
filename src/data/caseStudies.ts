@@ -28,10 +28,24 @@ import cwoPackageIndex from "../assets/case-studies/cwo/package-index.jpg?previe
 import cwoPackageIndexFull from "../assets/case-studies/cwo/package-index.jpg";
 import cwoBillingReport from "../assets/case-studies/cwo/billing-report.jpg?preview";
 import cwoBillingReportFull from "../assets/case-studies/cwo/billing-report.jpg";
-import cwoCreationFlow from "../assets/case-studies/cwo/creation-flow.jpg?preview";
-import cwoCreationFlowFull from "../assets/case-studies/cwo/creation-flow.jpg";
-import cwoFlow from "../assets/case-studies/cwo/flow.jpg?preview";
-import cwoFlowFull from "../assets/case-studies/cwo/flow.jpg";
+import cwoCreation01 from "../assets/case-studies/cwo/creation-flow-01.jpg?preview";
+import cwoCreation01Full from "../assets/case-studies/cwo/creation-flow-01.jpg";
+import cwoCreation02 from "../assets/case-studies/cwo/creation-flow-02.jpg?preview";
+import cwoCreation02Full from "../assets/case-studies/cwo/creation-flow-02.jpg";
+import cwoCreation02b from "../assets/case-studies/cwo/creation-flow-02b.jpg?preview";
+import cwoCreation02bFull from "../assets/case-studies/cwo/creation-flow-02b.jpg";
+import cwoCreation03 from "../assets/case-studies/cwo/creation-flow-03.jpg?preview";
+import cwoCreation03Full from "../assets/case-studies/cwo/creation-flow-03.jpg";
+import cwoCreation04 from "../assets/case-studies/cwo/creation-flow-04.jpg?preview";
+import cwoCreation04Full from "../assets/case-studies/cwo/creation-flow-04.jpg";
+import cwoCreation05 from "../assets/case-studies/cwo/creation-flow-05.jpg?preview";
+import cwoCreation05Full from "../assets/case-studies/cwo/creation-flow-05.jpg";
+import cwoReview01 from "../assets/case-studies/cwo/review-flow-01.jpg?preview";
+import cwoReview01Full from "../assets/case-studies/cwo/review-flow-01.jpg";
+import cwoReview02 from "../assets/case-studies/cwo/review-flow-02.jpg?preview";
+import cwoReview02Full from "../assets/case-studies/cwo/review-flow-02.jpg";
+import cwoReview03 from "../assets/case-studies/cwo/review-flow-03.jpg?preview";
+import cwoReview03Full from "../assets/case-studies/cwo/review-flow-03.jpg";
 import cwoStrategyAlignment from "../assets/case-studies/cwo/strategy-alignment.jpg?preview";
 import cwoStrategyAlignmentFull from "../assets/case-studies/cwo/strategy-alignment.jpg";
 // Diagram drawn 2026-09-08 with the diagram-design plugin; source is the
@@ -40,8 +54,14 @@ import cwoStatusModel from "../assets/case-studies/cwo/status-model.png?preview"
 import cwoStatusModelFull from "../assets/case-studies/cwo/status-model.png";
 import gafFrontDoor from "../assets/case-studies/gaf/front-door-flow.png?preview";
 import gafFrontDoorFull from "../assets/case-studies/gaf/front-door-flow.png";
-import diUserFlows from "../assets/case-studies/di/user-flows.jpg?preview";
-import diUserFlowsFull from "../assets/case-studies/di/user-flows.jpg";
+import diFlow01 from "../assets/case-studies/di/user-flow-01.jpg?preview";
+import diFlow01Full from "../assets/case-studies/di/user-flow-01.jpg";
+import diFlow02 from "../assets/case-studies/di/user-flow-02.jpg?preview";
+import diFlow02Full from "../assets/case-studies/di/user-flow-02.jpg";
+import diFlow03 from "../assets/case-studies/di/user-flow-03.jpg?preview";
+import diFlow03Full from "../assets/case-studies/di/user-flow-03.jpg";
+import diFlow04 from "../assets/case-studies/di/user-flow-04.jpg?preview";
+import diFlow04Full from "../assets/case-studies/di/user-flow-04.jpg";
 
 export interface CaseStudyImage {
   src: string;
@@ -58,6 +78,14 @@ export interface CaseStudyImage {
   alt: string;
   /** Required. States the decision the image shows, not what is in the frame. */
   caption: string;
+  /**
+   * Render at this fraction of the intrinsic width in CSS pixels instead of
+   * fitting the column. For a panel cut from a wide flow: fitted to a column,
+   * a 2,250px panel renders its 30px labels at 10px, under the site's floor.
+   * At 0.55 they are 16px. A panel wider than the column scrolls sideways in
+   * its own container; the page never does.
+   */
+  displayScale?: number;
 }
 
 /**
@@ -1182,33 +1210,116 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Reverts cleanly without affecting the rest of the package",
       },
     ],
-    // The flows behind the screens. Two notes on why these are here rather
-    // than beside a decision: the MVP1 workflow board left the page because
-    // the creation flow covers it, and the scope board's full-resolution
-    // version carries internal release targets.
+    // The flows behind the screens. The two source flows (creation-flow.jpg,
+    // 8818 wide; flow.jpg, 6368 wide) rendered their labels at about 6px when
+    // fitted to the column, so on 2026-09-09 they were cut into panels at
+    // columns with no ink across every horizontal band — no cut passes
+    // through a node — and each panel displays at 0.55 of its source, which
+    // puts the labels at about 16px. The originals stay in the folder,
+    // unimported, for the record.
     //
-    // `package-create-validation.jpg` sits unimported in this study's assets:
-    // the create dialog was dropped from the page 2026-09-08, "for now", so
-    // the screenshot is kept for when it returns. Unimported files are not
-    // bundled, so it costs the build nothing.
+    // [NEEDS SIGN-OFF] on every caption below, and on the vocabulary: the
+    // first creation panel reads "Enter Attuid" and names the roles, and the
+    // report panel says "BOC". Confirm these are publishable or mask them
+    // before this ships.
+    //
+    // Two notes on why these are here rather than beside a decision: the MVP1
+    // workflow board left the page because the creation flow covers it, and
+    // the scope board's full-resolution version carries internal release
+    // targets. `package-create-validation.jpg` sits unimported in this
+    // study's assets: the create dialog was dropped from the page 2026-09-08,
+    // "for now", so the screenshot is kept for when it returns. Unimported
+    // files are not bundled, so it costs the build nothing.
     processImages: [
       {
-        src: cwoCreationFlow,
-        fullSrc: cwoCreationFlowFull,
-        width: 8818,
-        height: 1862,
-        alt: "Billing package creation flow diagram showing role-based branching for admin, accountant, engineer, collections, and view-only report roles, from sign-in through review, export, and finalization.",
+        src: cwoCreation01,
+        fullSrc: cwoCreation01Full,
+        width: 2250,
+        height: 857,
+        displayScale: 0.55,
+        alt: "Creation flow, start: sign in with a user ID, a check that the user has permissions, then a decision on the user's role — admin, accountant, engineer or collections — leading to a dashboard of the billing packages associated with the account.",
         caption:
-          "Creation flow: role-based branching from sign-in through review, export, and finalization.",
+          "Roles branch at sign-in, before any package exists: who you are decides what you can create and what you can only view.",
       },
       {
-        src: cwoFlow,
-        fullSrc: cwoFlowFull,
-        width: 6368,
-        height: 2536,
-        alt: "Review flow diagram showing a reviewer starting a review, making inline edits with save or discard options, completing the review, and submitting with a git-style commit message.",
+        src: cwoCreation02,
+        fullSrc: cwoCreation02Full,
+        width: 1260,
+        height: 857,
+        displayScale: 0.55,
+        alt: "Creation flow: the start-package step, then a decision that branches when the user is an engineer.",
         caption:
-          "Review as its own state machine — inline edits, save or discard, and a commit message before anything is finalized.",
+          "Starting a package is the first fork: an engineer's path leaves the accountant's here.",
+      },
+      {
+        src: cwoCreation02b,
+        fullSrc: cwoCreation02bFull,
+        width: 1428,
+        height: 700,
+        displayScale: 0.55,
+        alt: "Creation flow, the billing package branch: assign owner, assign reviewers, then the create step, which triggers screenshot generation.",
+        caption:
+          "Owner and reviewers are assigned before the package is created, so it never exists without someone responsible for it.",
+      },
+      {
+        src: cwoCreation03,
+        fullSrc: cwoCreation03Full,
+        width: 1488,
+        height: 817,
+        displayScale: 0.55,
+        alt: "The view-billing-package screen as a card: attributes — owner, reviewers, task, task status — and detail — the company invoice, summary of charges, bill of charges, vendor-invoice screenshots, and state forms marked to be decided; an arrow leads on to the review process.",
+        caption:
+          "The package is one object with a visible owner, reviewers and task status — the metadata that keeps it from disappearing between systems.",
+      },
+      {
+        src: cwoCreation04,
+        fullSrc: cwoCreation04Full,
+        width: 1494,
+        height: 443,
+        displayScale: 0.55,
+        alt: "Creation flow: a decision branching to an Excel spreadsheet or a PDF export with screenshots, merging again afterwards.",
+        caption:
+          "Two outputs from one package: the spreadsheet for editing, the PDF with screenshots for submission.",
+      },
+      {
+        src: cwoCreation05,
+        fullSrc: cwoCreation05Full,
+        width: 1650,
+        height: 579,
+        displayScale: 0.55,
+        alt: "Creation flow, the one-time report branch, with the engineer as primary user: a view-report card with summary of charges and bill of charges, then a choice of Excel spreadsheet or PDF without screenshots.",
+        caption:
+          "Engineers get a one-time report rather than the full package — a read path scoped to the role.",
+      },
+      {
+        src: cwoReview01,
+        fullSrc: cwoReview01Full,
+        width: 1942,
+        height: 1833,
+        displayScale: 0.55,
+        alt: "Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.",
+        caption:
+          "Starting a review locks the package to one reviewer; everyone else reads until it is done.",
+      },
+      {
+        src: cwoReview02,
+        fullSrc: cwoReview02Full,
+        width: 1206,
+        height: 1739,
+        displayScale: 0.55,
+        alt: "Review flow, completion: complete review, select the next reviewer, write a git-style commit message, submit; the package status becomes ready for review, with start-review enabled again.",
+        caption:
+          "Every review ends with a commit message and a named next reviewer, so the handoff has a record and an owner.",
+      },
+      {
+        src: cwoReview03,
+        fullSrc: cwoReview03Full,
+        width: 1622,
+        height: 671,
+        displayScale: 0.55,
+        alt: "Review flow, end: after submission two notifications go out in parallel — an emailed notification to the owner that the review is complete, when the reviewer is not the owner, and an emailed review request to the assigned reviewer — then the flow ends.",
+        caption:
+          "The handoff notifies both sides at once: the owner that a review finished, the next reviewer that one is waiting.",
       },
       {
         src: cwoStrategyAlignment,
@@ -1453,17 +1564,60 @@ export const caseStudies: Record<string, CaseStudy> = {
           "designing screens per feature and rationalizing the grid afterward, with an accessibility review before launch — an order that produces a system which cannot absorb the next widget and an audit that arrives too late to change anything",
       },
     ],
-    // The study's only figure. It carries the whole flow rather than one decision,
-    // so it stays at study level and renders after the decisions list.
+    // The end-to-end flow, which carries the whole path rather than one
+    // decision, so it stays at study level and renders after the decisions.
+    //
+    // The source (user-flows.jpg, 9000 x 2196) rendered its labels at about
+    // 4px fitted to the column, the defect the billing flows had. On
+    // 2026-09-09 it was cut into four panels at the three columns where a cut
+    // crosses only a connector line and no node (found programmatically as
+    // the columns with the least ink), and each panel displays at 0.75 of its
+    // source: the board's type is small, and 0.75 is the lowest scale that
+    // keeps its labels near the site's 11px floor. The original stays in the
+    // folder, unimported. Every caption below is authored from the study's
+    // own decisions and is [NEEDS SIGN-OFF]. The panels carry two of the
+    // team's own sticky notes (research questions, a "current pain point"
+    // callout); confirm they are publishable.
     images: [
       {
-        src: diUserFlows,
-        fullSrc: diUserFlowsFull,
-        width: 9000,
-        height: 2196,
-        alt: "End-to-end user flow diagram. A landing path leads into company knowledge, then a chat session where a prompt returns an LLM response with listed citations and sources, opening a document in place or in an external tab. A wider end-to-end comparison flow runs from a new chat through selecting general knowledge, company knowledge, or personal files, choosing a docs, data, or workflow domain, and starting a chat that branches into asking a question, comparing documents, finding a document, or creating a draft, then searching and selecting files, returning a summary response with follow-up prompts and feedback, and ending in viewing the document, a diff, or a table.",
+        src: diFlow01,
+        fullSrc: diFlow01Full,
+        width: 2490,
+        height: 1865,
+        displayScale: 0.75,
+        alt: "The Landing and Company knowledge boards. On landing, a user chooses general knowledge, company knowledge or my files. Company knowledge opens a choice of knowledge type — docs, data tables, datasets, workflow — then a domain. If access is granted, the domain's details open and the user picks basic or advanced chat; if not, the flow ends beside a note asking for a way to request access. Sticky notes record the open research questions: whether users know how to select a domain and what they can search with, and whether they know what basic and advanced chat mean. A legend keys user actions in blue against system steps in black.",
         caption:
-          "End-to-end flow: choosing a governed domain before the chat begins scopes every session to a known set of company sources, so asking, comparing, finding, and drafting all resolve back to listed citations and the original document.",
+          "Choosing a governed domain before the chat begins scopes every session to a known set of company sources — and a denied domain gets a real branch, not a dead end.",
+      },
+      {
+        src: diFlow02,
+        fullSrc: diFlow02Full,
+        width: 2243,
+        height: 1876,
+        displayScale: 0.75,
+        alt: "The chat-session strip and the start of the end-to-end comparison flow. In a session the user inputs a prompt, the model responds, and the answer lists its citations and sources; a source opens in place — chat with the document, then close it, with the context narrowed to that document — or in an external tab. Below, a new chat starts by selecting general knowledge, company knowledge or my files, then a docs, data or workflow domain, then Select domain and Start chat. A callout marks the current pain point: shorter bulleted lists of capabilities.",
+        caption:
+          "A cited source opens in place and narrows the context to that one document, so verifying an answer continues the conversation instead of leaving it.",
+      },
+      {
+        src: diFlow03,
+        fullSrc: diFlow03Full,
+        width: 2191,
+        height: 1329,
+        displayScale: 0.75,
+        alt: "The middle of the comparison flow. From a started chat the user asks a question, compares documents, finds a document or creates a draft. Compare and find lead to searching files by keyword or by category, then selecting files; no search results ends the flow. Create draft triggers focus mode and returns a response the user can edit, export or chat about.",
+        caption:
+          "Ask, compare, find and draft share one entry — files searched by keyword or category and selected explicitly — so every path resolves to a known set of documents.",
+      },
+      {
+        src: diFlow04,
+        fullSrc: diFlow04Full,
+        width: 1996,
+        height: 1329,
+        displayScale: 0.75,
+        alt: "The end of the comparison flow. With two documents selected, a summary response with follow-up prompts and feedback offers to view the document diff, then to ask a question and get a response. With more than two selected, the summary response offers a document diff or a table view.",
+        caption:
+          "The count decides the view: two documents open a diff, more than two open a table.",
       },
     ],
     impact: {

@@ -16,14 +16,35 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
               aria-label={`Enlarge image: ${image.caption}`}
               className="group relative block w-full p-2 sm:p-3 rounded-md border border-border overflow-hidden bg-card cursor-zoom-in focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              <img
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                className="w-full h-auto block rounded-sm"
-                loading="lazy"
-              />
+              {/*
+                A panel with a display scale renders at that fraction of its
+                source width, so its labels stay legible, and scrolls sideways
+                inside this container when it is wider than the column. The
+                page itself never scrolls sideways. Everything else fits the
+                column as before.
+              */}
+              {image.displayScale ? (
+                <div className="overflow-x-auto">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    width={image.width}
+                    height={image.height}
+                    style={{ width: image.width * image.displayScale }}
+                    className="block h-auto max-w-none rounded-sm"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  className="w-full h-auto block rounded-sm"
+                  loading="lazy"
+                />
+              )}
               {/*
                 Always visible, not hover-revealed: touch devices have no hover,
                 and on desktop a reader scrolling past never learns the flows
