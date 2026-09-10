@@ -8,6 +8,11 @@
 //   node scripts/casestudy-md.mjs finance-cloud
 //
 // Images are stubbed to their import path, so no Vite is needed.
+//
+// Section order and names follow the principal framework
+// (research/design/principal-ux-case-study-framework.md) as `buildSections`
+// renders it: three parents, eight children. Rewritten 2026-09-09 when the
+// two-layer trailer/proof order went; the budgets are the ones on the type.
 
 import { build } from "esbuild";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -15,17 +20,25 @@ import { join } from "node:path";
 
 const OUT_DIR = "research/generated/case-studies";
 
-// Budgets from the CaseStudy type comments and research/decisions/case-study-layout.md §3.
+// Word budgets from the CaseStudy type comments. Counts (rows, items) are the
+// framework's own limits.
 const BUDGET = {
+  claim: 20,
   overview: 70,
-  context: 60,
+  productFraming: 90,
   framing: 100,
+  hmw: 30,
   insight: 25,
-  turn: 75,
-  solutionBody: 120,
-  impact: 150,
-  trailer: 450,
   evidenceBody: 30,
+  impact: 150,
+  metricStatus: 50,
+};
+const LIMIT = {
+  constraints: [4, 6],
+  decisions: [3, 6],
+  findings: [0, 5],
+  proof: [0, 4],
+  tags: [0, 3],
 };
 
 const imgStub = {
@@ -61,6 +74,10 @@ const words = (s) => (s ? String(s).trim().split(/\s+/).filter(Boolean).length :
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 const budgetTag = (n, budget) =>
   budget == null ? `${n} words` : `${n} / ${budget} words${n > budget ? "  **OVER**" : ""}`;
+const countTag = (n, [lo, hi], noun) => {
+  const flag = n > hi ? "  **OVER**" : n < lo ? "  **UNDER**" : "";
+  return `${n} ${noun}, framework asks for ${lo ? `${lo} to ${hi}` : `at most ${hi}`}${flag}`;
+};
 
 function render(slug, cs) {
   const p = projects.find((x) => x.slug === slug);
@@ -76,181 +93,190 @@ function render(slug, cs) {
   L.push("note: review copy of what the page renders. Edit the data files, not this file.");
   L.push("---", "");
 
-  h(1, `${p?.title ?? slug}`);
-  if (p?.tagline) para(`*${p.tagline}*`);
+  // Lede: kicker, claim, byline, deck, scope grid, tags, stat band.
+  const ov = cs.overview ?? {};
+  const claim = cs.claim ?? ov.result ?? p?.tagline;
+  const claimSource = cs.claim ? "claim" : ov.result ? "overview.result (no claim written)" : "tagline (no claim written — describes the work, does not assert an outcome)";
+  counts.claim = words(claim);
 
-  // Hook: snapshot + stat band
-  h(2, "Hook: snapshot and stat band");
+  h(1, `${p?.title ?? slug}`);
+  if (p?.tagline) para(`*Card tagline:* ${p.tagline}`);
+  h(2, "Lede");
+  L.push(`- **Claim (h1)**, from ${claimSource}  (${budgetTag(counts.claim, BUDGET.claim)}): ${claim}`);
+  if (ov.approach) L.push(`- **Deck**: ${ov.approach}`);
   for (const f of cs.snapshotFields ?? []) L.push(`- **${f.label}:** ${f.value}`);
+  if (p?.tags?.length) L.push(`- **Tags** (${countTag(p.tags.length, LIMIT.tags, "tags")}): ${p.tags.join(" · ")}`);
   if (cs.stats?.length) {
-    L.push("");
+    L.push("", "At a glance:");
     for (const s of cs.stats) L.push(`- **${s.value}** — ${s.label}`);
   }
   L.push("");
 
-  // 01 Overview
-  counts.overview = words(cs.overview);
-  h(2, `01 Overview  (${budgetTag(counts.overview, BUDGET.overview)})`);
-  para(cs.overview);
+  // 01 Framing
+  h(2, "01 Framing — why this work mattered");
 
-  // 02 Problem
-  counts.context = words(cs.context);
+  counts.overview = words(ov.challenge) + words(ov.result) + words(ov.approach);
+  h(3, `Overview  (${budgetTag(counts.overview, BUDGET.overview)})`);
+  if (ov.challenge) L.push(`- **Challenge.** ${ov.challenge}`);
+  if (ov.result) L.push(`- **Result.** ${ov.result}`);
+  if (ov.approach) L.push(`- **Approach.** ${ov.approach}`);
+  L.push("");
+
+  counts.productFraming = words(cs.productFraming);
   counts.framing = sum((cs.framing ?? []).map((f) => words(f.text)));
+  if (cs.productFraming || cs.framing?.length) {
+    h(3, `Product framing  (${budgetTag(counts.productFraming, BUDGET.productFraming)})`);
+    para(cs.productFraming);
+    if (cs.framing?.length) {
+      L.push(`Hypothesis and metric block  (${budgetTag(counts.framing, BUDGET.framing)}):`);
+      for (const f of cs.framing) L.push(`- **${f.label}.** ${f.text}`);
+      L.push("");
+    }
+  }
+
+  counts.hmw = words(cs.hmw);
   counts.insight = words(cs.evidence?.insight);
-  h(2, "02 Problem");
-  h(3, `Context  (${budgetTag(counts.context, BUDGET.context)})`);
-  para(cs.context);
-  if (cs.framing?.length) {
-    h(3, `Framing  (${budgetTag(counts.framing, BUDGET.framing)})`);
-    for (const f of cs.framing) L.push(`- **${f.label}.** ${f.text}`);
-    L.push("");
-  }
-  if (cs.evidence?.insight) {
-    h(3, `Insight, pull-quote  (${budgetTag(counts.insight, BUDGET.insight)})`);
-    para(`> ${cs.evidence.insight}`);
+  counts.constraints = sum((cs.constraints ?? []).map((c) => words(c.constraint) + words(c.implication)));
+  const nConstraints = cs.constraints?.length ?? 0;
+  if (cs.hmw || nConstraints || cs.evidence?.insight) {
+    h(3, `The problem  (how-might-we ${budgetTag(counts.hmw, BUDGET.hmw)}; ${countTag(nConstraints, LIMIT.constraints, "constraints")}, ${counts.constraints} words)`);
+    if (cs.hmw) para(`**${cs.hmw}**`);
+    if (nConstraints) {
+      L.push("| Constraint | Implication for the product |", "|---|---|");
+      for (const c of cs.constraints) L.push(`| ${c.constraint} | ${c.implication} |`);
+      L.push("");
+    }
+    if (cs.evidence?.insight) {
+      L.push(`Insight, pull-quote  (${budgetTag(counts.insight, BUDGET.insight)}):`, "");
+      para(`> ${cs.evidence.insight}`);
+    }
   }
 
-  // 03 Turning point
-  counts.turn = words(cs.turn);
-  h(2, `03 Turning point  (${budgetTag(counts.turn, BUDGET.turn)})`);
-  para(cs.turn);
+  // 02 The work
+  h(2, "02 The work — what I decided and why");
 
-  // 04 Solution
-  counts.solutionBody = sum((cs.solutionSteps ?? []).map((s) => sum(s.points.map(words))));
-  counts.captions = sum(
-    (cs.solutionSteps ?? []).flatMap((s) => (s.images ?? []).map((i) => words(i.caption))),
-  );
-  h(2, `04 Solution  (${budgetTag(counts.solutionBody, BUDGET.solutionBody)}, captions ${counts.captions})`);
-  (cs.solutionSteps ?? []).forEach((s, i) => {
-    h(3, `Step ${i + 1}: ${s.title}`);
-    for (const pt of s.points) L.push(`- ${pt}`);
-    for (const img of s.images ?? []) L.push(`- *Image:* ${img.caption}`);
+  const sc = cs.scope ?? {};
+  const scopeBlocks = [
+    ["owned", "Owned"],
+    ["led", "Led"],
+    ["influenced", "Influenced beyond the design lane"],
+    ["workedWith", "Worked with"],
+  ].filter(([k]) => sc[k]);
+  counts.scope = sum(scopeBlocks.map(([k]) => words(sc[k])));
+  if (scopeBlocks.length) {
+    h(3, `Scope and ownership  (${scopeBlocks.length} of 4 blocks, ${counts.scope} words)`);
+    for (const [k, label] of scopeBlocks) L.push(`- **${label}.** ${sc[k]}  *(${words(sc[k])} words)*`);
+    const missing = ["owned", "led", "influenced", "workedWith"].filter((k) => !sc[k]);
+    if (missing.length) L.push("", `*Absent: ${missing.join(", ")}.*`);
     L.push("");
+  }
+
+  const decisions = cs.decisions ?? [];
+  counts.decisions = sum(decisions.map((d) => words(d.decision) + words(d.rationale) + words(d.rejected) + words(d.tradeoff)));
+  const noRejected = decisions.filter((d) => !d.rejected).length;
+  const noCost = decisions.filter((d) => !d.tradeoff).length;
+  h(3, `Key decisions  (${countTag(decisions.length, LIMIT.decisions, "decisions")}; ${counts.decisions} words; ${noRejected} without a rejected path, ${noCost} without a stated cost)`);
+  decisions.forEach((d, i) => {
+    L.push(`${i + 1}. **${d.decision}**`);
+    L.push(`   - Why: ${d.rationale}`);
+    L.push(`   - Rejected: ${d.rejected ?? "*(none stated — the framework asks for one)*"}`);
+    if (d.tradeoff) L.push(`   - Cost: ${d.tradeoff}`);
+    for (const img of d.images ?? []) L.push(`   - *Figure:* ${img.caption}`);
   });
-  const featured = (cs.decisions ?? []).find((d) => d.rejected && d.tradeoff) ?? cs.decisions?.[0];
-  if (featured) {
-    h(3, "Featured decision");
-    L.push(`- **Decision.** ${featured.decision}`);
-    L.push(`- **Why.** ${featured.rationale}`);
-    if (featured.rejected) L.push(`- **Rejected.** ${featured.rejected}`);
-    if (featured.tradeoff) L.push(`- **Cost.** ${featured.tradeoff}`);
-    L.push("");
-  }
+  L.push("");
+  counts.captions = sum([
+    ...decisions.flatMap((d) => (d.images ?? []).map((i) => words(i.caption))),
+    ...(cs.images ?? []).map((i) => words(i.caption)),
+    ...(cs.processImages ?? []).map((i) => words(i.caption)),
+  ]);
   if (cs.images?.length) {
-    h(3, "Gallery captions");
+    L.push("Study-level figures:");
     for (const img of cs.images) L.push(`- ${img.caption}`);
     L.push("");
   }
-
-  // 05 Outcomes
-  const im = cs.impact ?? {};
-  counts.impact =
-    words(im.headline) + words(im.business) + words(im.user) + words(im.organizational) +
-    words(im.before) + words(im.after) + sum((im.proof ?? []).map(words)) + words(im.metricStatus);
-  h(2, `05 Outcomes  (${budgetTag(counts.impact, BUDGET.impact)})`);
-  if (im.headline) para(`**${im.headline}**`);
-  for (const [k, label] of [["business", "Business"], ["user", "User"], ["organizational", "Organizational"]])
-    if (im[k]) L.push(`- **${label}.** ${im[k]}`);
-  if (im.before || im.after) L.push(`- **Before → after.** ${im.before ?? "—"} → ${im.after ?? "—"}`);
-  if (im.proof?.length) {
-    L.push("", "Proof points:");
-    for (const pr of im.proof) L.push(`- ${pr}`);
-  }
-  if (im.metricStatus) L.push("", `*Metric status:* ${im.metricStatus}`);
-  L.push("");
-
-  counts.trailer = counts.overview + counts.context + counts.turn + counts.solutionBody + counts.impact;
-  para(`> **Trailer prose (overview + context + turn + solution + outcomes): ${budgetTag(counts.trailer, BUDGET.trailer)}** — the five-minute read. Framing, insight, and captions are scanned, so they sit outside it.`);
-
-  // 06 Role and team
-  counts.leadership = sum((cs.leadership ?? []).map((l) => words(l.title) + words(l.detail)));
-  counts.ownedThemes = sum((cs.ownedThemes ?? []).map((o) => words(o.label) + words(o.detail)));
-  counts.team = sum((cs.team ?? []).map((t) => words(t.role) + words(t.owned)));
-  h(2, `06 Role and team  (leadership ${counts.leadership}, ownership ${counts.ownedThemes}, team ${counts.team} words)`);
-  if (cs.leadership?.length) {
-    h(3, "How I led");
-    for (const l of cs.leadership) L.push(`- **${l.kind} — ${l.title}.** ${l.detail}`);
-    L.push("");
-  }
-  if (cs.ownedThemes?.length) {
-    h(3, "What I owned");
-    for (const o of cs.ownedThemes) L.push(`- **${o.label}.** ${o.detail}`);
-    L.push("");
-  }
-  if (cs.team?.length) {
-    h(3, "Team");
-    for (const t of cs.team) L.push(`- ${t.role}${t.owned ? ` — ${t.owned}` : ""}`);
-    L.push("");
-  }
-
-  // 07 Research
-  counts.evidenceBody = words(cs.evidence?.body);
-  counts.findings = sum((cs.evidence?.findings ?? []).map((f) => words(f.finding) + words(f.response)));
-  h(2, `07 Research  (method ${budgetTag(counts.evidenceBody, BUDGET.evidenceBody)}; ${cs.evidence?.findings?.length ?? 0} findings, ${counts.findings} words)`);
-  para(cs.evidence?.body);
-  for (const f of cs.evidence?.findings ?? []) L.push(`- **Finding.** ${f.finding}\n  **Response.** ${f.response}`);
-  L.push("");
-
-  // 08 Reflection
-  const r = cs.reflection ?? {};
-  counts.reflection = words(r.learned) + words(r.wouldChange) + words(r.principle);
-  h(2, `08 Reflection  (${counts.reflection} words)`);
-  if (r.learned) L.push(`- **Learned.** ${r.learned}`);
-  if (r.wouldChange) L.push(`- **Would change.** ${r.wouldChange}`);
-  if (r.principle) L.push(`- **Principle.** ${r.principle}`);
-  L.push("");
-
-  // 09 Details
-  counts.decisions = sum((cs.decisions ?? []).map((d) => words(d.decision) + words(d.rationale) + words(d.rejected) + words(d.tradeoff)));
   counts.states = sum((cs.states ?? []).map((s) => words(s.state) + words(s.userSees) + words(s.recovery)));
-  const noCost = (cs.decisions ?? []).filter((d) => !d.tradeoff).length;
-  h(2, `09 Details  (decisions ${counts.decisions} words, ${cs.decisions?.length ?? 0} decisions, ${noCost} without a stated cost; states ${counts.states} words)`);
-  if (cs.decisions?.length) {
-    h(3, "Key decisions");
-    cs.decisions.forEach((d, i) => {
-      L.push(`${i + 1}. **${d.decision}**`);
-      L.push(`   - Why: ${d.rationale}`);
-      if (d.rejected) L.push(`   - Rejected: ${d.rejected}`);
-      L.push(`   - Cost: ${d.tradeoff ?? "*(none stated — a decision with no cost reads as no decision)*"}`);
-    });
-    L.push("");
-  }
   if (cs.states?.length) {
-    h(3, "Edge cases and recovery");
+    L.push(`Edge cases and recovery  (${cs.states.length} states, ${counts.states} words):`, "");
     L.push("| State | User sees | Recovery |", "|---|---|---|");
     for (const s of cs.states) L.push(`| ${s.state} | ${s.userSees ?? ""} | ${s.recovery ?? ""} |`);
     L.push("");
   }
   if (cs.processImages?.length) {
-    h(3, "Process image captions");
+    L.push("The flows behind the screens:");
     for (const img of cs.processImages) L.push(`- ${img.caption}`);
     L.push("");
   }
 
+  const ev = cs.evidence ?? {};
+  counts.evidenceBody = words(ev.body);
+  const findings = ev.findings ?? [];
+  counts.findings = sum(findings.map((f) => words(f.finding) + words(f.response)));
+  if (ev.body || findings.length) {
+    h(3, `Evidence  (method ${budgetTag(counts.evidenceBody, BUDGET.evidenceBody)}; ${countTag(findings.length, LIMIT.findings, "findings")}, ${counts.findings} words)`);
+    para(ev.body);
+    if (findings.length) {
+      L.push("| Research finding | Product response |", "|---|---|");
+      for (const f of findings) L.push(`| ${f.finding} | ${f.response} |`);
+      L.push("");
+    }
+  }
+
+  // 03 Results
+  h(2, "03 Results — what changed and what I learned");
+
+  const im = cs.impact ?? {};
+  counts.impact =
+    words(im.before) + words(im.after) + sum((im.proof ?? []).map(words)) + words(im.measureNext) + words(im.metricStatus);
+  const nProof = im.proof?.length ?? 0;
+  if (cs.impact) {
+    h(3, `Outcome  (${budgetTag(counts.impact, BUDGET.impact)}; ${countTag(nProof, LIMIT.proof, "proof points")})`);
+    L.push(`- **Before.** ${im.before ?? "—"}  *(${words(im.before)} words)*`);
+    L.push(`- **After.** ${im.after ?? "—"}  *(${words(im.after)} words)*`);
+    if (nProof) {
+      L.push("", "Validated proof:");
+      for (const pr of im.proof) L.push(`- ${pr}`);
+    }
+    if (im.measureNext) L.push("", `**What I would measure next.** ${im.measureNext}`);
+    if (im.metricStatus) L.push("", `*Metric status  (${budgetTag(words(im.metricStatus), BUDGET.metricStatus)}):* ${im.metricStatus}`);
+    else L.push("", "*Metric status: none — the framework asks for a disclaimer wherever a number cannot be attributed.*");
+    L.push("");
+  }
+
+  const r = cs.reflection ?? {};
+  counts.reflection = words(r.learned) + words(r.wouldChange) + words(r.principle);
+  if (cs.reflection) {
+    h(3, `What I learned  (${counts.reflection} words${r.wouldChange ? "; two paragraphs, the framework asks for one" : ""})`);
+    if (r.learned) para(r.learned);
+    if (r.wouldChange) para(r.wouldChange);
+    if (r.principle) para(`> ${r.principle}`);
+  }
+
+  // Sign-off flags: every [NEEDS SIGN-OFF] comment in the source is a claim
+  // the owner has not confirmed. Counted from the data file, not the page.
+  // (The bundle strips comments, so the count is read from the source text.)
+
   // Totals
-  const total = sum(Object.entries(counts).filter(([k]) => k !== "trailer").map(([, v]) => v));
+  const total = sum(Object.values(counts));
   h(2, "Word count by section");
   L.push("| Section | Words | Budget |", "|---|---|---|");
   const rows = [
+    ["Claim (h1)", counts.claim, BUDGET.claim],
     ["Overview", counts.overview, BUDGET.overview],
-    ["Context", counts.context, BUDGET.context],
-    ["Framing", counts.framing, BUDGET.framing],
+    ["Product framing", counts.productFraming, BUDGET.productFraming],
+    ["Hypothesis and metric block", counts.framing, BUDGET.framing],
+    ["How might we", counts.hmw, BUDGET.hmw],
+    ["Constraints table", counts.constraints, ""],
     ["Insight", counts.insight, BUDGET.insight],
-    ["Turning point", counts.turn, BUDGET.turn],
-    ["Solution body", counts.solutionBody, BUDGET.solutionBody],
-    ["Solution captions", counts.captions, ""],
-    ["Outcomes", counts.impact, BUDGET.impact],
-    ["Leadership (How I led)", counts.leadership, ""],
-    ["Ownership themes", counts.ownedThemes, ""],
-    ["Team", counts.team, ""],
-    ["Research method", counts.evidenceBody, BUDGET.evidenceBody],
-    ["Research findings", counts.findings, ""],
-    ["Reflection", counts.reflection, ""],
-    ["Decisions", counts.decisions, ""],
+    ["Scope and ownership", counts.scope, ""],
+    ["Key decisions", counts.decisions, ""],
+    ["Figure captions", counts.captions, ""],
     ["States", counts.states, ""],
+    ["Evidence method", counts.evidenceBody, BUDGET.evidenceBody],
+    ["Evidence findings", counts.findings, ""],
+    ["Outcome", counts.impact, BUDGET.impact],
+    ["What I learned", counts.reflection, ""],
   ];
   for (const [n, w, b] of rows) L.push(`| ${n} | ${w} | ${b === "" ? "" : b} |`);
-  L.push(`| **Trailer prose** | **${counts.trailer}** | ${BUDGET.trailer} |`);
   L.push(`| **Whole study** | **${total}** | |`);
   L.push("");
   return L.join("\n");

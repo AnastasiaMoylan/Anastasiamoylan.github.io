@@ -1,4 +1,4 @@
-import type { CaseStudy, CaseStudyImage } from "../../data/caseStudies";
+import type { CaseStudy } from "../../data/caseStudies";
 import type { Section } from "./types";
 import EvidenceTable from "./EvidenceTable";
 import ImageGallery from "./ImageGallery";
@@ -8,7 +8,6 @@ import OverviewSection from "./OverviewSection";
 import ProblemSection from "./ProblemSection";
 import ProductFraming from "./ProductFraming";
 import ScopeOwnership from "./ScopeOwnership";
-import SolutionSteps from "./SolutionSteps";
 import StatesRecovery from "./StatesRecovery";
 import WhatILearned from "./WhatILearned";
 
@@ -53,9 +52,8 @@ export interface SectionAugments {
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
  *
- * Several blocks below are marked transitional: they render the pre-2026-09-09
- * fields so no study loses content between this restructure and the copy
- * migration that follows it. Each one goes when the last study is migrated.
+ * The transitional fallbacks that rendered the pre-2026-09-09 fields went
+ * with the last migration, the same day. There is one shape now.
  */
 export default function buildSections(
   content: CaseStudy,
@@ -74,16 +72,16 @@ export default function buildSections(
     });
   }
 
-  // Transitional: `context` is the pre-2026-09-09 field this section replaces.
-  const productFraming = content.productFraming ?? content.context;
   const hasFraming = !!content.framing && content.framing.length > 0;
-  if (productFraming || hasFraming) {
+  if (content.productFraming || hasFraming) {
     sections.push({
       id: "product-framing",
       group: "framing",
       nav: "Product framing",
       heading: "Product framing",
-      content: <ProductFraming productFraming={productFraming} framing={content.framing} />,
+      content: (
+        <ProductFraming productFraming={content.productFraming} framing={content.framing} />
+      ),
     });
   }
 
@@ -101,41 +99,25 @@ export default function buildSections(
     });
   }
 
-  const hasLegacyScope =
-    !!content.team?.length || !!content.ownedThemes?.length || !!content.leadership?.length;
-  if (content.scope || hasLegacyScope) {
+  if (content.scope) {
     sections.push({
       id: "scope",
       group: "work",
       nav: "Scope and ownership",
       heading: "Scope and ownership",
-      content: (
-        <ScopeOwnership
-          scope={content.scope}
-          ownedThemes={content.ownedThemes}
-          team={content.team}
-          leadership={content.leadership}
-        />
-      ),
+      content: <ScopeOwnership scope={content.scope} />,
     });
   }
 
   if (content.decisions.length > 0) {
     /*
-      Transitional. The solution steps, the study-level gallery, and the
-      process images all used to have homes of their own: a Solution section
-      and two Details panels. The framework puts a visual with the claim it
-      proves, which for all three is a decision, so they render here until each
-      figure is attached to its own decision and the step prose is folded into
-      the overview's approach line and the ownership block.
-
-      The decisions lead and the step walk follows under its own label. Both
-      are numbered lists, and with the walk on top the section opened on a
-      numbering the reader had to tell apart from the one its heading promised.
+      The decisions lead. Three kinds of evidence follow under their own
+      labels, because each belongs to the section rather than to one decision:
+      study-level figures (a whole-flow diagram), the states table, and the
+      process flows. A figure that proves one decision is on that decision's
+      `images` and renders inside the list instead.
     */
-    const steps = content.solutionSteps ?? [];
-    const stepsCarryImages = steps.some((s) => s.images && s.images.length > 0);
-    const loose: CaseStudyImage[] = stepsCarryImages ? [] : (content.images ?? []);
+    const hasImages = !!content.images && content.images.length > 0;
     const hasStates = !!content.states && content.states.length > 0;
     const hasProcessImages = !!content.processImages && content.processImages.length > 0;
 
@@ -147,18 +129,10 @@ export default function buildSections(
       content: (
         <div className="flex flex-col gap-12">
           <KeyDecisions decisions={content.decisions} />
-          {steps.length > 0 && (
-            <div>
-              <h4 className="m-0 mb-6 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
-                How it works
-              </h4>
-              <SolutionSteps steps={steps} />
-            </div>
-          )}
-          {loose.length > 0 && <ImageGallery images={loose} />}
+          {hasImages && <ImageGallery images={content.images!} />}
           {hasStates && (
             <div>
-              <h4 className="m-0 mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
+              <h4 className="m-0 mb-4 text-label font-semibold uppercase tracking-[0.09em] text-muted-foreground">
                 Edge cases and recovery
               </h4>
               <StatesRecovery states={content.states!} />
@@ -166,7 +140,7 @@ export default function buildSections(
           )}
           {hasProcessImages && (
             <div>
-              <h4 className="m-0 mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
+              <h4 className="m-0 mb-4 text-label font-semibold uppercase tracking-[0.09em] text-muted-foreground">
                 The flows behind the screens
               </h4>
               <ImageGallery images={content.processImages!} />

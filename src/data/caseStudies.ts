@@ -60,31 +60,13 @@ export interface CaseStudyImage {
   caption: string;
 }
 
-/** A collaborator and, where known, what they owned. */
-export interface TeamMember {
-  role: string;
-  owned?: string;
-}
-
-/**
- * A condensed theme of ownership: a short lead plus one supporting line.
- *
- * Replaced a flat `owned` list, which tended to grow into a résumé dump — the
- * detail belongs in Key decisions, so this section only has to orient the
- * reader. The flat list and its fallback were removed 2026-09-04.
- */
-export interface OwnedTheme {
-  label: string;
-  detail: string;
-}
-
 /**
  * The overview as the framework's three lines: challenge, result, approach,
  * one sentence each. A recruiter should be able to stop here and know why the
  * work mattered.
  *
- * Studies still carrying the older single paragraph render it as-is until
- * they are migrated, which is why the field is a union.
+ * The result line doubles as the page's h1 when a study has no `claim`, and
+ * the approach line is the header's deck.
  */
 export interface OverviewLines {
   /** What was wrong or at stake. One sentence. */
@@ -177,21 +159,18 @@ export interface StateRecovery {
  * Outcomes. The stat band already restates the figures in display type, so
  * this section argues them rather than listing them again.
  *
- * Budget: headline 30 words; each narrative line 25; before and after 20
- * each; four proof points; the metric caveat 50. About 150 in all.
+ * The framework's order: the before/after pair, the validated proof, what to
+ * measure next, and the honest limits of the numbers. The headline and the
+ * business / user / organizational lines of the earlier shape went with the
+ * last migration (2026-09-09): the claim in the header is the headline now,
+ * and a narrative line that named a real change is a proof point.
+ *
+ * Budget: before and after 20 words each; four proof points; the metric
+ * caveat 50. About 150 in all.
  */
 export interface Impact {
-  /**
-   * Optional since 2026-09-09: the framework leads Outcome with the
-   * before/after pair, and a study that has one does not need a headline
-   * restating it.
-   */
-  headline?: string;
-  business?: string;
-  user?: string;
-  organizational?: string;
-  before?: string;
-  after?: string;
+  before: string;
+  after: string;
   /** NDA-safe validated proof points. Four at most. */
   proof?: string[];
   /** Why a hard metric is absent, when it is. */
@@ -225,51 +204,19 @@ export interface Stat {
 }
 
 /**
- * One line of the 'How I led' section.
- *
- * `kind` is the discipline the point belongs to, rendered as the card's
- * eyebrow. Four subcategories, so a reader sees the same person set strategy,
- * drew the screens, ran the research, and led the people. Cards stay in
- * authored order — adjacent same-kind cards read as a group on their own.
- * Condensed from `ownedThemes`; the fuller list renders beside it in Role and team.
+ * One case study, in the fields the principal framework asks for
+ * (research/design/principal-ux-case-study-framework.md). The pre-2026-09-09
+ * shape — a single overview paragraph, `context`, `turn`, `solutionSteps`,
+ * `team`, `ownedThemes`, `leadership` — was removed once the last study was
+ * migrated, along with the transitional rendering that carried it. A study
+ * that needs a section it does not have gets the field filled, not a new one.
  */
-export interface LeadershipPoint {
-  kind: "Product strategy" | "Design" | "Research" | "Team leadership";
-  title: string;
-  detail: string;
-}
-
-/**
- * One stage of the solution, carrying two supporting points at most.
- *
- * Budget: three or four steps, two points of about 15 words each, 120 words
- * across the section. Captions are counted separately; where a step carries
- * images, the caption states the decision and the points stay short.
- */
-export interface SolutionStep {
-  title: string;
-  points: string[];
-  /**
-   * The evidence for this step, rendered beside it. When any step carries
-   images, the study's separate gallery clump is suppressed — the screen sits
-   with the argument it proves.
-   */
-  images?: CaseStudyImage[];
-}
-
 export interface CaseStudy {
   snapshotFields: { label: string; value: string }[];
-  team?: TeamMember[];
   /** At-a-glance figures. Absent means the band doesn't render. */
   stats?: Stat[];
-  /**
-   * Challenge, result, approach — one sentence each. Budget 70 words.
-   *
-   * A plain string is the pre-2026-09-09 shape and still renders as one
-   * paragraph, so a study migrates when its copy is signed off rather than
-   * when the type changes.
-   */
-  overview?: string | OverviewLines;
+  /** Challenge, result, approach — one sentence each. Budget 70 words. */
+  overview?: OverviewLines;
   /**
    * The news, rendered as the page's h1 (added 2026-09-09 with the lede
    * header). One sentence, outcome-first, 20 words or fewer — it is the
@@ -293,34 +240,29 @@ export interface CaseStudy {
   constraints?: Constraint[];
   /** Owned, led, influenced beyond the lane, worked with. Renders in Scope and ownership. */
   scope?: Scope;
-  /** Hypothesis, success metric, constraint, and where it landed. Renders in Problem. Budget 100 words. */
+  /** Hypothesis, success metric, constraint, and where it landed. Renders in Product framing. Budget 100 words. */
   framing?: FramingItem[];
-  /** Direction and craft, split. Absent means the section doesn't render. */
-  leadership?: LeadershipPoint[];
-  /** The solution as an ordered walk, replacing a flat capability list. */
-  solutionSteps?: SolutionStep[];
   /**
-   * The messy middle: the one pivot, failure, or reversal, told straight in
-   * one paragraph. Budget 75 words. Where a diagram carries the arc, the prose
-   * does not repeat it.
-   */
-  turn?: string;
-  /**
-   * Process artifacts — working boards, end-to-end flows. Rendered in the deep
-   * dive as "The journey behind the screens", a separate container from the
-   * solution gallery so the story stays product-first.
+   * Process artifacts — working boards, end-to-end flows. Render at the end of
+   * Key decisions as "The flows behind the screens", after the decisions and
+   * the states, for the reader who wants the whole path at once.
    */
   processImages?: CaseStudyImage[];
-  /** Situation and constraint, opening Problem. Budget 60 words. Never restates the role. */
-  context?: string;
   evidence?: Evidence;
   /**
-   * Ownership as short themes. Renders in Role and team. The résumé's shared
-   * claims live in ownedStatements.ts; keep the two agreeing.
+   * Three to six, numbered. The core of the study. A figure that proves one
+   * decision belongs on that decision's `images`; `scope.owned` is where the
+   * résumé's shared ownership claims (ownedStatements.ts) have to keep agreeing
+   * with the study.
    */
-  ownedThemes?: OwnedTheme[];
   decisions: Decision[];
+  /** Edge cases and recovery, rendered as a table under Key decisions. */
   states?: StateRecovery[];
+  /**
+   * Figures that belong to the study rather than to one decision. Render after
+   * the decisions list. A figure that proves one decision goes on that
+   * decision instead.
+   */
   images?: CaseStudyImage[];
   impact?: Impact;
   reflection?: Reflection;
@@ -689,28 +631,33 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
   },
   "connected-customer-journey": {
+    // Migrated 2026-09-09 to the framework fields by mapping the study's own
+    // copy, signed off 2026-08-26, onto the new shape. No rewrite document
+    // exists for this study, so nothing here is new material: every field is
+    // her existing text unless a comment says otherwise. Where the mapping
+    // could not produce a line the framework asks for, the line is composed
+    // from her hypothesis and headline and flagged; a block the record cannot
+    // support (`scope.led`, `scope.influenced`) is left absent rather than
+    // invented, and the ownership figure draws two bands for the same reason.
     snapshotFields: [
       // Résumé ladder: Senior through Jul 2025, Lead from 2025. The engagement
       // role was leading design; the job title was Senior (aligned 2026-09-04).
       { label: "Role", value: "Senior UX Designer, leading design on the engagement" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential telecommunications company" },
-      { label: "Timeframe", value: "2024–2025" },
+      { label: "Timeframe", value: "2024\u20132025" },
       // "Completed, April 2025" read as shipped; the work never reached
       // customers. Venue (AWS re:Invent 2024) pending Amdocs permission to name.
       { label: "Status", value: "Showcase concept, not deployed to customers" },
-    ],
-    team: [
-      { role: "UX Design" },
-      { role: "Data Science" },
-      { role: "Marketing and CX" },
-      { role: "AI/NLP Engineering" },
-      { role: "Front-end and back-end engineering" },
-      { role: "Product Owners" },
+      // [NEEDS SIGN-OFF] Both composed for the header's scope grid: the users
+      // are the roles the flow serves, in the copy's own words; the team is
+      // the six disciplines the team grid used to list.
+      { label: "Users", value: "Analysts, marketing, CX and service teams, and customer-service representatives" },
+      { label: "Team", value: "UX design, data science, marketing and CX, AI/NLP engineering, front-end and back-end engineering, and product owners" },
     ],
     // No churn, conversion, or revenue metric is verified for this engagement
     // (see impact.metricStatus), so the band carries countable design outputs
-    // instead: the roles the flow spans, the surfaces in `images`, and the
+    // instead: the roles the flow spans, the surfaces in the decisions, and the
     // review rule. "0 → 1" was dropped 2026-09-03: a showcase concept that never
     // reached customers is not a zero-to-one product.
     stats: [
@@ -718,143 +665,72 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: "6", label: "Connected surfaces designed" },
       { value: "Required", label: "Human review before any AI message" },
     ],
-    // Cut to the 70-word budget 2026-09-04. The signal-to-monitoring walk it
-    // used to end on is the Solution section's four steps.
-    overview:
-      "As a Senior UX Designer at Amdocs Studios leading design on this engagement, I implemented the product vision for a connected customer journey at a telecommunications operator: turning predictive churn signals into action. I ran the research that tested the hypothesis behind the vision, and designed the flow end to end across the analyst who sees the risk, the customer who lives it, and the representative who resolves it.",
-    // Scorecard session record §4.7, CCJ block. Venue naming pending permission.
+    // The h1. Her Outcome headline, cut to the slot. [NEEDS SIGN-OFF]
+    claim:
+      "A churn score became a decision a person reviews, edits and monitors \u2014 shown as a concept, not deployed.",
+    // The three lines are her former context, headline and turning point,
+    // each cut to one sentence. [NEEDS SIGN-OFF] on the cuts.
+    overview: {
+      challenge:
+        "A telecommunications operator had predictive churn signals but no way to act on them: nothing connected detection to a reviewed action and its result.",
+      result:
+        "An end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits and monitors, shown as a concept rather than deployed.",
+      approach:
+        "Treat a prediction as the opening of a decision a person still has to make, with context beside the score and human review before any AI-drafted message goes out.",
+    },
+    // Her former `context` and the card's problem line, closed with the
+    // hypothesis. The last sentence is authored to say why a showcase is
+    // framed as proof rather than delivery. [NEEDS SIGN-OFF]
+    productFraming:
+      "A telecommunications operator had predictive churn signals but no way to act on them. Analysts, service teams, an AI layer, and the partner systems feeding it each held part of the picture, and nothing connected detection to a reviewed action, its launch, and what happened next. The gap between a model score and a human taking the right action for the right customer was entirely undesigned, and that gap was the bet: a churn score creates value only when the accountable person can act on it with context. The work was a showcase concept, so it had to prove that interaction model end to end rather than deploy it.",
+    // One line, not three: the constraint is a row in the table below and the
+    // success metric now closes Outcome as `measureNext`, in the same words.
     framing: [
-      // Status renders in the header fact line; not repeated here (2026-09-04).
       {
         label: "Hypothesis",
         text: "A churn score creates value only when the accountable person can act on it with context.",
       },
+    ],
+    // [NEEDS SIGN-OFF] Composed from her hypothesis and the review constraint;
+    // the framework asks for one and the record has none.
+    hmw:
+      "How might we turn a churn score into an action the accountable person can take with the customer\u2019s context in view \u2014 and review before it reaches the customer?",
+    // Each row is her text: the former framing constraint, the decision
+    // rationales, the context line and the metric status.
+    constraints: [
       {
-        label: "Success metric",
-        text:
-          "Not defined; as a showcase, none was expected. If deployed, I would hold it to churn in the contacted at-risk segment against an uncontacted control, with time from signal to launched action as the leading indicator.",
+        constraint: "AI-assisted messages and offers could affect the customer relationship",
+        implication:
+          "Marketing, CX and service users had to review and edit anything AI drafted before it reached a customer, on every channel in the journey",
       },
       {
-        label: "Constraint",
-        text:
-          "Every AI-drafted message required human review; chatbot-to-human handoff was gated on sentiment.",
+        constraint: "Chatbot-to-human handoff was gated on sentiment",
+        implication:
+          "Routine requests had to stay fast while the moments that needed empathy were protected, with the AI summary and suggested action carried across to the representative",
+      },
+      {
+        constraint:
+          "Analysts, service teams, an AI layer and the partner systems feeding it each held part of the picture",
+        implication:
+          "The flow had to be designed end to end across the analyst who sees the risk, the customer who lives it and the representative who resolves it, not as one more dashboard",
+      },
+      {
+        constraint: "A showcase concept that never reached customers",
+        implication:
+          "No churn, conversion or revenue metric could be measured, so the study proves an interaction model rather than adoption",
       },
     ],
-    leadership: [
-      {
-        kind: "Product strategy",
-        title: "Reframed the score as decision support",
-        detail:
-          "Paired predictions with lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
-      },
-      {
-        kind: "Product strategy",
-        title: "Held the line on human control",
-        detail:
-          "Required users to review and edit AI-assisted communication before it reached a customer, across every channel in the journey.",
-      },
-      {
-        kind: "Design",
-        title: "Designed the mitigation flow",
-        detail:
-          "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
-      },
-      {
-        kind: "Design",
-        title: "Designed the platform surfaces",
-        detail:
-          "Dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring.",
-      },
-    ],
-    solutionSteps: [
-      {
-        title: "Detect the risk",
-        points: [
-          "The dashboard leads with the KPIs at risk, each with why and a direct path to mitigate it",
-          "Segments build dynamically from churn-risk criteria rather than static lists",
-        ],
-        images: [
-          {
-            src: ccjDashboard,
-            fullSrc: ccjDashboardFull,
-            width: 1600,
-            height: 1024,
-            alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
-            caption:
-              "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
-          },
-        ],
-      },
-      {
-        title: "Explain the drop-off",
-        points: [
-          "Journey exploration shows where customers fail by entry channel, with the churned and continued share on each path",
-          "A segment-of-one timeline replays one customer's events against their churn risk",
-        ],
-        images: [
-          {
-            src: ccjJourneyExplorations,
-            fullSrc: ccjJourneyExplorationsFull,
-            width: 2400,
-            height: 1531,
-            alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
-            caption:
-                "Top-up failures churn differently by channel — mobile app, SMS, IVR — so mitigation targets the worst path, not every failure equally.",
-          },
-          {
-            src: ccjSegmentOfOne,
-            fullSrc: ccjSegmentOfOneFull,
-            width: 2400,
-            height: 1536,
-            alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
-            caption:
-                "One customer's journey on a timeline — a flagged risk resolves to real events before anyone chooses a mitigation.",
-          },
-        ],
-      },
-      {
-        title: "Decide with evidence",
-        points: [
-          "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first",
-          "AI drafts a message for a chosen audience and tone; the person edits the live preview before it goes out",
-        ],
-        images: [
-          {
-            src: ccjMitigationPlan,
-            fullSrc: ccjMitigationPlanFull,
-            width: 1600,
-            height: 1547,
-            alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
-            caption:
-                "The KPI's key drivers beside an AI-drafted, tone-controlled offer — a person edits the preview before anything launches.",
-          },
-        ],
-      },
-      {
-        title: "Act and monitor",
-        points: [
-          "A chatbot handles routine cases and hands off to a representative when sentiment and context call for a person",
-          "The representative works from an AI summary and suggested action; a declined offer loops back to adjustment",
-        ],
-        images: [
-          {
-            src: ccjChatExpanded,
-            fullSrc: ccjChatExpandedFull,
-            width: 1600,
-            height: 1024,
-            alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
-            caption:
-                "An AI summary and suggested action beside the live conversation — assistance in view, the representative in control.",
-          },
-        ],
-      },
-    ],
-    // Situation only (2026-09-04); the role line it carried is the overview's job.
-    context:
-      "A telecommunications operator had predictive churn signals but no way to act on them. Analysts, service teams, an AI layer, and the partner systems feeding it each held part of the picture, and nothing connected detection to a reviewed action, its launch, and what happened next.",
-    // Signed off by Anastasia 2026-08-26.
-    turn:
-      "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn't an answer. The reset came when we started treating a prediction as the opening of a decision a person still had to make — with the customer's context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
+    // Two blocks, not four. `owned` is her four ownership themes and the
+    // research line from her overview; `workedWith` is the team grid. Nothing
+    // in the record separates what she led from what she influenced beyond
+    // the design lane, so those blocks are absent and the ownership figure
+    // draws two bands to match. If she can write them, the figure grows.
+    scope: {
+      owned:
+        "The journey platform: dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization and performance monitoring, connected into one data-driven platform. Model output as decision support \u2014 predictions paired with customer context, lifecycle stage, behavior, sentiment and available actions, rather than an opaque score presented as a final answer. The end-to-end mitigation flow: risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring and iteration. Human control over AI messaging: users review and edit AI-assisted communication before it reaches a customer. And the research that tested the hypothesis behind the vision.",
+      workedWith:
+        "A cross-functional team: UX design, data science, marketing and CX, AI/NLP engineering, front-end and back-end engineering, and product owners.",
+    },
     evidence: {
       body:
         "User research against the hypothesis behind the vision: that a churn signal changes nothing unless the person responsible for the customer can see why it fired and act without leaving the context. It held.",
@@ -890,29 +766,22 @@ export const caseStudies: Record<string, CaseStudy> = {
       insight:
         "Predictive insight creates value only when the people responsible for the customer can understand the signal and act without losing its context.",
     },
-    ownedThemes: [
-      {
-        label: "The journey platform",
-        detail:
-          "Connected dynamic segmentation, predictive churn signals, sentiment and NPS health, AI-assisted messaging, offer customization, and performance monitoring into one data-driven platform.",
-      },
-      {
-        label: "Model output as decision support",
-        detail:
-          "Paired predictions with customer context, lifecycle stage, behavior, sentiment, and available actions, rather than presenting an opaque score as a final answer.",
-      },
-      {
-        label: "The end-to-end mitigation flow",
-        detail:
-          "Risk detection, context review, human-selected action, message or offer adjustment, launch, monitoring, and iteration.",
-      },
-      {
-        label: "Human control over AI messaging",
-        detail:
-          "Required users to review and edit AI-assisted communication before it reached a customer.",
-      },
-    ],
+    // Six decisions: the reset that used to be the Turning point section, her
+    // three earlier decisions, and two that the Solution walk and the
+    // leadership cards stated as design moves. The five product screens are
+    // attached to the decisions they prove, so the walk they illustrated is
+    // gone; its prose is the overview's approach line and the ownership block.
     decisions: [
+      // Signed off by Anastasia 2026-08-26 as the turning point; the decision
+      // line is the first sentence of it turned around. Rejected path in her
+      // words.
+      {
+        decision:
+          "Treated the churn prediction as the opening of a decision a person still had to make, not as the answer.",
+        rationale:
+          "The project reset partway through. We had been treating the churn prediction as the answer: surface the score, recommend an action, done. It isn\u2019t an answer. The reset came when we started treating a prediction as the opening of a decision \u2014 with the customer\u2019s context beside it, options to compare, and the ability to edit anything AI drafted before a customer ever saw it. Every surface got rebuilt around that.",
+        rejected: "surfacing the score, recommending an action, done",
+      },
       {
         decision:
           "Built customer segments dynamically from churn-risk criteria: issues, historic behavior, likelihood to churn.",
@@ -920,16 +789,83 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The model stayed correlated with real journey data instead of a one-time snapshot.",
         rejected: "static lists",
       },
+      // Solution steps 1 and 2, with their three screens. [NEEDS SIGN-OFF] on
+      // the decision line; the rationale is the steps' own points.
+      {
+        decision: "Made the risk visible and explainable before anyone chose a mitigation.",
+        rationale:
+          "The dashboard leads with the KPIs at risk, each with why and a direct path to mitigate it. Journey exploration shows where customers fail by entry channel, with the churned and continued share on each path, and a segment-of-one timeline replays one customer\u2019s events against their churn risk.",
+        rejected: "presenting an opaque score as a final answer",
+        images: [
+          {
+            src: ccjDashboard,
+            fullSrc: ccjDashboardFull,
+            width: 1600,
+            height: 1024,
+            alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
+            caption:
+              "Analyst dashboard surfacing at-risk KPIs alongside ARPU, NPS, retention, and campaign performance, with a direct path to mitigate a flagged risk.",
+          },
+          {
+            src: ccjJourneyExplorations,
+            fullSrc: ccjJourneyExplorationsFull,
+            width: 2400,
+            height: 1531,
+            alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
+            caption:
+              "Top-up failures churn differently by channel \u2014 mobile app, SMS, IVR \u2014 so mitigation targets the worst path, not every failure equally.",
+          },
+          {
+            src: ccjSegmentOfOne,
+            fullSrc: ccjSegmentOfOneFull,
+            width: 2400,
+            height: 1536,
+            alt: "Single-customer journey timeline showing network experience index, top-up, SMS campaign, and promo events across five days, with a high churn-risk badge.",
+            caption:
+              "One customer\u2019s journey on a timeline \u2014 a flagged risk resolves to real events before anyone chooses a mitigation.",
+          },
+        ],
+      },
       {
         decision: "Treated each offer as a hypothesis first, with a what-if analysis tool.",
         rationale:
-          "Analysts could adjust inputs and watch the model's inference and recommended offer update in response, refined over time by a human-feedback loop.",
+          "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first. Analysts could adjust inputs and watch the model\u2019s inference and recommended offer update in response, refined over time by a human-feedback loop.",
+      },
+      // Her "Held the line on human control" leadership card as a decision;
+      // the rationale is the card, the finding and solution step 3.
+      {
+        decision:
+          "Required a person to review and edit every AI-drafted message before it reached a customer, on every channel.",
+        rationale:
+          "AI-assisted messages and offers could affect the customer relationship. AI drafts a message for a chosen audience and tone; the person edits the live preview before it goes out, and marketing, CX and service users adjust the response before launch.",
+        images: [
+          {
+            src: ccjMitigationPlan,
+            fullSrc: ccjMitigationPlanFull,
+            width: 1600,
+            height: 1547,
+            alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
+            caption:
+              "The KPI\u2019s key drivers beside an AI-drafted, tone-controlled offer \u2014 a person edits the preview before anything launches.",
+          },
+        ],
       },
       {
         decision:
           "Routed customers to an AI chatbot first, transferring to a human customer service representative only when sentiment analysis and account context indicated the interaction needed a person.",
         rationale:
-          "Routine requests stayed fast while the moments that needed empathy were protected.",
+          "Routine requests stayed fast while the moments that needed empathy were protected. The representative works from an AI summary and suggested action; a declined offer loops back to adjustment.",
+        images: [
+          {
+            src: ccjChatExpanded,
+            fullSrc: ccjChatExpandedFull,
+            width: 1600,
+            height: 1024,
+            alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
+            caption:
+              "An AI summary and suggested action beside the live conversation \u2014 assistance in view, the representative in control.",
+          },
+        ],
       },
     ],
     states: [
@@ -952,11 +888,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Loops back to offer adjustment rather than ending in a dead end",
       },
     ],
-    // Ordered as the solution argues: detect (dashboard) -> decide (mitigation
-    // plan, journey explorations) -> act (the representative's chat).
-    // One diagram, in Details since 2026-09-04: the end-to-end user flow. The
-    // Solution section shows the product screens instead, so the flow sits
-    // behind a click for the reader who wants the whole path at once.
+    // The end-to-end user flow, at the end of Key decisions: the screens on
+    // the decisions show each step, and this shows the whole path at once
+    // for the reader who wants it.
     processImages: [
       {
         src: ccjUserFlow,
@@ -969,21 +903,21 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     impact: {
-      headline:
-        "Designed an end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits, and monitors, shown as a concept rather than deployed.",
-      user:
-        "Human review of AI-assisted messaging was required before anything reached a customer.",
-      organizational:
-        "Marketing, CX, and service teams gained one interaction model for moving from journey evidence to a human-reviewed response.",
       before: "Fragmented customer signals and cross-tool handoffs.",
+      // Her `after` line, closed with the former organizational line so the
+      // one interaction model the teams gained is not lost with that field.
       after:
-        "One workflow to detect risk, understand the behavior behind it, choose a mitigation, review the message, and monitor the response.",
+        "One workflow to detect risk, understand the behavior behind it, choose a mitigation, review the message, and monitor the response \u2014 one interaction model for marketing, CX and service teams, from journey evidence to a human-reviewed response.",
       proof: [
         "Made journey drop-offs and churn risk visible beside customer context.",
         "Translated predictive models into decision support for non-technical users.",
         "Connected AI-assisted messaging and personalized offers to human review.",
         "Defined a learning loop for monitoring and adjusting offers based on customer response.",
       ],
+      // Her former "Success metric" framing line, in the slot the framework
+      // gives it, with one clause on why it was not measured.
+      measureNext:
+        "Churn in the contacted at-risk segment against an uncontacted control, with time from signal to launched action as the leading indicator. As a showcase, none was expected; both are measurable the day the flow is deployed.",
       metricStatus:
         "This was a showcase concept and did not reach customers, so no churn-reduction, conversion, adoption, or revenue metric is presented.",
     },
@@ -993,7 +927,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       principle: "A model score is not a decision.",
     },
   },
-
   "auditable-billing-workflow": {
     // Rewritten 2026-09-09 from research/design/updated-case-studies/cwo-principal-framework.md,
     // which is Anastasia's own account of the engagement given that day. Every

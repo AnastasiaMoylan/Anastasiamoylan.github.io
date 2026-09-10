@@ -311,7 +311,7 @@ Read the whole file above first; nothing in it is superseded except where this b
 |---|---|---|
 | 0 | Commit the uncommitted tree in the split commits listed under *Committing*, then continue in a worktree on branch `case-study/principal-framework` | ✅ |
 | 3 | Finance Cloud migration to the eight-child shape | ✅ (migrated by a parallel session; coherence repaired here) |
-| 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ⬜ |
+| 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ✅ |
 | 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ⬜ |
 | 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | ⬜ |
 
@@ -390,3 +390,32 @@ folds her 2026-08-25 program-level account back in where a figure depends on it:
   one authored clause. **Constraints** row 6 is now that promise, replacing the scale row.
 
 Gates at this point: `npm run typecheck` passes.
+
+---
+
+## Update — Phase 4 done: all four studies on one shape
+
+**The Connected Customer Journey is migrated** by mapping its own signed-off copy (2026-08-26) onto
+the framework fields; there is no rewrite document for it and nothing new was drawn from one.
+Every field is her text except two composed lines, both flagged: the `claim` (her Outcome headline
+cut to the slot) and the `hmw` (from her hypothesis and the review constraint). `measureNext` is
+her former "Success metric" framing line in the slot the framework gives it. `scope` has two blocks,
+`owned` and `workedWith`: nothing in the record separates what she led from what she influenced
+beyond the design lane, so those are absent and the two-band ownership figure matches. Six
+decisions; the reset that was the Turning point is decision 1, and the five product screens sit
+on the decisions they prove.
+
+**The legacy shape is gone.** Removed from `CaseStudy`: `team`, `leadership`, `solutionSteps`,
+`turn`, `context`, `ownedThemes`, the `string` overview, and `impact.headline / business / user /
+organizational`; with them the `TeamMember`, `OwnedTheme`, `LeadershipPoint` and `SolutionStep`
+types, the three transitional blocks in `buildSections.tsx`, the fallback branches in
+`OverviewSection`, `ScopeOwnership` and `OutcomeSection`, and the three components only those
+fallbacks rendered: `RoleTeam`, `LeadershipGrid`, `SolutionSteps`. `ownedStatements.ts` now points
+the résumé check at `scope.owned`.
+
+**Gates:** `npm run typecheck` and `npm run build` both pass; all eleven routes prerender.
+
+**`scripts/casestudy-md.mjs` is rewritten** for the three-parent order (Phase 7, item 1): it now
+reports the lede, the eight children, and counts against the type budgets and the framework's
+limits (constraints 4–6, decisions 3–6, findings ≤5, proof ≤4, tags ≤3), and flags a claim that
+fell through to the tagline.
