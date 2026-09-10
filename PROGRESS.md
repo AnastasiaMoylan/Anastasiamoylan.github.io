@@ -300,3 +300,25 @@ Not yet ported from the `c-lede` prototype, in the order they are worth doing:
    see the image brief.
 3. **The annotated screen** — numbered pins keyed to lines of reasoning. Works, but pin
    coordinates need tuning per asset.
+
+---
+
+## Session 2026-09-09 (resume) — plan for this run
+
+Read the whole file above first; nothing in it is superseded except where this block says so.
+
+| Step | What | Status |
+|---|---|---|
+| 0 | Commit the uncommitted tree in the split commits listed under *Committing*, then continue in a worktree on branch `case-study/principal-framework` | 🟡 |
+| 3 | Finance Cloud migration to the eight-child shape | ⬜ |
+| 4 | Customer Journey migration; then delete the transitional fallbacks and the legacy fields | ⬜ |
+| 6 | Wire the five drawn diagrams (front door, two ownership figures, citation loop, comparison modes) | ⬜ |
+| 7 | `casestudy-md.mjs` headings; local guidance docs; code citations | ⬜ |
+
+**Decisions this run applies, with their source.** The "10 → 300 → 1,000+" figures return as Finance
+Cloud's tagline and headline result (owner's decision 2026-09-09, recorded in memory
+`portfolio-scorecard-v2-applied`; which figure leads the *stat band* is still open, so the band is
+left on the hackathon). The Finance Cloud role stays "Product Experience Lead" (resolved 2026-08-26;
+the rewrite's "Lead Product Designer" is not applied). The rewrite's "confidence thresholds set with
+ML engineering" is not applied: the 2026-09-03 correction stands (model defined, cut-offs pending).
+Every composed or changed line carries `[NEEDS SIGN-OFF]` in the data.
