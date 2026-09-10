@@ -1,14 +1,13 @@
-import type { Decision } from "../../data/caseStudies";
+import type { Decision } from "../../data/caseStudyTypes";
 
 /**
- * "Instead of …" line under a decision: the path not taken and what choosing
- * the other one cost. Renders nothing when the decision carries neither.
- * Shared by the featured decision and the Details list so the two stay
- * identical in wording and punctuation.
+ * The path not taken, and what taking this one cost.
  *
- * Text colour comes from the caller: muted-foreground fails AA (4.35:1) on
- * the featured decision's champagne panel, so that caller passes
- * secondary-foreground instead.
+ * Set as a short block under the reasoning with a maroon rule on its left and
+ * "Instead of" as a label above it (Layout C). It is the honesty device that
+ * makes a decision read as judgment rather than as a feature list, so it is
+ * never hidden; a decision without one renders nothing here and the review
+ * copy from `casestudy-md.mjs` says so.
  */
 export default function RejectedPath({
   decision: { rejected, tradeoff },
@@ -19,8 +18,15 @@ export default function RejectedPath({
 }) {
   if (!rejected && !tradeoff) return null;
   return (
-    <p className={["m-0", className].filter(Boolean).join(" ")}>
-      <span className="mr-1.5 text-[0.6875rem] font-semibold uppercase tracking-[0.08em] text-accent">
+    <p
+      className={[
+        "m-0 border-l-2 border-accent pl-3 text-small leading-[1.6] text-muted-foreground",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <span className="mb-0.5 block font-mono text-label font-semibold uppercase tracking-[0.12em] text-accent">
         Instead of
       </span>
       {rejected}

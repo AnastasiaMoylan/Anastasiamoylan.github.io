@@ -1,4 +1,4 @@
-import type { Scope } from "../../data/caseStudies";
+import type { Scope } from "../../data/caseStudyTypes";
 
 /**
  * What I owned end to end, who I led, and where I influenced beyond my lane.
@@ -33,7 +33,7 @@ const WORD: Record<number, string> = { 1: "One", 2: "Two", 3: "Three", 4: "Four"
 export default function ScopeOwnership({ scope }: { scope: Scope }) {
   const present = BLOCKS.filter(({ key }) => scope[key]);
   return (
-    <div className="measure">
+    <div className="max-w-[38rem]">
       <p className="m-0 text-small italic leading-[1.6] text-muted-foreground">
         {WORD[present.length] ?? present.length} degrees of control. Each is tinted here to the
         band it names in the figure below, so you should not have to look back and forth.

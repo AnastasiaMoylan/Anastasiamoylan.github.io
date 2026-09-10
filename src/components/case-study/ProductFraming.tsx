@@ -1,4 +1,4 @@
-import type { FramingItem } from "../../data/caseStudies";
+import type { FramingItem } from "../../data/caseStudyTypes";
 import FramingBlock from "./FramingBlock";
 
 /**
@@ -24,7 +24,7 @@ export default function ProductFraming({
   return (
     <div>
       {productFraming && (
-        <p className="m-0 measure text-base leading-[1.7] text-muted-foreground">
+        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-muted-foreground">
           {productFraming}
         </p>
       )}

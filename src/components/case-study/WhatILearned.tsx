@@ -1,4 +1,4 @@
-import type { Reflection } from "../../data/caseStudies";
+import type { Reflection } from "../../data/caseStudyTypes";
 
 /**
  * One paragraph, one lesson, said plainly.
@@ -11,15 +11,15 @@ import type { Reflection } from "../../data/caseStudies";
  */
 export default function WhatILearned({ reflection }: { reflection: Reflection }) {
   return (
-    <div className="flex measure flex-col gap-5">
-      <p className="m-0 text-base leading-[1.7] text-muted-foreground">{reflection.learned}</p>
+    <div className="flex max-w-[38rem] flex-col gap-5">
+      <p className="m-0 text-body leading-[1.7] text-muted-foreground">{reflection.learned}</p>
       {reflection.wouldChange && (
-        <p className="m-0 text-base leading-[1.7] text-muted-foreground">
+        <p className="m-0 text-body leading-[1.7] text-muted-foreground">
           {reflection.wouldChange}
         </p>
       )}
       {reflection.principle && (
-        <p className="m-0 border-l-2 border-accent pl-5 text-[1.0625rem] font-medium leading-[1.6] text-foreground">
+        <p className="m-0 border-l-2 border-accent pl-5 text-lead font-medium leading-[1.5] text-foreground">
           {reflection.principle}
         </p>
       )}

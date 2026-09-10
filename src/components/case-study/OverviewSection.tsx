@@ -1,4 +1,4 @@
-import type { OverviewLines } from "../../data/caseStudies";
+import type { OverviewLines } from "../../data/caseStudyTypes";
 
 /**
  * The overview as the framework's three lines: challenge, result, approach.
@@ -15,7 +15,7 @@ const LINES: { key: keyof OverviewLines; label: string }[] = [
 
 export default function OverviewSection({ overview }: { overview: OverviewLines }) {
   return (
-    <dl className="m-0 flex measure flex-col gap-5">
+    <dl className="m-0 flex max-w-[38rem] flex-col gap-5">
       {LINES.map(({ key, label }) => (
         <div key={key}>
           <dt className="m-0 font-mono text-label font-medium uppercase tracking-[0.12em] text-tertiary-700">

@@ -1,25 +1,20 @@
-import type { Evidence } from "../../data/caseStudies";
+import type { Evidence } from "../../data/caseStudyTypes";
 import TwoColumnTable from "./primitives/TwoColumnTable";
 
 /**
- * What the research found and what changed because of it.
- *
- * A table, not a list: the framework's point is that a finding is only
- * evidence if it moved something, and putting the response in its own column
- * makes an empty one visible. A finding whose response names no change is cut
- * from the data rather than rendered with a blank cell.
- *
- * The method line leads and carries its own verification status — the
- * framework's rule is that an unverified participant count is stated as
- * unverified rather than dropped.
+ * What the research found and what changed because of it: the method in one
+ * line, then a ledger of finding and product response (Layout C). A finding
+ * whose response names no change is cut at the data, not hidden here.
  */
 export default function EvidenceTable({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       {evidence.body && (
-        <p className="m-0 measure text-base leading-[1.7] text-muted-foreground">{evidence.body}</p>
+        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-muted-foreground">
+          {evidence.body}
+        </p>
       )}
       {findings.length > 0 && (
         <TwoColumnTable

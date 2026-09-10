@@ -1,4 +1,4 @@
-import type { FramingItem } from "../../data/caseStudies";
+import type { FramingItem } from "../../data/caseStudyTypes";
 
 /**
  * The product framing, stated up front: hypothesis, the success metric (or an
@@ -16,10 +16,10 @@ export default function FramingBlock({ items }: { items: FramingItem[] }) {
     <dl className="mt-10 m-0 grid grid-cols-1 gap-x-8 gap-y-6 rounded-lg border border-border bg-card px-7 py-6 sm:grid-cols-2">
       {items.map(({ label, text }) => (
         <div key={label}>
-          <dt className="m-0 text-[0.6875rem] font-semibold uppercase tracking-[0.09em] text-accent">
+          <dt className="m-0 font-mono text-label font-semibold uppercase tracking-[0.09em] text-accent">
             {label}
           </dt>
-          <dd className="mt-1.5 m-0 text-[0.9375rem] leading-[1.65] text-muted-foreground">{text}</dd>
+          <dd className="mt-1.5 m-0 text-small leading-[1.65] text-muted-foreground">{text}</dd>
         </div>
       ))}
     </dl>

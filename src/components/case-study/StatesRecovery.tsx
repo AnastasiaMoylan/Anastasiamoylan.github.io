@@ -1,4 +1,4 @@
-import type { StateRecovery } from "../../data/caseStudies";
+import type { StateRecovery } from "../../data/caseStudyTypes";
 
 /**
  * Genuinely tabular content — condition, what the user sees, how they recover —
@@ -21,14 +21,14 @@ export default function StatesRecovery({ states }: { states: StateRecovery[] }) 
           <tr className="border-b border-border">
             <th
               scope="col"
-              className="w-[34%] py-3 pr-6 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
+              className="w-[34%] py-3 pr-6 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
             >
               Condition
             </th>
             {showsUserSees && (
               <th
                 scope="col"
-                className="w-[33%] py-3 pr-6 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                className="w-[33%] py-3 pr-6 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
               >
                 What the user sees
               </th>
@@ -36,7 +36,7 @@ export default function StatesRecovery({ states }: { states: StateRecovery[] }) 
             {showsRecovery && (
               <th
                 scope="col"
-                className="py-3 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-accent"
+                className="py-3 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
               >
                 Recovery
               </th>
@@ -48,17 +48,17 @@ export default function StatesRecovery({ states }: { states: StateRecovery[] }) 
             <tr key={state} className="border-b border-border last:border-0">
               <th
                 scope="row"
-                className="border-l-2 border-accent py-4 pl-4 pr-6 align-top text-[0.9375rem] font-bold leading-[1.45] text-foreground"
+                className="border-l-2 border-accent py-4 pl-4 pr-6 align-top text-small font-semibold leading-[1.5] text-foreground"
               >
                 {state}
               </th>
               {showsUserSees && (
-                <td className="py-4 pr-6 align-top text-[0.875rem] leading-[1.65] text-muted-foreground">
+                <td className="py-4 pr-6 align-top text-small leading-[1.65] text-muted-foreground">
                   {userSees ?? "—"}
                 </td>
               )}
               {showsRecovery && (
-                <td className="py-4 align-top text-[0.875rem] leading-[1.65] text-muted-foreground">
+                <td className="py-4 align-top text-small leading-[1.65] text-muted-foreground">
                   {recovery ?? "—"}
                 </td>
               )}
