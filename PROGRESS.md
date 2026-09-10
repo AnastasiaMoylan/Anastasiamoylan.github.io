@@ -4,7 +4,7 @@
 should need re-deriving. Update it at the end of every phase and commit it on its own.
 
 **Why it lives at the repo root.** The detailed plan is at
-`research/sessions/2026-09-09-principal-framework-implementation.md`, but **`research/` is
+`docs/case-study/2026-09-09-principal-framework-implementation.md`, but **`docs/` is
 gitignored** — it cannot survive a clone, a clean checkout, or a stash. Anything needed to resume
 has to be here.
 
@@ -20,7 +20,7 @@ has to be here.
 ## What is being built
 
 The case study pages are being rebuilt around
-`research/design/principal-ux-case-study-framework.md`: three parent sections, eight rendered
+`docs/case-study/principal-ux-case-study-framework.md`: three parent sections, eight rendered
 children, nothing behind a disclosure, plus a "lede" header that leads with the outcome rather than
 the project name.
 
@@ -31,7 +31,7 @@ the project name.
 ```
 
 This replaced the two-layer trailer/proof order of 2026-09-04, so
-`research/decisions/case-study-architecture.md` and `case-study-layout.md` are **history, not
+`docs/decisions/case-study-architecture.md` and `case-study-layout.md` are **history, not
 current**.
 
 ---
@@ -85,7 +85,7 @@ only be deleted once Phase 4 is done.** Search the file for `Transitional`.
 | `finance-cloud` | ❌ | **Not started.** An earlier summary said otherwise; it is wrong. Still on `context` / `turn` / `solutionSteps` / `ownedThemes` / `leadership` / `team`. |
 | `connected-customer-journey` | ❌ | Not started. Same old shape. |
 
-**Sources for the migration:** `research/design/updated-case-studies/*.md`. Finance Cloud's rewrite
+**Sources for the migration:** `docs/case-study/rewrites/*.md`. Finance Cloud's rewrite
 exists there and is ready to apply; Connected Customer Journey has no rewrite yet.
 
 **Next action:** apply `finance-cloud-principal-framework.md` to `src/data/caseStudies.ts`. Flag every
@@ -140,9 +140,9 @@ at columns with no ink across every horizontal band, so no cut passes through a 
 panels under `src/assets/case-studies/cwo/`: `creation-flow-01..05`, `creation-flow-02b`,
 `review-flow-01..03`, `review-stories`. Each displays at 62% of source. Originals kept for lightbox.
 
-**Done — briefs.** `research/design/2026-09-09-image-brief.md` (billing workflow, eight slots).
+**Done — briefs.** `docs/case-study/2026-09-09-image-brief.md` (billing workflow, eight slots).
 
-**In progress — a background agent** is producing `research/design/2026-09-09-image-brief-all-studies.md`
+**In progress — a background agent** is producing `docs/case-study/2026-09-09-image-brief-all-studies.md`
 plus diagrams for user flows, features and ownership across all four studies, using the
 `diagram-design` plugin and the saved `portfolio` profile. It was told not to touch `src/data`,
 `src/components`, `src/styles` or the prototypes. **Check whether it finished before editing
@@ -158,7 +158,7 @@ Billing Report-View Only". Confirm publishable or mask before they ship.
 1. `scripts/casestudy-md.mjs` still labels its output with the old section names and word budgets.
    It runs, but its headings are stale.
 2. `CLAUDE.md`, `AGENT.md` and `DECISIONS.md` still describe the superseded two-layer order.
-3. Move the code citations off `research/decisions/case-study-architecture.md`.
+3. Move the code citations off `docs/decisions/case-study-architecture.md`.
 4. Visual pass: crop each figure to one legible detail.
 
 ---
@@ -190,13 +190,13 @@ ten participants as fact. Same class of evidence, two different standards.
 
 ## Layout prototypes — reference only, not shipped
 
-`research/design/layout-prototypes/` holds six explorations (A Spread, B Frame, C Lede, D Brief,
+`docs/case-study/prototypes/` holds six explorations (A Spread, B Frame, C Lede, D Brief,
 E Exhibit, F Lede v2), an `index.html` comparing them, and `dictionary.html` — 22 devices with live
 specimens and the six that were built and rejected. **F is the direction that shipped.** Keep them:
 they are the reasoning, and the dictionary is the reference for future studies.
 
 Four rounds of research behind every decision are in
-`research/design/2026-09-09-case-study-design-review.md`.
+`docs/case-study/2026-09-09-case-study-design-review.md`.
 
 ---
 
@@ -210,7 +210,7 @@ npm run build                      # must pass — prerender only breaks here
 ```
 
 Then: read this file's Phase 3 table, pick the first study marked ❌, and apply its rewrite from
-`research/design/updated-case-studies/`.
+`docs/case-study/rewrites/`.
 
 ---
 
@@ -233,7 +233,7 @@ each time.
 ## Update — 2026-09-09, later
 
 **Phase 6 (visual assets) advanced.** A background agent delivered
-`research/design/2026-09-09-image-brief-all-studies.md` covering all four studies at slot level,
+`docs/case-study/2026-09-09-image-brief-all-studies.md` covering all four studies at slot level,
 plus five new diagrams: a front-door flow for Finance Cloud, ownership diagrams for the Customer
 Journey and Document AI, and comparison-modes and citation-loop diagrams for Document AI. **None of
 them is wired** — `src/components/` was out of bounds for that agent, and `augments.ts` has no
@@ -453,7 +453,7 @@ own sticky notes (the research questions, a "current pain point" callout). Every
 ## Phase 7 — what is done, and the one step left
 
 **Done.** `scripts/casestudy-md.mjs` reports the three-parent order and cites the framework doc
-instead of `case-study-layout.md`. No code cites `research/decisions/case-study-architecture.md`
+instead of `case-study-layout.md`. No code cites `docs/decisions/case-study-architecture.md`
 any more; the type and builder comments point at the framework and the implementation session.
 The flow figures are cropped to legible panels (Phase 6). The craft screenshots the image brief
 lists as **ANASTASIA** are the only visual work left, and none of it can be done from the repo.
@@ -521,3 +521,15 @@ commit per task, each independently revertable:
 keep their noun headings and have no opener, pins or parking lot until those answers exist.
 
 **Do not open or merge a PR without explicit go-ahead.**
+
+---
+
+## Update — 2026-09-10: `research/` renamed to `docs/`
+
+The gitignored working folder is now `docs/`, regrouped by use: `docs/case-study/` holds every
+input the case-study pages are built from (framework, implementation plan, diagram plan, design
+review, image briefs, `rewrites/`, `prototypes/`); `docs/source/` is unchanged ground truth;
+`docs/generated/` is the generator's output only; `docs/archive/` holds superseded sessions, the
+rendered HTML snapshots, the ideation prompt and the reference screenshots. Every path citation in
+`src/`, `scripts/`, `context/`, this file, `parallel-plan.md` and the gitignored root docs was
+rewritten. `docs/README.md` has the folder table and the old → new map.

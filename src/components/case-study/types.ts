@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 
 /**
  * The three parents a case study is grouped into, from the principal
- * framework (research/sessions/2026-09-09-principal-framework-implementation.md).
+ * framework (docs/case-study/2026-09-09-principal-framework-implementation.md).
  *
  * Reviewers scan for scope, judgment, and outcome before they read anything,
  * so the page answers those three in order: why the work mattered, what was

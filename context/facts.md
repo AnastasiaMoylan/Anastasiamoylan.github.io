@@ -6,15 +6,15 @@ Until then the value is what the repo *currently claims*, with the file that cla
 question is "confirm or correct" rather than "tell me from scratch".
 
 **Publishable facts only.** This repo is public. Real client names, internal dates, and client
-financial figures stay out of this file; the private record is `research/source/` (gitignored).
+financial figures stay out of this file; the private record is `docs/source/` (gitignored).
 
 **How to read a row.** `Repo says` is the value on the site or résumé today. `Also found` is any
 other value the local notes carry. `State` is AGREE when every surface says the same thing and
 CONFLICT when they do not. `Confirmed` is empty until Anastasia fills it.
 
 Source keys: P = `src/data/projects.ts` · CS = `src/data/caseStudies.ts` · F = `src/data/figures.ts`
-· R = `src/data/resume.ts` · OS = `src/data/ownedStatements.ts` · SN = `research/source/case-studies/<slug>.md`
-· RW = `research/design/updated-case-studies/*` · B = `research/source/candidate-brief.md`
+· R = `src/data/resume.ts` · OS = `src/data/ownedStatements.ts` · SN = `docs/source/case-studies/<slug>.md`
+· RW = `docs/case-study/rewrites/*` · B = `docs/source/candidate-brief.md`
 
 ---
 

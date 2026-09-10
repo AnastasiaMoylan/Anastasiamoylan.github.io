@@ -42,7 +42,7 @@ const NOUN: Record<SectionId, string> = {
 
 /**
  * Page structure (Layout C, 2026-09-09; framework in
- * research/design/principal-ux-case-study-framework.md).
+ * docs/case-study/principal-ux-case-study-framework.md).
  *
  * Three parents, nine children, everything always expanded:
  *

@@ -12,7 +12,7 @@ import scopeOwnershipFull from "../../../assets/case-studies/di/scope-ownership.
 /**
  * The three diagrams this study carries, drawn 2026-09-08 to 09 with the
  * diagram-design plugin (source `.html` beside each `.png`; see
- * research/decisions/case-study-diagrams.md).
+ * docs/case-study/case-study-diagrams.md).
  *
  * Until now this study had no entry in `augments.ts` at all — it was the only
  * one of the four with no coded figure, which is why its Key decisions section

@@ -50,7 +50,7 @@ import cwoReview03Full from "../assets/case-studies/cwo/review-flow-03.jpg";
 import cwoStrategyAlignment from "../assets/case-studies/cwo/strategy-alignment.jpg?preview";
 import cwoStrategyAlignmentFull from "../assets/case-studies/cwo/strategy-alignment.jpg";
 // Diagram drawn 2026-09-08 with the diagram-design plugin; source is the
-// .html beside it, exported to .svg and .png (see research/decisions/case-study-diagrams.md).
+// .html beside it, exported to .svg and .png (see docs/case-study/case-study-diagrams.md).
 import cwoStatusModel from "../assets/case-studies/cwo/status-model.png?preview";
 import cwoStatusModelFull from "../assets/case-studies/cwo/status-model.png";
 import gafFrontDoor from "../assets/case-studies/gaf/front-door-flow.png?preview";
@@ -84,7 +84,7 @@ export const caseStudies: Record<string, CaseStudy> = {
   // taxonomy. Role is "Product Experience Lead" — the fifth title in play
   // across surfaces; needs reconciling with About/résumé before merge.
   "finance-cloud": {
-    // Migrated 2026-09-09 from research/design/updated-case-studies/finance-cloud-principal-framework.md,
+    // Migrated 2026-09-09 from docs/case-study/rewrites/finance-cloud-principal-framework.md,
     // which is Anastasia's own account of the governed analysis platform.
     // Every field below is her text unless a comment says otherwise.
     //
@@ -728,7 +728,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
   },
   "auditable-billing-workflow": {
-    // Rewritten 2026-09-09 from research/design/updated-case-studies/cwo-principal-framework.md,
+    // Rewritten 2026-09-09 from docs/case-study/rewrites/cwo-principal-framework.md,
     // which is Anastasia's own account of the engagement given that day. Every
     // field below is her text unless a comment says otherwise. The changes that
     // contradict what the site published before are marked, because each one
@@ -765,7 +765,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     // it is her sentence rather than a new claim. [NEEDS SIGN-OFF]
     claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people.`,
     // Layout C (2026-09-10). The four blocks below are lifted verbatim from
-    // research/design/layout-prototypes/c-lede.html, which restated this
+    // docs/case-study/prototypes/c-lede.html, which restated this
     // study's own copy as claim headings, an opener pair, an annotated screen
     // and a parking lot. None of it is a new fact, but none of it has been on
     // the site before, so every line is [NEEDS SIGN-OFF]. Overview and Outcome
@@ -1225,7 +1225,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Complex enterprise workflows fail at the boundaries between systems and teams. The most important design work here was not an individual screen. It was exposing dependencies early, preserving state when automation failed, and making responsibility visible through review and submission. Automation cleared the backlog; the status and ownership model is what kept it from coming back.",
     },
   },
-  // Rewritten 2026-09-09 from research/design/updated-case-studies/case-study-document-ai-platform.md,
+  // Rewritten 2026-09-09 from docs/case-study/rewrites/case-study-document-ai-platform.md,
   // which is Anastasia's own account of the engagement. Every field below is her
   // text unless a comment says otherwise. Changes that contradict what the site
   // published before are marked, because each one needs confirming before this ships.
