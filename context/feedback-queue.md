@@ -26,6 +26,9 @@ Public repo: keep real client names and NDA material out of this file.
 - [ ] **A5. Source caveat placement.** C prints the metric caveat both under the lede
   figures and in Results. The shipped page prints it once, in Outcome. Default taken:
   **both**, as C draws it.
+- [ ] **A7. Users / Team / Status in the lede.** C has no slot for the framework's three
+  metadata fields. They were kept as a small labelled grid between the deck and the
+  figures rather than dropped. Keep, move, or cut?
 - [ ] **A6. The PR.** Repo rule: no PR without an explicit go-ahead. The integration branch
   will be pushed; say "open the PR" when you want it.
 
@@ -94,8 +97,14 @@ easier. Either place counts.
 - [ ] **C3.** The billing flow panels carry real project vocabulary ("Enter Attuid", role
   names, "Project Billing Report-View Only"). Publishable, or mask before they ship?
 - [ ] **C4.** The annotated-screen pin coordinates in C were placed by eye; two of four land
-  on a table row instead of the column header they mean. They need tuning against the real
-  asset once Task C renders them — a five-minute check in the browser.
+  on a table row instead of the column header they mean. They are now rendering on the
+  billing page (the `annotated.pins` block in `caseStudies.ts`, x and y as percentages);
+  tune them in the browser, a five-minute check.
+- [ ] **C5. Claim headings on the other three studies.** The billing study carries C's
+  headings verbatim. Finance Cloud, Document AI and the Customer Journey still show the
+  nouns; writing their claim headings needs the facts interview (B9 to B11), not a guess.
+  The review copy from `node scripts/casestudy-md.mjs` marks each one "no claim heading
+  written".
 
 ## D. Things found on the way that are not in the plan
 
@@ -103,14 +112,31 @@ easier. Either place counts.
   into `research/`. This one is committed (not gitignored) because you asked for
   `context/facts.md` as the single source of truth and a gitignored file dies with the
   worktree. If you would rather it live at `research/source/facts.md`, say so.
-- [ ] **D2. Philosophy page figures.** `StatusFlowStrip` draws five status chips where
-  `figures.billingStatusStates` is six, and the `~90%` in `AiStat` has no entry in
-  `figures.ts`. Task E will align them to the figures file unless you say the page is right.
+- [ ] **D2. Philosophy page figures.** The `~90%` now lives in `figures.ts` as
+  `aiDrivenShare` with its provenance (your own estimate, not measured). The five status
+  chips were **left at five**: principle 01's own body copy on that page lists five states
+  ("Initiated → In Progress → Review → Approved → Finalized") while the billing study
+  publishes six. Aligning them means changing your paragraph, so it is your call: add
+  "Completed" to the philosophy copy, or leave the page at five.
+- [ ] **D7. The local `CLAUDE.md` is stale on one line.** It says case-study section
+  headings are plain nouns identical on every study. After this branch the parents are
+  constant and each child heading is the study's own claim, falling back to the noun. The
+  file is gitignored and lives only in the main checkout, which this worktree session
+  cannot edit; one line to change by hand.
 - [ ] **D3. Home-page figcaption** in `GovernanceChain.tsx` hard-names three studies; it
   will drift on the next rename. Not being changed; flagging.
 - [ ] **D4. `llms.txt` and `resume.txt`** are already generated on every build; the plan
   adds no task for them. The README's work table is the surface that drifted, and Task F
   regenerates it from `projects.ts`.
+- [ ] **D6. Parallel fan-out did not run overnight; the tasks ran sequentially instead.**
+  Three probes showed a subagent's shell stays pinned to the orchestrator's worktree even
+  after entering another one (verbatim: "a worktree-isolated session's commands must run
+  inside its worktree"), and the harness-created agent worktree route stalled twice on the
+  auto-mode classifier. So Tasks A, B, C, E, F and the billing half of D were done in this
+  session, one commit per task on `case-study/c-lede-integration`, file ownership still
+  respected so each commit reverts independently. Parallel execution needs the orchestrator
+  launched from the shared checkout (not worktree-isolated) or a permission rule for
+  subagent shells; decide whether that matters for next time.
 - [ ] **D5. The 02:10 restart** is a session-only one-shot: it fires only if this Claude
   session is still open at 02:10 CDT on 2026-09-10. If the session was closed, the same
   instructions are in the cron prompt recorded at the bottom of this file.
