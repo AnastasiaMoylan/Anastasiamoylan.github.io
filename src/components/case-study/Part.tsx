@@ -5,7 +5,8 @@ import type { SectionGroup } from "./sectionGroups";
  * One of the three parts of a case study (Layout C): the opener and the frame
  * its children sit in.
  *
- * The opener is a display-size ordinal, ghosted in the lightest teal, beside
+ * The opener is a display-size ordinal in mid teal (it was ghosted in the
+ * lightest teal until 2026-09-10, and vanished into the ground), beside
  * the part's name and its one-line promise. Three big numerals down the page
  * are what make the grouping legible at a glance; the children's h3s carry
  * the study's own claims, so the parent's job is contrast in kind, not
@@ -37,7 +38,7 @@ export default function Part({
       <header className="grid grid-cols-1 items-end gap-5 lg:grid-cols-[auto_1fr] lg:gap-10">
         <span
           aria-hidden="true"
-          className="block font-display text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-tertiary-100 tabular-nums"
+          className="block font-display text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-tertiary-500 tabular-nums"
         >
           {group.ordinal}
         </span>

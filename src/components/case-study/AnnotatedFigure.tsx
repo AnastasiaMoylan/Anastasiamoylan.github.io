@@ -17,7 +17,7 @@ export default function AnnotatedFigure({ figure }: { figure: AnnotatedFigureDat
   const { image, pins, caption } = figure;
   return (
     <figure className="m-0">
-      <div className="relative overflow-hidden rounded-lg border border-border bg-card">
+      <div className="relative overflow-hidden rounded-lg border border-border bg-card shadow-[0_1px_2px_rgba(40,61,59,0.06),0_14px_36px_-18px_rgba(40,61,59,0.35)]">
         <img
           src={image.src}
           alt={image.alt}

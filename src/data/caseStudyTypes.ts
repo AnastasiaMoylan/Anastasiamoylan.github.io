@@ -37,6 +37,15 @@ export interface CaseStudyImage {
    * its own container; the page never does.
    */
   displayScale?: number;
+  /**
+   * The figure's own markup, for a drawn diagram shipped as SVG (2026-09-10).
+   * When present the gallery inlines it instead of loading `src` in an
+   * `<img>`, so the diagram sets its labels in the site's fonts and stays
+   * crisp at any width; it is not zoomable, because it needs no zoom. Build
+   * it with `diagramSvg()` from a `?raw` import. `src` and `fullSrc` still
+   * point at the `.svg` file.
+   */
+  inlineSvg?: string;
 }
 
 /**

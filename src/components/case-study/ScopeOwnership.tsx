@@ -46,7 +46,7 @@ export default function ScopeOwnership({ scope }: { scope: Scope }) {
       */}
       <div className="mt-6 flex flex-col gap-5">
         {present.map(({ key, label, tint }) => (
-          <p key={key} className="m-0 text-body leading-[1.7] text-muted-foreground">
+          <p key={key} className="m-0 text-body leading-[1.7] text-foreground">
             <b className={["mr-1.5 border-b-2 border-current font-semibold", tint].join(" ")}>
               {label}.
             </b>

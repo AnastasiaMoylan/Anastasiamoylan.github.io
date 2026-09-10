@@ -7,7 +7,9 @@ import RejectedPath from "./RejectedPath";
  * C), each carrying its mechanism, the decision, the reasoning and the
  * rejected alternative, followed by the figures that prove them.
  *
- * Two cards across at width, one on narrow screens, on a hairline grid. The
+ * Two cards across at width, one on narrow screens, on a hairline grid; the
+ * cells are white on the warm ground (2026-09-10; they were the ground colour
+ * and the grid read as rules on a page rather than as cards). The
  * mechanism label is the citable name of what the decision produced ("the
  * six-state status model"); a named mechanism can be asked about in an
  * interview, a numbered decision cannot. A study whose decisions carry no
@@ -35,7 +37,7 @@ export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
     <div className="flex flex-col gap-12">
       <ol className="m-0 grid list-none grid-cols-1 gap-px overflow-hidden rounded-[10px] border border-border bg-border p-0 lg:grid-cols-2">
         {decisions.map((d, i) => (
-          <li key={d.decision} className="flex min-w-0 flex-col bg-background p-6 sm:p-7">
+          <li key={d.decision} className="flex min-w-0 flex-col bg-card p-6 sm:p-7">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span
                 className="font-mono text-label font-semibold tabular-nums text-accent"
@@ -52,7 +54,7 @@ export default function KeyDecisions({ decisions }: { decisions: Decision[] }) {
             <h4 className="mt-3 m-0 font-display text-body font-bold leading-[1.35] tracking-[-0.01em] text-foreground">
               {d.decision}
             </h4>
-            <p className="mt-2.5 m-0 text-small leading-[1.7] text-muted-foreground">{d.rationale}</p>
+            <p className="mt-2.5 m-0 text-small leading-[1.7] text-foreground">{d.rationale}</p>
             <RejectedPath decision={d} className="mt-3.5" />
           </li>
         ))}

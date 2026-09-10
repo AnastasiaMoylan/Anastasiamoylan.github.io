@@ -178,3 +178,38 @@ easier. Either place counts.
 > context/feedback-queue.md, and do not open or merge a PR. Append anything new that needs
 > the owner's input to context/feedback-queue.md. Run typecheck + build after every merge.
 > Commit as you go with the attribution trailer.
+
+## E. From the 2026-09-10 rewrite (branch `case-study/svg-clarity-contrast`)
+
+The rewrite for length touched every field on every study. Each line is a shorter version of your
+own text, but shorter can drop a nuance, so the whole of `src/data/caseStudies.ts` is a read for
+you, in this order of risk:
+
+- [ ] **E1. Mechanism labels on the three studies that had none.** Finance Cloud (the suite
+  reframe · the front door · the V2 pivot · the promotion gate · the copilot plan · the three-tier
+  boundary), Customer Journey (the reset · dynamic segments · risk made explainable · review
+  before send · the sentiment gate), Document AI (citations as navigation · count-bound
+  comparison · selection as visible state · draft beside the conversation · the widget on shared
+  rails). Authored from your decision lines. Rename any that you would not say in an interview.
+- [ ] **E2. The Document AI claim (h1).** "Verifiable AI answers over thousands of internal
+  documents, and a compliance tool on the same rails, not a second product." Cut from your
+  overview result line. The page had been showing the 40-word result line as its h1.
+- [ ] **E3. Billing decision titles are now C's consequence lines** (C6 in section C above):
+  "Catch the gap where it happens, not at submission", "A package can be resumed, never
+  accidentally recreated", and so on. Default taken: applied.
+- [ ] **E4. Decisions cut.** Finance Cloud lost "AI uncertainty and failure as first-class
+  states" (it is a constraint row and the states table) and "documented access assumptions with
+  break-notification agreements" (process, not product). Customer Journey merged "each offer as
+  a hypothesis" into "review before send". Document AI lost "layout regions and accessibility as
+  the system" (it is `scope.owned` and a proof point). Restore any you want back; the text is in
+  git history at `af69752`.
+- [ ] **E5. Images cut** (the list is in PROGRESS.md). The one to check: the billing flows are
+  down to three panels (owner and reviewers assigned before create; review locks the package;
+  review ends with a commit message and a next reviewer). If a cut panel proved something you
+  want proved, name it.
+- [ ] **E6. "Ten stages".** The overview approach line no longer says ten; `scope.owned` and the
+  ownership diagram still do (C2). Write the ten or change both to six.
+- [ ] **E7. Two site-wide tokens darkened** (`--muted-foreground`, `--border`). Every page is
+  affected, deliberately. Say if the home or résumé page reads too heavy now.
+- [ ] **E8. Claim headings for the other three studies** (C5) are still not written; they still
+  show the nouns. Unchanged, because it needs the facts interview.

@@ -8,7 +8,20 @@ import ImageLightbox from "../work/ImageLightbox";
  * hairline frame, the caption beneath it in small italics stating what the
  * figure proves. No inner padding around the image, so a screen reads as a
  * screen rather than as a card holding one.
+ *
+ * The frame carries a soft shadow as well as the hairline (2026-09-10): on
+ * the warm ground a white screenshot with a one-pixel border had almost no
+ * edge, and the figures read as part of the page rather than as objects on
+ * it.
+ *
+ * A drawn diagram (`inlineSvg`) is inlined rather than loaded, so its labels
+ * set in the site's fonts; it is not a button, because a vector figure at
+ * column width needs no zoom. It scrolls sideways inside its own frame on a
+ * narrow screen, the way the scaled flow panels do.
  */
+const FRAME =
+  "overflow-hidden rounded-lg border border-border bg-card shadow-[0_1px_2px_rgba(40,61,59,0.06),0_14px_36px_-18px_rgba(40,61,59,0.35)]";
+
 export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
   const [active, setActive] = useState<CaseStudyImage | null>(null);
   return (
@@ -16,12 +29,21 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
       <div className="flex flex-col gap-8">
         {images.map((image) => (
           <figure key={image.src} className="m-0 flex flex-col gap-3">
+            {image.inlineSvg ? (
+              <div className={["w-full overflow-x-auto", FRAME].join(" ")}>
+                <div
+                  className="min-w-[60rem] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
+                  dangerouslySetInnerHTML={{ __html: image.inlineSvg }}
+                />
+              </div>
+            ) : (
             <button
               type="button"
               onClick={() => setActive(image)}
               aria-label={`Enlarge image: ${image.caption}`}
               className={[
-                "group relative block cursor-zoom-in overflow-hidden rounded-lg border border-border bg-card p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "group relative block cursor-zoom-in p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                FRAME,
                 // A scaled panel's frame hugs the panel; a fitted image fills the column.
                 image.displayScale ? "w-fit max-w-full" : "w-full",
               ].join(" ")}
@@ -64,6 +86,7 @@ export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
                 <ZoomIn size={18} />
               </span>
             </button>
+            )}
             <figcaption className="max-w-[56ch] text-small italic leading-[1.65] text-muted-foreground">
               {image.caption}
             </figcaption>

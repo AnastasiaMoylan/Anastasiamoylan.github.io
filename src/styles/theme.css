@@ -31,10 +31,13 @@
   --tertiary-900: #283d3b;
 
   --muted: #f2efe9;
-  --muted-foreground: #6b6560;
+  /* Darkened 2026-09-10 from #6b6560: at 14–17px the old value read as
+     washed-out grey on the warm ground, and most case-study prose used it. */
+  --muted-foreground: #57514b;
   --destructive: #b3261e;
   --destructive-foreground: #ffffff;
-  --border: #dad4cb;
+  /* Darkened 2026-09-10 from #dad4cb so hairlines and figure frames read. */
+  --border: #cfc7bb;
   --input: #f2efe9;
   --input-background: #ffffff;
   --switch-background: #c9c2b8;

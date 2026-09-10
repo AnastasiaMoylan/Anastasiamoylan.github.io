@@ -533,3 +533,23 @@ review, image briefs, `rewrites/`, `prototypes/`); `docs/source/` is unchanged g
 rendered HTML snapshots, the ideation prompt and the reference screenshots. Every path citation in
 `src/`, `scripts/`, `context/`, this file, `parallel-plan.md` and the gitignored root docs was
 rewritten. `docs/README.md` has the folder table and the old → new map.
+
+---
+
+## Update — 2026-09-10: SVG diagrams, the image cut, the length cut, and contrast (branch `case-study/svg-clarity-contrast`)
+
+Owner's brief, verbatim: "Use svg diagrams not png. Also lets try to rewrite the case studies for clarity. Its still too wordy. I also dont like all the images. Try to bring in a little more contrast."
+
+**Diagrams are SVG, inlined.** Every drawn diagram now ships as its `.svg` export and is inlined into the page by `src/data/diagramSvg.ts` (a `?raw` import, cleaned: XML prolog and the Google Fonts `@import` stripped, Geist Mono → IBM Plex Mono, Instrument Serif italic → Inter italic one size step down so the callouts clear their leader lines). `CaseStudyImage.inlineSvg` carries the markup and `ImageGallery` renders it in the same frame as a screenshot, not as a button: a vector figure needs no lightbox. The nine PNG exports were deleted (`git rm`), and `ScopeOwnershipDiagram.tsx`, the hand-ported copy of the billing ownership figure, went with them: the SVG file is the one source now. Bundle: 442 kB JS, down from the raster path's separate 100–170 kB per figure.
+
+**The image cut.** One image proves one claim, and a screen already on the page does not appear twice. Billing 17 → 8 (the package index left decision 02 and the billing report left decision 04, both already in the opener and the annotated screen; nine flow panels became three; the MVP2 scope board and the review-stories board are gone). Customer Journey 8 → 6 (the user-flow board, which the three-role loop already draws; the segment-of-one timeline). Document AI 7 → 3 (the four flow panels cut from the whiteboard, which carried the team's sticky notes; the citation loop and comparison modes now sit on the decisions they prove). Finance Cloud unchanged at two figures plus the five coded diagrams. Every file that left the page stays in its folder, unimported.
+
+**The length cut.** All four studies rewritten to the type budgets, every line a tightening of what was there. Key decisions: Finance Cloud 836 → 531 words (8 → 6 decisions), Document AI 877 → 441 (6 → 5), Customer Journey 362 → 260 (6 → 5), billing 400 → 348. Outcome: 318 → 226, 242 → 170, 204 → 182; proof points at four everywhere. Product framing: 224 → 111 on Finance Cloud. Document AI has a written claim for the first time (the h1 had been the 40-word result line). Every study's decisions carry a mechanism label; the billing titles are the consequence lines from prototype C (feedback-queue C6). Page heights: billing 22,759 → 15,215 px; Document AI 11,078; Customer Journey 13,650; Finance Cloud 13,678.
+
+**Contrast.** Two tokens in `theme.css`: `--muted-foreground` #6b6560 → #57514b and `--border` #dad4cb → #cfc7bb, site-wide by design (every secondary line and hairline reads now). Primary prose (framing, ownership, evidence method, rationale, reflection) is `text-foreground`; captions, caveats and table detail stay muted. Decision cards are white on the hairline grid. Part numerals are `tertiary-500`, not the ghosted `tertiary-100`. Figure frames carry a soft shadow as well as the hairline.
+
+**Gates:** `npm run typecheck` and `npm run build` pass; all eleven routes prerender. `node scripts/casestudy-md.mjs` for the counts.
+
+**What only Anastasia can do next** is appended to `context/feedback-queue.md` as section E. The rewrite is hers to read: it condensed her sentences, and a condensed sentence can lose a nuance she meant.
+
+**Do not open or merge a PR without explicit go-ahead.**

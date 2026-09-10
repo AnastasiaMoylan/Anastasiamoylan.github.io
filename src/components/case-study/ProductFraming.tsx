@@ -24,7 +24,7 @@ export default function ProductFraming({
   return (
     <div>
       {productFraming && (
-        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-muted-foreground">
+        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-foreground">
           {productFraming}
         </p>
       )}

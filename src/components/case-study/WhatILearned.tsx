@@ -12,9 +12,9 @@ import type { Reflection } from "../../data/caseStudyTypes";
 export default function WhatILearned({ reflection }: { reflection: Reflection }) {
   return (
     <div className="flex max-w-[38rem] flex-col gap-5">
-      <p className="m-0 text-body leading-[1.7] text-muted-foreground">{reflection.learned}</p>
+      <p className="m-0 text-body leading-[1.7] text-foreground">{reflection.learned}</p>
       {reflection.wouldChange && (
-        <p className="m-0 text-body leading-[1.7] text-muted-foreground">
+        <p className="m-0 text-body leading-[1.7] text-foreground">
           {reflection.wouldChange}
         </p>
       )}

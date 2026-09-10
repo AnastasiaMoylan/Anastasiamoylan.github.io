@@ -12,7 +12,7 @@ export default function EvidenceTable({ evidence }: { evidence: Evidence }) {
   return (
     <div className="flex flex-col gap-6">
       {evidence.body && (
-        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-muted-foreground">
+        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-foreground">
           {evidence.body}
         </p>
       )}
