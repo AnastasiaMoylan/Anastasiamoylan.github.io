@@ -2,11 +2,12 @@
  * Ownership statements used by the résumé's 'Selected product ownership' bullets.
  *
  * Until 2026-09-03 these also fed each case study's flat `owned` list, so the
- * two surfaces could not drift. That list never rendered once every study
- * carried `ownedThemes`, so it was removed; the themes paraphrase these claims.
- * If a statement here changes, check the matching theme in caseStudies.ts —
- * a résumé that quietly disagrees with the case study describing the same work
- * is worse than either document alone.
+ * two surfaces could not drift. That list gave way to `ownedThemes`, and on
+ * 2026-09-09 the themes gave way to each study's `scope.owned` paragraph,
+ * which paraphrases these claims. If a statement here changes, check the
+ * matching study's `scope.owned` in caseStudies.ts — a résumé that quietly
+ * disagrees with the case study describing the same work is worse than
+ * either document alone.
  */
 
 export const FINANCE_PRODUCT_MODEL =

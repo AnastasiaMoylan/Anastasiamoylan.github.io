@@ -99,3 +99,54 @@ const COUNT_WORDS = [
 /** Spelled-out principle count, so the page subtitle and llms.txt can't disagree. */
 export const principleCountWord =
   COUNT_WORDS[principles.length] ?? String(principles.length);
+
+/**
+ * The page's opening: the thesis quote and the paragraph that bridges from it
+ * into the numbered list. Moved out of `PhilosophyPage.tsx` on 2026-09-10;
+ * copy unchanged.
+ */
+export const philosophyThesis =
+  "Good product design is what makes a system understandable: getting the flows right, designing the data well, and treating AI as core to the experience, not an afterthought.";
+
+export const philosophyBridge =
+  "Principles only matter if they help someone make a decision under pressure. Each of these is short enough to remember, specific enough to act on, and flexible enough to survive new evidence. If a principle here ever stops a better decision, the principle loses.";
+
+/**
+ * "How I evaluate design": the checks run against actual work, rendered as a
+ * grid after the principles. Moved out of the page on 2026-09-10; copy
+ * unchanged.
+ */
+export interface EvaluationCheck {
+  title: string;
+  body: string;
+}
+
+export const evaluationIntro =
+  "The principles set direction. These are the checks I run against actual work — mine or anyone's.";
+
+export const evaluationChecks: EvaluationCheck[] = [
+  {
+    title: "Usability and interaction",
+    body: "Can the right person complete the real task, including the unhappy path? Feedback is timely, errors are recoverable, and the interaction cost matches the task's importance. Tested with the actual user group, not a convenient proxy.",
+  },
+  {
+    title: "Clarity and hierarchy",
+    body: "The eye lands where the decision is. Visual hierarchy guides attention deliberately; anything competing with the primary action has to justify itself. Simplicity is the default — complexity must be earned by the problem, not by the design.",
+  },
+  {
+    title: "Consistency and systems",
+    body: "Typography, color, layout, and components draw from one system, aligned to brand guidelines, so users learn the product once. A design system isn't decoration — it's the mechanism that lets consistency and speed coexist, and it's how one team's decision becomes every team's standard.",
+  },
+  {
+    title: "Evidence and iteration",
+    body: "Prototypes early, usability testing before conviction hardens, and a willingness to change course when findings demand it. Success is measured against defined criteria set before the work ships — not against how the launch felt.",
+  },
+  {
+    title: "Alignment and value",
+    body: "The design serves stated business objectives and delivers something the user personally values — time saved, confidence gained, a task that used to hurt and doesn't anymore. If it only does one of those, it isn't done.",
+  },
+  {
+    title: "Longevity",
+    body: "Will this hold up when the team doubles, the data grows, and the original designers leave? Patterns should be maintainable, documented, and extensible — designed for the tenth use case, not just the first.",
+  },
+];

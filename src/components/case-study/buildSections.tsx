@@ -1,51 +1,65 @@
-import type { CaseStudy } from "../../data/caseStudies";
+import type { CaseStudy, SectionId } from "../../data/caseStudyTypes";
 import type { Section } from "./types";
-import ChallengeList from "./ChallengeList";
-import OverviewSection from "./OverviewSection";
-import ProblemSection from "./ProblemSection";
-import RoleTeam from "./RoleTeam";
-import LeadershipGrid from "./LeadershipGrid";
-import SolutionSteps from "./SolutionSteps";
+import AnnotatedFigure from "./AnnotatedFigure";
+import EvidenceTable from "./EvidenceTable";
 import ImageGallery from "./ImageGallery";
-import ResultsSection from "./ResultsSection";
-import ReflectionBlock from "./ReflectionBlock";
-import FeaturedDecision, { pickFeaturedDecision } from "./FeaturedDecision";
-import DeepDive from "./DeepDive";
+import KeyDecisions from "./KeyDecisions";
+import OutcomeSection from "./OutcomeSection";
+import OverviewSection from "./OverviewSection";
+import ParkingLot from "./ParkingLot";
+import ProblemSection from "./ProblemSection";
+import ProductFraming from "./ProductFraming";
+import ScopeOwnership from "./ScopeOwnership";
+import StatesRecovery from "./StatesRecovery";
+import WhatILearned from "./WhatILearned";
 
 /**
  * Per-case-study additions, keyed by section id. `append` renders after a
- * section's default content, `replace` stands in for it entirely, and `panels`
- * become closed disclosure panels inside Details. Case studies that pass
- * nothing are unaffected.
+ * section's default content and `replace` stands in for it entirely. Case
+ * studies that pass nothing are unaffected.
  */
 export interface SectionAugments {
   append?: Record<string, React.ReactNode>;
   replace?: Record<string, React.ReactNode>;
-  panels?: { title: string; content: React.ReactNode }[];
 }
 
 /**
- * Page order (revised 2026-09-04, see research/context/case-study-architecture.md):
+ * The plain-noun name of each child. It is the navigation label and the
+ * fallback heading for a study that has not written its own claim for the
+ * section.
+ */
+const NOUN: Record<SectionId, string> = {
+  overview: "Overview",
+  "product-framing": "Product framing",
+  problem: "The problem",
+  scope: "Scope and ownership",
+  decisions: "Key decisions",
+  parked: "What did not make the release",
+  evidence: "Evidence",
+  outcome: "Outcome",
+  learned: "What I learned",
+};
+
+/**
+ * Page structure (Layout C, 2026-09-09; framework in
+ * research/design/principal-ux-case-study-framework.md).
  *
- * Layer 1, the trailer — what a screener reads in five minutes:
- * Hook (header + stats, outside this file) -> Overview -> Problem (context,
- * framing, the reframing insight) -> Turning point -> Solution (with the one
- * featured decision) -> Outcomes.
+ * Three parents, nine children, everything always expanded:
  *
- * Layer 2, the proof — what a hiring manager or panel reads next:
- * Role and team -> Research -> Reflection -> Details.
+ *   01 Framing, why this work mattered
+ *      Overview -> Product framing -> The problem
+ *   02 The work, what I decided and why
+ *      Scope and ownership -> Key decisions -> What did not make the release -> Evidence
+ *   03 Results, what changed and what I learned
+ *      Outcome -> What I learned
  *
- * Section headings are plain nouns, the same on every study, so the study's
- * own sub-headings carry the specifics. The turning point stays in the
- * trailer between problem and solution because a pivot persuades at the point
- * it happened; reflection (what did not work, what would change) is hindsight
- * and sits in the proof layer, still as a page section rather than a
- * disclosure. Role is named in the header and overview, so the fuller role
- * and team section can follow the outcomes without the reader crediting the
- * team for them.
- *
- * Each section carries its layer so the rail can mark where the trailer ends
- * and the proof begins.
+ * The parents are drawn by `CaseStudyPage`; this file says which parent each
+ * child belongs to and what it is headed. The three parent names are constant
+ * on every study. A child's heading is the study's own claim or question for
+ * that section when `headings` carries one, and its plain noun otherwise; the
+ * problem's default is the study's how-might-we line, since that is already
+ * the question the section answers. Headings do the arguing so the paragraphs
+ * only have to supply evidence, which is what keeps the prose short.
  *
  * Sections whose data is absent don't render, so a study can ship partially
  * filled without showing empty headings.
@@ -54,75 +68,97 @@ export default function buildSections(
   content: CaseStudy,
   augments: SectionAugments = {},
 ): Section[] {
-  const { append = {}, replace = {}, panels = [] } = augments;
+  const { append = {}, replace = {} } = augments;
   const sections: Section[] = [];
+  const heading = (id: SectionId, fallback = NOUN[id]) => content.headings?.[id] ?? fallback;
 
   if (content.overview) {
     sections.push({
       id: "overview",
-      layer: "trailer",
-      nav: "Overview",
-      heading: "Overview",
+      group: "framing",
+      nav: NOUN.overview,
+      heading: heading("overview"),
       content: <OverviewSection overview={content.overview} />,
     });
   }
 
   const hasFraming = !!content.framing && content.framing.length > 0;
+  if (content.productFraming || hasFraming) {
+    sections.push({
+      id: "product-framing",
+      group: "framing",
+      nav: NOUN["product-framing"],
+      heading: heading("product-framing"),
+      content: (
+        <ProductFraming productFraming={content.productFraming} framing={content.framing} />
+      ),
+    });
+  }
+
   const insight = content.evidence?.insight;
-  if (content.context || hasFraming || insight) {
+  const hasConstraints = !!content.constraints && content.constraints.length > 0;
+  if (content.hmw || hasConstraints || insight) {
+    // The how-might-we is the heading unless the study wrote a different one,
+    // in which case it prints inside the section instead. Never both.
+    const problemHeading = heading("problem", content.hmw ?? NOUN.problem);
+    const hmwInBody = problemHeading === content.hmw ? undefined : content.hmw;
     sections.push({
       id: "problem",
-      layer: "trailer",
-      nav: "Problem",
-      heading: "Problem",
+      group: "framing",
+      nav: NOUN.problem,
+      heading: problemHeading,
       content: (
-        <ProblemSection context={content.context} framing={content.framing} insight={insight} />
+        <ProblemSection hmw={hmwInBody} constraints={content.constraints} insight={insight} />
       ),
     });
   }
 
-  if (content.turn) {
+  if (content.scope) {
     sections.push({
-      id: "turn",
-      layer: "trailer",
-      nav: "Turning point",
-      heading: "Turning point",
-      content: (
-        <div className="measure border-l-2 border-accent pl-6">
-          <p className="m-0 text-[1.0625rem] leading-[1.75] text-muted-foreground">
-            {content.turn}
-          </p>
-        </div>
-      ),
+      id: "scope",
+      group: "work",
+      nav: NOUN.scope,
+      heading: heading("scope"),
+      content: <ScopeOwnership scope={content.scope} />,
     });
   }
 
-  if (content.solutionSteps && content.solutionSteps.length > 0) {
-    const stepsCarryImages = content.solutionSteps.some(
-      (s) => s.images && s.images.length > 0,
-    );
-    const gallery =
-      !stepsCarryImages && content.images && content.images.length > 0 ? (
-        <ImageGallery images={content.images} />
-      ) : null;
-
-    const featured = pickFeaturedDecision(content.decisions);
+  if (content.decisions.length > 0) {
+    /*
+      The decisions lead. Four kinds of evidence follow under their own
+      labels, because each belongs to the section rather than to one decision:
+      study-level figures (a whole-flow diagram), the annotated screen, the
+      states table, and the process flows. A figure that proves one decision
+      is on that decision's `images` and renders inside its card instead.
+    */
+    const hasImages = !!content.images && content.images.length > 0;
+    const hasStates = !!content.states && content.states.length > 0;
+    const hasProcessImages = !!content.processImages && content.processImages.length > 0;
 
     sections.push({
-      id: "solution",
-      layer: "trailer",
-      nav: "Solution",
-      heading: "Solution",
+      id: "decisions",
+      group: "work",
+      nav: NOUN.decisions,
+      heading: heading("decisions"),
       content: (
         <div className="flex flex-col gap-12">
-          <SolutionSteps steps={content.solutionSteps} />
-          {gallery}
-          {featured && (
-            <div className="flex flex-col gap-4">
-              <p className="m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-tertiary-700">
-                Key decision
-              </p>
-              <FeaturedDecision decision={featured} />
+          <KeyDecisions decisions={content.decisions} />
+          {hasImages && <ImageGallery images={content.images!} />}
+          {content.annotated && <AnnotatedFigure figure={content.annotated} />}
+          {hasStates && (
+            <div>
+              <h4 className="m-0 mb-4 font-mono text-label font-semibold uppercase tracking-[0.09em] text-tertiary-700">
+                Edge cases and recovery
+              </h4>
+              <StatesRecovery states={content.states!} />
+            </div>
+          )}
+          {hasProcessImages && (
+            <div>
+              <h4 className="m-0 mb-4 font-mono text-label font-semibold uppercase tracking-[0.09em] text-tertiary-700">
+                The flows behind the screens
+              </h4>
+              <ImageGallery images={content.processImages!} />
             </div>
           )}
         </div>
@@ -130,63 +166,46 @@ export default function buildSections(
     });
   }
 
-  if (content.impact) {
+  if (content.parked && content.parked.length > 0) {
     sections.push({
-      id: "outcomes",
-      layer: "trailer",
-      nav: "Outcomes",
-      heading: "Outcomes",
-      content: <ResultsSection impact={content.impact} />,
-    });
-  }
-
-  const hasLeadership = !!content.leadership && content.leadership.length > 0;
-  const hasRoleTeam = !!content.team?.length || !!content.ownedThemes?.length;
-  if (hasLeadership || hasRoleTeam) {
-    sections.push({
-      id: "role",
-      layer: "proof",
-      nav: "Role and team",
-      heading: "Role and team",
-      content: (
-        <div className="flex flex-col gap-14">
-          {hasRoleTeam && (
-            <RoleTeam ownedThemes={content.ownedThemes} team={content.team} />
-          )}
-          {hasLeadership && <LeadershipGrid points={content.leadership!} />}
-        </div>
-      ),
+      id: "parked",
+      group: "work",
+      nav: NOUN.parked,
+      heading: heading("parked"),
+      content: <ParkingLot parked={content.parked} />,
     });
   }
 
   const hasFindings = !!content.evidence?.findings?.length || !!content.evidence?.body;
   if (content.evidence && hasFindings) {
     sections.push({
-      id: "research",
-      layer: "proof",
-      nav: "Research",
-      heading: "Research",
-      content: <ChallengeList evidence={content.evidence} />,
+      id: "evidence",
+      group: "work",
+      nav: NOUN.evidence,
+      heading: heading("evidence"),
+      content: <EvidenceTable evidence={content.evidence} />,
+    });
+  }
+
+  if (content.impact) {
+    sections.push({
+      id: "outcome",
+      group: "results",
+      nav: NOUN.outcome,
+      heading: heading("outcome"),
+      content: <OutcomeSection impact={content.impact} />,
     });
   }
 
   if (content.reflection) {
     sections.push({
-      id: "reflection",
-      layer: "proof",
-      nav: "Reflection",
-      heading: "Reflection",
-      content: <ReflectionBlock reflection={content.reflection} />,
+      id: "learned",
+      group: "results",
+      nav: NOUN.learned,
+      heading: heading("learned"),
+      content: <WhatILearned reflection={content.reflection} />,
     });
   }
-
-  sections.push({
-    id: "details",
-    layer: "proof",
-    nav: "Details",
-    heading: "Details",
-    content: <DeepDive content={content} panels={panels} />,
-  });
 
   return sections.map((section) => {
     const replacement = replace[section.id];

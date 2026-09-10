@@ -1,34 +1,40 @@
-import type { FramingItem } from "../../data/caseStudies";
-import FramingBlock from "./FramingBlock";
+import type { Constraint } from "../../data/caseStudyTypes";
+import TwoColumnTable from "./primitives/TwoColumnTable";
 import PullQuote from "./primitives/PullQuote";
 
 /**
- * The problem: the situation and constraint, the product framing (hypothesis,
- * metric, constraint, where it landed), and the reframing insight as the
- * page's one pull-quote.
+ * The problem: a "how might we" line, the constraints and what each one forced
+ * the product to do as a ledger, and the reframing insight as the page's one
+ * pull quote (Layout C).
  *
- * Added 2026-09-04 when the page moved to a two-layer order. The context used
- * to trail the overview and the insight used to close Research; both belong
- * here, because a reader should meet the reframe before the solution and the
- * research section is then the proof behind it.
+ * When the how-might-we is used as the section's own heading, `buildSections`
+ * does not pass it here, so it is never printed twice. The ledger is there
+ * because constraints are the part of a problem a reviewer can check, and
+ * prose hides whether each one actually had a consequence.
  */
 export default function ProblemSection({
-  context,
-  framing,
+  hmw,
+  constraints,
   insight,
 }: {
-  context?: string;
-  framing?: FramingItem[];
+  hmw?: string;
+  constraints?: Constraint[];
   insight?: string;
 }) {
   return (
-    <div>
-      {context && (
-        <p className="m-0 measure text-base leading-[1.7] text-muted-foreground">{context}</p>
+    <div className="flex flex-col gap-8">
+      {hmw && (
+        <p className="m-0 max-w-[38rem] text-lead font-medium leading-[1.5] text-foreground">{hmw}</p>
       )}
-      {framing && framing.length > 0 && <FramingBlock items={framing} />}
+      {constraints && constraints.length > 0 && (
+        <TwoColumnTable
+          caption="Each constraint and what it forced the product to do."
+          headers={["Constraint", "Implication for the product"]}
+          rows={constraints.map((c) => ({ term: c.constraint, detail: c.implication }))}
+        />
+      )}
       {insight && (
-        <div className="mt-10">
+        <div className="mt-2">
           <PullQuote>{insight}</PullQuote>
         </div>
       )}

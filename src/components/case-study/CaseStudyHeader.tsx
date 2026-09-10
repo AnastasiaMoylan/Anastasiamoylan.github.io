@@ -1,90 +1,135 @@
 import Badge from "../ui/Badge";
+import StatBand from "./StatBand";
+import type { Stat } from "../../data/caseStudyTypes";
 
 /**
- * Title, role, tagline, tags and the remaining facts as one header block.
+ * The lede (Layout C): kicker, claim, byline, deck, figures.
  *
- * Role is pulled out as a byline directly under the title rather than sitting as
- * one field among four: it is the reader's second question after the project
- * name, and the only fact on the page about the author rather than the work.
+ * Newspaper order. The project name shrinks to a kicker, the claim is the
+ * headline and the largest type on the page, the byline names who did it
+ * directly beneath, one deck sentence carries the approach, and the numbers
+ * are on the same screen as the news. Reviewers give a case study ten to
+ * thirty seconds and screen for level first, so nothing in the first viewport
+ * is bigger than the claim and the role is legible in plain language without
+ * hunting for it.
  *
- * The other facts run inline along the bottom, which drops the label gutter a
- * two-column layout needs and lets long values — "Confidential enterprise
- * telecommunications organization" — sit on one line. Their labels survive as
- * screen-reader text, so nothing is lost for assistive technology.
+ * The claim falls back through three sources so a study that has not been
+ * migrated still renders something true: an explicit `claim`, then the
+ * overview's result line, then the tagline. Only the last of those is a
+ * description rather than an outcome, which is the signal that the study still
+ * needs its claim written.
  *
- * One fact line, not two (2026-09-03): status joined this line and the
- * Overview's separate status/users/tools list was cut. The team renders as
- * discipline cards in Details.
+ * Users, team and status are the framework's metadata fields. Layout C has no
+ * slot for them in the lede, so they sit as a small labelled grid after the
+ * figures rather than being dropped: below the numbers, they cost the first
+ * screen nothing.
  */
+import type { ReactNode } from "react";
 const BYLINE_FIELD = "Role";
-const INLINE_FIELDS = ["Employer", "Client", "Timeframe", "Status"];
+const KICKER_FIELDS = ["Employer", "Client", "Timeframe"];
+const SCOPE_FIELDS = ["Users", "Team", "Status"];
+
+/** Initials for the byline mark. A portrait would be better; there isn't one. */
+const MARK = "AM";
+const NAME = "Anastasia Novelly Moylan";
 
 export default function CaseStudyHeader({
+  backLink,
   title,
-  tagline,
+  claim,
+  deck,
   tags,
   fields,
+  stats,
+  caveat,
 }: {
+  /** The route back to the index, set on the kicker's line. */
+  backLink?: ReactNode;
   title: string;
-  tagline: string;
+  /** The news. Rendered as the h1. */
+  claim: string;
+  /** One sentence of approach, under the byline. */
+  deck?: string;
   tags: string[];
   fields: { label: string; value: string }[];
+  /** At-a-glance figures, on the same screen as the claim. */
+  stats?: Stat[];
+  /** The source line under the figures: what they are and are not. */
+  caveat?: string;
 }) {
-  const role = fields.find((f) => f.label === BYLINE_FIELD);
-  const inlineFields = INLINE_FIELDS.flatMap((label) => fields.filter((f) => f.label === label));
+  const find = (label: string) => fields.find((f) => f.label === label);
+  const role = find(BYLINE_FIELD);
+  const kicker = KICKER_FIELDS.map(find).filter(Boolean) as { label: string; value: string }[];
+  const scope = SCOPE_FIELDS.map(find).filter(Boolean) as { label: string; value: string }[];
 
   return (
-    /*
-      One column at every width. The tags used to sit beside the title on wide
-      screens, which split the top of the page into two columns and made the
-      title compete with a row of chips for the first look. Stacked, the reading
-      order is the order of the reader's questions: what, who I was, what it
-      did, what kind of work, and the surrounding facts.
-    */
     <header className="flex flex-col">
-      <h1 className="m-0 font-display text-[clamp(1.875rem,4.5vw,3.25rem)] font-extrabold leading-[1.08] tracking-[-0.035em] text-foreground">
-        {title}
+      {/* Kicker: what this was and when, small, above the news. */}
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <p className="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1.5 font-mono text-label font-medium uppercase tracking-[0.12em]">
+          <span className="font-semibold text-foreground">{title}</span>
+          {kicker.map(({ label, value }) => (
+            <span key={label} className="flex items-baseline gap-3 text-muted-foreground">
+              <span aria-hidden="true" className="text-tertiary-500">
+                &middot;
+              </span>
+              <span className="sr-only">{label}: </span>
+              {value}
+            </span>
+          ))}
+        </p>
+        {backLink}
+      </div>
+
+      <h1 className="mt-4 m-0 max-w-[24ch] font-display text-h1 font-extrabold tracking-[-0.035em] text-foreground">
+        {claim}
       </h1>
 
-      {role && (
-        <p className="mt-3.5 m-0 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.12em] text-tertiary-700">
-          <span className="sr-only">Role: </span>
-          {role.value}
-        </p>
+      {/* Byline: who, and at what level, in plain language. */}
+      <div className="mt-6 flex items-center gap-3.5 border-t border-border pt-5">
+        <span
+          aria-hidden="true"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-tertiary-900 font-display text-small font-bold text-background"
+        >
+          {MARK}
+        </span>
+        <div className="min-w-0">
+          <p className="m-0 text-body font-semibold leading-[1.35] text-foreground">{NAME}</p>
+          {role && (
+            <p className="mt-0.5 m-0 text-small leading-[1.45] text-muted-foreground">
+              <span className="sr-only">Role: </span>
+              {role.value}
+            </p>
+          )}
+        </div>
+      </div>
+
+      {deck && (
+        <p className="mt-5 m-0 max-w-[46ch] text-lead text-muted-foreground">{deck}</p>
       )}
 
-      <p className="mt-2.5 m-0 measure text-[clamp(1.0625rem,2vw,1.25rem)] leading-[1.5] text-muted-foreground">
-        {tagline}
-      </p>
+      {stats && stats.length > 0 && <StatBand stats={stats} caveat={caveat} />}
 
-      <ul className="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
+      {scope.length > 0 && (
+        <dl className="m-0 mt-6 grid grid-cols-1 gap-5 border-t border-border pt-5 sm:grid-cols-3">
+          {scope.map(({ label, value }) => (
+            <div key={label}>
+              <dt className="m-0 font-mono text-label font-semibold uppercase tracking-[0.12em] text-tertiary-700">
+                {label}
+              </dt>
+              <dd className="mt-1.5 m-0 text-small leading-[1.55] text-foreground">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <ul className="m-0 mt-6 flex list-none flex-wrap gap-2 p-0">
         {tags.map((tag) => (
           <li key={tag}>
             <Badge>{tag}</Badge>
           </li>
         ))}
       </ul>
-
-      {inlineFields.length > 0 && (
-        /*
-          No rule above the facts. They are small and muted enough that spacing
-          separates them from the tags, and a rule here put a third horizontal
-          line into the same short stretch as the at-a-glance band below.
-        */
-        <p className="mt-6 m-0 text-[0.78125rem] leading-[1.6] text-muted-foreground">
-          {inlineFields.map(({ label, value }, i) => (
-            <span key={label}>
-              {i > 0 && (
-                <span className="mx-1.5 text-border" aria-hidden="true">
-                  ·
-                </span>
-              )}
-              <span className="sr-only">{label}: </span>
-              {value}
-            </span>
-          ))}
-        </p>
-      )}
     </header>
   );
 }

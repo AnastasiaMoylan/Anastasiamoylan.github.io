@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="operating-model-title operating-model-desc">
+      <title id="operating-model-title">Finance program operating model</title>
+      <desc id="operating-model-desc">Org chart showing the program experience lead translating client intent into direction for a research lead, a data-side lead, and four application designers who own one product each, with a staged research handoff and a delivery-lead escalation path.</desc>
+      <defs><style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap');</style>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6b6560"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6e2a2a"/></marker>
+      </defs>
+
+      <rect width="100%" height="100%" fill="#f7f5f1"/>
+
+      <!-- Zones (painted first) -->
+      <!-- Client zone -->
+      <rect x="192" y="48" width="576" height="100" rx="8" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="208" y="64" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">CLIENT FINANCE PROGRAM</text>
+      <!-- Application designers zone -->
+      <rect x="400" y="292" width="512" height="88" rx="8" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="416" y="310" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em">APPLICATION DESIGNERS · ONE PRODUCT EACH</text>
+
+      <!-- Connectors (drawn before nodes) -->
+      <!-- Client intent → program lead -->
+      <line x1="480" y1="148" x2="480" y2="188" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- Delivery lead ↔ program lead: escalation, no direction -->
+      <line x1="208" y1="212" x2="360" y2="212" stroke="#6b6560" stroke-width="1" stroke-dasharray="4,3"/>
+      <!-- Bus: program lead → research lead, data-side lead, application designers -->
+      <line x1="480" y1="236" x2="480" y2="268" stroke="#6b6560" stroke-width="1"/>
+      <path d="M 480 268 L 128 268 Q 120 268 120 276 L 120 292" fill="none" stroke="#6b6560" stroke-width="1"/>
+      <path d="M 480 268 L 304 268 Q 296 268 296 276 L 296 292" fill="none" stroke="#6b6560" stroke-width="1"/>
+      <path d="M 480 268 L 648 268 Q 656 268 656 276 L 656 292" fill="none" stroke="#6b6560" stroke-width="1"/>
+      <!-- Staged research handoff: research lead → workflow-hub designer (accent, dashed) -->
+      <path d="M 120 348 L 120 412 Q 120 420 128 420 L 592 420 Q 600 420 600 412 L 600 368" fill="none" stroke="#6e2a2a" stroke-width="1.4" stroke-dasharray="5,4" marker-end="url(#arrow-accent)"/>
+
+      <!-- Connector labels -->
+      <rect x="488" y="160" width="48" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="512" y="170" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">INTENT</text>
+
+      <rect x="244" y="190" width="80" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="284" y="200" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">ESCALATION</text>
+
+      <rect x="332" y="400" width="56" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="360" y="410" fill="#6e2a2a" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">HANDOFF</text>
+
+      <!-- Client nodes (external treatment) -->
+      <rect x="208" y="76" width="160" height="56" rx="6" fill="#f7f5f1"/>
+      <rect x="208" y="76" width="160" height="56" rx="6" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="288" y="100" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Program lead, sponsor</text>
+      <text x="288" y="116" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">vision · adoption OKRs</text>
+
+      <rect x="400" y="76" width="160" height="56" rx="6" fill="#f7f5f1"/>
+      <rect x="400" y="76" width="160" height="56" rx="6" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="480" y="100" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Product owner</text>
+      <text x="480" y="116" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">requirements · dates</text>
+
+      <rect x="592" y="76" width="160" height="56" rx="6" fill="#f7f5f1"/>
+      <rect x="592" y="76" width="160" height="56" rx="6" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="672" y="100" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Chief of staff, SME</text>
+      <text x="672" y="116" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">tester cohort · demos</text>
+
+      <!-- Delivery lead (external) -->
+      <rect x="48" y="188" width="160" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="48" y="188" width="160" height="48" rx="6" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="128" y="208" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Delivery lead</text>
+      <text x="128" y="224" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">staffing · account</text>
+
+      <!-- Root: program experience lead (focal) -->
+      <rect x="360" y="188" width="240" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="360" y="188" width="240" height="48" rx="6" fill="#6e2a2a" fill-opacity="0.08" stroke="#6e2a2a" stroke-width="1"/>
+      <rect x="368" y="196" width="32" height="12" rx="2" fill="none" stroke="#6e2a2a" stroke-opacity="0.50" stroke-width="0.8"/>
+      <text x="384" y="205" fill="#6e2a2a" font-size="7" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.08em">ME</text>
+      <text x="480" y="208" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Program experience lead</text>
+      <text x="480" y="224" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">cross-product calls · no reporting lines</text>
+
+      <!-- Tier 1: leads (backend treatment) -->
+      <rect x="48" y="292" width="144" height="56" rx="6" fill="#f7f5f1"/>
+      <rect x="48" y="292" width="144" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="120" y="316" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Research lead</text>
+      <text x="120" y="332" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">cadence · tracker</text>
+
+      <rect x="224" y="292" width="144" height="56" rx="6" fill="#f7f5f1"/>
+      <rect x="224" y="292" width="144" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="296" y="316" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Data-side lead</text>
+      <text x="296" y="332" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">explorer · workbench</text>
+
+      <!-- Tier 2: application designers (store treatment) -->
+      <rect x="416" y="320" width="112" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="416" y="320" width="112" height="48" rx="6" fill="#283d3b" fill-opacity="0.05" stroke="#6b6560" stroke-width="0.8"/>
+      <text x="472" y="340" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Business case</text>
+      <text x="472" y="356" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">agent flows</text>
+
+      <rect x="544" y="320" width="112" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="544" y="320" width="112" height="48" rx="6" fill="#283d3b" fill-opacity="0.05" stroke="#6b6560" stroke-width="0.8"/>
+      <text x="600" y="340" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Workflow hub</text>
+      <text x="600" y="356" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">entries · bank rec</text>
+
+      <rect x="672" y="320" width="112" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="672" y="320" width="112" height="48" rx="6" fill="#283d3b" fill-opacity="0.05" stroke="#6b6560" stroke-width="0.8"/>
+      <text x="728" y="340" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Audit tool</text>
+      <text x="728" y="356" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">audit outputs</text>
+
+      <rect x="800" y="320" width="112" height="48" rx="6" fill="#f7f5f1"/>
+      <rect x="800" y="320" width="112" height="48" rx="6" fill="#283d3b" fill-opacity="0.05" stroke="#6b6560" stroke-width="0.8"/>
+      <text x="856" y="340" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Overflow</text>
+      <text x="856" y="356" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">homepage · support</text>
+
+      <!-- Legend -->
+      <line x1="40" y1="524" x2="920" y2="524" stroke="#283d3b" stroke-opacity="0.12" stroke-width="0.8"/>
+      <text x="40" y="544" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEGEND</text>
+
+      <rect x="120" y="536" width="14" height="10" rx="2" fill="#6e2a2a" fill-opacity="0.08" stroke="#6e2a2a" stroke-width="1"/>
+      <text x="140" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">My role</text>
+
+      <rect x="216" y="536" width="14" height="10" rx="2" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="236" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Lead I direct</text>
+
+      <rect x="328" y="536" width="14" height="10" rx="2" fill="#283d3b" fill-opacity="0.05" stroke="#6b6560" stroke-width="0.8"/>
+      <text x="348" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Designer, owns one product</text>
+
+      <rect x="504" y="536" width="14" height="10" rx="2" fill="#283d3b" fill-opacity="0.03" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+      <text x="524" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Client or agency partner</text>
+
+      <line x1="676" y1="541" x2="704" y2="541" stroke="#6e2a2a" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arrow-accent)"/>
+      <text x="712" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Research handoff: run, co-run, alone</text>
+    </svg>

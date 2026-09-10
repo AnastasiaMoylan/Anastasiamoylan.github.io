@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router";
 import { X } from "lucide-react";
 import { navLinks } from "../../data/navLinks";
+import useBodyScrollLock from "../../hooks/useBodyScrollLock";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -16,6 +17,9 @@ export default function MobileNav({ isOpen, onClose, triggerRef }: MobileNavProp
   useEffect(() => {
     if (isOpen) closeRef.current?.focus();
   }, [isOpen]);
+
+  // The drawer covers the page; the page must not scroll behind it.
+  useBodyScrollLock(isOpen);
 
   // Close the drawer after a navigation. Only the path is a dependency so a
   // re-render of the Header (which hands down a fresh onClose) doesn't fire it.

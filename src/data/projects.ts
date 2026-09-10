@@ -29,15 +29,22 @@ export const projects: Project[] = [
     previousSlug: "governed-ai-finance-workspace",
     image: financeAIFlow,
     title: "Finance Cloud",
+    // Card and metadata migrated 2026-09-09 from the Finance Cloud
+    // principal-framework rewrite; see the sign-off notes in caseStudies.ts.
     tagline:
-      "Unifying data exploration, AI agents, workflow automation, and audit tooling into one finance product suite",
+      "A governed AI platform for finance and payroll, taken from zero to one and scaled from 10 pilot users to 300",
     problem:
-      "The client had invested in valuable finance products, but users experienced them as disconnected tools rather than a coherent platform \u2014 no unified entry point, overlapping terminology, and an integration promise the architecture could not yet keep.",
+      "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails and human accountability that financial operations require \u2014 a platform producing numbers without provenance would be either untrusted and unused, or trusted and indefensible.",
+    // Role resolved 2026-08-26: the engagement role, distinct from the
+    // employment title on the r\u00e9sum\u00e9. Status is the 2026-09-08 account; the
+    // rewrite's own verify list asks for it to be refreshed. [NEEDS SIGN-OFF]
+    // on status. Both must stay identical to the study's snapshot fields.
     role: "Product Experience Lead",
-    status: "Completed",
-    tags: ["AI Interaction Design", "Complex Workflows", "Governance", "Data and Finance"],
-    outcome:
-      "Reframed the program as a suite of independent products with a shared experience layer, designed the unified homepage as its access-aware front door, and set the AI interaction principles that make agent output worth acting on.",
+    status: "V3 of the analysis platform in testing; unified homepage MVP in development",
+    // "Complex Workflows" dropped per the rewrite: it is true of every study
+    // here, so it does no sorting work.
+    tags: ["AI Interaction Design", "Governance", "Data and Finance"],
+    outcome: `Took a governed AI finance platform from zero to one and scaled it from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned \u2014 experimentation separated from production, every AI action inspectable, and human approval required before anything consequential.`,
     featuredOrder: 1,
     filterCategories: ["AI and Trust", "Complex Workflows", "Data and Finance"],
   },
@@ -45,29 +52,40 @@ export const projects: Project[] = [
     slug: "auditable-billing-workflow",
     image: cwoCover,
     title: "An Auditable Billing Workflow",
-    tagline: "Replacing manual billing-package assembly to recover backlogged revenue",
+    // Card and header rewritten 2026-09-09 from the CWO principal-framework
+    // document; see the sign-off notes on this study in caseStudies.ts.
+    tagline:
+      "Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience",
     problem:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where.",
-    role: "Lead Designer, then Design Lead and UX / Product Strategy Lead",
-    status: "Completed",
-    tags: ["End-to-end Flow", "B2B SaaS", "Workflow Automation"],
+    // [NEEDS SIGN-OFF] Role and status both changed; they must stay identical
+    // to the case study's own snapshot fields and to the résumé.
+    role: "Product Lead and Design Contributor",
+    status: "MVP 1 released and in use; MVP 1.5 in progress",
+    tags: ["Enterprise Workflow", "Status and Audit Model", "Product Strategy"],
     outcome:
-      `Built from zero over a one-year engagement: an MVP that gave every role a shared view of progress, then the dashboard, in-product editing, and review process — with ${figures.billingReturningUsers} returning users as of ${figures.billingReturningAsOf}, on a status model that made ownership and handoffs explicit.`,
+      `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people, on a status model that made ownership and handoffs explicit.`,
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },
   {
     slug: "enterprise-document-knowledge",
     image: diCover,
-    title: "A Tailorable Enterprise AI Platform",
-    tagline: "Giving business units their own AI toolbox on centrally maintained rails",
+    // [NEEDS SIGN-OFF] The site has carried both "Verifiable AI Answers" and
+    // "A Tailorable Enterprise AI Platform"; the 2026-09-09 rewrite settles on
+    // the platform framing above. Whatever is chosen has to match the page H1,
+    // the next-study link, and the title tag, which all derive from here.
+    title: "A Verifiable Document AI Platform",
+    tagline: "Answers users could trace, compare, and reuse — on rails the next compliance tool could ride",
     problem:
-      "Knowledge workers were getting AI-generated answers they couldn't verify: no source context, no way to compare documents side-by-side, no path back to the original evidence. Trust eroded fast.",
-    role: "UX and Product Strategy Lead",
-    status: "Completed",
-    tags: ["Document Intelligence", "AI Trust", "Research"],
+      "Business users could get a fast AI answer from thousands of internal documents but had no way to see where it came from, compare conflicting sources, or reuse the pattern for the next compliance question.",
+    // [NEEDS SIGN-OFF] Role and status both changed with the rewrite: the fuller
+    // title, and "Completed" replaced because production status is unconfirmed.
+    role: "Lead Experience Designer — UX and product strategy lead",
+    status: "Multi-phase accelerator and product development; production status to confirm",
+    tags: ["Enterprise AI", "Document Intelligence", "AI Trust"],
     outcome:
-      "Research showed users preferred side-by-side comparison over tabs, so the navigation model changed based on that evidence. Sourced chat, inline citations, and an embedded PDF viewer kept every answer traceable back to its source.",
+      "An answer carries its sources, the active document set is visible and editable, comparison has a mode matched to the reading task, and a governed compliance widget rides the same rails instead of shipping as a second product.",
     featuredOrder: 4,
     filterCategories: ["AI and Trust", "B2B SaaS", "Research"],
   },

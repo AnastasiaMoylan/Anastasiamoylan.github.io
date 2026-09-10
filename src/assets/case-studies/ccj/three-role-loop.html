@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three roles, one loop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:  #f7f5f1;
+      --color-ink:    #283d3b;
+      --color-muted:  #6b6560;
+      --color-accent: #6e2a2a;
+      --font-sans:    'Inter', system-ui, sans-serif;
+      --font-serif:   'Instrument Serif', serif;
+      --font-mono:    'Geist Mono', ui-monospace, monospace;
+    }
+    body { font-family: var(--font-sans); background: var(--color-paper); color: var(--color-ink); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 3rem 2rem; }
+    .frame { max-width: 1200px; width: 100%; }
+    .eyebrow { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 0.5rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.15; color: var(--color-ink); margin-bottom: 1.5rem; }
+    svg { width: 100%; min-width: 900px; display: block; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Swimlane · Connected customer journey</p>
+    <h1>Three roles, one loop</h1>
+
+    <svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="three-role-loop-title three-role-loop-desc">
+      <title id="three-role-loop-title">Three roles, one loop</title>
+      <desc id="three-role-loop-desc">Swimlane showing a churn signal moving from the analyst who detects and explains it, to an AI-drafted message a person edits before it is sent, to the customer, to a chatbot, and on a sentiment gate to a representative, with declined offers looping back to the analyst.</desc>
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6b6560"/></marker>
+        <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6e2a2a"/></marker>
+      </defs>
+
+      <rect width="100%" height="100%" fill="#f7f5f1"/>
+
+      <!-- Lane dividers -->
+      <line x1="48" y1="64" x2="912" y2="64" stroke="rgba(40,61,59,0.22)" stroke-width="1"/>
+      <line x1="48" y1="164" x2="912" y2="164" stroke="rgba(40,61,59,0.10)" stroke-width="1"/>
+      <line x1="48" y1="264" x2="912" y2="264" stroke="rgba(40,61,59,0.10)" stroke-width="1"/>
+      <line x1="48" y1="364" x2="912" y2="364" stroke="rgba(40,61,59,0.10)" stroke-width="1"/>
+      <line x1="48" y1="464" x2="912" y2="464" stroke="rgba(40,61,59,0.22)" stroke-width="1"/>
+      <line x1="152" y1="64" x2="152" y2="464" stroke="rgba(40,61,59,0.22)" stroke-width="1"/>
+
+      <!-- Lane labels -->
+      <text x="64" y="118" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.18em">ANALYST</text>
+      <text x="64" y="218" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.18em">AI LAYER</text>
+      <text x="64" y="318" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.18em">CUSTOMER</text>
+      <text x="64" y="418" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.12em">REPRESENTATIVE</text>
+
+      <!-- Arrows (drawn first) -->
+      <!-- 1 Detect → Explain -->
+      <line x1="272" y1="112" x2="292" y2="112" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- 2 Explain → Choose -->
+      <line x1="404" y1="104" x2="440" y2="104" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- 3 Choose → Draft (analyst → AI) -->
+      <line x1="476" y1="140" x2="476" y2="184" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- 4 Draft → Edit and send (AI → analyst): the review gate -->
+      <path d="M 516 184 L 516 164 Q 516 156 524 156 L 788 156 Q 796 156 796 148 L 796 140" fill="none" stroke="#6e2a2a" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+      <!-- 5 Edit and send → Offer arrives (analyst → customer) -->
+      <line x1="836" y1="140" x2="836" y2="284" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- 6 Offer arrives → Chatbot (customer → AI) -->
+      <path d="M 760 312 L 684 312 Q 676 312 676 304 L 676 240" fill="none" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <!-- 7 Chatbot → Takes over (AI → rep): the sentiment gate -->
+      <line x1="636" y1="240" x2="636" y2="384" stroke="#6e2a2a" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+      <!-- 8 Declined → back to Choose action (rep → analyst) -->
+      <path d="M 600 412 L 428 412 Q 420 412 420 404 L 420 128 Q 420 120 428 120 L 440 120" fill="none" stroke="#6b6560" stroke-width="1.2" stroke-dasharray="5,4" marker-end="url(#arrow)"/>
+
+      <!-- Arrow labels -->
+      <rect x="620" y="136" width="80" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="656" y="146" fill="#6e2a2a" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.10em">REVIEW GATE</text>
+
+      <rect x="844" y="206" width="40" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="864" y="216" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.10em">SEND</text>
+
+      <rect x="696" y="292" width="56" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="724" y="302" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.10em">ROUTINE</text>
+
+      <rect x="648" y="340" width="104" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="700" y="350" fill="#6e2a2a" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.10em">SENTIMENT GATE</text>
+
+      <rect x="488" y="392" width="64" height="12" rx="2" fill="#f7f5f1"/>
+      <text x="520" y="402" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" text-anchor="middle" letter-spacing="0.10em">DECLINED</text>
+
+      <!-- Steps -->
+      <!-- Analyst: Detect risk -->
+      <rect x="160" y="84" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="216" y="108" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Detect risk</text>
+      <text x="216" y="124" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">KPI at risk</text>
+
+      <!-- Analyst: Find the drop -->
+      <rect x="292" y="84" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="348" y="108" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Find the drop</text>
+      <text x="348" y="124" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">by channel</text>
+
+      <!-- Analyst: Choose action -->
+      <rect x="440" y="84" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="496" y="108" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Choose action</text>
+      <text x="496" y="124" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">what-if first</text>
+
+      <!-- Analyst: Edit and send -->
+      <rect x="760" y="84" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="816" y="108" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Edit and send</text>
+      <text x="816" y="124" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">live preview</text>
+
+      <!-- AI: Draft message -->
+      <rect x="440" y="184" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="496" y="208" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Draft message</text>
+      <text x="496" y="224" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">audience · tone</text>
+
+      <!-- AI: Chatbot -->
+      <rect x="600" y="184" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="656" y="208" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Chatbot</text>
+      <text x="656" y="224" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">routine cases</text>
+
+      <!-- Customer: Offer arrives -->
+      <rect x="760" y="284" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="816" y="308" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Offer arrives</text>
+      <text x="816" y="324" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">replies in chat</text>
+
+      <!-- Rep: Takes over -->
+      <rect x="600" y="384" width="112" height="56" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="656" y="408" fill="#283d3b" font-size="12" font-weight="600" font-family="'Inter', sans-serif" text-anchor="middle">Takes over</text>
+      <text x="656" y="424" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace" text-anchor="middle">with AI summary</text>
+
+      <!-- Legend -->
+      <line x1="48" y1="524" x2="912" y2="524" stroke="rgba(40,61,59,0.12)" stroke-width="0.8"/>
+      <text x="48" y="544" fill="#6b6560" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">LEGEND</text>
+
+      <rect x="128" y="536" width="14" height="10" rx="2" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="148" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Step, owned by its lane</text>
+
+      <line x1="304" y1="541" x2="332" y2="541" stroke="#6b6560" stroke-width="1.2" marker-end="url(#arrow)"/>
+      <text x="340" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Flow</text>
+
+      <line x1="408" y1="541" x2="436" y2="541" stroke="#6e2a2a" stroke-width="1.4" marker-end="url(#arrow-accent)"/>
+      <text x="444" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">A person decides before AI output moves on</text>
+
+      <line x1="704" y1="541" x2="732" y2="541" stroke="#6b6560" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+      <text x="740" y="544" fill="#6b6560" font-size="9" font-family="'Inter', sans-serif">Declined offer loops back</text>
+    </svg>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ccj-scope-title ccj-scope-desc">
+      <title id="ccj-scope-title">Scope and ownership on the connected customer journey</title>
+      <desc id="ccj-scope-desc">Two bands of involvement. At the core, what I owned outright on this engagement: the journey platform, connecting dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offer customization and performance monitoring; model output framed as decision support rather than an opaque score; the end-to-end mitigation flow from risk detection through launch and monitoring; and human control over AI messaging, required before anything reached a customer. The outer band is the cross-functional team the work sat inside: UX design, data science, marketing and CX, AI and NLP engineering, front-end and back-end engineering, and product owners.</desc><defs><style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap');</style></defs>
+
+      <rect width="100%" height="100%" fill="#f7f5f1"/>
+
+      <!-- Outer band — the team -->
+      <rect x="24" y="24" width="912" height="440" rx="8" fill="#f7f5f1"/>
+      <rect x="24" y="24" width="912" height="440" rx="8" fill="#283d3b" fill-opacity="0.015" stroke="#283d3b" stroke-opacity="0.30" stroke-width="1"/>
+
+      <!-- Inner band — Owned (focal) -->
+      <rect x="72" y="120" width="816" height="296" rx="8" fill="#f7f5f1"/>
+      <rect x="72" y="120" width="816" height="296" rx="8" fill="#6e2a2a" fill-opacity="0.08" stroke="#6e2a2a" stroke-width="1"/>
+
+      <!-- Band labels, masked over each band's top border -->
+      <rect x="40" y="17" width="76" height="14" fill="#f7f5f1"/>
+      <text x="48" y="27" fill="#8f8a83" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.14em">WORKED WITH</text>
+
+      <rect x="88" y="113" width="48" height="14" fill="#f7f5f1"/>
+      <text x="96" y="123" fill="#6e2a2a" font-size="8" font-weight="600" font-family="'Geist Mono', monospace" letter-spacing="0.14em">OWNED</text>
+
+      <!-- Outer band content -->
+      <text x="48" y="56" fill="#8f8a83" font-size="9" font-family="'Geist Mono', monospace">UX design · Data science · Marketing and CX · AI and NLP engineering</text>
+      <text x="48" y="72" fill="#8f8a83" font-size="9" font-family="'Geist Mono', monospace">Front-end and back-end engineering · Product owners</text>
+      <text x="48" y="96" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Senior UX designer, leading design on the engagement</text>
+
+      <!-- Owned — the four themes -->
+      <rect x="104" y="160" width="376" height="104" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="128" y="190" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif">The journey platform</text>
+      <text x="128" y="212" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Dynamic segmentation · Churn signals · Sentiment</text>
+      <text x="128" y="228" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">and NPS health · AI-assisted messaging · Offer</text>
+      <text x="128" y="244" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">customization · Performance monitoring</text>
+
+      <rect x="504" y="160" width="376" height="104" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="528" y="190" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif">Model output as decision support</text>
+      <text x="528" y="212" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Predictions paired with customer context, lifecycle</text>
+      <text x="528" y="228" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">stage, behavior, sentiment, and available actions</text>
+      <text x="528" y="244" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">— not an opaque score presented as an answer</text>
+
+      <rect x="104" y="280" width="376" height="104" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="128" y="310" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif">The end-to-end mitigation flow</text>
+      <text x="128" y="332" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Risk detection · Context review · Human-selected</text>
+      <text x="128" y="348" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">action · Message or offer adjustment · Launch ·</text>
+      <text x="128" y="364" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Monitoring · Iteration</text>
+
+      <rect x="504" y="280" width="376" height="104" rx="6" fill="#ffffff" stroke="#283d3b" stroke-width="1"/>
+      <text x="528" y="310" fill="#283d3b" font-size="13" font-weight="600" font-family="'Inter', sans-serif">Human control over AI messaging</text>
+      <text x="528" y="332" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">Users required to review and edit AI-assisted</text>
+      <text x="528" y="348" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">communication before it reached a customer,</text>
+      <text x="528" y="364" fill="#6b6560" font-size="9" font-family="'Geist Mono', monospace">across every channel in the journey</text>
+
+      <!-- Editorial callout -->
+      <text x="24" y="508" fill="#283d3b" font-size="16" font-style="italic" font-family="'Instrument Serif', serif">Held the line on human control, on every channel.</text>
+      <path d="M 400 500 Q 560 494 700 392" fill="none" stroke="#283d3b" stroke-opacity="0.40" stroke-width="1" stroke-dasharray="4,3"/>
+      <circle cx="702" cy="388" r="2" fill="#283d3b"/>
+    </svg>
