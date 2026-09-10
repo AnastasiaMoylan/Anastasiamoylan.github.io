@@ -55,4 +55,9 @@ export const figures = {
   billingActiveAsOf: "September 2026",
   billingActiveAsOfShort: "Sep 2026",
   billingBacklogSize: "a few hundred",
+
+  // The philosophy page's principle 08 thesis, as a figure. Anastasia's own
+  // estimate of how much of her work is AI-driven; it was typed straight into
+  // the page until 2026-09-10. Not a measured figure.
+  aiDrivenShare: "~90%",
 } as const;
