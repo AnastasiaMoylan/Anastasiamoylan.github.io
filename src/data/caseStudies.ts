@@ -764,6 +764,96 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The h1. Trimmed from the rewrite's own "Card and header lead line", so
     // it is her sentence rather than a new claim. [NEEDS SIGN-OFF]
     claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people.`,
+    // Layout C (2026-09-10). The four blocks below are lifted verbatim from
+    // research/design/layout-prototypes/c-lede.html, which restated this
+    // study's own copy as claim headings, an opener pair, an annotated screen
+    // and a parking lot. None of it is a new fact, but none of it has been on
+    // the site before, so every line is [NEEDS SIGN-OFF]. Overview and Outcome
+    // have no claim heading in the prototype and keep their nouns.
+    headings: {
+      "product-framing":
+        "Clearing a backlog once is automation. Staying clear is a workflow problem.",
+      scope: "I owned the product definition, not just the design",
+      decisions: "Six decisions, and what each one cost",
+      parked: "What did not make the release, and why",
+      evidence: "What ten usability sessions changed",
+      learned: "Enterprise workflows fail at the boundaries between systems and teams",
+    },
+    opener: {
+      detail: {
+        src: cwoBillingReport,
+        fullSrc: cwoBillingReportFull,
+        width: 2400,
+        height: 2390,
+        alt: "Close detail of the finalized billing report: charges broken down by category with gross and net construction cost, credit lines and the total amount due.",
+        caption:
+          "Close up. Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.",
+      },
+      context: {
+        src: cwoPackageIndex,
+        fullSrc: cwoPackageIndexFull,
+        width: 2400,
+        height: 1537,
+        alt: "Billing package index listing existing packages by ID, projects, contract number, owner and last modified, with a project-number filter and a Start new billing package button.",
+        caption:
+          "In context. Every package is found by its project number before a new one can be started, the rule that stopped the duplicates.",
+      },
+    },
+    // Pin coordinates are percentages placed by eye in the prototype; the
+    // design review notes two of the four land on a table row rather than the
+    // column header they mean. Tune against the asset in the browser.
+    annotated: {
+      image: {
+        src: cwoPackageIndex,
+        fullSrc: cwoPackageIndexFull,
+        width: 2400,
+        height: 1537,
+        alt: "Billing package index with the project-number filter, owner and last-modified columns, and the Start new billing package control.",
+        caption: "Four decisions visible on one screen.",
+      },
+      pins: [
+        {
+          x: 88,
+          y: 19,
+          text: "Guarded by the identity check. Starting a package runs the project-number lookup first, so the control cannot create a duplicate.",
+        },
+        {
+          x: 53,
+          y: 33,
+          text: "The primary key is the filter. The project number is how a package is found, which is why it is the search field rather than a package ID.",
+        },
+        {
+          x: 47,
+          y: 43,
+          text: "Ownership before you open anything. The owner column makes the responsible person visible from the index, not from inside the package.",
+        },
+        {
+          x: 58,
+          y: 43,
+          text: "The status model, surfacing. Every transition is timestamped, so last-modified is a real signal rather than a file date.",
+        },
+      ],
+      caption:
+        "Four decisions visible on one screen. The index is the argument: identity, ownership and state are all readable before a package is opened.",
+    },
+    parked: [
+      {
+        item: "The reporting dashboard",
+        why: "Not feasible in the release. Surfaced the dependency and held it in the backlog; protecting the core flow cost the release its most demo-friendly screen.",
+      },
+      {
+        item: "In-product editing of package, project and customer details",
+        why: "Excel stayed as the interim path. Continuity now was worth more than a half-built editor.",
+      },
+      {
+        item: "Whole-package automation and section export",
+        why: "Held as the final feature area so the manual path shipped first.",
+      },
+      {
+        item: "Document integration, expanded review, automated retrieval",
+        why: "Sequenced into a named phased roadmap rather than argued into this scope.",
+      },
+    ],
     overview: {
       challenge: `A backlog of ${figures.billingBacklogSize} billing packages had built up behind a manual orchestration of feeder-system data, screenshots, PDFs, spreadsheets, and off-product handoffs.`,
       // [NEEDS SIGN-OFF] "Cleared the backlog" replaces the site's weaker
@@ -883,12 +973,14 @@ export const caseStudies: Record<string, CaseStudy> = {
     // approach line and the ownership block.
     decisions: [
       {
+        mechanism: "Progressive validation",
         decision: "Used progressive validation as users moved through package building.",
         rationale:
           "Defects that surface only at submission cost the most, because the work behind them is already spread across systems. Catching them at the stage where they occur keeps the package recoverable. Missing data, loading and retrieval states, and recovery actions surface as the user moves, progress is preserved when one dependency fails, and a completeness review runs before submission.",
         rejected: "waiting until final submission to reveal missing data or evidence",
       },
       {
+        mechanism: "The project-number key",
         decision:
           "Made billing-package identity explicit: the package's primary key is the project number.",
         rationale:
@@ -907,6 +999,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
       {
+        mechanism: "The six-state status model",
         decision: "Made package status a first-class object.",
         rationale:
           "Users needed to know whether a package was being assembled or ready to submit, and the organization needed a record of who did what. A six-state model — Initiated, In Progress, Review, Approved, Finalized, Completed — carries both, with trigger-based updates, role-based permissions, status history and audit trail, notifications, and status-based reporting. It is also what keeps the backlog from re-forming: a package cannot sit in an undefined state.",
@@ -925,6 +1018,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
       {
+        mechanism: "The review session",
         decision: "Separated ownership from review.",
         rationale:
           "Handoffs were where packages lost state, so putting the handoff in the product gives it a history. Package metadata carries owner, creation date and time, current status, and review tasks, and reusable review-and-submit patterns make the handoff visible. Usability sessions across the three user groups drove the specific improvements to the review step.",
@@ -943,6 +1037,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         ],
       },
       {
+        mechanism: "The interim editing path",
         decision: "Preserved an interim editing path through Excel.",
         rationale:
           "Direct editing was not feasible within the technical constraints. Operational continuity now was worth more than a half-built editor, and the future state was designed rather than abandoned.",
@@ -951,6 +1046,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "A deliberate product tradeoff: preserve operational continuity now while designing a more integrated future state.",
       },
       {
+        mechanism: "The visible backlog",
         decision: "De-scoped the planned dashboard without losing the opportunity.",
         rationale:
           "Forcing unsupported work into the release would have put the feasible billing workflow at risk. I surfaced the dependency behind the dashboard, moved it out of the current scope, and held it in the backlog as a future opportunity, which kept the case for it alive.",
