@@ -1,0 +1,1158 @@
+<title>Broadsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;700&amp;display=swap">
+<style>
+/* ==========================================================================
+   B · Broadsheet
+   One ground, one display family, a hairline eight-column grid. The type
+   scale carries the hierarchy; Archivo's width axis carries the personality;
+   every artefact is a numbered cut inset into the grid at one of two widths.
+   This sheet runs in the spec's order: tokens, grid, type steps 1 to 7,
+   image treatment, pairing, decisions, transitions, interactions, breakpoints.
+   ========================================================================== */
+
+/* 0 · Tokens (src/styles/theme.css). Light only; one ground. */
+:root {
+  --ground: #f7f5f1;
+  --ink: #283d3b;
+  --muted: #57514b;
+  --border: #cfc7bb;
+  --maroon: #6e2a2a;
+  --maroon-hover: #5a2222;
+  --champagne: #edddd4;
+  --tint: #f1eaea;
+  --teal-100: #d6e3e1;
+  --teal-500: #6b8f8a;
+  --teal-700: #3e5b58;
+  --card: #ffffff;
+
+  --display: "Archivo", "Archivo Narrow", "Helvetica Neue", Arial, sans-serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --gutter: 32px;
+  --side: clamp(20px, 4vw, 56px);
+  /* Exactly three gaps, on an 8px scale. */
+  --gap-decision: 64px;
+  --gap-section: 96px;
+  --gap-chapter: 160px;
+
+  color-scheme: light;
+  interpolate-size: allow-keywords;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--ground); }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Resets carry zero specificity so every rule below wins over them. */
+:where(.bs, .lb) :where(h1, h2, h3, h4, p, dl, dd, ol, ul, figure, blockquote) { margin: 0; }
+:where(.bs, .lb) :where(ol, ul) { padding: 0; list-style: none; }
+:where(.bs, .lb) :where(b, strong) { font-weight: 600; color: var(--ink); }
+:where(.bs, .lb) img { display: block; max-width: 100%; height: auto; }
+.vh {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+:focus-visible { outline: 2px solid var(--maroon); outline-offset: 3px; }
+::selection { background: var(--champagne); color: var(--ink); }
+
+/* 1 · Grid. 1280 max, fluid side padding, eight columns, 32px gutter.
+   Column 1 is the margin: numerals and figure numbers, nothing else. */
+.bs {
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: var(--side);
+  padding-block: 64px 96px;
+  background: var(--ground);
+}
+.row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: start;
+}
+.c-m      { grid-column: 1; }
+.c-p      { grid-column: 2 / 6; max-width: 60ch; }   /* prose, about 568px */
+.c-cut    { grid-column: 6 / 9; }                    /* cut, about 418px */
+.c-wide   { grid-column: 2 / -1; }                   /* tables and lists */
+.c-head   { grid-column: 2 / 7; }                    /* titles */
+.c-spread { grid-column: 1 / -1; }                   /* spread, 1168px */
+.c-mcut   { grid-column: 1 / 5; grid-row: 1; }       /* mirrored cut */
+.c-mp     { grid-column: 5 / 9; grid-row: 1; }       /* mirrored prose */
+.block { margin-top: var(--gap-decision); }
+
+/* Column rules: drawn per block between prose and cut, full block height,
+   never page-long. The cut stretches to the row so its rule does too. */
+.rule-l, .rule-r { position: relative; align-self: stretch; }
+.rule-l::before, .rule-r::after {
+  content: ""; position: absolute; top: 0; bottom: 0;
+  border-left: 1px solid var(--border);
+}
+.rule-l::before { left: calc(var(--gutter) / -2); }
+.rule-r::after  { right: calc(var(--gutter) / -2); }
+
+/* 2 · Type, step 1. Masthead h1 (wdth 75) and chapter numeral (wdth 125). */
+.h1 {
+  font-family: var(--display);
+  font-size: clamp(48px, 6.4vw, 88px);
+  line-height: .98;
+  font-weight: 800;
+  font-stretch: 75%;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: -.02em;
+  max-width: 18ch;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.numeral {
+  font-family: var(--display);
+  font-size: clamp(48px, 6.4vw, 88px);
+  line-height: .98;
+  font-weight: 800;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink);
+}
+
+/* Step 2. Chapter title and section claim, condensed (wdth 62). */
+.claim, .ch-title {
+  display: block;
+  font-family: var(--display);
+  font-size: 40px;
+  line-height: 1.05;
+  font-weight: 600;
+  font-stretch: 62%;
+  font-variation-settings: "wdth" 62;
+  letter-spacing: -.01em;
+  max-width: 24ch;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* Step 3. Decision claim and stat figure (wdth 100). */
+.dclaim, .stat-v, .next-link {
+  font-family: var(--display);
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-variation-settings: "wdth" 100;
+  letter-spacing: -.02em;
+  max-width: 30ch;
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--ink);
+}
+
+/* Step 4. Deck, pull quote, and the before/after pair. */
+.deck, .pull, .pair dd {
+  font-family: var(--sans);
+  font-size: 21px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  max-width: 48ch;
+  color: var(--ink);
+}
+
+/* Step 5. Body. */
+.body, .body p, .body dd { font-size: 17px; line-height: 1.65; font-weight: 400; max-width: 60ch; }
+.body > * + * { margin-top: 16px; }
+
+/* Step 6. Caption, table cell, margin note; lead-in at 600. */
+figcaption, .tbl, .note, .caveat, .meta dd, .stat-l, .instead, .lb-aside {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: .005em;
+}
+.caveat, .note { max-width: 44ch; color: var(--muted); }
+
+/* Step 7. Labels: mono caps. The chapter label alone is Archivo wdth 125. */
+.label, .run, .fig-no, .tbl th[scope="col"], .meta dt, .kicker, .lof, .fig-btn, .scroll-hint, .back {
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.label, .run { color: var(--teal-700); }
+.ch-label {
+  display: block;
+  font-family: var(--display);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 700;
+  font-stretch: 125%;
+  font-variation-settings: "wdth" 125;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+/* 3 · Masthead: kicker, claim, deck, metadata, stats, list of figures. */
+.kicker { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--muted); margin-bottom: 24px; }
+.kicker b { font-weight: 700; color: var(--ink); }
+.kicker .sep { color: var(--teal-500); }
+.mast-b { margin-top: 48px; }
+.meta { display: grid; gap: 16px; }
+.meta dt { color: var(--teal-700); }
+.meta dd { margin-top: 4px; color: var(--ink); max-width: 44ch; }
+.stats-row { margin-top: 48px; }
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.stats > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 4px; }
+.stat-l { color: var(--muted); max-width: 24ch; }
+.caveat { margin-top: 16px; }
+.stats-row .caveat { margin-top: 24px; }
+.lof-row { margin-top: 48px; }
+.lof-row .label { margin-bottom: 8px; }
+.lof { display: flex; flex-wrap: wrap; align-items: baseline; line-height: 2; letter-spacing: .1em; }
+.lof li:not(:last-child)::after { content: "\00B7"; content: "\00B7" / ""; color: var(--teal-500); padding-inline: 12px; }
+.lof a { text-decoration: none; color: var(--ink); border-bottom: 1px solid transparent; }
+.lof a:hover { border-bottom-color: currentColor; }
+.lof a span { color: var(--maroon); margin-right: 8px; }
+.hero { margin-top: 64px; }
+
+/* 4 · Image treatment. Inset cuts: 1px frame, no radius, no shadow, white
+   inside with 8px padding. Figure number (step 7) in column 1 on the frame's
+   top edge; caption below, bold lead-in, 44ch. Two widths only. */
+.fig { position: relative; scroll-margin-top: 32px; }
+.fig:focus { outline: none; }
+.fig-head { display: flex; align-items: baseline; gap: 16px; min-height: 24px; margin-bottom: 8px; }
+.fig-no { color: var(--maroon); white-space: nowrap; }
+.fig-btn {
+  margin-left: auto; appearance: none; background: none; border: 0;
+  border-bottom: 1px solid currentColor; border-radius: 0; padding: 0 0 2px;
+  color: var(--maroon); cursor: pointer;
+}
+.fig-btn:hover { color: var(--maroon-hover); }
+.scroll-hint { display: none; color: var(--muted); letter-spacing: .1em; }
+.frame {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 8px;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+.frame img { width: 100%; height: auto; }
+.frame.is-hl { border-color: var(--maroon); box-shadow: 0 0 0 1px var(--maroon); }
+.dgm svg { display: block; width: 100%; height: auto; }
+.fig figcaption { margin-top: 16px; color: var(--muted); max-width: 44ch; }
+.fig figcaption > * + * { margin-top: 12px; }
+.fig figcaption b { color: var(--ink); }
+
+/* Spreads: all eight columns, number in column 1 above the frame's top
+   edge, caption back on the prose column. */
+.spread { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: var(--gutter); }
+.spread > .fig-head {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: var(--gutter);
+  align-items: end;
+}
+.spread > .fig-head .fig-no { grid-column: 1; }
+.spread > .fig-head .scroll-hint { grid-column: 2 / 6; }
+.spread > .fig-head .fig-btn { grid-column: 7 / 9; justify-self: end; }
+.spread > .frame { grid-column: 1 / -1; }
+.spread > figcaption { grid-column: 2 / 6; }
+.spread > figcaption.cap-pins { grid-column: 2 / 7; max-width: none; }
+.cap-pins > p { max-width: 44ch; }
+.js .spread > .frame { cursor: zoom-in; }
+
+/* Cuts beside prose and tables on columns 2–8 hang their number into
+   column 1, level with the frame's top edge. */
+.hang-5 > .fig-head, .hang-1 > .fig-head { position: absolute; top: 0; margin: 0; min-height: 0; }
+.hang-5 > .fig-head { left: calc((100% + var(--gutter)) * -5 / 3); }
+.hang-1 > .fig-head { left: calc((100% + var(--gutter)) / -7); }
+.hang-5 .fig-no, .hang-1 .fig-no { line-height: 1; padding-top: 2px; }
+
+/* The annotated screen: square numbered pins, keyed to the caption list. */
+.pinbox { position: relative; }
+.pin {
+  position: absolute; width: 24px; height: 24px; margin: -12px 0 0 -12px;
+  display: grid; place-items: center;
+  background: var(--maroon); color: var(--card);
+  outline: 2px solid var(--card);
+  font: 500 12px/1 var(--mono); font-variant-numeric: tabular-nums;
+}
+/* Tuned against package-index.jpg: the start button, the project-number
+   filter, and the owner and last-modified column headers. */
+.pin-1 { left: 75.4%; top: 11.5%; }
+.pin-2 { left: 80%; top: 24.4%; }
+.pin-3 { left: 56.9%; top: 28.6%; }
+.pin-4 { left: 71.7%; top: 28.6%; }
+.pins { columns: 2; column-gap: var(--gutter); }
+.pins li {
+  break-inside: avoid; display: grid; grid-template-columns: 20px minmax(0, 1fr);
+  gap: 12px; padding-bottom: 12px;
+}
+.pn {
+  width: 20px; height: 20px; display: grid; place-items: center;
+  background: var(--tint); color: var(--maroon);
+  font: 500 12px/1 var(--mono); font-variant-numeric: tabular-nums;
+}
+
+/* Tables are figures: numbered, captioned, hairline rows, tabular
+   numerals, mono headers. */
+.tbl { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; color: var(--muted); }
+.tbl th[scope="col"] {
+  text-align: left; vertical-align: bottom; color: var(--teal-700);
+  padding: 8px 12px 10px; border-bottom: 1px solid var(--ink);
+}
+.tbl th[scope="row"], .tbl td { padding: 12px; vertical-align: top; text-align: left; border-top: 1px solid var(--border); }
+.tbl tbody tr:first-child > * { border-top: 0; }
+.tbl th[scope="row"] { font-weight: 600; color: var(--ink); }
+.tbl .nil { color: var(--teal-500); }
+.tbl-2 th[scope="row"] { width: 46%; }
+.tbl-3 th[scope="row"] { width: 36%; }
+
+/* 5 · Pairing. Beside, mirrored, or below. */
+.aside > * + * { margin-top: 24px; }
+.aside dt { color: var(--teal-700); }
+.aside dd { margin-top: 8px; }
+.pull { padding-top: 16px; border-top: 2px solid var(--maroon); max-width: 48ch; }
+.scope-list p b { border-bottom: 2px solid currentColor; margin-right: 6px; }
+.scope-list .t-owned { color: var(--maroon); }
+.scope-list .t-led { color: var(--ink); }
+.scope-list .t-infl { color: var(--muted); }
+.scope-list .t-with { color: var(--teal-700); }
+.overview dt { color: var(--teal-700); }
+.overview dd { margin-top: 4px; color: var(--muted); }
+.overview dd.lead { color: var(--ink); font-weight: 500; }
+.overview > div + div { margin-top: 24px; }
+.pair dt { color: var(--teal-700); }
+.pair dd { margin-top: 8px; }
+.proof li { position: relative; padding-left: 28px; }
+.proof li + li { margin-top: 12px; }
+.proof li::before { content: "\2192"; content: "\2192" / ""; position: absolute; left: 0; color: var(--maroon); font-family: var(--mono); }
+.note .label { display: block; margin-bottom: 8px; }
+.mp-head .label { margin-top: 12px; }
+.mp-head .claim { margin-top: 8px; }
+
+/* 6 · Decisions. A numeral in the margin, a mechanism label, a claim, the
+   rationale, and the road not taken. */
+.hair {
+  border: 0; border-top: 1px solid var(--border);
+  margin: var(--gap-decision) 0 24px calc((100% + var(--gutter)) / 8);
+}
+.sec-head + .dec { margin-top: 40px; }
+.dec-sum { list-style: none; cursor: default; }
+.dec-sum::-webkit-details-marker { display: none; }
+.dec-sum::marker { content: ""; }
+.dec-num {
+  grid-column: 1;
+  font-family: var(--display);
+  font-size: 40px; line-height: 1; font-weight: 800;
+  font-stretch: 125%; font-variation-settings: "wdth" 125;
+  letter-spacing: -.04em; font-variant-numeric: tabular-nums lining-nums;
+  color: var(--teal-100);
+}
+.dec-head { grid-column: 2 / 7; display: block; }
+.dec-head .label { display: block; margin-bottom: 8px; }
+.dclaim { display: block; }
+.dec-body { margin-top: 16px; }
+.instead { margin-top: 24px; padding-left: 12px; border-left: 2px solid var(--maroon); color: var(--muted); max-width: 44ch; }
+.instead .label { display: block; color: var(--maroon); margin-bottom: 4px; }
+.dec-fig { margin-top: 40px; }
+
+/* 7 · Section transitions. One ground. Chapter: 3px maroon rule over all
+   eight columns and 160px above. Section: hairline on 2–8 and 96px.
+   Decision: hairline on 2–8 and 64px. */
+.chapter { position: relative; margin-top: var(--gap-chapter); }
+.chapter-rule { height: 3px; background: var(--maroon); transform-origin: left center; }
+.ch-rail {
+  position: absolute; top: 27px; bottom: 0; left: 0;
+  width: calc((100% - 7 * var(--gutter)) / 8);
+  z-index: 3; pointer-events: none;
+}
+.ch-num {
+  pointer-events: auto; position: sticky; top: 24px; display: inline-block;
+  text-decoration: none; background: var(--ground);
+  box-shadow: 0 -24px 0 var(--ground); padding: 0 8px 8px 0;
+}
+.ch-num:hover { color: var(--maroon); }
+.ch-head { padding-top: 24px; }
+.ch-head h2 { grid-column: 2 / 7; }
+.ch-head .ch-title { margin-top: 12px; }
+.sec { margin-top: var(--gap-section); }
+.sec::before {
+  content: ""; display: block; margin-left: calc((100% + var(--gutter)) / 8);
+  border-top: 1px solid var(--border); margin-bottom: 24px;
+}
+.ch-head + .sec { margin-top: var(--gap-decision); }
+.ch-head + .sec::before { display: none; }
+.sec-head { row-gap: 12px; }
+.sec-head .run { grid-column: 1; grid-row: 1; }
+.sec-head .label { grid-column: 2 / 7; grid-row: 1; }
+.sec-head .claim { grid-column: 2 / 7; grid-row: 2; }
+.sec-head.solo .claim { grid-row: 1; }
+.sec-head.solo .run { padding-top: 12px; }
+.sec-head + .block { margin-top: 40px; }
+.closing { margin-top: var(--gap-section); }
+.closing::before {
+  content: ""; display: block; margin-left: calc((100% + var(--gutter)) / 8);
+  border-top: 1px solid var(--border); margin-bottom: 24px;
+}
+.credits .label { margin-bottom: 8px; }
+.credits p { color: var(--muted); }
+.next { margin-top: var(--gap-decision); align-items: end; }
+.next .label { margin-bottom: 8px; }
+.next-link { display: inline-block; color: var(--maroon); text-decoration: none; border-bottom: 1px solid transparent; }
+.next-link:hover { border-bottom-color: currentColor; }
+.next .btn-cell { grid-column: 6 / 9; justify-self: end; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 12px 24px;
+  background: var(--maroon); color: var(--card); border: 0; border-radius: 0;
+  font: 600 14px/1.2 var(--sans); letter-spacing: .005em; text-decoration: none;
+}
+.btn:hover { background: var(--maroon-hover); }
+
+/* 8 · Interactions. */
+/* 8.1 Cross-references and their return link. */
+.xref {
+  color: var(--maroon); text-decoration: underline; text-underline-offset: 2px;
+  text-decoration-thickness: 1px; white-space: nowrap;
+}
+.back { margin-left: 8px; color: var(--maroon); text-decoration: none; border-bottom: 1px solid currentColor; }
+.lof-row, .xref, .back { scroll-margin-top: 32px; }
+
+/* 8.4 Spread lightbox. */
+.lb {
+  padding: 0; border: 1px solid var(--border); border-radius: 0;
+  background: var(--ground); color: var(--ink);
+  width: min(1480px, calc(100vw - 32px)); max-width: none;
+  height: min(960px, calc(100dvh - 32px)); max-height: none;
+}
+.lb::backdrop { background: rgba(40, 61, 59, .78); }
+.lb-inner { display: grid; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: auto minmax(0, 1fr); height: 100%; }
+.lb-bar {
+  grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 12px 16px; border-bottom: 1px solid var(--border);
+}
+.lb-close {
+  appearance: none; background: none; border: 1px solid var(--ink); border-radius: 0;
+  padding: 8px 12px; color: var(--ink); cursor: pointer;
+  font: 500 12px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+}
+.lb-close:hover { border-color: var(--maroon); color: var(--maroon); }
+.lb-media { overflow: auto; padding: 16px; }
+.lb-media .frame { cursor: auto; }
+.lb-aside { overflow: auto; padding: 16px 16px 24px; border-left: 1px solid var(--border); color: var(--muted); }
+.lb-aside > * + * { margin-top: 12px; }
+.lb-aside b { color: var(--ink); }
+.lb-aside .pins { columns: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .lb[open] { animation: lb-in 220ms cubic-bezier(.2, .6, .2, 1); }
+  .lb[open]::backdrop { animation: lb-fade 220ms ease; }
+}
+@keyframes lb-in { from { opacity: 0; transform: scale(.97); } }
+@keyframes lb-fade { from { opacity: 0; } }
+
+/* 8.5 Hairline draw at chapter breaks; gated by .js, so no JS = full rule. */
+.js .chapter-rule { transform: scaleX(0); transition: transform 400ms cubic-bezier(.2, .6, .2, 1); }
+.js .chapter-rule.is-drawn { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .js .chapter-rule { transform: none; transition: none; }
+  .frame { transition: none; }
+}
+
+/* 9 · Breakpoints. 1440 and 1024 share the grid. Under 900 the cut drops
+   below the prose and the margin folds into inline numerals; decisions
+   become disclosures (8.2). Under 600 one column, and spreads scroll
+   inside their own frame. */
+@media (min-width: 900px) {
+  .dec-sum { display: grid; }
+}
+@media (max-width: 899px) {
+  .row, .spread { display: block; }
+  .c-p { max-width: 60ch; }
+  .c-cut, .c-mcut { margin-top: 32px; }
+  .mast-b .c-cut { margin-top: 32px; }
+  .rule-l::before, .rule-r::after { display: none; }
+  .sec::before, .closing::before { margin-left: 0; }
+  .hair { margin-left: 0; }
+  .sec-head { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; column-gap: 16px; row-gap: 8px; }
+  .sec-head .run { grid-column: 1; grid-row: 1; }
+  .sec-head .label { grid-column: 2; grid-row: 1; }
+  .sec-head .claim { grid-column: 1 / -1; grid-row: 2; }
+  .sec-head.solo .claim { grid-column: 2; grid-row: 1; }
+  .sec-head.solo .run { padding-top: 0; }
+  .next .btn-cell { text-align: left; }
+  .ch-rail { position: static; width: auto; }
+  .ch-num { position: static; box-shadow: none; padding: 0; display: block; margin-top: 24px; }
+  .ch-head { padding-top: 16px; }
+  .hang-5 > .fig-head, .hang-1 > .fig-head { position: static; min-height: 24px; margin-bottom: 8px; }
+  .hang-5 .fig-no, .hang-1 .fig-no { line-height: 1.4; padding-top: 0; }
+  .spread > .fig-head { display: flex; }
+  .spread > figcaption { max-width: 44ch; }
+  .spread > figcaption.cap-pins { max-width: none; }
+  .mp-head .run { display: inline; margin-right: 16px; }
+  .next .btn-cell { margin-top: 32px; }
+  .dec-sum { display: flex; align-items: flex-start; gap: 16px; cursor: pointer; }
+  .dec-num { color: var(--teal-500); flex: none; min-width: 2.2ch; }
+  .dec-sum::after {
+    content: "+"; content: "+" / ""; margin-left: auto; flex: none;
+    font: 500 20px/1 var(--mono); color: var(--maroon); padding-top: 4px;
+  }
+  .dec[open] > .dec-sum::after { content: "\2013"; content: "\2013" / ""; }
+  .dec-body { margin-top: 24px; }
+}
+@media (max-width: 899px) and (prefers-reduced-motion: no-preference) {
+  .dec::details-content {
+    height: 0; overflow: clip;
+    transition: height 280ms ease, content-visibility 280ms allow-discrete;
+  }
+  .dec[open]::details-content { height: auto; }
+}
+@media (max-width: 599px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pins { columns: 1; }
+  .spread .frame, .scroll .frame { overflow-x: auto; }
+  /* 960px sets the diagrams at 1:1, so their 12px labels stay 12px. */
+  .spread .media, .lb-media .media { min-width: 960px; }
+  .scroll .tbl { min-width: 34rem; }
+  .scroll-hint { display: inline; }
+  .scroll > .fig-head { display: flex; }
+  .scroll > .fig-head .scroll-hint { margin-left: auto; }
+  .lb-inner { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; }
+  .lb-aside { border-left: 0; border-top: 1px solid var(--border); max-height: 40dvh; }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+  .lb-inner { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; }
+  .lb-aside { border-left: 0; border-top: 1px solid var(--border); max-height: 36dvh; }
+}
+</style>
+
+<script>document.documentElement.classList.add("js");</script>
+
+<article class="bs" id="top">
+
+  <!-- ============ Masthead ============ -->
+  <header class="mast">
+    <div class="row">
+      <p class="kicker c-wide"><b>An Auditable Billing Workflow</b><span class="sep" aria-hidden="true">&middot;</span><span>Amdocs Studios</span><span class="sep" aria-hidden="true">&middot;</span><span>2024–2025</span></p>
+      <h1 class="h1 c-wide">Cleared a backlog of a few hundred billing packages with an auditable workflow now used by 70 people.</h1>
+    </div>
+
+    <div class="row mast-b">
+      <p class="deck c-p">Automate retrieval first, then design what keeps it clear: explicit stages, ownership, review and status history.</p>
+      <dl class="meta c-cut rule-l">
+        <div><dt>Role</dt><dd>Product Lead and Design Contributor</dd></div>
+        <div><dt>Client</dt><dd>Confidential enterprise telecommunications organization</dd></div>
+        <div><dt>Status</dt><dd>MVP 1 released and in use; MVP 1.5 in progress</dd></div>
+        <div><dt>Users</dt><dd>Admins, accountants, and engineers managing projects and billing packages</dd></div>
+        <div><dt>Team</dt><dd>CWO team with the client's Chief Data Office, product, engineering, and UI development</dd></div>
+      </dl>
+    </div>
+
+    <div class="row stats-row">
+      <dl class="stats c-wide">
+        <div><dt class="stat-l">Built from zero</dt><dd class="stat-v">0 → 1</dd></div>
+        <div><dt class="stat-l">Backlog of a few hundred billing packages</dt><dd class="stat-v">Cleared</dd></div>
+        <div><dt class="stat-l">Active users, Sep 2026</dt><dd class="stat-v">70</dd></div>
+        <div><dt class="stat-l">Shared status states</dt><dd class="stat-v">6</dd></div>
+      </dl>
+      <p class="caveat c-p">The backlog size is my own account, not a project record, and 70 active users is my own count as of September 2026. The +20% submission-rate KPI is measurable from status timestamps but not yet measured. Defect reduction and handoff time are not verified.</p>
+    </div>
+
+    <!-- The page's one navigation: every figure and table placed below, in page order. -->
+    <nav class="row lof-row" aria-labelledby="lof-label">
+      <p class="label c-wide" id="lof-label">List of figures</p>
+      <ol class="lof c-wide">
+        <li><a href="#fig-1"><span>Fig. 1</span>The finalized report</a></li>
+        <li><a href="#table-1"><span>Table 1</span>Constraints</a></li>
+        <li><a href="#fig-2"><span>Fig. 2</span>Scope and ownership</a></li>
+        <li><a href="#table-2"><span>Table 2</span>Edge cases and recovery</a></li>
+        <li><a href="#fig-3"><span>Fig. 3</span>The package index</a></li>
+        <li><a href="#fig-4"><span>Fig. 4</span>The six-state status model</a></li>
+        <li><a href="#fig-5"><span>Fig. 5</span>The review session</a></li>
+        <li><a href="#table-3"><span>Table 3</span>What did not ship</a></li>
+        <li><a href="#table-4"><span>Table 4</span>What the sessions changed</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <!-- FIG. 1, the hero: a spread. -->
+  <figure class="fig spread hero" id="fig-1" tabindex="-1" aria-labelledby="fig-1-cap">
+    <div class="fig-head">
+      <span class="fig-no">Fig. 1</span>
+      <span class="scroll-hint" aria-hidden="true">scroll →</span>
+      <button class="fig-btn" type="button" data-lightbox="fig-1" aria-label="Enlarge fig. 1, the finalized report">Enlarge</button>
+    </div>
+    <div class="frame">
+      <img class="media" src="{{img:billing-report}}" width="1400" height="1394" alt="Close detail of the finalized billing report: charges broken down by category with gross and net construction cost, credit lines and the total amount due.">
+    </div>
+    <figcaption id="fig-1-cap"><p><b>The finalized report.</b> Close up. Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.<a class="back" href="#top" hidden><span aria-hidden="true">↩</span><span class="vh">Back to the reference</span></a></p></figcaption>
+  </figure>
+
+  <!-- ============ Chapter 01 · Framing ============ -->
+  <section class="chapter" id="framing" aria-labelledby="ch-1">
+    <div class="chapter-rule" aria-hidden="true"></div>
+    <div class="ch-rail"><a class="ch-num numeral" href="#framing" aria-label="Chapter 01, Framing: back to the chapter opener">01</a></div>
+    <header class="row ch-head">
+      <h2 id="ch-1"><span class="ch-label">Framing</span><span class="ch-title">Why this work mattered</span></h2>
+    </header>
+
+    <!-- 1.1 Overview: no cut, nothing on the right. -->
+    <section class="sec" id="overview" aria-labelledby="s-overview">
+      <header class="row sec-head solo">
+        <span class="run" aria-hidden="true">1.1</span>
+        <h3 class="claim" id="s-overview">Overview</h3>
+      </header>
+      <div class="row block">
+        <dl class="overview body c-p">
+          <div><dt class="label">Challenge</dt><dd>A backlog of a few hundred billing packages had built up behind manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and handoffs.</dd></div>
+          <div><dt class="label">Result</dt><dd class="lead">The workflow cleared the backlog and keeps it clear; 70 people use it, and other projects have picked up its approval flow.</dd></div>
+          <div><dt class="label">Approach</dt><dd>Automate retrieval first, then design what keeps it clear: explicit stages, ownership, review and status history.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 1.2 Product framing: prose beside the hypothesis and KPI pair. -->
+    <section class="sec" id="product-framing" aria-labelledby="s-framing">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">1.2</span>
+        <p class="label">Product framing</p>
+        <h3 class="claim" id="s-framing">Clearing a backlog once is automation. Staying clear is a workflow problem.</h3>
+      </header>
+      <div class="row block">
+        <div class="body c-p">
+          <p>Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. Every package in the backlog was billable work the organization could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room, and why I owned product definition as well as design.</p>
+        </div>
+        <dl class="aside body c-cut rule-l">
+          <div><dt class="label">Hypothesis</dt><dd>Work disappeared because no role owned it and no vocabulary said where it was. Make both explicit and the backlog becomes recoverable.</dd></div>
+          <div><dt class="label">KPI set at kickoff</dt><dd>+20% billing-package submission rate, the step where packages were dying. Explicit ownership and status should carry more packages to submission.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 1.3 The problem: the how-might-we is the claim; constraints table; the insight as the pull quote. -->
+    <section class="sec" id="problem" aria-labelledby="s-problem">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">1.3</span>
+        <p class="label">The problem</p>
+        <h3 class="claim" id="s-problem">How might we turn a fragmented orchestration process into a guided, error-tolerant workflow that users could review and trust?</h3>
+      </header>
+      <div class="row block">
+        <figure class="fig hang-1 c-wide" id="table-1" tabindex="-1" aria-labelledby="table-1-cap">
+          <div class="fig-head"><span class="fig-no">Table 1</span></div>
+          <div class="frame">
+            <table class="tbl tbl-2">
+              <thead><tr><th scope="col">Constraint</th><th scope="col">Implication for the product</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Evidence came from feeder systems, generated screenshots, invoices, PDFs and spreadsheet edits</th><td>The product had to coordinate the whole package, not one screen or document</td></tr>
+                <tr><th scope="row">Missing screenshots could stop assembly after work was already underway</th><td>Retrieval failures needed preserved progress, a visible error and a recovery action</td></tr>
+                <tr><th scope="row">Different roles could create, edit, review or approve</th><td>Ownership, review tasks, permissions, handoffs and status history had to be explicit</td></tr>
+                <tr><th scope="row">Users could not tell whether a package was still being assembled or ready to submit</th><td>Package state had to be a first-class, visible object with history</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption id="table-1-cap"><p><b>Constraints.</b> Each constraint and what it forced the product to do.</p></figcaption>
+        </figure>
+      </div>
+      <div class="row block">
+        <blockquote class="pull c-p"><p>The workflow could recover billable work only by making dependencies, responsibility and recovery visible before submission, not after a package failed.</p></blockquote>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ Chapter 02 · The work ============ -->
+  <section class="chapter" id="the-work" aria-labelledby="ch-2">
+    <div class="chapter-rule" aria-hidden="true"></div>
+    <div class="ch-rail"><a class="ch-num numeral" href="#the-work" aria-label="Chapter 02, The work: back to the chapter opener">02</a></div>
+    <header class="row ch-head">
+      <h2 id="ch-2"><span class="ch-label">The work</span><span class="ch-title">What I decided and why</span></h2>
+    </header>
+
+    <!-- 2.1 Scope and ownership: four blocks, then the ownership diagram as a spread. -->
+    <section class="sec" id="scope" aria-labelledby="s-scope">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">2.1</span>
+        <p class="label">Scope and ownership</p>
+        <h3 class="claim" id="s-scope">I owned the product definition, not just the design</h3>
+      </header>
+      <div class="row block">
+        <div class="scope-list body c-p">
+          <p><b class="t-owned">Owned.</b>Product and design for the workflow. I defined the features and scope from stakeholder input, designed the front end, ran handoff and maintained the design backlog. The ten-stage decomposition, the status model, the development-ready flows and the error-condition wireframes are mine.</p>
+          <p><b class="t-led">Led.</b>Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.</p>
+          <p><b class="t-infl">Influenced beyond the design lane.</b>Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. The scope calls on the dashboard and the interim editing path. The approval flow has since been picked up by other projects.</p>
+          <p><b class="t-with">Worked with.</b>The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.</p>
+        </div>
+      </div>
+      <div class="row block">
+        <figure class="fig spread c-spread" id="fig-2" tabindex="-1" aria-labelledby="fig-2-cap">
+          <div class="fig-head">
+            <span class="fig-no">Fig. 2</span>
+            <span class="scroll-hint" aria-hidden="true">scroll →</span>
+            <button class="fig-btn" type="button" data-lightbox="fig-2" aria-label="Enlarge fig. 2, scope and ownership">Enlarge</button>
+          </div>
+          <div class="frame">
+            <div class="media dgm">{{svg:scope-ownership}}</div>
+          </div>
+          <figcaption id="fig-2-cap"><p><b>Scope and ownership.</b> Four widening bands. Control falls as the band widens, and the approval flow is the one claim that escaped the design lane.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2.2 Key decisions: four stories. Disclosures under 900px. -->
+    <section class="sec" id="decisions" aria-labelledby="s-decisions">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">2.2</span>
+        <p class="label">Key decisions</p>
+        <h3 class="claim" id="s-decisions">Four decisions, and what each one cost</h3>
+      </header>
+
+      <!-- Decision 01: the edge-cases table as a cut beside the prose. -->
+      <details class="dec" id="decision-1" open>
+        <summary class="row dec-sum">
+          <span class="dec-num" aria-hidden="true">01</span>
+          <span class="dec-head">
+            <span class="label">Progressive validation</span>
+            <h4 class="dclaim"><span class="vh">Decision 1: </span>Catch the gap where it happens, not at submission.</h4>
+          </span>
+        </summary>
+        <div class="row dec-body">
+          <div class="c-p">
+            <p class="body">Defects that surface at submission cost the most; the work behind them is already spread across systems. Missing data surfaces as the user moves, progress is preserved when a dependency fails, and a completeness review runs before submission.</p>
+            <p class="instead"><span class="label">Instead of</span>waiting until submission to reveal missing data.</p>
+          </div>
+          <figure class="fig hang-5 scroll c-cut rule-l" id="table-2" tabindex="-1" aria-labelledby="table-2-cap">
+            <div class="fig-head"><span class="fig-no">Table 2</span><span class="scroll-hint" aria-hidden="true">scroll →</span></div>
+            <div class="frame">
+              <table class="tbl tbl-3">
+                <thead><tr><th scope="col">Condition</th><th scope="col">What the user sees</th><th scope="col">Recovery</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Invalid or unmatched project number entered</th><td>Explicit error state before any billing package is created</td><td class="nil"><span aria-hidden="true">—</span><span class="vh">None</span></td></tr>
+                  <tr><th scope="row">Billing package primary key not found</th><td class="nil"><span aria-hidden="true">—</span><span class="vh">None</span></td><td>Routes to creating a new billing package instead of failing silently</td></tr>
+                  <tr><th scope="row">Automation or feeder-system failure</th><td>Work in progress is preserved rather than lost</td><td>Clear retry path</td></tr>
+                  <tr><th scope="row">Review in progress</th><td>Everyone else has view-only access until the review completes</td><td class="nil"><span aria-hidden="true">—</span><span class="vh">None</span></td></tr>
+                  <tr><th scope="row">Discarded inline edit</th><td class="nil"><span aria-hidden="true">—</span><span class="vh">None</span></td><td>Reverts cleanly without affecting the rest of the package</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figcaption id="table-2-cap"><p><b>Edge cases and recovery.</b> Designed states: each condition, what the user sees, and the recovery path.<a class="back" href="#top" hidden><span aria-hidden="true">↩</span><span class="vh">Back to the reference</span></a></p></figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <hr class="hair">
+
+      <!-- Decision 02:the annotated package index as a spread below. -->
+      <details class="dec" id="decision-2" open>
+        <summary class="row dec-sum">
+          <span class="dec-num" aria-hidden="true">02</span>
+          <span class="dec-head">
+            <span class="label">The project-number key</span>
+            <h4 class="dclaim"><span class="vh">Decision 2: </span>A package can be resumed, never accidentally recreated.</h4>
+          </span>
+        </summary>
+        <div class="row dec-body">
+          <div class="c-p">
+            <p class="body">The project number is the package’s primary key, so the system can tell resuming an existing package from starting a new one.</p>
+            <p class="instead"><span class="label">Instead of</span>silently duplicating work.</p>
+          </div>
+        </div>
+        <figure class="fig spread dec-fig" id="fig-3" tabindex="-1" aria-labelledby="fig-3-cap">
+          <div class="fig-head">
+            <span class="fig-no">Fig. 3</span>
+            <span class="scroll-hint" aria-hidden="true">scroll →</span>
+            <button class="fig-btn" type="button" data-lightbox="fig-3" aria-label="Enlarge fig. 3, the package index">Enlarge</button>
+          </div>
+          <div class="frame">
+            <div class="media pinbox">
+              <img src="{{img:package-index}}" width="1400" height="896" alt="Billing package index with the project-number filter, owner and last-modified columns, and the Start new billing package control.">
+              <span class="pin pin-1" aria-hidden="true">1</span>
+              <span class="pin pin-2" aria-hidden="true">2</span>
+              <span class="pin pin-3" aria-hidden="true">3</span>
+              <span class="pin pin-4" aria-hidden="true">4</span>
+            </div>
+          </div>
+          <figcaption class="cap-pins" id="fig-3-cap">
+            <p><b>The package index.</b> Four decisions on one screen: identity, ownership and state are readable before a package is opened.</p>
+            <ol class="pins">
+              <li><span class="pn" aria-hidden="true">1</span><span><span class="vh">1. </span>Guarded by the identity check. Starting a package runs the project-number lookup first, so duplicates cannot be created. <a class="xref" id="ref-1" href="#table-2">(table 2)</a></span></li>
+              <li><span class="pn" aria-hidden="true">2</span><span><span class="vh">2. </span>The primary key is the filter. A package is found by project number, hence the search field.</span></li>
+              <li><span class="pn" aria-hidden="true">3</span><span><span class="vh">3. </span>Ownership before you open anything. The owner column makes the responsible person visible from the index.</span></li>
+              <li><span class="pn" aria-hidden="true">4</span><span><span class="vh">4. </span>The status model, surfacing. Every transition is timestamped, so last-modified is a real signal, not a file date. <a class="xref" id="ref-2" href="#fig-4">(fig. 4)</a></span></li>
+            </ol>
+            <p><b>In context.</b> Every package is found by project number before a new one can be started, the rule that stopped duplicates.</p>
+          </figcaption>
+        </figure>
+      </details>
+
+      <hr class="hair">
+
+      <!-- Decision 03:the status model as a spread below. -->
+      <details class="dec" id="decision-3" open>
+        <summary class="row dec-sum">
+          <span class="dec-num" aria-hidden="true">03</span>
+          <span class="dec-head">
+            <span class="label">The six-state status model</span>
+            <h4 class="dclaim"><span class="vh">Decision 3: </span>A package can never sit in an undefined state.</h4>
+          </span>
+        </summary>
+        <div class="row dec-body">
+          <div class="c-p">
+            <p class="body">Users needed to know whether a package was being assembled or ready to submit; the organization needed a record of who did what. 6 states, Initiated to Completed, carry both, with permissions, history and notifications. It is what keeps the backlog from re-forming.</p>
+            <p class="instead"><span class="label">Instead of</span>leaving package state implicit in the documents and the people handling them.</p>
+          </div>
+        </div>
+        <figure class="fig spread dec-fig" id="fig-4" tabindex="-1" aria-labelledby="fig-4-cap">
+          <div class="fig-head">
+            <span class="fig-no">Fig. 4</span>
+            <span class="scroll-hint" aria-hidden="true">scroll →</span>
+            <button class="fig-btn" type="button" data-lightbox="fig-4" aria-label="Enlarge fig. 4, the six-state status model">Enlarge</button>
+          </div>
+          <div class="frame">
+            <div class="media dgm">{{svg:status-model}}</div>
+          </div>
+          <figcaption id="fig-4-cap"><p><b>The six-state status model.</b> Six states, two recovery loops. The loops are where work used to disappear; Review became its own state so nobody edits mid-review.<a class="back" href="#top" hidden><span aria-hidden="true">↩</span><span class="vh">Back to the reference</span></a></p></figcaption>
+        </figure>
+      </details>
+
+      <hr class="hair">
+
+      <!-- Decision 04:the review flow as a spread below. -->
+      <details class="dec" id="decision-4" open>
+        <summary class="row dec-sum">
+          <span class="dec-num" aria-hidden="true">04</span>
+          <span class="dec-head">
+            <span class="label">The review session</span>
+            <h4 class="dclaim"><span class="vh">Decision 4: </span>The handoff moves into the product, so it has a history.</h4>
+          </span>
+        </summary>
+        <div class="row dec-body">
+          <div class="c-p">
+            <p class="body">Handoffs were where packages lost state. Package metadata carries owner, status and review tasks, and reusable review-and-submit patterns make the handoff visible.</p>
+            <p class="instead"><span class="label">Instead of</span>an off-product coordination step with no visible handoff or history.</p>
+          </div>
+        </div>
+        <figure class="fig spread dec-fig" id="fig-5" tabindex="-1" aria-labelledby="fig-5-cap">
+          <div class="fig-head">
+            <span class="fig-no">Fig. 5</span>
+            <span class="scroll-hint" aria-hidden="true">scroll →</span>
+            <button class="fig-btn" type="button" data-lightbox="fig-5" aria-label="Enlarge fig. 5, the review session">Enlarge</button>
+          </div>
+          <div class="frame">
+            <img class="media" src="{{img:review-flow-01}}" width="1400" height="1321" alt="Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.">
+          </div>
+          <figcaption id="fig-5-cap"><p><b>The review session.</b> Starting a review locks the package to one reviewer; everyone else reads until it is done. <a class="xref" id="ref-3" href="#fig-4">(fig. 4)</a></p></figcaption>
+        </figure>
+      </details>
+    </section>
+
+    <!-- 2.3 What did not make the release: the table cut, mirrored. -->
+    <section class="sec" id="parked" aria-labelledby="s-parked">
+      <div class="row">
+        <header class="mp-head c-mp">
+          <span class="run" aria-hidden="true">2.3</span>
+          <p class="label">What did not make the release</p>
+          <h3 class="claim" id="s-parked">What did not make the release, and why</h3>
+        </header>
+        <figure class="fig c-mcut rule-r" id="table-3" tabindex="-1" aria-labelledby="table-3-cap">
+          <div class="fig-head"><span class="fig-no">Table 3</span></div>
+          <div class="frame">
+            <table class="tbl tbl-2">
+              <thead><tr><th scope="col">What was held back</th><th scope="col">Why</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">The reporting dashboard</th><td>Infeasible this release. Surfacing the dependency and holding it in the backlog cost the release its most demo-friendly screen.</td></tr>
+                <tr><th scope="row">In-product editing of package, project and customer details</th><td>Not feasible within the technical constraints; Excel stayed the interim path. Continuity now was worth more than a half-built editor.</td></tr>
+                <tr><th scope="row">Whole-package automation and section export</th><td>Held as the final feature area so the manual path shipped first.</td></tr>
+                <tr><th scope="row">Document integration, expanded review, automated retrieval</th><td>Sequenced into a named phased roadmap rather than argued into this scope.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption id="table-3-cap"><p><b>What did not ship.</b> Each item that did not make the release, and the reason.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 2.4 Evidence: the method beside the findings table. -->
+    <section class="sec" id="evidence" aria-labelledby="s-evidence">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">2.4</span>
+        <p class="label">Evidence</p>
+        <h3 class="claim" id="s-evidence">What ten usability sessions changed</h3>
+      </header>
+      <div class="row block">
+        <div class="body c-p">
+          <p>Moderated usability research with ten participants across the three user groups (admins, accountants, engineers), plus working sessions on requirements, dependencies and release feasibility.</p>
+        </div>
+        <figure class="fig hang-5 c-cut rule-l" id="table-4" tabindex="-1" aria-labelledby="table-4-cap">
+          <div class="fig-head"><span class="fig-no">Table 4</span></div>
+          <div class="frame">
+            <table class="tbl tbl-2">
+              <thead><tr><th scope="col">Research finding</th><th scope="col">Product response</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Missing screenshots stopped assembly after work was already underway.</th><td>A recoverable screenshot-generation pattern: visible error state, bot redeploy, preserved progress.</td></tr>
+                <tr><th scope="row">Creators and reviewers had different responsibilities, and the review step had the most friction.</th><td>Owner and reviewer views, review tasks, role-based permissions, status history.</td></tr>
+                <tr><th scope="row">Sessions validated the core package-assembly flow across all three groups.</th><td>The flow held; effort went to states and recovery rather than restructuring.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption id="table-4-cap"><p><b>What the sessions changed.</b> Each research finding and the product response it caused.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ Chapter 03 · Results ============ -->
+  <section class="chapter" id="results" aria-labelledby="ch-3">
+    <div class="chapter-rule" aria-hidden="true"></div>
+    <div class="ch-rail"><a class="ch-num numeral" href="#results" aria-label="Chapter 03, Results: back to the chapter opener">03</a></div>
+    <header class="row ch-head">
+      <h2 id="ch-3"><span class="ch-label">Results</span><span class="ch-title">What changed and what I learned</span></h2>
+    </header>
+
+    <!-- 3.1 Outcome: before beside after; proof beside what to measure next. -->
+    <section class="sec" id="outcome" aria-labelledby="s-outcome">
+      <header class="row sec-head solo">
+        <span class="run" aria-hidden="true">3.1</span>
+        <h3 class="claim" id="s-outcome">Outcome</h3>
+      </header>
+      <div class="row block">
+        <dl class="pair c-p">
+          <dt class="label">Before</dt>
+          <dd>A backlog of a few hundred billing packages across fragmented systems, screenshots, spreadsheets and manual handoffs.</dd>
+        </dl>
+        <dl class="pair c-cut rule-l">
+          <dt class="label">After <a class="xref" id="ref-4" href="#fig-1">(fig. 1)</a></dt>
+          <dd>Backlog cleared, and a workflow that keeps it clear: validation, recovery, ownership, review and status history, used by 70 people.</dd>
+        </dl>
+      </div>
+      <div class="row block">
+        <div class="c-p">
+          <ul class="proof body">
+            <li>The backlog of a few hundred billing packages was cleared; 70 people are active on the application.</li>
+            <li>The approval flow has been picked up by other projects.</li>
+            <li>Ownership, package state, history and review handoffs are visible in-product, with recoverable screenshot generation and progressive validation.</li>
+          </ul>
+          <p class="caveat">The backlog size is my own account, not a project record, and 70 active users is my own count as of September 2026. The +20% submission-rate KPI is measurable from status timestamps but not yet measured. Defect reduction and handoff time are not verified.</p>
+        </div>
+        <aside class="note c-cut rule-l" aria-labelledby="measure-next">
+          <h4 class="label" id="measure-next">What I would measure next <a class="xref" id="ref-5" href="#fig-4">(fig. 4)</a></h4>
+          <p>Package cycle time from Initiated to Completed, the share of packages that hit the screenshot-recovery path, and first-pass approval rate. The status model makes all three available without new instrumentation.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 3.2 What I learned: prose, nothing on the right. -->
+    <section class="sec" id="learned" aria-labelledby="s-learned">
+      <header class="row sec-head">
+        <span class="run" aria-hidden="true">3.2</span>
+        <p class="label">What I learned</p>
+        <h3 class="claim" id="s-learned">Enterprise workflows fail at the boundaries between systems and teams</h3>
+      </header>
+      <div class="row block">
+        <div class="body c-p">
+          <p>The most important design work here was not a screen. It was exposing dependencies early, preserving state when automation failed, and making responsibility visible through review and submission. Automation cleared the backlog; the status and ownership model kept it from coming back.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ============ Credits and close ============ -->
+  <footer class="closing">
+    <div class="row credits">
+      <div class="c-p">
+        <p class="label">Built with</p>
+        <p class="note">The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.</p>
+      </div>
+    </div>
+    <div class="row next">
+      <div class="c-p">
+        <p class="label">Next case study</p>
+        <a class="next-link" href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform →</a>
+      </div>
+      <div class="btn-cell"><a class="btn" href="/contact">Get in touch</a></div>
+    </div>
+  </footer>
+</article>
+
+<!-- Spread lightbox (interaction 4). The figure's own frame is moved in, not copied. -->
+<dialog class="lb" id="lightbox" aria-labelledby="lb-title">
+  <div class="lb-inner">
+    <div class="lb-bar">
+      <span class="fig-no" id="lb-title">Figure</span>
+      <button class="lb-close" type="button">Close</button>
+    </div>
+    <div class="lb-media"></div>
+    <div class="lb-aside"></div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  "use strict";
+  var reduceMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var wideMq = window.matchMedia("(min-width: 900px)");
+  function reduced() { return reduceMq.matches; }
+
+  /* Opens any closed decision that holds the element, so a jump never lands
+     inside a collapsed disclosure. */
+  function reveal(el) {
+    var d = el && el.closest ? el.closest("details") : null;
+    while (d) { d.open = true; d = d.parentElement ? d.parentElement.closest("details") : null; }
+  }
+
+  /* 1 · Figure cross-references. */
+  function afterScroll(fn) {
+    var done = false;
+    function run() { if (!done) { done = true; fn(); } }
+    if ("onscrollend" in window) window.addEventListener("scrollend", run, { once: true });
+    setTimeout(run, reduced() ? 0 : 700);
+  }
+  function jumpTo(fig, ref) {
+    var frame = fig.querySelector(".frame");
+    var back = fig.querySelector(".back");
+    reveal(fig);
+    if (back && ref && ref.id) { back.href = "#" + ref.id; back.hidden = false; }
+    fig.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "start" });
+    fig.focus({ preventScroll: true });
+    if (!frame) return;
+    if (reduced()) {
+      frame.classList.add("is-hl");
+      fig.addEventListener("focusout", function () { frame.classList.remove("is-hl"); }, { once: true });
+    } else {
+      afterScroll(function () {
+        frame.classList.add("is-hl");
+        setTimeout(function () { frame.classList.remove("is-hl"); }, 600);
+      });
+    }
+  }
+  document.querySelectorAll("a.xref").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var fig = document.getElementById(a.getAttribute("href").slice(1));
+      if (!fig) return;
+      e.preventDefault();
+      jumpTo(fig, a);
+    });
+  });
+  document.querySelectorAll("a.back").forEach(function (b) {
+    b.addEventListener("click", function (e) {
+      var ref = document.getElementById(b.getAttribute("href").slice(1));
+      if (!ref) return;
+      e.preventDefault();
+      reveal(ref);
+      ref.scrollIntoView({ behavior: reduced() ? "auto" : "smooth", block: "center" });
+      ref.focus({ preventScroll: true });
+    });
+  });
+  /* The list of figures and any other in-page link open a collapsed decision first. */
+  document.querySelectorAll('a[href^="#"]:not(.xref):not(.back)').forEach(function (a) {
+    a.addEventListener("click", function () {
+      var t = document.getElementById(a.getAttribute("href").slice(1));
+      if (t) reveal(t);
+    });
+  });
+  if (location.hash) { try { reveal(document.querySelector(location.hash)); } catch (err) {} }
+
+  /* 2 · Decisions: open at 900px and up (and not toggleable there),
+     disclosures below it. */
+  var decs = document.querySelectorAll("details.dec");
+  function syncDecs() {
+    decs.forEach(function (d) {
+      d.open = wideMq.matches;
+      d.querySelector("summary").tabIndex = wideMq.matches ? -1 : 0;
+    });
+  }
+  syncDecs();
+  wideMq.addEventListener("change", syncDecs);
+  decs.forEach(function (d) {
+    d.querySelector("summary").addEventListener("click", function (e) {
+      if (wideMq.matches) e.preventDefault();
+    });
+  });
+
+  /* 3 · The sticky chapter numeral is CSS (position: sticky in .ch-rail);
+     its link returns to the chapter opener. */
+
+  /* 4 · Spread lightbox. */
+  var lb = document.getElementById("lightbox");
+  var lbMedia = lb.querySelector(".lb-media");
+  var lbAside = lb.querySelector(".lb-aside");
+  var lbTitle = lb.querySelector("#lb-title");
+  var current = null;
+  function openLightbox(fig, trigger) {
+    if (typeof lb.showModal !== "function" || lb.open) return;
+    var frame = fig.querySelector(".frame");
+    var placeholder = document.createElement("div");
+    placeholder.className = "lb-placeholder";
+    placeholder.style.height = frame.offsetHeight + "px";
+    frame.replaceWith(placeholder);
+    lbMedia.appendChild(frame);
+    var cap = fig.querySelector("figcaption").cloneNode(true);
+    cap.querySelectorAll("[id]").forEach(function (n) { n.removeAttribute("id"); });
+    cap.querySelectorAll(".back").forEach(function (n) { n.remove(); });
+    cap.querySelectorAll("a.xref").forEach(function (n) {
+      var s = document.createElement("span"); s.textContent = n.textContent; n.replaceWith(s);
+    });
+    lbAside.replaceChildren.apply(lbAside, Array.prototype.slice.call(cap.childNodes));
+    lbTitle.textContent = fig.querySelector(".fig-no").textContent;
+    current = { fig: fig, frame: frame, placeholder: placeholder, trigger: trigger };
+    lb.showModal();
+    lb.querySelector(".lb-close").focus();
+  }
+  var lastTrigger = null;
+  /* Puts the frame back where it came from; safe to call more than once. */
+  function restore() {
+    if (!current) return;
+    current.placeholder.replaceWith(current.frame);
+    lbAside.replaceChildren();
+    lastTrigger = current.trigger;
+    current = null;
+  }
+  function refocus() {
+    if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
+  }
+  function closeLightbox() {
+    restore();
+    if (lb.open) lb.close();
+    refocus();
+  }
+  lb.addEventListener("cancel", restore);            /* Esc */
+  lb.addEventListener("close", function () { restore(); refocus(); });
+  lb.querySelector(".lb-close").addEventListener("click", closeLightbox);
+  lb.addEventListener("click", function (e) { if (e.target === lb) closeLightbox(); });  /* backdrop */
+  document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
+    var fig = document.getElementById(btn.getAttribute("data-lightbox"));
+    btn.addEventListener("click", function () { openLightbox(fig, btn); });
+    fig.querySelector(".frame").addEventListener("click", function (e) {
+      if (e.target.closest("a") || lb.open || !window.matchMedia("(min-width: 600px)").matches) return;
+      openLightbox(fig, btn);
+    });
+  });
+
+  /* 5 · Hairline draw at chapter breaks, once, on first view. */
+  var rules = document.querySelectorAll(".chapter-rule");
+  if (reduced() || !("IntersectionObserver" in window)) {
+    rules.forEach(function (r) { r.classList.add("is-drawn"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.querySelector(".chapter-rule").classList.add("is-drawn");
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -12% 0px" });
+    document.querySelectorAll(".chapter").forEach(function (c) { io.observe(c); });
+  }
+})();
+</script>
