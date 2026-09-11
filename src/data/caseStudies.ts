@@ -565,7 +565,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Status", value: "Released" },
       // [NEEDS SIGN-OFF] Both trimmed to the header's one fact line.
       { label: "Users", value: "Admins, accountants, and engineers managing projects and billing packages" },
-      { label: "Team", value: "CWO team with the client's Chief Data Office, product, engineering, and UI development" },
+      { label: "Team", value: "Custom Work Order team with the client's Chief Data Office, product, engineering, and UI development" },
     ],
     // Provenance for every figure is in ./figures.
     stats: [
@@ -734,12 +734,13 @@ export const caseStudies: Record<string, CaseStudy> = {
       // [NEEDS SIGN-OFF] "the priority tiers" stands for "the Must / Should /
       // Nice-to-have option sets".
       led:
-        "Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.",
+        "Requirements workshops and discovery with the Custom Work Order team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.",
       influenced:
         "Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. The scope calls on the dashboard and the interim editing path. The approval flow has since been picked up by other projects.",
-      // [NEEDS SIGN-OFF] Composed from the rewrite's Team metadata.
+      // Confirmed 2026-09-11, with "CWO team" spelled out as the Custom Work
+      // Order team.
       workedWith:
-        "The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
+        "The Custom Work Order team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
     },
     evidence: {
       // [NEEDS SIGN-OFF] The participant count and the three groups are new

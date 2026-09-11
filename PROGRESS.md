@@ -597,3 +597,9 @@ Owner's decisions, applied everywhere they appear (snapshot fields, cards, READM
 **Caveats off the site**, because they read as machine-written: the `metricStatus` field is gone from the type, the data, the lede, Outcome, the stylesheet and the review script; the two evidence sentences saying a participant count was unrecorded or unverified are gone; the Customer Journey loses "shown as a concept, not deployed" from its claim, overview and card, and its no-metrics constraint row. Its Status field still says "Showcase concept, not deployed to customers", once, so the page never implies it shipped. The success-metric lines and "What I would measure next" were kept (G4).
 
 Answers recorded in `context/facts.md`; open items in `context/feedback-queue.md` section G. Typecheck and build pass.
+
+---
+
+## Update — 2026-09-11: second sign-off pass, then merged
+
+Headlines shortened to 8–10 words with the detail in a new subtitle field (`deck`); Document AI reframed around the AI functions its business units built (cited answers, document upload, comparison, drafting) rather than citations alone; the billing backlog stays billing packages; "CWO team" is the Custom Work Order team in the copy and the ownership diagram; the Document AI images cut on 2026-09-10 stay out because they were flow diagrams, not UI. Everything still open is in `context/feedback-queue.md` (start-here note at the top, then F, G, H, I).
