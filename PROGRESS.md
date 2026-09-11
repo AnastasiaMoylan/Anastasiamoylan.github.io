@@ -559,3 +559,13 @@ Owner's brief, verbatim: "Use svg diagrams not png. Also lets try to rewrite the
 ## Update — 2026-09-10 evening: three layout renderings (G, H, I)
 
 Owner, after the contrast and length pass: "this is better but I still dont like the layout. Look at whitespace, information flow and the text to image layouts." Three standalone renderings of the billing study, same content and figures, each answering one of those three complaints: **G · The Ledger** (4/8 split, sticky rail, one body width), **H · The Column** (680px column, 1040px breakouts, strictly linear), **I · The Spread** (4/8 rows at 1320px, argument left, evidence right). Templates `docs/case-study/prototypes/{g-ledger,h-column,i-spread}.src.html`, base stylesheet `_base-2026-09-10.css`, built by `build-2026-09-10.mjs` (embeds the downscaled screenshots, inlines the SVGs the way the site does). The index lists them. Nothing in `src/` changed for this; the site is untouched until she picks a direction.
+
+---
+
+## Update — 2026-09-11: two editorial directions, J · Plates and K · Broadsheet
+
+Owner, after G/H/I: "I dont like it yet. Go ahead with the editorial edition. Do research into other agency sites … the content needs to be paired down a bit … I would like 2 uniquely different layouts." Run as four agents: a content agent pared all four studies (committed d7b35ca, report `docs/case-study/2026-09-10-content-pare-down.md`); a research agent read 14 agency and senior-IC case-study pages at CSS level and specified two directions (`docs/case-study/2026-09-10-editorial-layout-research.md`); two design agents built one direction each from the pared billing content. The Broadsheet agent hit the account's spend limit and was re-run in a remote session, which pushed its template to `design/k-broadsheet-rendering` (scratch branch, no PR; delete when done).
+
+**J · Plates** — every artefact a numbered full-bleed plate on a ground assigned by kind (screens on ink, diagrams on champagne, tables on white); argument in a 60ch column between plates; Newsreader added for voice roles. **K · Broadsheet** — one ground, eight-column hairline grid with a numeral margin, Archivo `wdth` 62–125 as the personality, cuts mirrored block to block, list of figures as navigation. Templates `docs/case-study/prototypes/{j-plates,k-broadsheet}.src.html`, built by `build-2026-09-10.mjs <name>`. Both fold edge cases into decision 01. Nothing in `src/` changed for the layouts.
+
+Open from the builds: both add small chrome copy (table headers, figure titles, part "why" lines, K's cross-references) that needs sign-off with the rest; K collapses decisions below 900px as specified; the diagrams' own label sizes (7–9px in the 960 viewBox) sit under the 12px floor at narrow widths in both.
