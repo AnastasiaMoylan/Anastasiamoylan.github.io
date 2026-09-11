@@ -1,0 +1,895 @@
+<title>Plates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap" rel="stylesheet">
+<style>
+/* J · Plates. Direction A of docs/case-study/2026-09-10-editorial-layout-research.md.
+   The page is a plate book: every artefact (screen, SVG, table) is a numbered
+   plate on its own full-bleed ground, and the argument is a narrow column of
+   type on the warm ground between plates. Nothing sits beside anything.
+   Light-only, like the site. The CSS follows the direction's steps in order:
+   tokens, grid, type, lede, plates, pairing, decisions, openers and running
+   head, interactions, breakpoints, reduced motion. */
+
+/* ---------------------------------------------------------------- 0. Tokens
+   Colours are the site's (src/styles/theme.css), by their site names. Three
+   gaps and nothing else: inside a block (claim to prose), between blocks
+   (caption to the next claim), and at a section (12vh). Everything else is a
+   size on the 8px scale, not a gap. */
+:root{
+  --background:#f7f5f1;          /* warm ground */
+  --foreground:#283d3b;          /* ink, and the ink plate ground */
+  --card:#ffffff;                /* table plates */
+  --accent:#6e2a2a;              /* maroon: action, pins, progress line, figures */
+  --accent-hover:#5a2222;
+  --secondary:#edddd4;           /* champagne: diagram plates, inverted running head */
+  --tertiary-100:#d6e3e1;
+  --tertiary-500:#6b8f8a;        /* inset on ink */
+  --tertiary-700:#3e5b58;        /* ghosted numeral on ink */
+  --tertiary-900:#283d3b;
+  --muted:#f2efe9;
+  --muted-foreground:#57514b;
+  --border:#cfc7bb;              /* hairlines, inset on champagne */
+  --accent-tint-subtle:#f1eaea;
+  --accent-tint-light:#dbc9c9;
+
+  --font-display:'Archivo','Inter',system-ui,-apple-system,sans-serif;
+  --font-sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-voice:'Newsreader',Georgia,'Times New Roman',serif;
+
+  --gap-claim:24px;              /* claim to prose; label row to artefact */
+  --gap-block:64px;              /* caption to the next claim; plate padding */
+  --gap-section:12vh;            /* between sections inside a chapter */
+
+  --gutter:24px;
+  --pad:clamp(20px,4vw,64px);    /* side padding of the 1440 track */
+  --plate-pad:64px;              /* vertical padding inside a plate */
+  --head:40px;                   /* running head */
+}
+*,*::before,*::after{box-sizing:border-box}
+html{overflow-x:clip;scroll-behavior:smooth;scroll-padding-top:calc(var(--head) + 8px);-webkit-text-size-adjust:100%}
+html.lb-open{overflow:hidden}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);
+  font-size:clamp(17px,1.1vw,18px);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,h4,p,dl,dd,dt,ol,ul,figure,blockquote{margin:0;padding:0}
+ol,ul{list-style:none}
+img,svg{display:block;max-width:100%}
+img{height:auto;-webkit-user-drag:none;user-select:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.ink :focus-visible,.opener :focus-visible,.lb :focus-visible{outline-color:var(--secondary)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ------------------------------------------------------------------ 1. Grid
+   Max 1440px, side padding clamp(20px, 4vw, 64px), 12 columns, 24px gutter
+   (column ≈ 87px at 1440). Prose = columns 3–8 (≈644px) capped at 60ch;
+   captions = 3–6; margin notes = 9–12, top-aligned to the caption; plates
+   escape to the viewport edge and centre their artefact at columns 2–11. */
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
+.grid>*{min-width:0}
+.c3-13{grid-column:3/13}
+.prose{grid-column:3/9;max-width:60ch}
+.cap{grid-column:3/7;max-width:44ch}
+.note{grid-column:9/13;max-width:44ch}
+.bleed{grid-column:1/-1;margin-inline:calc(50% - 50vw)}
+
+/* ------------------------------------------------------------ 2. Type system
+   Seven text steps plus the numeral. Archivo (display), Inter (body), IBM
+   Plex Mono (labels), and one added face, Newsreader, for the voice roles
+   only: deck, section claims, pull quote, the "Instead of" line. Newsreader
+   never goes below 14px and never sets body. Tabular figures on everything
+   numeric. */
+/* 1 · chapter numeral, Archivo wdth 125, clamp(96px, 11vw, 160px) / .9, 800, −.04em */
+.t-numeral{font-family:var(--font-display);font-stretch:125%;font-weight:800;font-size:clamp(96px,11vw,160px);line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+/* 2 · h1 claim, Archivo, clamp(40px, 4.6vw, 64px) / 1.02, 800, −.035em, 16ch */
+.t-claim{font-family:var(--font-display);font-weight:800;font-size:clamp(40px,4.6vw,64px);line-height:1.02;letter-spacing:-.035em;max-width:16ch;text-wrap:balance}
+/* 3 · h2 chapter title and stat figure, Archivo 40 / 1.08, 700, −.03em, 20ch */
+.t-h2{font-family:var(--font-display);font-weight:700;font-size:40px;line-height:1.08;letter-spacing:-.03em;max-width:20ch;font-variant-numeric:tabular-nums}
+/* 4 · h3 section claim and decision claim, Newsreader opsz 36, 30 / 1.2, 500, −.01em, 30ch */
+.t-h3{font-family:var(--font-voice);font-variation-settings:"opsz" 36;font-weight:500;font-size:30px;line-height:1.2;letter-spacing:-.01em;max-width:30ch;text-wrap:balance}
+/* 5 · deck, pull quote, "why" line, Newsreader opsz 24, 24 / 1.4, 400, 44ch */
+.t-deck{font-family:var(--font-voice);font-variation-settings:"opsz" 24;font-weight:400;font-size:24px;line-height:1.4;letter-spacing:0;max-width:44ch}
+/* 6 · body is the root: Inter clamp(17px, 1.1vw, 18px) / 1.65, 400, 60ch */
+/* 7 · caption, table cell, margin note, Inter 14 / 1.5, 400, lead-in 600, +.005em, 44ch */
+.t-cap{font-size:14px;line-height:1.5;letter-spacing:.005em;font-variant-numeric:tabular-nums}
+.t-cap b{font-weight:600}
+/* 8 · label, plate number, running head, IBM Plex Mono 12 / 1.4, 500, +.12em caps */
+.t-label{font-family:var(--font-mono);font-size:12px;line-height:1.4;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums}
+.t-label.accent{color:var(--accent)}
+.t-label.muted{color:var(--muted-foreground)}
+
+/* ------------------------------------------------------------------ 3. Lede
+   Site header, then the kick, the claim, the deck, and the snapshot beside
+   the four figures. Text beside text is allowed; text beside an image is not. */
+.site{display:flex;justify-content:space-between;align-items:center;gap:var(--gap-claim);padding-block:var(--gap-claim);border-bottom:1px solid var(--border)}
+.site .name{font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase;text-decoration:none}
+.site .name::before{content:"◆";color:var(--accent);margin-right:.6em}
+.site nav{display:flex;gap:var(--gap-claim)}
+.site nav a{text-decoration:none;color:var(--muted-foreground)}
+.site nav a.on{color:var(--foreground);border-bottom:2px solid var(--accent);padding-bottom:.2em}
+.lede{padding-block:var(--gap-block)}
+.lede .kick{grid-column:3/13;display:flex;flex-wrap:wrap;gap:8px var(--gap-claim);color:var(--muted-foreground)}
+.lede .kick b{color:var(--foreground);font-weight:600}
+.lede .kick span+span::before{content:"·";margin-right:var(--gap-claim);color:var(--tertiary-500)}
+.lede h1{grid-column:3/13;margin-top:var(--gap-claim)}
+.lede .deck{grid-column:3/9;margin-top:var(--gap-claim);color:var(--muted-foreground)}
+.lede .meta{grid-column:3/9;margin-top:var(--gap-block)}
+.meta div{display:grid;grid-template-columns:9em minmax(0,1fr);gap:8px var(--gap-claim);padding-block:8px;border-top:1px solid var(--border)}
+.meta dt{color:var(--muted-foreground);padding-top:3px}
+.lede .stats{grid-column:9/13;margin-top:var(--gap-block)}
+.stats div{display:grid;gap:8px;padding-block:8px 16px;border-top:1px solid var(--border)}
+.stats dd{color:var(--accent);order:-1}
+.stats dt{color:var(--muted-foreground)}
+
+/* ---------------------------------------------------------------- 4. Plates
+   Three grounds, assigned by artefact kind and never by taste: screens on ink,
+   SVG diagrams on champagne, tables on white. No radius, no shadow; the
+   artefact carries a 1px inset in tertiary-500 on ink and border on champagne.
+   Each plate has a mono label top-left aligned to column 3. The caption sits
+   below the plate on the warm ground, bold lead-in, 44ch, aligned to column 3.
+   Consecutive plates never share a ground. */
+.plate{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start;margin-top:var(--gap-block)}
+.plate>*{min-width:0}
+.ground{grid-column:1/-1;margin-inline:calc(50% - 50vw);padding-block:var(--plate-pad)}
+.ground.ink{background:var(--foreground);color:var(--background)}
+.ground.champagne{background:var(--secondary);color:var(--foreground)}
+.ground.white{background:var(--card);color:var(--foreground)}
+.ground .plate-label{grid-column:3/10;color:var(--muted-foreground)}
+.ground.ink .plate-label{color:var(--tertiary-100)}
+.ground .enlarge{grid-column:10/13;justify-self:end;color:var(--accent);text-decoration:underline;text-underline-offset:.3em;text-decoration-thickness:1px}
+.ground.ink .enlarge{color:var(--secondary)}
+.ground .enlarge:hover{color:var(--accent-hover)}
+.ground.ink .enlarge:hover{color:var(--card)}
+.art{grid-column:2/12;margin-top:var(--gap-claim);max-width:1120px;justify-self:center;width:100%}
+.frame{position:relative}
+.frame img,.frame svg{width:100%;height:auto;outline:1px solid var(--border);outline-offset:-1px}
+.ink .frame img,.ink .frame svg{outline-color:var(--tertiary-500)}
+.frame.zoom{cursor:zoom-in}
+.frame svg{display:block}
+/* The hero is nearly square; it fits the viewport height rather than the
+   column so the plate stays within one screen. */
+.hero .frame img{width:auto;max-height:80vh;max-width:100%;margin-inline:auto}
+/* Tables on white: hairline rows, no ground bleed beyond the plate. */
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;text-align:left}
+table.cols-3{min-width:640px}
+th,td{padding:12px 24px 12px 0;border-top:1px solid var(--border);vertical-align:top}
+tr:last-child th,tr:last-child td{border-bottom:1px solid var(--border)}
+thead th{border-top:0;color:var(--accent);padding-top:0}
+tbody th{font-weight:600}
+td:last-child,th:last-child{padding-right:0}
+/* Annotated pins: maroon dots on the screen; the pin list is the caption. */
+.pin{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--card);
+  font-family:var(--font-mono);font-size:12px;font-weight:600;line-height:1;display:grid;place-items:center;
+  transform:translate(-50%,-50%);font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--foreground)}
+.pinlist{display:grid;gap:8px;margin-top:8px}
+.pinlist li{display:flex;gap:8px;align-items:flex-start}
+.pinlist li span{flex:0 0 20px;height:20px;border-radius:50%;background:var(--accent-tint-subtle);color:var(--accent);
+  font-family:var(--font-mono);font-size:12px;font-weight:600;display:grid;place-items:center;margin-top:1px;font-variant-numeric:tabular-nums}
+/* The scroll plate: an artefact wider than the column scrolls sideways inside
+   its plate at its natural display width; the page never does. */
+.scroller{overflow-x:auto;overscroll-behavior-x:contain;cursor:grab;position:relative}
+.scroller.dragging{cursor:grabbing}
+.scroller img{max-width:none;width:1068px}   /* 0.55 of the 1942px source, so its labels stay legible */
+.scroll-hint{position:absolute;right:0;bottom:-28px;color:var(--tertiary-100);display:none}
+.js .can-scroll:not(.moved)~.scroll-hint{display:block}
+/* Typographic plate (Before / After): two columns of step 5 on champagne. */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-claim) var(--gap-block)}
+.ba div{display:grid;gap:8px;border-top:1px solid var(--border);padding-top:16px}
+.ba dt{color:var(--accent)}
+/* Caption and margin note, on the warm ground below the plate. */
+.plate figcaption{margin-top:var(--gap-claim);color:var(--muted-foreground)}
+.plate figcaption b{color:var(--foreground)}
+.plate .note{margin-top:var(--gap-claim)}
+.note{font-family:var(--font-voice);font-style:italic;font-variation-settings:"opsz" 14;font-size:14px;line-height:1.5;color:var(--muted-foreground);letter-spacing:.005em}
+.note b{font-weight:500;color:var(--accent)}
+
+/* --------------------------------------------------------------- 5. Pairing
+   Above and below only. A block is: claim (step 4) → ≤120 words (step 6) →
+   plate → caption (step 7) → "Instead of" (step 7 italic, margin column).
+   24px between claim and prose, 64px between a caption and the next claim. */
+.sec{scroll-margin-top:var(--head)}
+.sec .claim{grid-column:3/9}
+.sec .claim+.prose,.sec .claim+.list{margin-top:var(--gap-claim)}
+.prose p+p{margin-top:var(--gap-claim)}
+.list{grid-column:3/9;max-width:60ch;display:grid;gap:var(--gap-claim)}
+.list div{display:grid;gap:8px;padding-top:8px;border-top:1px solid var(--border)}
+.list.after{margin-top:var(--gap-block)}
+.quote{grid-column:3/9;margin-top:var(--gap-block);border-left:2px solid var(--accent);padding-left:var(--gap-claim);color:var(--foreground)}
+.proof{grid-column:3/9;max-width:60ch;margin-top:var(--gap-block);display:grid;gap:8px}
+.proof li{display:flex;gap:12px}
+.proof li::before{content:"→";color:var(--accent);flex:0 0 auto}
+.measure{grid-column:3/9;max-width:60ch;margin-top:var(--gap-block);display:grid;gap:8px;border-top:1px solid var(--border);padding-top:8px}
+.caveat{grid-column:3/9;margin-top:var(--gap-claim);color:var(--muted-foreground)}
+.findings{grid-column:3/9;max-width:60ch;margin-top:var(--gap-block)}
+.findings div{display:grid;gap:8px;padding-block:16px;border-top:1px solid var(--border)}
+.findings div:last-child{border-bottom:1px solid var(--border)}
+.findings dt{font-weight:600}
+.findings dd::before{content:"→ ";color:var(--accent)}
+
+/* ------------------------------------------------------------- 6. Decisions
+   One block each, in argument order; every decision has a plate and what
+   varies is the plate kind. Numbered, with the mechanism as its label. */
+.decs{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);margin-top:var(--gap-block)}
+.decs>*{min-width:0}
+.dec{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);align-items:start}
+.dec>*{min-width:0}
+.dec+.dec{margin-top:var(--gap-block)}
+.dec .id{grid-column:3/9;display:flex;gap:12px;align-items:baseline;margin-bottom:8px}
+.dec .id .n{color:var(--accent);font-weight:600}
+.dec h4{grid-column:3/9}
+.dec .prose{margin-top:var(--gap-claim)}
+
+/* ------------------------------------------- 7. Chapter openers and transitions
+   Each part opens on a full-bleed ink plate, min-height 60vh: the numeral
+   (ghosted, tertiary-700), the chapter title (ground colour), the "why" line
+   (champagne), and the chapter's contents as a mono list, all at column 3.
+   Inside a chapter: a hairline at columns 3–12 and 12vh between sections. */
+.opener{background:var(--foreground);color:var(--background);min-height:60vh;display:grid;align-content:end;padding-block:var(--gap-block)}
+.opener>.wrap{width:100%}
+.opener .numeral{grid-column:3/13;color:var(--tertiary-700)}
+.opener h2{grid-column:3/13;color:var(--background);margin-top:var(--gap-claim)}
+.opener .why{grid-column:3/13;color:var(--secondary);margin-top:8px}
+.opener .contents{grid-column:3/13;display:flex;flex-wrap:wrap;gap:8px var(--gap-claim);margin-top:var(--gap-claim);color:var(--tertiary-100)}
+.opener .contents a{text-decoration:none;border-bottom:1px solid var(--tertiary-700);padding-bottom:2px}
+.opener .contents a:hover{border-color:var(--secondary);color:var(--card)}
+.opener+.sec{margin-top:var(--gap-section)}
+.sec+.sec{margin-top:var(--gap-section)}
+.sec+.sec::before{content:"";grid-column:3/13;border-top:1px solid var(--border);margin-bottom:var(--gap-block)}
+.sec.last{margin-bottom:var(--gap-section)}
+.hero-sec{padding-block:0}
+.hero-sec .plate{margin-top:0}
+/* The running head: the page's one navigation. 40px, mono,
+   "02 · The work · Key decisions", with the 2px progress line as its bottom
+   edge. It inverts to ink-on-champagne while over an ink plate. */
+.rh{position:sticky;top:0;z-index:40;height:var(--head);background:var(--background);color:var(--foreground);border-bottom:1px solid var(--border)}
+.rh .rh-in{height:100%;align-items:center}
+.rh .now{grid-column:3/10;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rh .now a{text-decoration:none}
+.rh .now a:hover{color:var(--accent)}
+.rh .now .sep{color:var(--tertiary-500);margin-inline:.5em}
+.rh .chapters{grid-column:10/13;justify-self:end;display:flex;gap:16px}
+.rh .chapters a{text-decoration:none;color:var(--muted-foreground);padding-block:4px}
+.rh .chapters a:hover,.rh .chapters a.on{color:var(--accent)}
+.rh .bar{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.rh.over-ink{background:var(--secondary);color:var(--tertiary-900);border-bottom-color:var(--secondary)}
+.rh.over-ink .chapters a{color:var(--tertiary-700)}
+.rh.over-ink .chapters a.on,.rh.over-ink .chapters a:hover{color:var(--accent)}
+
+/* ---------------------------------------------------------------- 8. Close
+   Learned, credits, the next study. */
+.credits{grid-column:3/9;max-width:60ch;margin-top:var(--gap-section);display:grid;gap:8px;border-top:1px solid var(--border);padding-top:8px}
+.next{grid-column:3/13;margin-top:var(--gap-block);margin-bottom:var(--gap-section);display:flex;justify-content:space-between;align-items:center;gap:var(--gap-claim);flex-wrap:wrap;border-top:1px solid var(--border);padding-top:var(--gap-claim)}
+.next .title{font-family:var(--font-display);font-weight:700;color:var(--accent);text-decoration:none;font-size:17px}
+.btn{display:inline-block;background:var(--accent);color:var(--card);text-decoration:none;font-weight:600;font-size:15px;padding:12px 16px}
+.btn:hover{background:var(--accent-hover)}
+.proto-tag{position:fixed;left:12px;bottom:12px;z-index:30;background:var(--tertiary-900);color:var(--muted);padding:8px 12px}
+
+/* ----------------------------------------------------------- 9. Interactions
+   1 · Plate reveal: the artefact fades from 0 to 1 and rises 12px over 500ms
+       when 20% enters the viewport, once. Gated on .js, which the inline
+       script adds before the first plate paints; without it every plate is
+       rendered in place. */
+.js .plate .art{opacity:0;transform:translateY(12px)}
+.js .plate .art.in{opacity:1;transform:none;transition:opacity .5s ease-out,transform .5s ease-out}
+/* 2 · Plate lightbox: a dialog at the embedded asset, ink backdrop, the pin
+       list or caption as a side column, Esc and backdrop to close. */
+.lb{border:0;padding:var(--gap-claim);margin:0;width:100vw;height:100vh;max-width:none;max-height:none;background:var(--tertiary-900);color:var(--background)}
+.lb::backdrop{background:var(--tertiary-900)}
+.lb-in{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr);gap:var(--gap-claim);max-width:1440px;margin-inline:auto}
+.lb-head{display:flex;justify-content:space-between;align-items:center;gap:var(--gap-claim);color:var(--tertiary-100)}
+.lb-close{color:var(--secondary);text-decoration:underline;text-underline-offset:.3em;text-decoration-thickness:1px}
+.lb-close:hover{color:var(--card)}
+.lb-body{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:var(--gap-block);min-height:0;align-items:start}
+.lb-art{min-height:0;overflow:auto;height:100%}
+.lb-art img,.lb-art svg{width:auto;height:auto;max-width:100%;max-height:calc(100vh - 120px);margin-inline:auto;outline:1px solid var(--tertiary-500);outline-offset:-1px}
+.lb-art svg{width:100%}
+.lb-side{color:var(--tertiary-100);overflow:auto;max-height:calc(100vh - 120px)}
+.lb-side b{color:var(--card)}
+.lb-side .pinlist li span{background:var(--accent);color:var(--card)}
+.js .lb[open]{animation:lb-in .2s ease-out}
+@keyframes lb-in{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}
+/* 3 · Pin ↔ caption link: hover or focus on either side highlights both,
+       maroon ring on the pin, maroon lead-in on the line. */
+.pin.hi,.pin:hover,.pin:focus-visible{box-shadow:0 0 0 2px var(--background),0 0 0 5px var(--accent)}
+.js .pin.hi{animation:pulse .6s ease-out}
+@keyframes pulse{0%{box-shadow:0 0 0 2px var(--background),0 0 0 5px var(--accent)}50%{box-shadow:0 0 0 2px var(--background),0 0 0 9px var(--accent-tint-light)}100%{box-shadow:0 0 0 2px var(--background),0 0 0 5px var(--accent)}}
+.pinlist li.hi b,.pinlist li:hover b{color:var(--accent)}
+.pinlist li.hi span,.pinlist li:hover span{background:var(--accent);color:var(--card)}
+.pinlist li{outline:0}
+/* 4 · Ground-aware running head: the colour flips with a short transition. */
+.rh{transition:background-color .2s,color .2s,border-color .2s}
+/* 5 · Scroll plate: keyboard scrolls the region; the hint disappears after
+       the first movement (see .scroll-hint above). */
+
+/* ------------------------------------------------------------ 10. Breakpoints
+   1024: prose to columns 2–9, margin notes inline under the caption.
+   720: single column; plates keep full bleed with 32px padding. */
+@media (max-width:1024px){
+  .c3-13,.lede .kick,.lede h1,.opener .numeral,.opener h2,.opener .why,.opener .contents,.next{grid-column:2/13}
+  .prose,.sec .claim,.list,.quote,.proof,.measure,.caveat,.findings,.credits,.dec .id,.dec h4,.lede .deck,.lede .meta{grid-column:2/10}
+  .lede .stats{grid-column:2/10;display:grid;grid-template-columns:1fr 1fr;gap:0 var(--gap-block)}
+  .cap{grid-column:2/6}
+  .note{grid-column:2/10}
+  .plate figcaption+.note{margin-top:var(--gap-claim)}
+  .ground .plate-label{grid-column:2/10}
+  .art{grid-column:2/12}
+  .rh .now{grid-column:2/10}
+  .sec+.sec::before{grid-column:2/13}
+}
+@media (max-width:720px){
+  :root{--plate-pad:32px}
+  .c3-13,.lede .kick,.lede h1,.lede .deck,.lede .meta,.lede .stats,.opener .numeral,.opener h2,.opener .why,.opener .contents,
+  .prose,.sec .claim,.list,.quote,.proof,.measure,.caveat,.findings,.credits,.next,.dec .id,.dec h4,.cap,.note,.art,.sec+.sec::before{grid-column:1/-1}
+  .ground .plate-label{grid-column:1/9}
+  .ground .enlarge{grid-column:9/13}
+  .rh .now{grid-column:1/9}
+  .rh .chapters{grid-column:9/13}
+  .site{flex-wrap:wrap}
+  .site nav{gap:16px}
+  .meta div{grid-template-columns:1fr}
+  .lede .stats{grid-template-columns:1fr 1fr;gap:0 var(--gap-claim)}
+  .t-h2{font-size:32px}
+  .t-h3{font-size:26px}
+  .t-deck{font-size:21px}
+  .ba{grid-template-columns:1fr}
+  .lb{padding:16px}
+  .lb-body{grid-template-columns:1fr;gap:var(--gap-claim)}
+  .lb-art img,.lb-art svg{max-height:60vh}
+  .lb-side{max-height:none}
+  .proto-tag{display:none}
+}
+@media (max-width:1100px){
+  .lb-body{grid-template-columns:minmax(0,1fr) 260px}
+}
+
+/* --------------------------------------------------------- 11. Reduced motion
+   Every interaction has a rule: no reveal, no lightbox scale, no pulse, no
+   running-head transition, no smooth scroll. Everything is rendered in place. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .plate .art{opacity:1;transform:none;transition:none}
+  .js .lb[open]{animation:none}
+  .js .pin.hi{animation:none}
+  .rh{transition:none}
+}
+@media print{
+  .js .plate .art{opacity:1;transform:none}
+  .rh,.proto-tag,.enlarge,.scroll-hint{display:none}
+}
+</style>
+<script>
+/* The reveal gate: added before the first plate paints, only when the
+   observer that will undo it exists. */
+if ('IntersectionObserver' in window) document.documentElement.classList.add('js');
+</script>
+
+<header class="site wrap">
+  <a class="name" href="#">Anastasia Novelly Moylan</a>
+  <nav class="t-label"><a class="on" href="#">Work</a><a href="#">Philosophy</a><a href="#">About</a><a href="#">Contact</a></nav>
+</header>
+
+<section class="lede wrap grid" aria-labelledby="claim">
+  <p class="kick t-label"><b>An Auditable Billing Workflow</b><span>Amdocs Studios</span><span>2024–2025</span></p>
+  <h1 class="t-claim" id="claim">Cleared a backlog of a few hundred billing packages with an auditable workflow now used by 70 people.</h1>
+  <p class="deck t-deck">Automate retrieval first, then design what keeps it clear: explicit stages, ownership, review and status history.</p>
+  <dl class="meta t-cap">
+    <div><dt class="t-label">Role</dt><dd>Product Lead and Design Contributor</dd></div>
+    <div><dt class="t-label">Employer</dt><dd>Amdocs Studios</dd></div>
+    <div><dt class="t-label">Client</dt><dd>Confidential enterprise telecommunications organization</dd></div>
+    <div><dt class="t-label">Timeframe</dt><dd>2024–2025</dd></div>
+    <div><dt class="t-label">Status</dt><dd>MVP 1 released and in use; MVP 1.5 in progress</dd></div>
+    <div><dt class="t-label">Users</dt><dd>Admins, accountants, and engineers managing projects and billing packages</dd></div>
+    <div><dt class="t-label">Team</dt><dd>CWO team with the client's Chief Data Office, product, engineering, and UI development</dd></div>
+  </dl>
+  <dl class="stats">
+    <div><dt class="t-label">Built from zero</dt><dd class="t-h2">0 → 1</dd></div>
+    <div><dt class="t-label">Backlog of a few hundred billing packages</dt><dd class="t-h2">Cleared</dd></div>
+    <div><dt class="t-label">Active users, Sep 2026</dt><dd class="t-h2">70</dd></div>
+    <div><dt class="t-label">Shared status states</dt><dd class="t-h2">6</dd></div>
+  </dl>
+</section>
+
+<section class="hero-sec wrap grid">
+  <figure class="plate hero" id="plate-01">
+    <div class="ground ink">
+      <div class="wrap grid">
+      <p class="plate-label t-label">Plate 01 · Billing report</p>
+      <button type="button" class="enlarge t-label" data-lightbox aria-label="Enlarge plate 01, the billing report">Enlarge ↗</button>
+      <div class="art">
+        <div class="frame zoom" data-lightbox-alias>
+          <img src="{{img:billing-report}}" alt="Close detail of the finalized billing report: charges broken down by category with gross and net construction cost, credit lines and the total amount due." width="1400" height="1394" draggable="false">
+        </div>
+      </div>
+    </div></div>
+    <figcaption class="cap t-cap"><b>Close up.</b> Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.</figcaption>
+  </figure>
+</section>
+
+<nav class="rh" id="rh" aria-label="Chapters">
+  <div class="rh-in wrap grid t-label">
+    <p class="now"><a href="#part-01" id="rh-part-link"><span id="rh-n">01</span><span class="sep">·</span><span id="rh-part">Framing</span></a><span class="sep" id="rh-sep">·</span><span id="rh-sec">Overview</span></p>
+    <ol class="chapters"><li><a href="#part-01" data-ch="01">01</a></li><li><a href="#part-02" data-ch="02">02</a></li><li><a href="#part-03" data-ch="03">03</a></li></ol>
+  </div>
+  <span class="bar" id="rh-bar" aria-hidden="true"></span>
+</nav>
+
+<main>
+
+  <!-- 01 · Framing -->
+  <section class="opener" id="part-01" data-part="01" data-chapter="Framing" data-sec="">
+    <div class="wrap grid">
+    <p class="numeral t-numeral" aria-hidden="true">01</p>
+    <h2 class="t-h2">Framing</h2>
+    <p class="why t-deck">Why this work mattered.</p>
+    <ol class="contents t-label"><li><a href="#overview">Overview</a></li><li><a href="#product-framing">Product framing</a></li><li><a href="#problem">The problem</a></li></ol>
+    </div>
+  </section>
+
+  <section class="sec wrap grid" id="overview" data-part="01" data-chapter="Framing" data-sec="Overview">
+    <h3 class="claim t-h3">Overview</h3>
+    <dl class="list">
+      <div><dt class="t-label accent">Challenge</dt><dd>A backlog of a few hundred billing packages had built up behind manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and handoffs.</dd></div>
+      <div><dt class="t-label accent">Result</dt><dd>The workflow cleared the backlog and keeps it clear; 70 people use it, and other projects have picked up its approval flow.</dd></div>
+      <div><dt class="t-label accent">Approach</dt><dd>Automate retrieval first, then design what keeps it clear: explicit stages, ownership, review and status history.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec wrap grid" id="product-framing" data-part="01" data-chapter="Framing" data-sec="Product framing">
+    <h3 class="claim t-h3">Clearing a backlog once is automation. Staying clear is a workflow problem.</h3>
+    <div class="prose">
+      <p>Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. Every package in the backlog was billable work the organization could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room, and why I owned product definition as well as design.</p>
+    </div>
+    <dl class="list after">
+      <div><dt class="t-label accent">Hypothesis</dt><dd>Work disappeared because no role owned it and no vocabulary said where it was. Make both explicit and the backlog becomes recoverable.</dd></div>
+      <div><dt class="t-label accent">KPI set at kickoff</dt><dd>+20% billing-package submission rate, the step where packages were dying. Explicit ownership and status should carry more packages to submission.</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec last wrap grid" id="problem" data-part="01" data-chapter="Framing" data-sec="The problem">
+    <h3 class="claim t-h3">How might we turn a fragmented orchestration process into a guided, error-tolerant workflow that users could review and trust?</h3>
+    <figure class="plate" id="plate-02">
+      <div class="ground white">
+      <div class="wrap grid">
+        <p class="plate-label t-label">Plate 02 · Constraints</p>
+        <div class="art">
+          <div class="tscroll">
+            <table class="t-cap">
+              <thead><tr><th scope="col" class="t-label">Constraint</th><th scope="col" class="t-label">Implication</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Evidence came from feeder systems, generated screenshots, invoices, PDFs and spreadsheet edits</th><td>The product had to coordinate the whole package, not one screen or document</td></tr>
+                <tr><th scope="row">Missing screenshots could stop assembly after work was already underway</th><td>Retrieval failures needed preserved progress, a visible error and a recovery action</td></tr>
+                <tr><th scope="row">Different roles could create, edit, review or approve</th><td>Ownership, review tasks, permissions, handoffs and status history had to be explicit</td></tr>
+                <tr><th scope="row">Users could not tell whether a package was still being assembled or ready to submit</th><td>Package state had to be a first-class, visible object with history</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div></div>
+    </figure>
+    <blockquote class="quote t-deck">The workflow could recover billable work only by making dependencies, responsibility and recovery visible before submission, not after a package failed.</blockquote>
+  </section>
+
+  <!-- 02 · The work -->
+  <section class="opener" id="part-02" data-part="02" data-chapter="The work" data-sec="">
+    <div class="wrap grid">
+    <p class="numeral t-numeral" aria-hidden="true">02</p>
+    <h2 class="t-h2">The work</h2>
+    <p class="why t-deck">What I decided, and what each call cost.</p>
+    <ol class="contents t-label"><li><a href="#scope">Scope and ownership</a></li><li><a href="#decisions">Key decisions</a></li><li><a href="#parked">What did not make the release</a></li><li><a href="#evidence">Evidence</a></li></ol>
+    </div>
+  </section>
+
+  <section class="sec wrap grid" id="scope" data-part="02" data-chapter="The work" data-sec="Scope and ownership">
+    <h3 class="claim t-h3">I owned the product definition, not just the design</h3>
+    <dl class="list">
+      <div><dt class="t-label accent">Owned</dt><dd>Product and design for the workflow. I defined the features and scope from stakeholder input, designed the front end, ran handoff and maintained the design backlog. The ten-stage decomposition, the status model, the development-ready flows and the error-condition wireframes are mine.</dd></div>
+      <div><dt class="t-label accent">Led</dt><dd>Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.</dd></div>
+      <div><dt class="t-label accent">Influenced beyond the design lane</dt><dd>Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. The scope calls on the dashboard and the interim editing path. The approval flow has since been picked up by other projects.</dd></div>
+      <div><dt class="t-label accent">Worked with</dt><dd>The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.</dd></div>
+    </dl>
+    <figure class="plate" id="plate-03">
+      <div class="ground champagne">
+      <div class="wrap grid">
+        <p class="plate-label t-label">Plate 03 · Scope and ownership</p>
+        <button type="button" class="enlarge t-label" data-lightbox aria-label="Enlarge plate 03, scope and ownership">Enlarge ↗</button>
+        <div class="art">
+          <div class="frame zoom" data-lightbox-alias>{{svg:scope-ownership}}</div>
+        </div>
+      </div></div>
+    </figure>
+  </section>
+
+  <section class="sec wrap grid" id="decisions" data-part="02" data-chapter="The work" data-sec="Key decisions">
+    <h3 class="claim t-h3">Four decisions, and what each one cost</h3>
+    <div class="decs">
+
+      <article class="dec" id="decision-01">
+        <p class="id t-label"><span class="n">01</span><span class="muted">Progressive validation</span></p>
+        <h4 class="t-h3">Catch the gap where it happens, not at submission.</h4>
+        <div class="prose">
+          <p>Defects that surface at submission cost the most; the work behind them is already spread across systems. Missing data surfaces as the user moves, progress is preserved when a dependency fails, and a completeness review runs before submission.</p>
+        </div>
+        <figure class="plate" id="plate-04">
+          <div class="ground white">
+      <div class="wrap grid">
+            <p class="plate-label t-label">Plate 04 · Edge cases</p>
+            <div class="art">
+              <div class="tscroll">
+                <table class="t-cap cols-3">
+                  <thead><tr><th scope="col" class="t-label">State</th><th scope="col" class="t-label">What the user sees</th><th scope="col" class="t-label">Recovery</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Invalid or unmatched project number entered</th><td>Explicit error state before any billing package is created</td><td></td></tr>
+                    <tr><th scope="row">Billing package primary key not found</th><td></td><td>Routes to creating a new billing package instead of failing silently</td></tr>
+                    <tr><th scope="row">Automation or feeder-system failure</th><td>Work in progress is preserved rather than lost</td><td>Clear retry path</td></tr>
+                    <tr><th scope="row">Review in progress</th><td>Everyone else has view-only access until the review completes</td><td></td></tr>
+                    <tr><th scope="row">Discarded inline edit</th><td></td><td>Reverts cleanly without affecting the rest of the package</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div></div>
+          <aside class="note"><b>Instead of</b> waiting until submission to reveal missing data</aside>
+        </figure>
+      </article>
+
+      <article class="dec" id="decision-02">
+        <p class="id t-label"><span class="n">02</span><span class="muted">The project-number key</span></p>
+        <h4 class="t-h3">A package can be resumed, never accidentally recreated.</h4>
+        <div class="prose">
+          <p>The project number is the package’s primary key, so the system can tell resuming an existing package from starting a new one.</p>
+        </div>
+        <figure class="plate" id="plate-05">
+          <div class="ground ink">
+      <div class="wrap grid">
+            <p class="plate-label t-label">Plate 05 · Package index</p>
+            <button type="button" class="enlarge t-label" data-lightbox aria-label="Enlarge plate 05, the package index">Enlarge ↗</button>
+            <div class="art">
+              <div class="frame">
+                <img src="{{img:package-index}}" alt="Billing package index with the project-number filter, owner and last-modified columns, and the Start new billing package control." width="1400" height="896" draggable="false">
+                <button type="button" class="pin" data-pin="1" style="left:88%;top:19%" aria-label="Callout 1" aria-describedby="pin-1">1</button>
+                <button type="button" class="pin" data-pin="2" style="left:53%;top:33%" aria-label="Callout 2" aria-describedby="pin-2">2</button>
+                <button type="button" class="pin" data-pin="3" style="left:47%;top:43%" aria-label="Callout 3" aria-describedby="pin-3">3</button>
+                <button type="button" class="pin" data-pin="4" style="left:58%;top:43%" aria-label="Callout 4" aria-describedby="pin-4">4</button>
+              </div>
+            </div>
+          </div></div>
+          <figcaption class="cap t-cap">
+            <b>Four decisions on one screen: identity, ownership and state are readable before a package is opened.</b>
+            <ol class="pinlist">
+              <li id="pin-1" data-pin="1" tabindex="-1"><span aria-hidden="true">1</span><p><b>Guarded by the identity check.</b> Starting a package runs the project-number lookup first, so duplicates cannot be created.</p></li>
+              <li id="pin-2" data-pin="2" tabindex="-1"><span aria-hidden="true">2</span><p><b>The primary key is the filter.</b> A package is found by project number, hence the search field.</p></li>
+              <li id="pin-3" data-pin="3" tabindex="-1"><span aria-hidden="true">3</span><p><b>Ownership before you open anything.</b> The owner column makes the responsible person visible from the index.</p></li>
+              <li id="pin-4" data-pin="4" tabindex="-1"><span aria-hidden="true">4</span><p><b>The status model, surfacing.</b> Every transition is timestamped, so last-modified is a real signal, not a file date.</p></li>
+            </ol>
+          </figcaption>
+          <aside class="note"><b>Instead of</b> silently duplicating work</aside>
+        </figure>
+      </article>
+
+      <article class="dec" id="decision-03">
+        <p class="id t-label"><span class="n">03</span><span class="muted">The six-state status model</span></p>
+        <h4 class="t-h3">A package can never sit in an undefined state.</h4>
+        <div class="prose">
+          <p>Users needed to know whether a package was being assembled or ready to submit; the organization needed a record of who did what. 6 states, Initiated to Completed, carry both, with permissions, history and notifications. It is what keeps the backlog from re-forming.</p>
+        </div>
+        <figure class="plate" id="plate-06">
+          <div class="ground champagne">
+      <div class="wrap grid">
+            <p class="plate-label t-label">Plate 06 · Status model</p>
+            <button type="button" class="enlarge t-label" data-lightbox aria-label="Enlarge plate 06, the status model">Enlarge ↗</button>
+            <div class="art">
+              <div class="frame zoom" data-lightbox-alias>{{svg:status-model}}</div>
+            </div>
+          </div></div>
+          <figcaption class="cap t-cap"><b>Six states, two recovery loops.</b> The loops are where work used to disappear; Review became its own state so nobody edits mid-review.</figcaption>
+          <aside class="note"><b>Instead of</b> leaving package state implicit in the documents and the people handling them</aside>
+        </figure>
+      </article>
+
+      <article class="dec" id="decision-04">
+        <p class="id t-label"><span class="n">04</span><span class="muted">The review session</span></p>
+        <h4 class="t-h3">The handoff moves into the product, so it has a history.</h4>
+        <div class="prose">
+          <p>Handoffs were where packages lost state. Package metadata carries owner, status and review tasks, and reusable review-and-submit patterns make the handoff visible.</p>
+        </div>
+        <figure class="plate" id="plate-07">
+          <div class="ground ink">
+      <div class="wrap grid">
+            <p class="plate-label t-label">Plate 07 · Review flow</p>
+            <button type="button" class="enlarge t-label" data-lightbox aria-label="Enlarge plate 07, the review flow">Enlarge ↗</button>
+            <div class="art">
+              <div class="frame">
+                <div class="scroller" tabindex="0" role="region" aria-label="Review flow drawing, scrolls sideways">
+                  <img src="{{img:review-flow-01}}" alt="Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete." width="1400" height="1321" draggable="false">
+                </div>
+                <span class="scroll-hint t-label" aria-hidden="true">scroll →</span>
+              </div>
+            </div>
+          </div></div>
+          <figcaption class="cap t-cap"><b>Starting a review locks the package to one reviewer;</b> everyone else reads until it is done.</figcaption>
+          <aside class="note"><b>Instead of</b> an off-product coordination step with no visible handoff or history</aside>
+        </figure>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="sec wrap grid" id="parked" data-part="02" data-chapter="The work" data-sec="What did not make the release">
+    <h3 class="claim t-h3">What did not make the release, and why</h3>
+    <figure class="plate" id="plate-08">
+      <div class="ground white">
+      <div class="wrap grid">
+        <p class="plate-label t-label">Plate 08 · What did not ship</p>
+        <div class="art">
+          <div class="tscroll">
+            <table class="t-cap">
+              <thead><tr><th scope="col" class="t-label">Item</th><th scope="col" class="t-label">Why</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">The reporting dashboard</th><td>Infeasible this release. Surfacing the dependency and holding it in the backlog cost the release its most demo-friendly screen.</td></tr>
+                <tr><th scope="row">In-product editing of package, project and customer details</th><td>Not feasible within the technical constraints; Excel stayed the interim path. Continuity now was worth more than a half-built editor.</td></tr>
+                <tr><th scope="row">Whole-package automation and section export</th><td>Held as the final feature area so the manual path shipped first.</td></tr>
+                <tr><th scope="row">Document integration, expanded review, automated retrieval</th><td>Sequenced into a named phased roadmap rather than argued into this scope.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div></div>
+    </figure>
+  </section>
+
+  <section class="sec last wrap grid" id="evidence" data-part="02" data-chapter="The work" data-sec="Evidence">
+    <h3 class="claim t-h3">What ten usability sessions changed</h3>
+    <div class="prose">
+      <p>Moderated usability research with ten participants across the three user groups (admins, accountants, engineers), plus working sessions on requirements, dependencies and release feasibility.</p>
+    </div>
+    <dl class="findings t-cap">
+      <div><dt>Missing screenshots stopped assembly after work was already underway.</dt><dd>A recoverable screenshot-generation pattern: visible error state, bot redeploy, preserved progress.</dd></div>
+      <div><dt>Creators and reviewers had different responsibilities, and the review step had the most friction.</dt><dd>Owner and reviewer views, review tasks, role-based permissions, status history.</dd></div>
+      <div><dt>Sessions validated the core package-assembly flow across all three groups.</dt><dd>The flow held; effort went to states and recovery rather than restructuring.</dd></div>
+    </dl>
+  </section>
+
+  <!-- 03 · Results -->
+  <section class="opener" id="part-03" data-part="03" data-chapter="Results" data-sec="">
+    <div class="wrap grid">
+    <p class="numeral t-numeral" aria-hidden="true">03</p>
+    <h2 class="t-h2">Results</h2>
+    <p class="why t-deck">What changed, and what I learned.</p>
+    <ol class="contents t-label"><li><a href="#outcome">Outcome</a></li><li><a href="#learned">What I learned</a></li></ol>
+    </div>
+  </section>
+
+  <section class="sec wrap grid" id="outcome" data-part="03" data-chapter="Results" data-sec="Outcome">
+    <h3 class="claim t-h3">Outcome</h3>
+    <figure class="plate" id="plate-09">
+      <div class="ground champagne">
+      <div class="wrap grid">
+        <p class="plate-label t-label">Plate 09 · Before / After</p>
+        <dl class="art ba">
+          <div><dt class="t-label">Before</dt><dd class="t-deck">A backlog of a few hundred billing packages across fragmented systems, screenshots, spreadsheets and manual handoffs.</dd></div>
+          <div><dt class="t-label">After</dt><dd class="t-deck">Backlog cleared, and a workflow that keeps it clear: validation, recovery, ownership, review and status history, used by 70 people.</dd></div>
+        </dl>
+      </div></div>
+    </figure>
+    <ul class="proof">
+      <li>The backlog of a few hundred billing packages was cleared; 70 people are active on the application.</li>
+      <li>The approval flow has been picked up by other projects.</li>
+      <li>Ownership, package state, history and review handoffs are visible in-product, with recoverable screenshot generation and progressive validation.</li>
+    </ul>
+    <div class="measure">
+      <p class="t-label accent">What I would measure next</p>
+      <p>Package cycle time from Initiated to Completed, the share of packages that hit the screenshot-recovery path, and first-pass approval rate. The status model makes all three available without new instrumentation.</p>
+    </div>
+    <p class="caveat t-cap">The backlog size is my own account, not a project record, and 70 active users is my own count as of September 2026. The +20% submission-rate KPI is measurable from status timestamps but not yet measured. Defect reduction and handoff time are not verified.</p>
+  </section>
+
+  <section class="sec wrap grid" id="learned" data-part="03" data-chapter="Results" data-sec="What I learned">
+    <h3 class="claim t-h3">Enterprise workflows fail at the boundaries between systems and teams</h3>
+    <div class="prose">
+      <p>The most important design work here was not a screen. It was exposing dependencies early, preserving state when automation failed, and making responsibility visible through review and submission. Automation cleared the backlog; the status and ownership model kept it from coming back.</p>
+    </div>
+    <div class="credits t-cap">
+      <p class="t-label accent">Credits</p>
+      <p>The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.</p>
+    </div>
+    <div class="next">
+      <div><p class="t-label muted">Next case study</p><a class="title" href="#">A Verifiable Document AI Platform →</a></div>
+      <a class="btn" href="#">Get in touch</a>
+    </div>
+  </section>
+
+</main>
+
+<dialog class="lb" id="lb" aria-labelledby="lb-title">
+  <div class="lb-in">
+    <div class="lb-head t-label"><p id="lb-title"></p><button type="button" class="lb-close t-label" id="lb-close">Close ✕</button></div>
+    <div class="lb-body">
+      <div class="lb-art" id="lb-art"></div>
+      <div class="lb-side t-cap" id="lb-side"></div>
+    </div>
+  </div>
+</dialog>
+
+<span class="proto-tag t-label">J · Plates · 2026-09-10</span>
+
+<script>
+(function () {
+  'use strict';
+  var doc = document, root = doc.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var all = function (sel, ctx) { return Array.prototype.slice.call((ctx || doc).querySelectorAll(sel)); };
+
+  /* 1 · Plate reveal. Once, at 20% visible. If anything fails, every
+     artefact is shown in place. */
+  var arts = all('.plate .art');
+  try {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    arts.forEach(function (a) { io.observe(a); });
+  } catch (err) {
+    arts.forEach(function (a) { a.classList.add('in'); });
+  }
+
+  /* 4 · Ground-aware running head, and the progress line and current
+     section. An observer on each ink plate watches the 40px band the head
+     occupies; the text and the progress line follow scroll. */
+  var rh = doc.getElementById('rh');
+  var inks = all('.ground.ink, .opener');
+  var over = [];
+  var inkIO = null;
+  function watchInk() {
+    if (inkIO) inkIO.disconnect();
+    var band = Math.max(0, window.innerHeight - rh.offsetHeight);
+    inkIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { over[inks.indexOf(e.target)] = e.isIntersecting; });
+      rh.classList.toggle('over-ink', over.some(Boolean));
+    }, { rootMargin: '0px 0px -' + band + 'px 0px', threshold: 0 });
+    inks.forEach(function (el) { inkIO.observe(el); });
+  }
+  watchInk();
+
+  var secs = all('[data-part]');
+  var rhN = doc.getElementById('rh-n'), rhPart = doc.getElementById('rh-part'), rhSec = doc.getElementById('rh-sec'),
+      rhSep = doc.getElementById('rh-sep'), rhLink = doc.getElementById('rh-part-link'), rhBar = doc.getElementById('rh-bar');
+  var chapterLinks = all('.rh .chapters a');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var h = rh.offsetHeight, cur = null;
+    for (var i = 0; i < secs.length; i++) {
+      if (secs[i].getBoundingClientRect().top <= h + 1) cur = secs[i]; else break;
+    }
+    if (cur) {
+      rhN.textContent = cur.getAttribute('data-part');
+      rhPart.textContent = cur.getAttribute('data-chapter');
+      rhLink.setAttribute('href', '#part-' + cur.getAttribute('data-part'));
+      var s = cur.getAttribute('data-sec');
+      rhSec.textContent = s;
+      rhSep.hidden = !s;
+      chapterLinks.forEach(function (a) {
+        var on = a.getAttribute('data-ch') === cur.getAttribute('data-part');
+        a.classList.toggle('on', on);
+        if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }
+    var max = root.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    rhBar.style.setProperty('--p', p.toFixed(4));
+  }
+  function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(update); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { watchInk(); onScroll(); });
+  update();
+
+  /* 3 · Pin ↔ caption link. Hover or focus on either side highlights both;
+     a click on a pin moves focus to its line. */
+  function setHi(n, on) {
+    all('[data-pin="' + n + '"]').forEach(function (el) { el.classList.toggle('hi', on); });
+  }
+  all('[data-pin]').forEach(function (el) {
+    var n = el.getAttribute('data-pin');
+    el.addEventListener('mouseenter', function () { setHi(n, true); });
+    el.addEventListener('mouseleave', function () { setHi(n, false); });
+    el.addEventListener('focusin', function () { setHi(n, true); });
+    el.addEventListener('focusout', function () { setHi(n, false); });
+  });
+  all('button.pin').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var line = doc.getElementById('pin-' + btn.getAttribute('data-pin'));
+      if (line) line.focus();
+    });
+  });
+
+  /* 2 · Plate lightbox. The same embedded asset opens in a dialog with the
+     plate's caption (or pin list) as a side column; focus returns to the
+     control that opened it. */
+  var lb = doc.getElementById('lb'), lbArt = doc.getElementById('lb-art'), lbSide = doc.getElementById('lb-side'),
+      lbTitle = doc.getElementById('lb-title'), lbClose = doc.getElementById('lb-close');
+  var opener = null;
+  function openPlate(plate, from) {
+    if (!lb.showModal) return;
+    var src = plate.querySelector('.art img, .art svg');
+    if (!src) return;
+    var clone = src.cloneNode(true);
+    if (clone.tagName.toLowerCase() === 'svg') {
+      all('[id]', clone).forEach(function (el) { el.removeAttribute('id'); });
+      clone.removeAttribute('id');
+      clone.removeAttribute('aria-labelledby');
+      clone.setAttribute('aria-hidden', 'true');
+    }
+    clone.removeAttribute('draggable');
+    lbArt.innerHTML = '';
+    lbArt.appendChild(clone);
+    var cap = plate.querySelector('figcaption');
+    lbSide.innerHTML = '';
+    if (cap) {
+      var c = cap.cloneNode(true);
+      all('[id]', c).forEach(function (el) { el.removeAttribute('id'); });
+      all('[data-pin]', c).forEach(function (el) { el.removeAttribute('data-pin'); el.removeAttribute('tabindex'); });
+      while (c.firstChild) lbSide.appendChild(c.firstChild);
+    }
+    lbSide.hidden = !cap;
+    var label = plate.querySelector('.plate-label');
+    lbTitle.textContent = label ? label.textContent : '';
+    opener = from;
+    root.classList.add('lb-open');
+    lb.showModal();
+    lbClose.focus();
+  }
+  all('[data-lightbox]').forEach(function (btn) {
+    btn.addEventListener('click', function () { openPlate(btn.closest('.plate'), btn); });
+  });
+  all('[data-lightbox-alias]').forEach(function (frame) {
+    frame.addEventListener('click', function () {
+      var plate = frame.closest('.plate');
+      var btn = plate.querySelector('[data-lightbox]');
+      openPlate(plate, btn || frame);
+    });
+  });
+  lbClose.addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+  lb.addEventListener('close', function () {
+    root.classList.remove('lb-open');
+    lbArt.innerHTML = '';
+    if (opener && opener.focus) opener.focus();
+    opener = null;
+  });
+
+  /* 5 · Scroll plate. Drag with a mouse, arrow keys when focused; the hint
+     goes after the first movement. Touch uses the native scroll. */
+  all('.scroller').forEach(function (sc) {
+    function check() { sc.classList.toggle('can-scroll', sc.scrollWidth > sc.clientWidth + 1); }
+    check();
+    window.addEventListener('resize', check);
+    sc.addEventListener('scroll', function () { sc.classList.add('moved'); }, { once: true, passive: true });
+    var startX = 0, startLeft = 0, dragging = false;
+    sc.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      dragging = true; startX = e.clientX; startLeft = sc.scrollLeft;
+      sc.classList.add('dragging'); sc.setPointerCapture(e.pointerId); e.preventDefault();
+    });
+    sc.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      sc.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    function end() { dragging = false; sc.classList.remove('dragging'); }
+    sc.addEventListener('pointerup', end);
+    sc.addEventListener('pointercancel', end);
+    sc.addEventListener('keydown', function (e) {
+      var step = 0;
+      if (e.key === 'ArrowRight') step = 80; else if (e.key === 'ArrowLeft') step = -80;
+      else if (e.key === 'Home') step = -sc.scrollWidth; else if (e.key === 'End') step = sc.scrollWidth;
+      if (!step) return;
+      e.preventDefault();
+      sc.scrollBy({ left: step, behavior: reduce.matches ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
