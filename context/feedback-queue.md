@@ -213,3 +213,15 @@ you, in this order of risk:
   affected, deliberately. Say if the home or résumé page reads too heavy now.
 - [ ] **E8. Claim headings for the other three studies** (C5) are still not written; they still
   show the nouns. Unchanged, because it needs the facts interview.
+
+## F. Fix in the next session (flagged 2026-09-11, after Plates shipped)
+
+Owner: "make a note to fix the flagged items in the next session." Work these first, in order. The Plates system is `src/styles/case-study.css`, `Plate.tsx`, `RunningHead.tsx`; the reference is `renderings/j-plates.src.html`.
+
+- [ ] **F1. Customer Journey ground rhythm.** Four ink screen plates sit close together, two back to back on decision 3 ("Risk made explainable": analyst dashboard, then journey exploration). The spec says no two consecutive plates share a ground. Options to put to the owner: keep one screen on decision 3, or move the journey exploration to the evidence section. Needs her call on which screen goes; do not drop one unasked.
+- [ ] **F2. Diagram labels under 12px on phones.** The drawn SVGs set 7–9px text in a 960 viewBox, so at phone width the labels render well under the site's 12px floor. The inline figures already scroll at 40rem min-width; decide between a larger min-width at narrow widths, or redrawing the diagrams' label sizes in their `.html` sources and re-exporting.
+- [ ] **F3. Pins cover the screen on phones.** The annotated package index's 24px pins cover part of the interface below 720px. Scale them to about 18px there, and tune the pin coordinates against the asset while at it (open since C4: two pins land on a table row rather than the column header).
+- [ ] **F4. Sign-off on new chrome copy.** Plate labels (`CaseStudyImage.label` and the fixed ones: Constraints, Edge cases, What did not ship, Before and after), the table headers, and the part "why" lines ending in a full stop. Walk them with the owner alongside sections C and E.
+- [ ] **F5. Coded diagram labels are long.** Finance Cloud's coded diagrams use their full heading as the plate label ("Promotion is a gated checklist, not a publish button"). Plate labels are meant to be two or three words; give `DiagramPanel` a short `label` prop and keep the heading as the caption's lead-in.
+- [ ] **F6. Three studies have no hero plate.** Only billing has an `opener`, so Finance Cloud, the Customer Journey and Document AI start at plate 01 Constraints. Needs a close-up screenshot per study (image brief, "ANASTASIA" items); nothing to build until those exist.
+- [ ] **F7. Housekeeping.** Delete the scratch branch `design/k-broadsheet-rendering` on origin (its template is in `renderings/`), and the local agent worktree under `.claude/worktrees/agent-aa72489cebe2ac2b4`.
