@@ -1,61 +1,92 @@
+import { useState, type ReactNode } from "react";
 import type { AnnotatedFigure as AnnotatedFigureData } from "../../data/caseStudyTypes";
+import ImageLightbox from "../work/ImageLightbox";
+import Plate from "./Plate";
 
 /**
- * A real screen with numbered pins keyed to lines of reasoning (Layout C).
+ * A real screen with numbered pins keyed to lines of reasoning, as an ink
+ * plate (Plates layout, 2026-09-11). The pin list is the caption.
  *
- * The strongest device found in individual lead and staff portfolios: markers
- * pinned to the interface, each keyed to a line underneath naming the
- * decision it shows. It puts the thinking on the artefact instead of
- * abstracting it into a diagram. Pin positions are percentages of the image
- * box and need tuning per asset.
- *
- * The pins are decorative duplicates of the numbered list, so they are hidden
- * from assistive technology and the list carries the content. The frame is
- * not zoomable: the pins would not travel into the lightbox.
+ * Pins and lines are linked both ways: hovering or focusing either one
+ * highlights both, and activating a pin moves focus to its line, so a
+ * keyboard or screen-reader user gets the same pairing the eye does. Each
+ * pin names its line with `aria-describedby`.
  */
-export default function AnnotatedFigure({ figure }: { figure: AnnotatedFigureData }) {
+export default function AnnotatedFigure({
+  figure,
+  note,
+}: {
+  figure: AnnotatedFigureData;
+  note?: ReactNode;
+}) {
   const { image, pins, caption } = figure;
+  const [hi, setHi] = useState<number | null>(null);
+  const [open, setOpen] = useState(false);
+  const label = image.label ?? "Annotated screen";
+  const id = (i: number) => `pin-${image.label?.toLowerCase().replace(/\W+/g, "-") ?? "screen"}-${i + 1}`;
+
   return (
-    <figure className="m-0">
-      <div className="relative overflow-hidden rounded-lg border border-border bg-card shadow-[0_1px_2px_rgba(40,61,59,0.06),0_14px_36px_-18px_rgba(40,61,59,0.35)]">
-        <img
-          src={image.src}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          className="block h-auto w-full"
-          loading="lazy"
-        />
-        {pins.map((pin, i) => (
-          <span
-            key={`${pin.x}-${pin.y}`}
-            aria-hidden="true"
-            style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
-            className="absolute grid h-6 w-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-accent font-mono text-label font-semibold text-background shadow-[0_0_0_3px_rgba(247,245,241,0.9)]"
-          >
-            {i + 1}
-          </span>
-        ))}
-      </div>
-      <ol className="m-0 mt-5 grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-2 md:gap-x-10">
-        {pins.map((pin, i) => (
-          <li key={pin.text} className="flex items-start gap-3 text-small leading-[1.6] text-muted-foreground">
-            <span
-              aria-hidden="true"
-              className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent-tint-subtle font-mono text-label font-semibold text-accent"
+    <>
+      <Plate
+        ground="ink"
+        label={label}
+        onEnlarge={() => setOpen(true)}
+        enlargeLabel={`Enlarge: ${label}`}
+        note={note}
+        caption={
+          <>
+            <b>{caption}</b>
+            <ol className="cs-pinlist">
+              {pins.map((pin, i) => (
+                <li
+                  key={pin.text}
+                  id={id(i)}
+                  tabIndex={-1}
+                  data-hi={hi === i ? "" : undefined}
+                  onMouseEnter={() => setHi(i)}
+                  onMouseLeave={() => setHi(null)}
+                  onFocus={() => setHi(i)}
+                  onBlur={() => setHi(null)}
+                >
+                  <span aria-hidden="true">{i + 1}</span>
+                  <p>{pin.text}</p>
+                </li>
+              ))}
+            </ol>
+          </>
+        }
+      >
+        <div className="cs-frame">
+          <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+          {pins.map((pin, i) => (
+            <button
+              key={`${pin.x}-${pin.y}`}
+              type="button"
+              className="cs-pin"
+              style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
+              aria-label={`Callout ${i + 1}`}
+              aria-describedby={id(i)}
+              data-hi={hi === i ? "" : undefined}
+              onMouseEnter={() => setHi(i)}
+              onMouseLeave={() => setHi(null)}
+              onFocus={() => setHi(i)}
+              onBlur={() => setHi(null)}
+              onClick={() => {
+                setHi(i);
+                document.getElementById(id(i))?.focus();
+              }}
             >
               {i + 1}
-            </span>
-            <span>
-              <span className="sr-only">{i + 1}. </span>
-              {pin.text}
-            </span>
-          </li>
-        ))}
-      </ol>
-      <figcaption className="mt-4 max-w-[56ch] text-small italic leading-[1.65] text-muted-foreground">
-        {caption}
-      </figcaption>
-    </figure>
+            </button>
+          ))}
+        </div>
+      </Plate>
+      {open && (
+        <ImageLightbox
+          image={{ src: image.src, fullSrc: image.fullSrc, alt: image.alt, caption }}
+          onClose={() => setOpen(false)}
+        />
+      )}
+    </>
   );
 }

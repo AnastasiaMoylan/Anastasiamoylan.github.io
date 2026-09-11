@@ -19,6 +19,7 @@ import ccjScopeRaw from "../../../assets/case-studies/ccj/scope-ownership.svg?ra
  * 2026-09-10, when the PNG exports were retired.
  */
 const loop: CaseStudyImage = {
+  label: "Three-role loop",
   src: threeRoleLoopUrl,
   fullSrc: threeRoleLoopUrl,
   inlineSvg: diagramSvg(threeRoleLoopRaw),
@@ -37,6 +38,7 @@ const loop: CaseStudyImage = {
  * `scope` block in the data, not a redraw.
  */
 const scope: CaseStudyImage = {
+  label: "Scope and ownership",
   src: ccjScopeUrl,
   fullSrc: ccjScopeUrl,
   inlineSvg: diagramSvg(ccjScopeRaw),

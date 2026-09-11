@@ -17,6 +17,7 @@ import operatingModelRaw from "../../../assets/case-studies/gaf/operating-model.
  * inlined as SVG since 2026-09-10, when the PNG exports were retired.
  */
 const operatingModelFigure: CaseStudyImage = {
+  label: "Operating model",
   src: operatingModelUrl,
   fullSrc: operatingModelUrl,
   inlineSvg: diagramSvg(operatingModelRaw),

@@ -106,6 +106,9 @@
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Archivo', 'Inter', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  /* The case study's voice (added 2026-09-11 with the Plates layout): claims,
+     decks, pull quotes and the "Instead of" line. Never body copy. */
+  --font-voice: 'Newsreader', Georgia, 'Times New Roman', serif;
 
   /**
    * The type scale (added 2026-09-09). Eight steps on a 1.25 ratio with a

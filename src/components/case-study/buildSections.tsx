@@ -125,12 +125,13 @@ export default function buildSections(
 
   if (content.decisions.length > 0) {
     /*
-      The decisions lead. Four kinds of evidence follow under their own
-      labels, because each belongs to the section rather than to one decision:
-      study-level figures (a whole-flow diagram), the annotated screen, the
-      states table, and the process flows. A figure that proves one decision
-      is on that decision's `images` and renders inside its card instead.
+      The decisions lead, each with its own plates (its images, and the
+      annotated screen and the states table when the study attaches them to
+      it). Whatever belongs to the section rather than to one decision
+      follows as plates of its own: study-level figures, an unattached
+      annotated screen or states table, and the process flows.
     */
+    const annotated = content.annotated;
     const hasImages = !!content.images && content.images.length > 0;
     const hasStates = !!content.states && content.states.length > 0;
     const hasProcessImages = !!content.processImages && content.processImages.length > 0;
@@ -141,27 +142,18 @@ export default function buildSections(
       nav: NOUN.decisions,
       heading: heading("decisions"),
       content: (
-        <div className="flex flex-col gap-12">
-          <KeyDecisions decisions={content.decisions} />
+        <>
+          <KeyDecisions
+            decisions={content.decisions}
+            annotated={annotated}
+            states={content.states}
+            statesDecision={content.statesDecision}
+          />
           {hasImages && <ImageGallery images={content.images!} />}
-          {content.annotated && <AnnotatedFigure figure={content.annotated} />}
-          {hasStates && (
-            <div>
-              <h4 className="m-0 mb-4 font-mono text-label font-semibold uppercase tracking-[0.09em] text-tertiary-700">
-                Edge cases and recovery
-              </h4>
-              <StatesRecovery states={content.states!} />
-            </div>
-          )}
-          {hasProcessImages && (
-            <div>
-              <h4 className="m-0 mb-4 font-mono text-label font-semibold uppercase tracking-[0.09em] text-tertiary-700">
-                The flows behind the screens
-              </h4>
-              <ImageGallery images={content.processImages!} />
-            </div>
-          )}
-        </div>
+          {annotated && annotated.decision === undefined && <AnnotatedFigure figure={annotated} />}
+          {hasStates && content.statesDecision === undefined && <StatesRecovery states={content.states!} />}
+          {hasProcessImages && <ImageGallery images={content.processImages!} label="Flow" />}
+        </>
       ),
     });
   }
@@ -214,10 +206,12 @@ export default function buildSections(
 
     return {
       ...section,
+      // A fragment, not a wrapper: augments are plates, and a plate has to be
+      // a direct child of the section's subgrid to line up and bleed.
       content: (
         <>
           {replacement ?? section.content}
-          {addition && <div className="mt-16 flex flex-col gap-16">{addition}</div>}
+          {addition}
         </>
       ),
     };

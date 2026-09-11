@@ -2,10 +2,9 @@ import type { OverviewLines } from "../../data/caseStudyTypes";
 
 /**
  * The overview as the framework's three lines: challenge, result, approach.
- *
- * A recruiter should be able to stop here. The result line is the one that
- * has to survive being read alone, so it is set in foreground text while the
- * other two stay muted — the eye lands on what changed before it reads how.
+ * A recruiter should be able to stop here. Plates layout (2026-09-11): a
+ * hairline list in the prose column, maroon mono labels, the result line in
+ * medium weight so the eye lands on what changed before it reads how.
  */
 const LINES: { key: keyof OverviewLines; label: string }[] = [
   { key: "challenge", label: "Challenge" },
@@ -15,22 +14,17 @@ const LINES: { key: keyof OverviewLines; label: string }[] = [
 
 export default function OverviewSection({ overview }: { overview: OverviewLines }) {
   return (
-    <dl className="m-0 flex max-w-[38rem] flex-col gap-5">
-      {LINES.map(({ key, label }) => (
-        <div key={key}>
-          <dt className="m-0 font-mono text-label font-medium uppercase tracking-[0.12em] text-tertiary-700">
-            {label}
-          </dt>
-          <dd
-            className={[
-              "mt-1.5 m-0 text-body leading-[1.65]",
-              key === "result" ? "font-medium text-foreground" : "text-muted-foreground",
-            ].join(" ")}
-          >
-            {overview[key]}
-          </dd>
-        </div>
-      ))}
-    </dl>
+    <div className="cs-sub">
+      <dl className="cs-list">
+        {LINES.map(({ key, label }) => (
+          <div key={key}>
+            <dt className="cs-label text-accent">{label}</dt>
+            <dd className={["cs-body", key === "result" ? "font-medium" : ""].join(" ")}>
+              {overview[key]}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }

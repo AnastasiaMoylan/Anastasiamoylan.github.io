@@ -1,16 +1,12 @@
 import type { Constraint } from "../../data/caseStudyTypes";
-import TwoColumnTable from "./primitives/TwoColumnTable";
-import PullQuote from "./primitives/PullQuote";
+import Plate from "./Plate";
 
 /**
- * The problem: a "how might we" line, the constraints and what each one forced
- * the product to do as a ledger, and the reframing insight as the page's one
- * pull quote (Layout C).
- *
- * When the how-might-we is used as the section's own heading, `buildSections`
- * does not pass it here, so it is never printed twice. The ledger is there
- * because constraints are the part of a problem a reviewer can check, and
- * prose hides whether each one actually had a consequence.
+ * The problem: the how-might-we (when the section's heading is not already
+ * it), the constraints as a table plate on white, and the reframing insight
+ * as the page's one pull quote in the voice face. Constraints are the part of
+ * a problem a reviewer can check, so each carries the product consequence it
+ * forced.
  */
 export default function ProblemSection({
   hmw,
@@ -22,22 +18,32 @@ export default function ProblemSection({
   insight?: string;
 }) {
   return (
-    <div className="flex flex-col gap-8">
-      {hmw && (
-        <p className="m-0 max-w-[38rem] text-lead font-medium leading-[1.5] text-foreground">{hmw}</p>
-      )}
+    <div className="cs-sub">
+      {hmw && <p className="cs-prose cs-deck">{hmw}</p>}
       {constraints && constraints.length > 0 && (
-        <TwoColumnTable
-          caption="Each constraint and what it forced the product to do."
-          headers={["Constraint", "Implication for the product"]}
-          rows={constraints.map((c) => ({ term: c.constraint, detail: c.implication }))}
-        />
+        <Plate ground="white" label="Constraints">
+          <div className="cs-tscroll">
+            <table className="cs-table cs-small">
+              <caption className="sr-only">Each constraint and what it forced the product to do.</caption>
+              <thead>
+                <tr>
+                  <th scope="col" className="cs-label">Constraint</th>
+                  <th scope="col" className="cs-label">Implication for the product</th>
+                </tr>
+              </thead>
+              <tbody>
+                {constraints.map((c) => (
+                  <tr key={c.constraint}>
+                    <th scope="row">{c.constraint}</th>
+                    <td>{c.implication}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Plate>
       )}
-      {insight && (
-        <div className="mt-2">
-          <PullQuote>{insight}</PullQuote>
-        </div>
-      )}
+      {insight && <blockquote className="cs-quote cs-deck">{insight}</blockquote>}
     </div>
   );
 }

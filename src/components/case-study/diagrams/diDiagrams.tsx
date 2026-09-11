@@ -17,6 +17,7 @@ import scopeRaw from "../../../assets/case-studies/di/scope-ownership.svg?raw";
  * show. Alt text is lifted verbatim from the diagram's own `<desc>`.
  */
 const scope: CaseStudyImage = {
+  label: "Scope and ownership",
   src: scopeUrl,
   fullSrc: scopeUrl,
   inlineSvg: diagramSvg(scopeRaw),

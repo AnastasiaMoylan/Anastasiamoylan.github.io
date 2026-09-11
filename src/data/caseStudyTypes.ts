@@ -46,6 +46,12 @@ export interface CaseStudyImage {
    * point at the `.svg` file.
    */
   inlineSvg?: string;
+  /**
+   * The plate label, two or three words ("Status model", "Package index").
+   * Set in mono after the page's own "Plate 04 ·" numbering (Plates layout,
+   * 2026-09-11). Falls back to the label the rendering section supplies.
+   */
+  label?: string;
 }
 
 /**
@@ -255,6 +261,11 @@ export interface AnnotatedFigure {
   pins: AnnotationPin[];
   /** States what the screen proves, not what is in the frame. */
   caption: string;
+  /**
+   * The index of the decision this screen proves. Set, the annotated screen
+   * is that decision's plate; absent, it renders after the decisions.
+   */
+  decision?: number;
 }
 
 /**
@@ -330,8 +341,14 @@ export interface CaseStudy {
    * with the study.
    */
   decisions: Decision[];
-  /** Edge cases and recovery, rendered as a table under Key decisions. */
+  /** Edge cases and recovery, rendered as a table plate. */
   states?: StateRecovery[];
+  /**
+   * The index of the decision the states table proves (Plates layout,
+   * 2026-09-11): the table becomes that decision's plate instead of a
+   * section of its own. Absent, it renders after the decisions.
+   */
+  statesDecision?: number;
   /**
    * Figures that belong to the study rather than to one decision. Render after
    * the decisions list. A figure that proves one decision goes on that

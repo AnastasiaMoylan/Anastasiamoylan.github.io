@@ -1,28 +1,18 @@
 import type { Reflection } from "../../data/caseStudyTypes";
 
 /**
- * One paragraph, one lesson, said plainly.
- *
- * The framework's note is that real admissions land better than reflections,
- * so this is prose rather than a labelled grid. Studies still carrying a
- * separate "what I would change" line or a closing principle render them as
- * continuations of the same passage; the migration merges them into the single
- * paragraph the framework asks for.
+ * One lesson, said plainly, then what I would change, then the principle it
+ * threads back to, set as a pull line in the voice face. Real admissions land
+ * better than reflections, so this is prose rather than a labelled grid.
  */
 export default function WhatILearned({ reflection }: { reflection: Reflection }) {
   return (
-    <div className="flex max-w-[38rem] flex-col gap-5">
-      <p className="m-0 text-body leading-[1.7] text-foreground">{reflection.learned}</p>
-      {reflection.wouldChange && (
-        <p className="m-0 text-body leading-[1.7] text-foreground">
-          {reflection.wouldChange}
-        </p>
-      )}
-      {reflection.principle && (
-        <p className="m-0 border-l-2 border-accent pl-5 text-lead font-medium leading-[1.5] text-foreground">
-          {reflection.principle}
-        </p>
-      )}
+    <div className="cs-sub">
+      <div className="cs-prose cs-body">
+        <p>{reflection.learned}</p>
+        {reflection.wouldChange && <p>{reflection.wouldChange}</p>}
+      </div>
+      {reflection.principle && <p className="cs-quote cs-deck">{reflection.principle}</p>}
     </div>
   );
 }

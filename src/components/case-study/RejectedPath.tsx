@@ -1,38 +1,28 @@
 import type { Decision } from "../../data/caseStudyTypes";
 
 /**
- * The path not taken, and what taking this one cost.
+ * The path not taken, and what taking this one cost: the "Instead of" line.
  *
- * Set as a short block under the reasoning with a maroon rule on its left and
- * "Instead of" as a label above it (Layout C). It is the honesty device that
- * makes a decision read as judgment rather than as a feature list, so it is
- * never hidden; a decision without one renders nothing here and the review
- * copy from `casestudy-md.mjs` says so.
+ * Plates layout (2026-09-11): set in the voice face, italic, with the label
+ * in maroon. When the decision has a plate it sits in the margin column
+ * beside that plate's caption; when it has none it sits under the reasoning.
+ * The placement is the caller's; this only draws the line. A decision with
+ * neither a rejected path nor a cost renders nothing, and the review copy
+ * from `casestudy-md.mjs` says so.
  */
 export default function RejectedPath({
   decision: { rejected, tradeoff },
-  className = "",
 }: {
   decision: Pick<Decision, "rejected" | "tradeoff">;
-  className?: string;
 }) {
   if (!rejected && !tradeoff) return null;
   return (
-    <p
-      className={[
-        "m-0 border-l-2 border-accent pl-3 text-small leading-[1.6] text-muted-foreground",
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <span className="mb-0.5 block font-mono text-label font-semibold uppercase tracking-[0.12em] text-accent">
-        Instead of
-      </span>
+    <p className="cs-note">
+      <b>Instead of</b>
       {rejected}
-      {rejected && tradeoff && " — "}
+      {rejected && tradeoff && "; "}
       {tradeoff}
-      {rejected && !tradeoff && "."}
+      {!/[.!?]$/.test((tradeoff ?? rejected ?? "").trim()) && "."}
     </p>
   );
 }

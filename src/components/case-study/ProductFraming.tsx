@@ -1,18 +1,11 @@
 import type { FramingItem } from "../../data/caseStudyTypes";
-import FramingBlock from "./FramingBlock";
 
 /**
  * The business context: what the organization was trying to achieve, what was
- * at stake, and why design was in the room.
- *
- * The framework treats this as the block that separates lead from principal —
- * it shows the bet was understood, not just the brief. It sits between the
- * overview and the problem so a reader meets the stakes before the constraints.
- *
- * The hypothesis-and-KPI block renders here for studies that still carry one.
- * Whether it survives the migration is open (question 1 in the plan); until it
- * is settled, keeping it costs nothing and dropping it would lose the one
- * place a metric chosen at kickoff is visible.
+ * at stake, and why design was in the room. The framework treats this as the
+ * block that separates lead from principal. The hypothesis and the metric set
+ * at kickoff follow it as a hairline list, the one place a metric chosen
+ * before the work is visible.
  */
 export default function ProductFraming({
   productFraming,
@@ -22,13 +15,22 @@ export default function ProductFraming({
   framing?: FramingItem[];
 }) {
   return (
-    <div>
+    <div className="cs-sub">
       {productFraming && (
-        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-foreground">
-          {productFraming}
-        </p>
+        <div className="cs-prose cs-body">
+          <p>{productFraming}</p>
+        </div>
       )}
-      {framing && framing.length > 0 && <FramingBlock items={framing} />}
+      {framing && framing.length > 0 && (
+        <dl className={["cs-list", productFraming ? "cs-after" : ""].join(" ")}>
+          {framing.map(({ label, text }) => (
+            <div key={label}>
+              <dt className="cs-label text-accent">{label}</dt>
+              <dd className="cs-body">{text}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </div>
   );
 }

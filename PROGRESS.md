@@ -569,3 +569,21 @@ Owner, after G/H/I: "I dont like it yet. Go ahead with the editorial edition. Do
 **J · Plates** — every artefact a numbered full-bleed plate on a ground assigned by kind (screens on ink, diagrams on champagne, tables on white); argument in a 60ch column between plates; Newsreader added for voice roles. **K · Broadsheet** — one ground, eight-column hairline grid with a numeral margin, Archivo `wdth` 62–125 as the personality, cuts mirrored block to block, list of figures as navigation. Templates `docs/case-study/prototypes/{j-plates,k-broadsheet}.src.html`, built by `build-2026-09-10.mjs <name>`. Both fold edge cases into decision 01. Nothing in `src/` changed for the layouts.
 
 Open from the builds: both add small chrome copy (table headers, figure titles, part "why" lines, K's cross-references) that needs sign-off with the rest; K collapses decisions below 900px as specified; the diagrams' own label sizes (7–9px in the 960 viewBox) sit under the 12px floor at narrow widths in both.
+
+---
+
+## Update — 2026-09-11: Plates implemented on the site; Broadsheet kept as the backup
+
+Owner: "I want to implement the plates but keep the broadsheet as a backup. move that onto this branch. make the changes."
+
+**Backup.** Both rendering templates now live in a tracked `renderings/` folder with a self-contained `renderings/build.mjs` (commit 81a53b9); Broadsheet came over from the scratch branch `design/k-broadsheet-rendering`, which can now be deleted.
+
+**Plates on the site.** All four case studies render in it. New: `src/styles/case-study.css` (the system), `Plate.tsx`, `RunningHead.tsx` (replaces the chapter bar). Rewritten: the lede, the hero (opener detail only, as plate 01), part openers as ink bands, decisions as stacked blocks with their plates and the "Instead of" note in the margin, constraints / edge cases / what did not ship as white table plates, before and after as a champagne typographic plate, every image and diagram as a plate, the coded Finance Cloud diagrams via `DiagramPanel`. Deleted: `ChapterBar`, `StatBand`, `FramingBlock`, `TwoColumnTable`, `PullQuote`. Newsreader and Archivo's width axis added to the font request; `--font-voice` token; the `.js` reveal gate in index.html.
+
+**Data.** `CaseStudyImage.label` (plate labels, authored, sign-off as a set), `statesDecision` and `annotated.decision` (billing: the edge-cases table is decision 01's plate, the annotated index decision 02's). The billing review flow moved from the study-level flows onto the review-session decision; the other two flow panels (creation-flow-02b, review-flow-02) left the page, matching the approved rendering.
+
+**Not rendered any more:** the case-study tags (still on the cards), the byline mark, the opener's `context` image, the ownership tint sentence and the parking-lot intro line (both chrome, not content).
+
+**Known:** the Customer Journey has four ink screen plates close together (two back to back on decision 3), which bends the spec's "no two consecutive plates on one ground"; Document AI runs four champagne plates with prose between. Diagram labels inside the SVGs (7–9px in a 960 viewBox) still sit under 12px at narrow widths. Pins are 24px at phone width and cover a little of the screen they annotate.
+
+**Gates:** typecheck and build pass; all eleven routes prerender with the plates in the static HTML.

@@ -1,71 +1,51 @@
+import type { ReactNode } from "react";
 import type { StateRecovery } from "../../data/caseStudyTypes";
+import Plate from "./Plate";
 
 /**
- * Genuinely tabular content — condition, what the user sees, how they recover —
- * so it renders as a real table with header scope rather than a styled list.
+ * Edge cases and recovery, as a table plate on white (Plates layout,
+ * 2026-09-11). Genuinely tabular, so a real table with header scope; it
+ * scrolls inside its plate on a narrow screen and the page never does.
  *
- * The table keeps its semantics at every width and scrolls inside its own
- * container on narrow screens, so the page itself never scrolls sideways.
+ * When the study sets `statesDecision`, this is that decision's plate and
+ * carries its "Instead of" note; otherwise it follows the decisions.
  */
-export default function StatesRecovery({ states }: { states: StateRecovery[] }) {
+export default function StatesRecovery({
+  states,
+  note,
+}: {
+  states: StateRecovery[];
+  note?: ReactNode;
+}) {
   const showsUserSees = states.some((s) => s.userSees);
   const showsRecovery = states.some((s) => s.recovery);
+  const cols = 1 + Number(showsUserSees) + Number(showsRecovery);
 
   return (
-    <div className="-mx-1 overflow-x-auto px-1">
-      <table className="w-full min-w-[34rem] border-collapse text-left">
-        <caption className="sr-only">
-          Designed states: each condition, what the user sees, and the recovery path.
-        </caption>
-        <thead>
-          <tr className="border-b border-border">
-            <th
-              scope="col"
-              className="w-[34%] py-3 pr-6 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
-            >
-              Condition
-            </th>
-            {showsUserSees && (
-              <th
-                scope="col"
-                className="w-[33%] py-3 pr-6 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
-              >
-                What the user sees
-              </th>
-            )}
-            {showsRecovery && (
-              <th
-                scope="col"
-                className="py-3 font-mono text-label font-semibold uppercase tracking-[0.1em] text-accent"
-              >
-                Recovery
-              </th>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {states.map(({ state, userSees, recovery }) => (
-            <tr key={state} className="border-b border-border last:border-0">
-              <th
-                scope="row"
-                className="border-l-2 border-accent py-4 pl-4 pr-6 align-top text-small font-semibold leading-[1.5] text-foreground"
-              >
-                {state}
-              </th>
-              {showsUserSees && (
-                <td className="py-4 pr-6 align-top text-small leading-[1.65] text-muted-foreground">
-                  {userSees ?? "—"}
-                </td>
-              )}
-              {showsRecovery && (
-                <td className="py-4 align-top text-small leading-[1.65] text-muted-foreground">
-                  {recovery ?? "—"}
-                </td>
-              )}
+    <Plate ground="white" label="Edge cases" note={note}>
+      <div className="cs-tscroll">
+        <table className={["cs-table cs-small", cols === 3 ? "cs-cols-3" : ""].join(" ")}>
+          <caption className="sr-only">
+            Designed states: each condition, what the user sees, and the recovery path.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col" className="cs-label">Condition</th>
+              {showsUserSees && <th scope="col" className="cs-label">What the user sees</th>}
+              {showsRecovery && <th scope="col" className="cs-label">Recovery</th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {states.map(({ state, userSees, recovery }) => (
+              <tr key={state}>
+                <th scope="row">{state}</th>
+                {showsUserSees && <td>{userSees}</td>}
+                {showsRecovery && <td>{recovery}</td>}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Plate>
   );
 }

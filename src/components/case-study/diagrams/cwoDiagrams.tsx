@@ -25,6 +25,7 @@ import scopeRaw from "../../../assets/case-studies/cwo/scope-ownership.svg?raw";
  * stories is a record, not a figure that proves a decision.
  */
 const scope: CaseStudyImage = {
+  label: "Scope and ownership",
   src: scopeUrl,
   fullSrc: scopeUrl,
   inlineSvg: diagramSvg(scopeRaw),

@@ -50,12 +50,8 @@ import cwoPackageIndex from "../assets/case-studies/cwo/package-index.jpg?previe
 import cwoPackageIndexFull from "../assets/case-studies/cwo/package-index.jpg";
 import cwoBillingReport from "../assets/case-studies/cwo/billing-report.jpg?preview";
 import cwoBillingReportFull from "../assets/case-studies/cwo/billing-report.jpg";
-import cwoCreation02b from "../assets/case-studies/cwo/creation-flow-02b.jpg?preview";
-import cwoCreation02bFull from "../assets/case-studies/cwo/creation-flow-02b.jpg";
 import cwoReview01 from "../assets/case-studies/cwo/review-flow-01.jpg?preview";
 import cwoReview01Full from "../assets/case-studies/cwo/review-flow-01.jpg";
-import cwoReview02 from "../assets/case-studies/cwo/review-flow-02.jpg?preview";
-import cwoReview02Full from "../assets/case-studies/cwo/review-flow-02.jpg";
 // Drawn diagrams ship as SVG and are inlined (see ./diagramSvg): the `?raw`
 // import is the markup, the plain import the file URL. Source `.html` beside
 // each, per docs/case-study/case-study-diagrams.md.
@@ -215,6 +211,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         tradeoff: "the seams stay visible: coherent at discovery, not continuous in use.",
         images: [
           {
+            label: "The front door",
             src: gafFrontDoorUrl,
             fullSrc: gafFrontDoorUrl,
             inlineSvg: diagramSvg(gafFrontDoorRaw),
@@ -447,6 +444,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         rejected: "presenting an opaque score as a final answer",
         images: [
           {
+            label: "Analyst dashboard",
             src: ccjDashboard,
             fullSrc: ccjDashboardFull,
             width: 1600,
@@ -456,6 +454,7 @@ export const caseStudies: Record<string, CaseStudy> = {
               "At-risk KPIs beside ARPU, NPS, retention and campaign performance, each with a direct path to mitigation.",
           },
           {
+            label: "Journey exploration",
             src: ccjJourneyExplorations,
             fullSrc: ccjJourneyExplorationsFull,
             width: 2400,
@@ -475,6 +474,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first. AI drafts the message; the person edits the preview before it goes out.",
         images: [
           {
+            label: "Mitigation plan",
             src: ccjMitigationPlan,
             fullSrc: ccjMitigationPlanFull,
             width: 1600,
@@ -494,6 +494,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Routine requests stayed fast while moments that needed empathy were protected. The representative works from an AI summary and suggested action.",
         images: [
           {
+            label: "Representative chat",
             src: ccjChatExpanded,
             fullSrc: ccjChatExpandedFull,
             width: 1600,
@@ -590,6 +591,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     opener: {
       detail: {
+        label: "Billing report",
         src: cwoBillingReport,
         fullSrc: cwoBillingReportFull,
         width: 2400,
@@ -612,7 +614,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     // the four land on a table row rather than the column header they mean.
     // Tune against the asset in the browser.
     annotated: {
+      // Decision 02's plate: the index is the project-number key, shown.
+      decision: 1,
       image: {
+        label: "Package index",
         src: cwoPackageIndex,
         fullSrc: cwoPackageIndexFull,
         width: 2400,
@@ -787,6 +792,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         rejected: "leaving package state implicit in the documents and the people handling them",
         images: [
           {
+            label: "Status model",
             src: cwoStatusModelUrl,
             fullSrc: cwoStatusModelUrl,
             inlineSvg: diagramSvg(cwoStatusModelRaw),
@@ -806,8 +812,27 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "Handoffs were where packages lost state. Package metadata carries owner, status and review tasks, and reusable review-and-submit patterns make the handoff visible.",
         rejected: "an off-product coordination step with no visible handoff or history",
+        // The review flow was the first of three study-level flow panels
+        // until 2026-09-11; it proves this decision, so it is its plate. The
+        // other two (creation-flow-02b, review-flow-02) left the page with
+        // the Plates layout, which showed neither. [NEEDS SIGN-OFF]
+        images: [
+          {
+            label: "Review flow",
+            src: cwoReview01,
+            fullSrc: cwoReview01Full,
+            width: 1942,
+            height: 1833,
+            displayScale: 0.55,
+            alt: "Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.",
+            caption: "Starting a review locks the package to one reviewer; everyone else reads until it is done.",
+          },
+        ],
       },
     ],
+    // The edge-cases table is decision 01's plate (Plates layout, 2026-09-11):
+    // it is the evidence for progressive validation.
+    statesDecision: 0,
     states: [
       {
         state: "Invalid or unmatched project number entered",
@@ -829,43 +854,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         state: "Discarded inline edit",
         recovery: "Reverts cleanly without affecting the rest of the package",
-      },
-    ],
-    // The flows behind the screens: three panels, cut from nine plus the
-    // MVP2 scope board on 2026-09-10 (feedback-queue C8). Each panel kept
-    // proves a claim the decisions make; the six that left restated the role
-    // branching, the two export formats and the engineer's read path, and
-    // the scope board carries internal release targets at full resolution.
-    // The panels display at 0.55 of source so their labels stay legible.
-    //
-    // [NEEDS SIGN-OFF] on the captions and on the vocabulary the panels carry.
-    processImages: [
-      {
-        src: cwoCreation02b,
-        fullSrc: cwoCreation02bFull,
-        width: 1428,
-        height: 700,
-        displayScale: 0.55,
-        alt: "Creation flow, the billing package branch: assign owner, assign reviewers, then the create step, which triggers screenshot generation.",
-        caption: "Owner and reviewers are assigned before the package is created, so it never exists without someone responsible for it.",
-      },
-      {
-        src: cwoReview01,
-        fullSrc: cwoReview01Full,
-        width: 1942,
-        height: 1833,
-        displayScale: 0.55,
-        alt: "Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.",
-        caption: "Starting a review locks the package to one reviewer; everyone else reads until it is done.",
-      },
-      {
-        src: cwoReview02,
-        fullSrc: cwoReview02Full,
-        width: 1206,
-        height: 1739,
-        displayScale: 0.55,
-        alt: "Review flow, completion: complete review, select the next reviewer, write a git-style commit message, submit; the package status becomes ready for review, with start-review enabled again.",
-        caption: "Every review ends with a commit message and a named next reviewer, so the handoff has a record and an owner.",
       },
     ],
     impact: {
@@ -1028,6 +1016,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         rejected: "a citation footer at the end of a response, which makes checking a source a separate task",
         images: [
           {
+            label: "Citation loop",
             src: diCitationLoopUrl,
             fullSrc: diCitationLoopUrl,
             inlineSvg: diagramSvg(diCitationLoopRaw),
@@ -1049,6 +1038,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         tradeoff: "both modes had to be built and maintained.",
         images: [
           {
+            label: "Comparison modes",
             src: diComparisonModesUrl,
             fullSrc: diComparisonModesUrl,
             inlineSvg: diagramSvg(diComparisonModesRaw),
