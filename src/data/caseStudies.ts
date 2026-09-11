@@ -105,7 +105,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The h1. The pilot-user figures left the site 2026-09-11 until the
     // current count is confirmed (feedback-queue G1); "scaled it through
     // iterative testing" is her earlier overview wording. [NEEDS SIGN-OFF]
-    claim: "Took a governed AI finance platform from zero to one and scaled it through iterative testing.",
+    claim: "Took a governed AI finance platform from zero to one.",
+    // The subtitle carries what the headline dropped, 2026-09-11, from her
+    // overview lines. [NEEDS SIGN-OFF]
+    deck: "Scaled through iterative testing, with every AI action inspectable and a person’s approval on anything consequential.",
     overview: {
       challenge:
         "Finance teams wanted AI-assisted analysis without giving up the controls, audit trails and accountability that finance work requires.",
@@ -338,7 +341,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // The h1, her Outcome headline cut to the slot. [NEEDS SIGN-OFF]
     claim:
-      "A churn score became a decision a person reviews, edits and monitors.",
+      "Turning a churn score into a human decision.",
+    // The headline shortened 2026-09-11 from her tagline; the subtitle is the
+    // former headline. [NEEDS SIGN-OFF]
+    deck: "An end-to-end flow in which a person reviews, edits and monitors each decision before anything reaches a customer.",
     // [NEEDS SIGN-OFF] on the cuts to one sentence each. The result line no
     // longer repeats the claim; "from detection to a reviewed, monitored
     // action" is her Outcome after-line, condensed.
@@ -564,12 +570,15 @@ export const caseStudies: Record<string, CaseStudy> = {
     // Provenance for every figure is in ./figures.
     stats: [
       { value: "0 → 1", label: "Built from zero" },
-      { value: "Cleared", label: `Backlog of ${figures.billingBacklogSize} projects` },
+      { value: "Cleared", label: `Backlog of ${figures.billingBacklogSize} billing packages` },
       { value: String(figures.billingActiveUsers), label: `Active users, ${figures.billingActiveAsOfShort}` },
       { value: String(figures.billingStatusStates), label: "Shared status states" },
     ],
     // The h1, trimmed from the rewrite's own lead line. [NEEDS SIGN-OFF]
-    claim: `Cleared a backlog of ${figures.billingBacklogSize} projects with an auditable workflow now used by ${figures.billingActiveUsers} people.`,
+    claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages.`,
+    // The headline shortened 2026-09-11; its second half is the subtitle.
+    // [NEEDS SIGN-OFF]
+    deck: `A guided, auditable workflow, now used by ${figures.billingActiveUsers} people, that keeps the backlog from coming back.`,
     // Layout C (2026-09-10): the claim headings, opener pair, annotated screen
     // and parking lot are lifted from docs/case-study/prototypes/c-lede.html,
     // which restated this study's own copy. None of it has been on the site
@@ -650,9 +659,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     parked: [
       {
         item: "The reporting dashboard",
-        // [NEEDS SIGN-OFF] Condensed; "cost the release" was "protecting the
-        // core flow cost the release".
-        why: "Infeasible this release. Surfacing the dependency and holding it in the backlog cost the release its most demo-friendly screen.",
+        // Restored 2026-09-11 to her meaning: protecting the core flow is what
+        // cost the release the screen.
+        why: "Not feasible this release; held in the backlog with its dependency documented. Protecting the core flow cost the release its most demo-friendly screen.",
       },
       {
         item: "In-product editing of package, project and customer details",
@@ -668,7 +677,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     overview: {
-      challenge: `A backlog of ${figures.billingBacklogSize} projects had built up behind manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and handoffs.`,
+      challenge: `A backlog of ${figures.billingBacklogSize} billing packages had built up behind manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and handoffs.`,
       // [NEEDS SIGN-OFF] "Cleared the backlog" confirmed 2026-09-09; the
       // adoption-by-other-projects count is unconfirmed.
       result: `The workflow cleared the backlog and keeps it clear; ${figures.billingActiveUsers} people use it, and other projects have picked up its approval flow.`,
@@ -680,7 +689,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The backlog size is the claim and the challenge line; the
     // automation-versus-workflow sentence is this section's heading.
     productFraming:
-      "Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. Every project in the backlog was billable work the organization could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room, and why I owned product definition as well as design.",
+      "Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. Every package in the backlog was billable work the organization could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room, and why I owned product definition as well as design.",
     // The one study where a metric was set at kickoff, which is the hardest
     // thing on the page to claim after the fact.
     framing: [
@@ -854,11 +863,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     impact: {
       // The backlog size reads from ./figures since 2026-09-10; it was typed
       // into this line before.
-      before: `A backlog of ${figures.billingBacklogSize} projects across fragmented systems, screenshots, spreadsheets and manual handoffs.`,
+      before: `A backlog of ${figures.billingBacklogSize} billing packages across fragmented systems, screenshots, spreadsheets and manual handoffs.`,
       after: `Backlog cleared, and a workflow that keeps it clear: validation, recovery, ownership, review and status history, used by ${figures.billingActiveUsers} people.`,
       // Three points: the phased-roadmap point is the parking lot's last row.
       proof: [
-        `The backlog of ${figures.billingBacklogSize} projects was cleared; ${figures.billingActiveUsers} people are active on the application.`,
+        `The backlog of ${figures.billingBacklogSize} billing packages was cleared; ${figures.billingActiveUsers} people are active on the application.`,
         "The approval flow has been picked up by other projects.",
         "Ownership, package state, history and review handoffs are visible in-product, with recoverable screenshot generation and progressive validation.",
       ],
@@ -907,35 +916,40 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The h1, authored 2026-09-10 by cutting her overview result line to the
     // slot; the page had been falling back to the 40-word result line.
     // [NEEDS SIGN-OFF]
-    claim:
-      "Verifiable AI answers over thousands of documents; a compliance tool on the same rails, not a second product.",
+    // Reframed 2026-09-11 from the owner's account: the work gave users the
+    // AI functions their business units had built (cited answers, document
+    // upload, comparison, drafting) on shared patterns, not citations alone.
+    // Claim, subtitle, overview, framing, hypothesis, metric and HMW are all
+    // authored from that. [NEEDS SIGN-OFF]
+    claim: "One workspace for every business unit’s document AI tools.",
+    deck: "Cited answers, document upload, comparison and drafting on shared patterns, so the next unit’s tool arrives as a widget, not a product.",
     overview: {
       challenge:
-        "Users got fast AI answers from thousands of documents but could not see where they came from or compare sources.",
+        "Business units had built specialized AI functions for their documents, but users had no single, trustworthy place to use them.",
       result:
-        "Sourced answers, explicit document selection, two comparison modes and drafting, on a widget framework a compliance tool could reuse.",
+        "One workspace where cited answers, document upload, comparison and drafting share the same patterns, with a compliance tool designed as one more widget.",
       approach:
-        "Treat verification as an interaction, not a disclaimer, make document scope visible product state, and prioritize by value, effort and dependency.",
+        "Build every function on shared patterns for selection, sources and output, and keep document scope and citations visible in each one.",
     },
     // [NEEDS SIGN-OFF] "reuse" replaces her word "leverage" for the second
     // problem; the regulated-workflow list (legal, compliance, risk,
     // contracts) is the Users line above and is not repeated.
     productFraming:
-      "The organization had an enterprise AI assistant under pressure to show it did more than summarize. The bet was whether AI could be trusted inside regulated workflows, where an unsourced answer is a liability rather than a time-saver, and the business wanted a second use case without funding a second product. Two problems wearing one name: trust, whether an answer carries its evidence, and reuse, whether the patterns behind it could become parts a compliance tool is assembled from.",
+      "Business units had built specialized AI functions for their own documents: cited answers, document upload, comparison, drafting. Users needed one place to use them, and the business needed the next unit’s tool without funding another product. The bet was a shared workspace: build each function on common patterns, so a new capability arrives as a widget and inherits the same behavior. In legal and compliance work that behavior is the point, because an unsourced answer is a liability.",
     framing: [
       {
         label: "Hypothesis",
         text:
-          "Users will trust AI summaries of internal documents only if the path from any statement to its source is one interaction away.",
+          "If each business unit’s AI functions share one workspace and one set of patterns, users adopt them and a new tool ships as a widget.",
       },
       {
         label: "Success metric",
         text:
-          "Not defined at the outset. I would use verification rate, the share of AI answers where a user opens a cited source.",
+          "Not defined at the outset. I would track use of each function by business unit, and how often users open a cited source.",
       },
     ],
     hmw:
-      "How might we move enterprise users from retrieval to verified understanding without hiding the documents behind the AI, or rebuilding the experience for every use case?",
+      "How might we give users one place to use the AI functions their business units built, without rebuilding the experience for each one?",
     // Four rows, from five: the denied-access row went (an edge case, not a
     // constraint that shaped the product), and the milestone months left
     // the fixed-dates row (planning-board dates, not a delivery record).
@@ -1050,7 +1064,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         // [NEEDS SIGN-OFF] The quoted question condenses "makes the one
         // question the user most needs answered, what did you read,
         // unanswerable".
-        rejected: "inferring the document set from the prompt, which demos well and leaves “what did you read” unanswerable",
+        rejected: "inferring the document set from the prompt, which demos well but leaves users unable to tell which documents the AI read",
       },
       {
         mechanism: "Draft beside the conversation",

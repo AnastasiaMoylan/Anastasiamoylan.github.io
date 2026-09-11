@@ -64,11 +64,11 @@ export default function CaseStudyPage() {
   /*
     `claim` is the news and becomes the h1; falling through to the overview's
     result line, then the tagline, is the signal that a study still needs its
-    claim written. `deck` is the approach in one sentence.
+    claim written. `deck` is the subtitle, falling back to the approach line.
   */
   const overview = content.overview;
   const claim = content.claim ?? overview?.result ?? project.tagline;
-  const deck = overview?.approach;
+  const deck = content.deck ?? overview?.approach;
 
   return (
     <div className="cs-page">

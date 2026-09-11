@@ -43,8 +43,8 @@ export const figures = {
   // surface reading it is a figure waiting to drift.
   billingStatusStates: 6,
   // Confirmed by Anastasia 2026-09-11: 70 active users, and a backlog of a
-  // few hundred projects, completed. The backlog's unit is projects (it was
-  // "billing packages" until that date). Refresh the user count as it grows.
+  // few hundred billing packages, cleared (each package holds several
+  // projects). Refresh the user count as it grows.
   billingActiveUsers: 70,
   billingActiveAsOf: "September 2026",
   billingActiveAsOfShort: "Sep 2026",

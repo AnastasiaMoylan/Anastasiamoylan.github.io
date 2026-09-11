@@ -65,7 +65,7 @@ export const projects: Project[] = [
     status: "Released",
     tags: ["Enterprise Workflow", "Status and Audit Model", "Product Strategy"],
     outcome:
-      `Cleared a backlog of ${figures.billingBacklogSize} projects with a guided, auditable workflow now used by ${figures.billingActiveUsers} people, on a status model that made ownership and handoffs explicit.`,
+      `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people, on a status model that made ownership and handoffs explicit.`,
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },

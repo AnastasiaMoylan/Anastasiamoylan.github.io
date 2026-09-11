@@ -232,6 +232,20 @@ Decided that day and applied on `case-study/signoff-roles-status` (recorded in `
 
 - [ ] **G1. Finance Cloud user count.** The owner believes it is about 700 now. Confirm the number and what it counts (active, onboarded, provisioned), then restore one figure in `src/data/figures.ts` and put it back in the claim, the overview result and the card.
 - [ ] **G2. Finance Cloud status wording.** Authored from her account: "Ongoing program; several MVPs released, some in testing and some in production." Approve or rewrite.
-- [ ] **G3. The billing backlog's unit.** Changed from "billing packages" to "projects" on her word ("a backlog of a few hundred projects completed"). A package can hold several projects, so confirm the unit is right before it spreads further.
+- [x] **G3. The billing backlog's unit.** Billing packages, each holding several projects (2026-09-11). Reverted everywhere.
 - [ ] **G4. Kept, not caveats.** Two "Success metric: none set at the outset. I would use…" framing lines (Finance Cloud, Document AI) and every "What I would measure next" block were left in: they state a metric rather than disclaim one. Remove them too if they read the same way.
 - [ ] **G5. The rest of the sign-off list** (groups 2 and 3 from the walk-through: authored wording, and the calls on what was cut) plus the remaining group 1 facts: the "other projects" count, the ten participants, "now used across the platform", the April approval, "leadership is redirecting", the client wording, ten stages vs six, and the Document AI title.
+
+## H. Second sign-off pass, 2026-09-11
+
+**Approved:** the heading "Four decisions, and what each one cost"; the Finance Cloud and Customer Journey decision labels; the Customer Journey composed lines; the shortened Customer Journey constraint; "reuse" for "leverage"; "the priority tiers"; every decision cut; the darker muted-text and border colours.
+
+**Applied, needs her read:** the four headlines shortened to about ten words, with the detail moved into a new subtitle field (`deck`); Document AI reframed around giving users the AI functions their business units built (cited answers, document upload, comparison, drafting) rather than citations alone: claim, subtitle, overview, product framing, hypothesis, success metric and how-might-we; the Document AI "what did you read" line made plain; the billing dashboard reason restored to her meaning.
+
+- [ ] **H1. Document AI, the rest of the page.** The decisions still cover citations, comparison, selection, drafting and the widget; no decision covers document upload. Ask what the upload decision was before writing one. The title "A Verifiable Document AI Platform" and its card tagline still lead with verification; settle them with the open title question. She flagged "still some issues" with the Document AI decision labels; ask which.
+- [ ] **H2. Billing's six section headings and four decision titles** need a yes or a rewrite; she was unsure what was outstanding. Show them side by side.
+- [ ] **H3. Billing "Worked with" line**, composed from the team metadata: confirm or correct.
+- [ ] **H4. Figure captions**: she thinks they are right; come back to them.
+- [ ] **H5. Images cut on 2026-09-10**: walk her through the list (PROGRESS.md) with thumbnails; she was unsure.
+- [ ] **H6. Section headings for Finance Cloud, the Customer Journey and Document AI**: only billing has claim headings; the other three show plain nouns. Explain and offer drafts.
+- [ ] **H7. Contrast in more places.** She liked the darker colours and wants contrast introduced more widely across the site. Come back with a proposal.

@@ -110,7 +110,8 @@ function render(slug, cs) {
   if (p?.tagline) para(`*Card tagline:* ${p.tagline}`);
   h(2, "Lede");
   L.push(`- **Claim (h1)**, from ${claimSource}  (${budgetTag(counts.claim, BUDGET.claim)}): ${claim}`);
-  if (ov.approach) L.push(`- **Deck**: ${ov.approach}`);
+  const deck = cs.deck ?? ov.approach;
+  if (deck) L.push(`- **Deck**  (${words(deck)} / 22 words): ${deck}`);
   for (const f of cs.snapshotFields ?? []) L.push(`- **${f.label}:** ${f.value}`);
   if (p?.tags?.length) L.push(`- **Tags** (${countTag(p.tags.length, LIMIT.tags, "tags")}): ${p.tags.join(" · ")}`);
   if (cs.stats?.length) {

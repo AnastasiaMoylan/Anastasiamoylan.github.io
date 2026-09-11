@@ -313,6 +313,12 @@ export interface CaseStudy {
    */
   claim?: string;
   /**
+   * The subtitle under the headline (added 2026-09-11, when the owner asked
+   * for shorter headlines with the detail moved underneath). One sentence,
+   * 22 words or fewer. Falls back to `overview.approach`.
+   */
+  deck?: string;
+  /**
    * Two or three sentences on the business context: what the organization was
    * trying to achieve, what was at stake, and why design was in the room.
    * Budget 90 words. This is the block that separates lead from principal —
