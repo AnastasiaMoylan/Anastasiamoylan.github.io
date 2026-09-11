@@ -31,7 +31,6 @@ const BUDGET = {
   insight: 25,
   evidenceBody: 30,
   impact: 150,
-  metricStatus: 50,
   heading: 12,
   parkedWhy: 30,
 };
@@ -263,7 +262,7 @@ function render(slug, cs) {
 
   const im = cs.impact ?? {};
   counts.impact =
-    words(im.before) + words(im.after) + sum((im.proof ?? []).map(words)) + words(im.measureNext) + words(im.metricStatus);
+    words(im.before) + words(im.after) + sum((im.proof ?? []).map(words)) + words(im.measureNext);
   const nProof = im.proof?.length ?? 0;
   if (cs.impact) {
     h(3, `${hd("outcome", "Outcome")}  (${budgetTag(counts.impact, BUDGET.impact)}; ${countTag(nProof, LIMIT.proof, "proof points")})`);
@@ -274,7 +273,6 @@ function render(slug, cs) {
       for (const pr of im.proof) L.push(`- ${pr}`);
     }
     if (im.measureNext) L.push("", `**What I would measure next.** ${im.measureNext}`);
-    if (im.metricStatus) L.push("", `*Metric status  (${budgetTag(words(im.metricStatus), BUDGET.metricStatus)}):* ${im.metricStatus}`);
     else L.push("", "*Metric status: none — the framework asks for a disclaimer wherever a number cannot be attributed.*");
     L.push("");
   }

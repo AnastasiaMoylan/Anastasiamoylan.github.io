@@ -160,22 +160,22 @@ export interface StateRecovery {
  * Outcomes. The stat band already restates the figures in display type, so
  * this section argues them rather than listing them again.
  *
- * The framework's order: the before/after pair, the validated proof, what to
- * measure next, and the honest limits of the numbers. The headline and the
+ * The framework's order: the before/after pair, the validated proof, and
+ * what to measure next. The metric caveat that closed it (`metricStatus`)
+ * was removed from the site 2026-09-11 at the owner's request: it read as
+ * machine-written. The headline and the
  * business / user / organizational lines of the earlier shape went with the
  * last migration (2026-09-09): the claim in the header is the headline now,
  * and a narrative line that named a real change is a proof point.
  *
- * Budget: before and after 20 words each; four proof points; the metric
- * caveat 50. About 150 in all.
+ * Budget: before and after 20 words each; four proof points. About 100 in
+ * all.
  */
 export interface Impact {
   before: string;
   after: string;
   /** NDA-safe validated proof points. Four at most. */
   proof?: string[];
-  /** Why a hard metric is absent, when it is. */
-  metricStatus?: string;
   /**
    * What I would measure next, and why it is already available. Closes
    * Outcome. Naming the measurement you would run reads as senior in a way

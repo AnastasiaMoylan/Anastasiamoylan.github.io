@@ -32,19 +32,19 @@ export const projects: Project[] = [
     // Card and metadata migrated 2026-09-09 from the Finance Cloud
     // principal-framework rewrite; see the sign-off notes in caseStudies.ts.
     tagline:
-      "A governed AI platform for finance and payroll, taken from zero to one and scaled from 10 pilot users to 300",
+      "A governed AI platform for finance and payroll, taken from zero to one and scaled through iterative testing",
     problem:
       "Finance teams needed AI-assisted analysis without losing the governance controls, audit trails and human accountability that financial operations require \u2014 a platform producing numbers without provenance would be either untrusted and unused, or trusted and indefensible.",
-    // Role resolved 2026-08-26: the engagement role, distinct from the
-    // employment title on the r\u00e9sum\u00e9. Status is the 2026-09-08 account; the
-    // rewrite's own verify list asks for it to be refreshed. [NEEDS SIGN-OFF]
-    // on status. Both must stay identical to the study's snapshot fields.
+    // Role confirmed 2026-09-11: the engagement role, distinct from the
+    // employment title on the r\u00e9sum\u00e9. Status authored 2026-09-11 from the
+    // owner's account of the program. [NEEDS SIGN-OFF] on the status wording.
+    // Both must stay identical to the study's snapshot fields.
     role: "Product Experience Lead",
-    status: "V3 of the analysis platform in testing; unified homepage MVP in development",
+    status: "Ongoing program; several MVPs released, some in testing and some in production",
     // "Complex Workflows" dropped per the rewrite: it is true of every study
     // here, so it does no sorting work.
     tags: ["AI Interaction Design", "Governance", "Data and Finance"],
-    outcome: `Took a governed AI finance platform from zero to one and scaled it from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned \u2014 experimentation separated from production, every AI action inspectable, and human approval required before anything consequential.`,
+    outcome: `Took a governed AI finance platform from zero to one and scaled it through iterative testing: experimentation separated from production, every AI action inspectable, and human approval required before anything consequential.`,
     featuredOrder: 1,
     filterCategories: ["AI and Trust", "Complex Workflows", "Data and Finance"],
   },
@@ -58,13 +58,14 @@ export const projects: Project[] = [
       "Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience",
     problem:
       "A telecommunications client's billing-package process was fragmented across tools, owned by no single role, and had no recovery path when automation failed. Work disappeared mid-process and nobody could tell where.",
-    // [NEEDS SIGN-OFF] Role and status both changed; they must stay identical
-    // to the case study's own snapshot fields and to the résumé.
+    // Role and status confirmed 2026-09-11. The role is the engagement role
+    // and differs from the résumé's title on purpose. Both must stay
+    // identical to the case study's own snapshot fields.
     role: "Product Lead and Design Contributor",
-    status: "MVP 1 released and in use; MVP 1.5 in progress",
+    status: "Released",
     tags: ["Enterprise Workflow", "Status and Audit Model", "Product Strategy"],
     outcome:
-      `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people, on a status model that made ownership and handoffs explicit.`,
+      `Cleared a backlog of ${figures.billingBacklogSize} projects with a guided, auditable workflow now used by ${figures.billingActiveUsers} people, on a status model that made ownership and handoffs explicit.`,
     featuredOrder: 3,
     filterCategories: ["Complex Workflows", "B2B SaaS", "Customer Experience"],
   },
@@ -79,10 +80,10 @@ export const projects: Project[] = [
     tagline: "Answers users could trace, compare, and reuse — on rails the next compliance tool could ride",
     problem:
       "Business users could get a fast AI answer from thousands of internal documents but had no way to see where it came from, compare conflicting sources, or reuse the pattern for the next compliance question.",
-    // [NEEDS SIGN-OFF] Role and status both changed with the rewrite: the fuller
-    // title, and "Completed" replaced because production status is unconfirmed.
-    role: "Lead Experience Designer — UX and product strategy lead",
-    status: "Multi-phase accelerator and product development; production status to confirm",
+    // Role and status confirmed 2026-09-11. Both must stay identical to the
+    // case study's own snapshot fields.
+    role: "Lead Product Designer, UX and product strategy lead",
+    status: "Released",
     tags: ["Enterprise AI", "Document Intelligence", "AI Trust"],
     outcome:
       "An answer carries its sources, the active document set is visible and editable, comparison has a mode matched to the reading task, and a governed compliance widget rides the same rails instead of shipping as a second product.",
@@ -103,7 +104,7 @@ export const projects: Project[] = [
     hiddenOnHome: true,
     tags: ["Predictive Analytics", "Customer Experience", "AI Decision Support"],
     outcome:
-      "A showcase concept: an end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits, and monitors. Human review of AI-assisted messaging was required by design. Not deployed to customers.",
+      "A showcase concept: an end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits, and monitors. Human review of AI-assisted messaging was required by design.",
     featuredOrder: 2,
     filterCategories: ["AI and Trust", "Customer Experience", "Data and Finance"],
   },

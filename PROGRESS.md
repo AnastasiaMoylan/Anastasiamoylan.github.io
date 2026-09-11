@@ -587,3 +587,13 @@ Owner: "I want to implement the plates but keep the broadsheet as a backup. move
 **Known:** the Customer Journey has four ink screen plates close together (two back to back on decision 3), which bends the spec's "no two consecutive plates on one ground"; Document AI runs four champagne plates with prose between. Diagram labels inside the SVGs (7–9px in a 960 viewBox) still sit under 12px at narrow widths. Pins are 24px at phone width and cover a little of the screen they annotate.
 
 **Gates:** typecheck and build pass; all eleven routes prerender with the plates in the static HTML.
+
+---
+
+## Update — 2026-09-11: the first sign-off pass (branch `case-study/signoff-roles-status`)
+
+Owner's decisions, applied everywhere they appear (snapshot fields, cards, README table, generated llms.txt): billing keeps its engagement role, which differs from the résumé on purpose; the résumé already says Lead Product Designer at Amdocs; Document AI's role is Lead Product Designer, UX and product strategy lead; Finance Cloud's stays Product Experience Lead. Billing and Document AI are Released. Finance Cloud's status is authored from her account (sign-off G2). Billing is 70 active users and a backlog of a few hundred projects, completed, with the unit changed from billing packages to projects (confirm, G3). The Finance Cloud pilot-user figures (10, 300, 1,000+) are off the site and out of `figures.ts` until the current count, about 700, is confirmed (G1).
+
+**Caveats off the site**, because they read as machine-written: the `metricStatus` field is gone from the type, the data, the lede, Outcome, the stylesheet and the review script; the two evidence sentences saying a participant count was unrecorded or unverified are gone; the Customer Journey loses "shown as a concept, not deployed" from its claim, overview and card, and its no-metrics constraint row. Its Status field still says "Showcase concept, not deployed to customers", once, so the page never implies it shipped. The success-metric lines and "What I would measure next" were kept (G4).
+
+Answers recorded in `context/facts.md`; open items in `context/feedback-queue.md` section G. Typecheck and build pass.

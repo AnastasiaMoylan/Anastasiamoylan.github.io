@@ -19,14 +19,10 @@ export const figures = {
   researchEngagementsWord: "Four",
   programScale: "eight-figure",
   programScaleShort: "8-figure",
-  // Pilot scale. Removed 2026-09-03 as unsourced, restored 2026-09-09 on
-  // Anastasia's explicit instruction ("keep these figures"). Her own account;
-  // not read from a project record, which `impact.metricStatus` says on the
-  // page. What "300" counts — provisioned, onboarded or active — is still
-  // unconfirmed, and the 1,000+ is a plan rather than a delivery.
-  financePilotUsers: 10,
-  financeScaledUsers: 300,
-  financePlannedUsers: "1,000+",
+  // The Finance Cloud pilot-user figures (10 pilot users, 300 scaled, 1,000+
+  // planned) were removed 2026-09-11 on Anastasia's instruction: she believes
+  // the count is now about 700 but has not confirmed it. Restore a single
+  // confirmed figure here when she has one (context/feedback-queue.md, G1).
 
   // Application-level designers Anastasia directs; not reports. Extraction
   // interview 2026-08-25.
@@ -46,11 +42,9 @@ export const figures = {
   // validated-proof list does not carry it, and a figure kept here with no
   // surface reading it is a figure waiting to drift.
   billingStatusStates: 6,
-  // Anastasia's own account, 2026-09-09. Both were restated that day: the
-  // count moved from "returning" to "active" users, and the backlog it cleared
-  // is stated as a size rather than left implicit. Neither is read from the
-  // project record, which `impact.metricStatus` says on the page. Refresh the
-  // user count before publishing.
+  // Confirmed by Anastasia 2026-09-11: 70 active users, and a backlog of a
+  // few hundred projects, completed. The backlog's unit is projects (it was
+  // "billing packages" until that date). Refresh the user count as it grows.
   billingActiveUsers: 70,
   billingActiveAsOf: "September 2026",
   billingActiveAsOfShort: "Sep 2026",

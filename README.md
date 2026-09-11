@@ -24,10 +24,10 @@ site renders, so it cannot describe a study differently from the page.
 
 | Case study | What it was | My role | Status |
 | --- | --- | --- | --- |
-| **[Finance Cloud](https://anastasiamoylan.github.io/work/finance-cloud)** | A governed AI platform for finance and payroll, taken from zero to one and scaled from 10 pilot users to 300 | Product Experience Lead | V3 of the analysis platform in testing; unified homepage MVP in development |
+| **[Finance Cloud](https://anastasiamoylan.github.io/work/finance-cloud)** | A governed AI platform for finance and payroll, taken from zero to one and scaled through iterative testing | Product Experience Lead | Ongoing program; several MVPs released, some in testing and some in production |
 | **[The Connected Customer Journey](https://anastasiamoylan.github.io/work/connected-customer-journey)** | Designing the path from a churn score to a human decision | Senior UX Designer, leading design on the engagement | Showcase concept, not deployed to customers |
-| **[An Auditable Billing Workflow](https://anastasiamoylan.github.io/work/auditable-billing-workflow)** | Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience | Product Lead and Design Contributor | MVP 1 released and in use; MVP 1.5 in progress |
-| **[A Verifiable Document AI Platform](https://anastasiamoylan.github.io/work/enterprise-document-knowledge)** | Answers users could trace, compare, and reuse — on rails the next compliance tool could ride | Lead Experience Designer — UX and product strategy lead | Multi-phase accelerator and product development; production status to confirm |
+| **[An Auditable Billing Workflow](https://anastasiamoylan.github.io/work/auditable-billing-workflow)** | Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience | Product Lead and Design Contributor | Released |
+| **[A Verifiable Document AI Platform](https://anastasiamoylan.github.io/work/enterprise-document-knowledge)** | Answers users could trace, compare, and reuse — on rails the next compliance tool could ride | Lead Product Designer, UX and product strategy lead | Released |
 
 <!-- work-table:end -->
 

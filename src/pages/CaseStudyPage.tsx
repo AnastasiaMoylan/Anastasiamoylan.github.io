@@ -84,7 +84,6 @@ export default function CaseStudyPage() {
           deck={deck}
           fields={content.snapshotFields}
           stats={content.stats}
-          caveat={content.impact?.metricStatus}
         />
       </section>
 
