@@ -3,8 +3,7 @@ import Plate from "./Plate";
 
 /**
  * What changed: the before and after as a typographic plate on champagne,
- * then the validated proof, what I would measure next, and the honest limits
- * of the numbers. A before/after pair is the shortest statement of change; a
+ * then the validated proof and what I would measure next. A before/after pair is the shortest statement of change; a
  * proof list is what a reviewer can check; naming the measurement you would
  * run reads as senior where an absent metric does not.
  */
@@ -39,7 +38,6 @@ export default function OutcomeSection({ impact }: { impact: Impact }) {
         </div>
       )}
 
-      {impact.metricStatus && <p className="cs-caveat cs-small">{impact.metricStatus}</p>}
     </div>
   );
 }

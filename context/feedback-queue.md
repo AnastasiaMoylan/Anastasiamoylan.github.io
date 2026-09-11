@@ -1,5 +1,7 @@
 # Feedback queue — items that need Anastasia, not code
 
+> **Next session, start here (updated 2026-09-11).** Work the open boxes in this order: **F** (layout fixes flagged after Plates shipped), **G1–G2** and **G4–G5** (facts and wording still to confirm), **H** (second sign-off pass), **I** (added at the last merge). Sections A to E are the older backlog; most of their items were settled on 2026-09-10 and 2026-09-11 and are recorded in `context/facts.md` and PROGRESS.md.
+
 **Started:** 2026-09-09 23:20 CDT, before the overnight run. Work items that need no decision
 keep moving on `case-study/c-lede-integration`; everything below is blocked on you. Work top
 to bottom; each item says what it unblocks. Tick the box and write the answer under it —
@@ -225,3 +227,33 @@ Owner: "make a note to fix the flagged items in the next session." Work these fi
 - [ ] **F5. Coded diagram labels are long.** Finance Cloud's coded diagrams use their full heading as the plate label ("Promotion is a gated checklist, not a publish button"). Plate labels are meant to be two or three words; give `DiagramPanel` a short `label` prop and keep the heading as the caption's lead-in.
 - [ ] **F6. Three studies have no hero plate.** Only billing has an `opener`, so Finance Cloud, the Customer Journey and Document AI start at plate 01 Constraints. Needs a close-up screenshot per study (image brief, "ANASTASIA" items); nothing to build until those exist.
 - [ ] **F7. Housekeeping.** Delete the scratch branch `design/k-broadsheet-rendering` on origin (its template is in `renderings/`), and the local agent worktree under `.claude/worktrees/agent-aa72489cebe2ac2b4`.
+
+## G. From the 2026-09-11 sign-off pass
+
+Decided that day and applied on `case-study/signoff-roles-status` (recorded in `context/facts.md`): the billing role stays the engagement role; Document AI's role is Lead Product Designer, UX and product strategy lead; billing and Document AI are Released; billing is 70 active users and a backlog of a few hundred projects, completed; the Finance Cloud pilot-user figures are off the site; and every metric caveat is off the site (the `metricStatus` field, the two "count unverified / not recorded" sentences in the evidence text, and the Customer Journey's "shown as a concept, not deployed" hedges; its Status field still says showcase concept).
+
+- [ ] **G1. Finance Cloud user count.** The owner believes it is about 700 now. Confirm the number and what it counts (active, onboarded, provisioned), then restore one figure in `src/data/figures.ts` and put it back in the claim, the overview result and the card.
+- [ ] **G2. Finance Cloud status wording.** Authored from her account: "Ongoing program; several MVPs released, some in testing and some in production." Approve or rewrite.
+- [x] **G3. The billing backlog's unit.** Billing packages, each holding several projects (2026-09-11). Reverted everywhere.
+- [ ] **G4. Kept, not caveats.** Two "Success metric: none set at the outset. I would use…" framing lines (Finance Cloud, Document AI) and every "What I would measure next" block were left in: they state a metric rather than disclaim one. Remove them too if they read the same way.
+- [ ] **G5. The rest of the sign-off list** (groups 2 and 3 from the walk-through: authored wording, and the calls on what was cut) plus the remaining group 1 facts: the "other projects" count, the ten participants, "now used across the platform", the April approval, "leadership is redirecting", the client wording, ten stages vs six, and the Document AI title.
+
+## H. Second sign-off pass, 2026-09-11
+
+**Approved:** the heading "Four decisions, and what each one cost"; the Finance Cloud and Customer Journey decision labels; the Customer Journey composed lines; the shortened Customer Journey constraint; "reuse" for "leverage"; "the priority tiers"; every decision cut; the darker muted-text and border colours.
+
+**Applied, needs her read:** the four headlines shortened to about ten words, with the detail moved into a new subtitle field (`deck`); Document AI reframed around giving users the AI functions their business units built (cited answers, document upload, comparison, drafting) rather than citations alone: claim, subtitle, overview, product framing, hypothesis, success metric and how-might-we; the Document AI "what did you read" line made plain; the billing dashboard reason restored to her meaning.
+
+- [ ] **H1. Document AI, the rest of the page.** The decisions still cover citations, comparison, selection, drafting and the widget; no decision covers document upload. Ask what the upload decision was before writing one. The title "A Verifiable Document AI Platform" and its card tagline still lead with verification; settle them with the open title question. She flagged "still some issues" with the Document AI decision labels; ask which.
+- [ ] **H2. Billing's six section headings and four decision titles** need a yes or a rewrite; she was unsure what was outstanding. Show them side by side.
+- [x] **H3. Billing "Worked with" line.** Confirmed 2026-09-11 with "CWO team" spelled out as the Custom Work Order team, in the copy and in the ownership diagram.
+- [ ] **H4. Figure captions**: she thinks they are right; come back to them.
+- [x] **H5. Images cut on 2026-09-10.** Decided 2026-09-11: leave the cuts as they are, except restore Document AI's cut images if they are UI screens rather than diagrams. They were not: all four were panels of the whiteboard user-flow board, so they stay out. See I1.
+- [ ] **H6. Section headings for Finance Cloud, the Customer Journey and Document AI**: only billing has claim headings; the other three show plain nouns. Explain and offer drafts.
+- [ ] **H7. Contrast in more places.** She liked the darker colours and wants contrast introduced more widely across the site. Come back with a proposal.
+
+## I. Added at the 2026-09-11 merge
+
+- [ ] **I1. A UI screen for Document AI.** The study shows no product screen, only diagrams. The one UI screen in the repo is the card cover, `src/assets/case-studies/di/cover.jpg`: a side-by-side document comparison with the chat and draft generation beside it. It is already public on /work. Offer it as Document AI's hero plate (`opener.detail`) or as the comparison decision's plate; it would also close F6 for this study. Needs her yes and a caption.
+- [ ] **I2. Document upload has no decision.** The reframed Document AI page names upload as one of the core functions, but no decision covers it (H1). Ask what the call was.
+- [ ] **I3. Reference renderings are a snapshot.** `renderings/j-plates.src.html` and `k-broadsheet.src.html` still carry the billing copy as of `d7b35ca` ("CWO team", the long headline, the caveat). They are design references, not the site; refresh them only if Broadsheet is ever revived.

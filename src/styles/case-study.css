@@ -172,7 +172,6 @@
   }
   .cs-stats dd { color: var(--accent); }
   .cs-stats dt { color: var(--muted-foreground); }
-  .cs-lede .cs-caveat { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); }
 
   /* ------------------------------------------------------------ 4. Plates
      Three grounds, by kind: screens on ink, drawn diagrams on champagne,
@@ -346,7 +345,6 @@
     border-top: 1px solid var(--border);
     padding-top: 8px;
   }
-  .cs-caveat { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-claim); color: var(--muted-foreground); font-style: italic; }
   .cs-findings { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); }
   .cs-findings > div { display: grid; gap: 8px; padding-block: 16px; border-top: 1px solid var(--border); }
   .cs-findings > div:last-child { border-bottom: 1px solid var(--border); }
@@ -477,18 +475,18 @@
   @media (max-width: 1024px) {
     .cs-wide, .cs-kick, .cs-lede h1, .cs-opener .cs-numeral, .cs-opener h2, .cs-opener .cs-deck,
     .cs-contents, .cs-next, .cs-sec + .cs-sec::before { grid-column: 2 / 13; }
-    .cs-prose, .cs-claim, .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-caveat, .cs-findings,
+    .cs-prose, .cs-claim, .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-findings,
     .cs-credits, .cs-dec-id, .cs-dec h4, .cs-dec > .cs-note, .cs-lede .cs-deck, .cs-meta,
-    .cs-lede .cs-caveat, .cs-note { grid-column: 2 / 10; }
+    .cs-note { grid-column: 2 / 10; }
     .cs-stats { grid-column: 2 / 10; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--cs-gap-block); }
     .cs-cap { grid-column: 2 / 6; }
     .cs-plate-label, .cs-rh-now { grid-column: 2 / 10; }
   }
   @media (max-width: 720px) {
     .cs-page { --cs-plate-pad: 32px; --cs-gutter: 16px; }
-    .cs-wide, .cs-kick, .cs-lede h1, .cs-lede .cs-deck, .cs-meta, .cs-stats, .cs-lede .cs-caveat,
+    .cs-wide, .cs-kick, .cs-lede h1, .cs-lede .cs-deck, .cs-meta, .cs-stats,
     .cs-opener .cs-numeral, .cs-opener h2, .cs-opener .cs-deck, .cs-contents, .cs-prose, .cs-claim,
-    .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-caveat, .cs-findings, .cs-credits, .cs-next,
+    .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-findings, .cs-credits, .cs-next,
     .cs-dec-id, .cs-dec h4, .cs-dec > .cs-note, .cs-cap, .cs-note, .cs-art,
     .cs-sec + .cs-sec::before { grid-column: 1 / -1; }
     .cs-plate-label, .cs-rh-now { grid-column: 1 / 9; }

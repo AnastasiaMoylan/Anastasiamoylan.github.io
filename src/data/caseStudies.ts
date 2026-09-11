@@ -77,7 +77,8 @@ export const caseStudies: Record<string, CaseStudy> = {
   //
   // Deliberately NOT published: the forecast-gap dollar figure and exact
   // program-increment dates. Role is "Product Experience Lead", the
-  // engagement role; "Lead Experience Designer" is the employment title.
+  // engagement role (confirmed 2026-09-11); "Lead Product Designer" is the
+  // employment title.
   "finance-cloud": {
     snapshotFields: [
       // [NEEDS SIGN-OFF] on the client descriptor: it follows the rewrite,
@@ -86,8 +87,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2024–Present" },
-      // [NEEDS SIGN-OFF] The 2026-09-08 status; refresh before publishing.
-      { label: "Status", value: "V3 of the analysis platform in testing; unified homepage MVP in development" },
+      // 2026-09-11, the owner: the program is still under development, with
+      // multiple MVPs out, some in testing and some in production. The wording
+      // is authored from that. [NEEDS SIGN-OFF]
+      { label: "Status", value: "Ongoing program; several MVPs released, some in testing and some in production" },
       { label: "Users", value: "Accountants, analysts, managers and controllers, finance leaders, admins and viewers" },
       { label: "Team", value: "Product, engineering, ML engineering and AI research, data, finance and compliance stakeholders" },
     ],
@@ -99,12 +102,17 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: String(figures.researchEngagements), label: "Research engagements to date" },
       { value: figures.programScaleShort, label: "Program the research now directs" },
     ],
-    // The h1, from her own "Card and header lead line". [NEEDS SIGN-OFF]
-    claim: `Took a governed AI finance platform from zero to one and scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
+    // The h1. The pilot-user figures left the site 2026-09-11 until the
+    // current count is confirmed (feedback-queue G1); "scaled it through
+    // iterative testing" is her earlier overview wording. [NEEDS SIGN-OFF]
+    claim: "Took a governed AI finance platform from zero to one.",
+    // The subtitle carries what the headline dropped, 2026-09-11, from her
+    // overview lines. [NEEDS SIGN-OFF]
+    deck: "Scaled through iterative testing, with every AI action inspectable and a person’s approval on anything consequential.",
     overview: {
       challenge:
         "Finance teams wanted AI-assisted analysis without giving up the controls, audit trails and accountability that finance work requires.",
-      result: `Finance Cloud went from zero to one and scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned; finance leaders got evidence they could approve.`,
+      result: "Finance Cloud went from zero to one and scaled through iterative testing; finance leaders got evidence they could approve.",
       approach:
         "Separate experimentation from production, make every AI action inspectable, require a person’s approval for anything consequential.",
     },
@@ -150,7 +158,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       // ownedStatements.ts; keep the two agreeing.
       owned:
         "The product model for Finance Cloud: Workflow Builder, Sandbox, promotion gates, Production and monitoring across six user roles. The copilot and agent patterns for reporting, forecasting, variance analysis and close. PRDs, flows, role models, screeners and training plans. Program-level: the suite narrative and unified homepage.",
-      led: `The zero-to-one build with the lead product owner, from requirements to a shipped POC. The research that scaled the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}: a 32-analyst pool, 45-minute moderated sessions, protocols segmented by role. Design direction for ${figures.designersDirectedWord} designers across the finance program.`,
+      led: `The zero-to-one build with the lead product owner, from requirements to a shipped POC. The research that scaled the platform: a 32-analyst pool, 45-minute moderated sessions, protocols segmented by role. Design direction for ${figures.designersDirectedWord} designers across the finance program.`,
       // "now used across the platform" is on the rewrite's own verify list.
       // [NEEDS SIGN-OFF]
       influenced:
@@ -161,7 +169,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     evidence: {
       body:
-        "Role-segmented moderated prototype testing: 45-minute one-on-one sessions, questions tailored to each participant’s responsibilities. POC participant counts are not recorded and not stated.",
+        "Role-segmented moderated prototype testing: 45-minute one-on-one sessions, questions tailored to each participant’s responsibilities.",
       // The findings that changed something the constraints do not already
       // state; the rewrite's first four restated the constraints and are cut.
       // The pilot-versus-scale finding left 2026-09-10: it is the reflection.
@@ -284,25 +292,21 @@ export const caseStudies: Record<string, CaseStudy> = {
     impact: {
       before:
         "AI analysis in finance was untrusted or unusable: output arrived without provenance, and controls lived where accountable people could not see them.",
-      after: `Experimentation separated from production, every AI action inspectable, human approval on consequential work; scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
+      after: "Experimentation separated from production, every AI action inspectable, and a person’s approval on consequential work.",
       // Four points, and the band's four figures are all argued here.
       proof: [
         `${figures.hackathonUsers} finance users ran ${figures.hackathonAnalyses} analyses on V1 at a hackathon; the result pivoted the product.`,
-        `A working POC from zero, scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}; ${figures.financeCloudVersionsWord.toLowerCase()} versions, each redirected by research.`,
+        `A working POC from zero, then ${figures.financeCloudVersionsWord.toLowerCase()} versions, each redirected by research.`,
         `${figures.researchEngagementsWord} research engagements, grown to a 32-analyst pool, now directing an ${figures.programScale} modernization program.`,
         "The promotion-gate model is used across the platform; a suite homepage MVP is in development.",
       ],
       measureNext:
         "Promotions blocked then resolved without escalation, anomaly notifications acted on versus dismissed, and how often copilot plans are edited before they run. All three come from the audit history the product already keeps.",
-      // [NEEDS SIGN-OFF] The pilot figures are her account, restored
-      // 2026-09-09 on her instruction; this caveat is what makes them
-      // publishable.
-      metricStatus: `The ${figures.financePilotUsers} → ${figures.financeScaledUsers} figures are my own account, not a project record; what ${figures.financeScaledUsers} counts (provisioned, onboarded or active) is unconfirmed, and ${figures.financePlannedUsers} is a plan. Efficiency gains and close-cycle improvements are not verified and not stated; client financial figures are not published.`,
     },
     reflection: {
-      // The pilot and scale counts read from ./figures since 2026-09-10; they
-      // were spelled out as words before.
-      learned: `The hard part was not making the AI capable but making its governance legible. At ${figures.financePilotUsers} pilot users, controls could live in the backend because anyone who saw something odd could ask someone who knew. At ${figures.financeScaledUsers} they could not, and the design had to absorb every explanation a person had been giving. I would now design for the thousandth user from the first sketch.`,
+      // The pilot and scale counts left 2026-09-11 with the rest of the
+      // pilot figures; the lesson is the same without them. [NEEDS SIGN-OFF]
+      learned: "The hard part was not making the AI capable but making its governance legible. In the pilot, controls could live in the backend because anyone who saw something odd could ask someone who knew. At scale they could not, and the design had to absorb every explanation a person had been giving. I would now design for the thousandth user from the first sketch.",
       // Scorecard session record §4.5. "Leadership is redirecting" is present
       // tense; the decision was still pending in September. [NEEDS SIGN-OFF]
       wouldChange:
@@ -328,8 +332,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Users", value: "Analysts, marketing, CX and service teams, and customer-service representatives" },
       { label: "Team", value: "UX design, data science, marketing and CX, AI/NLP engineering, front-end and back-end engineering, and product owners" },
     ],
-    // No churn, conversion or revenue metric is verified (see
-    // impact.metricStatus), so the band carries countable design outputs.
+    // No churn, conversion or revenue metric exists for a showcase concept,
+    // so the band carries countable design outputs.
     stats: [
       { value: "3", label: "Roles the flow spans" },
       { value: "6", label: "Connected surfaces designed" },
@@ -337,7 +341,10 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // The h1, her Outcome headline cut to the slot. [NEEDS SIGN-OFF]
     claim:
-      "A churn score became a decision a person reviews, edits and monitors, shown as a concept, not deployed.",
+      "Turning a churn score into a human decision.",
+    // The headline shortened 2026-09-11 from her tagline; the subtitle is the
+    // former headline. [NEEDS SIGN-OFF]
+    deck: "An end-to-end flow in which a person reviews, edits and monitors each decision before anything reaches a customer.",
     // [NEEDS SIGN-OFF] on the cuts to one sentence each. The result line no
     // longer repeats the claim; "from detection to a reviewed, monitored
     // action" is her Outcome after-line, condensed.
@@ -345,7 +352,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       challenge:
         "A telecommunications operator had predictive churn signals, but nothing connected detection to a reviewed action and its result.",
       result:
-        "An end-to-end mitigation flow from detection to a reviewed, monitored action, shown as a concept rather than deployed.",
+        "An end-to-end mitigation flow from detection to a reviewed, monitored action.",
       approach:
         "Treat a prediction as the opening of a decision, with context beside the score and human review before any AI-drafted message goes out.",
     },
@@ -377,10 +384,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         constraint: "Analysts, service teams, an AI layer and partner systems each held part of the picture",
         implication: "The flow had to run end to end across analyst, customer and representative, not another dashboard",
-      },
-      {
-        constraint: "A showcase concept that never reached customers",
-        implication: "No churn or revenue metric could be measured; the study proves an interaction model, not adoption",
       },
     ],
     scope: {
@@ -539,8 +542,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       ],
       measureNext:
         "Churn in the contacted at-risk segment against an uncontacted control, with time from signal to launched action as the leading indicator. Both are measurable the day the flow is deployed.",
-      metricStatus:
-        "This was a showcase concept and did not reach customers, so no churn-reduction, conversion, adoption or revenue metric is presented.",
     },
     reflection: {
       learned:
@@ -560,11 +561,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2024–2025" },
-      // [NEEDS SIGN-OFF] Was "Completed".
-      { label: "Status", value: "MVP 1 released and in use; MVP 1.5 in progress" },
+      // Confirmed 2026-09-11: released.
+      { label: "Status", value: "Released" },
       // [NEEDS SIGN-OFF] Both trimmed to the header's one fact line.
       { label: "Users", value: "Admins, accountants, and engineers managing projects and billing packages" },
-      { label: "Team", value: "CWO team with the client's Chief Data Office, product, engineering, and UI development" },
+      { label: "Team", value: "Custom Work Order team with the client's Chief Data Office, product, engineering, and UI development" },
     ],
     // Provenance for every figure is in ./figures.
     stats: [
@@ -574,7 +575,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: String(figures.billingStatusStates), label: "Shared status states" },
     ],
     // The h1, trimmed from the rewrite's own lead line. [NEEDS SIGN-OFF]
-    claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages with an auditable workflow now used by ${figures.billingActiveUsers} people.`,
+    claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages.`,
+    // The headline shortened 2026-09-11; its second half is the subtitle.
+    // [NEEDS SIGN-OFF]
+    deck: `A guided, auditable workflow, now used by ${figures.billingActiveUsers} people, that keeps the backlog from coming back.`,
     // Layout C (2026-09-10): the claim headings, opener pair, annotated screen
     // and parking lot are lifted from docs/case-study/prototypes/c-lede.html,
     // which restated this study's own copy. None of it has been on the site
@@ -655,9 +659,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     parked: [
       {
         item: "The reporting dashboard",
-        // [NEEDS SIGN-OFF] Condensed; "cost the release" was "protecting the
-        // core flow cost the release".
-        why: "Infeasible this release. Surfacing the dependency and holding it in the backlog cost the release its most demo-friendly screen.",
+        // Restored 2026-09-11 to her meaning: protecting the core flow is what
+        // cost the release the screen.
+        why: "Not feasible this release; held in the backlog with its dependency documented. Protecting the core flow cost the release its most demo-friendly screen.",
       },
       {
         item: "In-product editing of package, project and customer details",
@@ -730,12 +734,13 @@ export const caseStudies: Record<string, CaseStudy> = {
       // [NEEDS SIGN-OFF] "the priority tiers" stands for "the Must / Should /
       // Nice-to-have option sets".
       led:
-        "Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.",
+        "Requirements workshops and discovery with the Custom Work Order team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.",
       influenced:
         "Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. The scope calls on the dashboard and the interim editing path. The approval flow has since been picked up by other projects.",
-      // [NEEDS SIGN-OFF] Composed from the rewrite's Team metadata.
+      // Confirmed 2026-09-11, with "CWO team" spelled out as the Custom Work
+      // Order team.
       workedWith:
-        "The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
+        "The Custom Work Order team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
     },
     evidence: {
       // [NEEDS SIGN-OFF] The participant count and the three groups are new
@@ -869,8 +874,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       ],
       measureNext:
         "Package cycle time from Initiated to Completed, the share of packages that hit the screenshot-recovery path, and first-pass approval rate. The status model makes all three available without new instrumentation.",
-      // [NEEDS SIGN-OFF] Authored 2026-09-09 from the rewrite's verify list.
-      metricStatus: `The backlog size is my own account, not a project record, and ${figures.billingActiveUsers} active users is my own count as of ${figures.billingActiveAsOf}. The +20% submission-rate KPI is measurable from status timestamps but not yet measured. Defect reduction and handoff time are not verified.`,
     },
     reflection: {
       // The first sentence is this section's heading.
@@ -882,19 +885,18 @@ export const caseStudies: Record<string, CaseStudy> = {
   // Anastasia's own account. Deliberately NOT published: the client, product
   // and use-case names, the teammates, the partner engineering team, the data
   // vendors, the document store, and the model. The ten-participant count is
-  // published only as unverified. Two earlier claims are dropped as
+  // not published. Two earlier claims are dropped as
   // unsupported: that testing reversed a tab-based navigation model, and
   // that saving was designed as a privacy action.
   "enterprise-document-knowledge": {
     snapshotFields: [
-      // [NEEDS SIGN-OFF] Role expanded to the rewrite's full title; settle it
-      // with About and the résumé together.
-      { label: "Role", value: "Lead Experience Designer — UX and product strategy lead" },
+      // Confirmed 2026-09-11.
+      { label: "Role", value: "Lead Product Designer, UX and product strategy lead" },
       { label: "Employer", value: "Amdocs Studios" },
       { label: "Client", value: "Confidential enterprise telecommunications organization" },
       { label: "Timeframe", value: "2025" },
-      // [NEEDS SIGN-OFF] Production status is unconfirmed.
-      { label: "Status", value: "Multi-phase accelerator and product development; production status to confirm" },
+      // Confirmed 2026-09-11: released.
+      { label: "Status", value: "Released" },
       {
         label: "Users",
         value: "Enterprise business users, corporate communications, legal, risk and compliance, contract and product managers",
@@ -904,8 +906,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         value: "Design, product, engineering, research, and client stakeholders across two or more time zones",
       },
     ],
-    // Adoption and efficiency are unattributed (see impact.metricStatus), so
-    // the band counts what the design produced.
+    // No adoption or efficiency figure is published, so the band counts
+    // what the design produced.
     stats: [
       { value: "2", label: "Comparison modes, matched to the reading task" },
       { value: "5", label: "Breakpoints, 375px to 1536px" },
@@ -915,35 +917,40 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The h1, authored 2026-09-10 by cutting her overview result line to the
     // slot; the page had been falling back to the 40-word result line.
     // [NEEDS SIGN-OFF]
-    claim:
-      "Verifiable AI answers over thousands of documents; a compliance tool on the same rails, not a second product.",
+    // Reframed 2026-09-11 from the owner's account: the work gave users the
+    // AI functions their business units had built (cited answers, document
+    // upload, comparison, drafting) on shared patterns, not citations alone.
+    // Claim, subtitle, overview, framing, hypothesis, metric and HMW are all
+    // authored from that. [NEEDS SIGN-OFF]
+    claim: "One workspace for every business unit’s document AI tools.",
+    deck: "Cited answers, document upload, comparison and drafting on shared patterns, so the next unit’s tool arrives as a widget, not a product.",
     overview: {
       challenge:
-        "Users got fast AI answers from thousands of documents but could not see where they came from or compare sources.",
+        "Business units had built specialized AI functions for their documents, but users had no single, trustworthy place to use them.",
       result:
-        "Sourced answers, explicit document selection, two comparison modes and drafting, on a widget framework a compliance tool could reuse.",
+        "One workspace where cited answers, document upload, comparison and drafting share the same patterns, with a compliance tool designed as one more widget.",
       approach:
-        "Treat verification as an interaction, not a disclaimer, make document scope visible product state, and prioritize by value, effort and dependency.",
+        "Build every function on shared patterns for selection, sources and output, and keep document scope and citations visible in each one.",
     },
     // [NEEDS SIGN-OFF] "reuse" replaces her word "leverage" for the second
     // problem; the regulated-workflow list (legal, compliance, risk,
     // contracts) is the Users line above and is not repeated.
     productFraming:
-      "The organization had an enterprise AI assistant under pressure to show it did more than summarize. The bet was whether AI could be trusted inside regulated workflows, where an unsourced answer is a liability rather than a time-saver, and the business wanted a second use case without funding a second product. Two problems wearing one name: trust, whether an answer carries its evidence, and reuse, whether the patterns behind it could become parts a compliance tool is assembled from.",
+      "Business units had built specialized AI functions for their own documents: cited answers, document upload, comparison, drafting. Users needed one place to use them, and the business needed the next unit’s tool without funding another product. The bet was a shared workspace: build each function on common patterns, so a new capability arrives as a widget and inherits the same behavior. In legal and compliance work that behavior is the point, because an unsourced answer is a liability.",
     framing: [
       {
         label: "Hypothesis",
         text:
-          "Users will trust AI summaries of internal documents only if the path from any statement to its source is one interaction away.",
+          "If each business unit’s AI functions share one workspace and one set of patterns, users adopt them and a new tool ships as a widget.",
       },
       {
         label: "Success metric",
         text:
-          "Not defined at the outset. I would use verification rate, the share of AI answers where a user opens a cited source.",
+          "Not defined at the outset. I would track use of each function by business unit, and how often users open a cited source.",
       },
     ],
     hmw:
-      "How might we move enterprise users from retrieval to verified understanding without hiding the documents behind the AI, or rebuilding the experience for every use case?",
+      "How might we give users one place to use the AI functions their business units built, without rebuilding the experience for each one?",
     // Four rows, from five: the denied-access row went (an edge case, not a
     // constraint that shaped the product), and the milestone months left
     // the fixed-dates row (planning-board dates, not a delivery record).
@@ -977,9 +984,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Design, product, engineering, research and client stakeholders across two or more time zones, with federated engineering shared across use cases.",
     },
     evidence: {
-      // The participant count is published only as unverified.
       body:
-        "Research planning, protocols and synthesis, with a discussion guide for the compliance use case and another for document comparison. An internal record references ten participants; the count is unverified.",
+        "Research planning, protocols and synthesis, with a discussion guide for the compliance use case and another for document comparison.",
       findings: [
         {
           finding: "Tab behavior and document selection caused confusion about what the AI was actually reading.",
@@ -1059,7 +1065,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         // [NEEDS SIGN-OFF] The quoted question condenses "makes the one
         // question the user most needs answered, what did you read,
         // unanswerable".
-        rejected: "inferring the document set from the prompt, which demos well and leaves “what did you read” unanswerable",
+        rejected: "inferring the document set from the prompt, which demos well but leaves users unable to tell which documents the AI read",
       },
       {
         mechanism: "Draft beside the conversation",
@@ -1094,8 +1100,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         "Accessibility documented in the design source of truth rather than retrofitted.",
         "The compliance use case reframed from a standalone dashboard into a widget on the shared framework.",
       ],
-      metricStatus:
-        "No adoption, revenue or time-savings figure appears here. Shipment status and attribution are unverified, and an unattributed number would be worth less than the honest omission.",
     },
     reflection: {
       learned:

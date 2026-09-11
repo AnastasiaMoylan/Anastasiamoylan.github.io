@@ -3,14 +3,13 @@ import type { Stat } from "../../data/caseStudyTypes";
 
 /**
  * The lede (Plates layout, 2026-09-11): the kicker, the claim, the deck, then
- * the snapshot beside the figures, with the source caveat under the snapshot.
+ * the snapshot beside the figures.
  * Text beside text is allowed here; text beside an image is not, anywhere.
  *
  * The claim is the news and the largest type in the first screen. The
  * snapshot is a hairline list (role, client, status, users, team) so the
  * role is legible in ten seconds in plain words; the figures sit beside it in
- * display type, maroon, and the caveat that qualifies them is printed where
- * they are first seen as well as in Outcome.
+ * display type, maroon.
  *
  * Returns grid children for the page's lede section.
  */
@@ -24,7 +23,6 @@ export default function CaseStudyHeader({
   deck,
   fields,
   stats,
-  caveat,
 }: {
   backLink?: ReactNode;
   title: string;
@@ -32,7 +30,6 @@ export default function CaseStudyHeader({
   deck?: string;
   fields: { label: string; value: string }[];
   stats?: Stat[];
-  caveat?: string;
 }) {
   const pick = (labels: string[]) =>
     labels.map((l) => fields.find((f) => f.label === l)).filter(Boolean) as { label: string; value: string }[];
@@ -80,7 +77,6 @@ export default function CaseStudyHeader({
         </dl>
       )}
 
-      {caveat && <p className="cs-caveat cs-small">{caveat}</p>}
     </>
   );
 }
