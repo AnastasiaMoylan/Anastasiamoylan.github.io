@@ -24,6 +24,17 @@ import { diagramSvg } from "./diagramSvg";
 // study went from seventeen figures to eight, the Customer Journey from eight
 // to six, Document AI from seven to three. What left is listed at each
 // `images` / `processImages` field.
+//
+// Pared down again later on 2026-09-10 (owner: "the length is too long but
+// the structure is good ... some of these might be too in the weeds"). Same
+// fields, parts, children, headings, labels, images and stats; every line a
+// condensation of the one before it. What went: implementation detail only
+// the team would care about, lists of every sub-feature, points restated in a
+// neighbouring field, second examples, hedges. Finance Cloud lost the V2
+// pivot decision (its content is the first finding, the first proof point
+// and the stat band) and the billing study lost the interim-editing and
+// visible-backlog decisions (both were the parking lot's first two rows,
+// word for word). Report: docs/case-study/2026-09-10-content-pare-down.md.
 
 // `?preview` yields a downscaled WebP for inline display (see vite.config.ts);
 // the plain import is the full-resolution original used by the lightbox.
@@ -93,36 +104,37 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: figures.programScaleShort, label: "Program the research now directs" },
     ],
     // The h1, from her own "Card and header lead line". [NEEDS SIGN-OFF]
-    claim: `Took a governed AI finance platform from zero to one and scaled it from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
+    claim: `Took a governed AI finance platform from zero to one and scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
     overview: {
       challenge:
-        "Finance teams wanted AI-assisted analysis without giving up the controls, audit trails and personal accountability that finance work requires.",
-      result: `Finance Cloud went from zero to one and scaled through iterative testing from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned; finance leaders got evidence they could approve.`,
+        "Finance teams wanted AI-assisted analysis without giving up the controls, audit trails and accountability that finance work requires.",
+      result: `Finance Cloud went from zero to one and scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned; finance leaders got evidence they could approve.`,
       approach:
-        "Separate experimentation from production, make every AI action inspectable, and require a person’s approval before anything consequential happens.",
+        "Separate experimentation from production, make every AI action inspectable, require a person’s approval for anything consequential.",
     },
+    // The single-application sentence left this paragraph 2026-09-10: it is
+    // decision 1's whole rationale.
     productFraming:
-      "The organization wanted AI inside finance and payroll: reporting, forecasting, variance analysis, anomaly detection, month-end close, journal entries. All of it touches committed money, and the accountants and controllers who work there stay personally responsible for the numbers whatever produced them. The bet: AI could carry real analysis without moving that responsibility. The risk: a platform either untrusted and unused, or trusted and indefensible. Design was in the room because the problem was not model capability but making governance legible to the people who had to approve it. The platform also sat inside a wider program described to the business as one integrated application that its architecture could not yet deliver.",
+      "The organization wanted AI inside finance and payroll: reporting, forecasting, variance analysis, close, journal entries. All of it touches committed money, and the accountants and controllers stay personally responsible for the numbers whatever produced them. The bet: AI could carry real analysis without moving that responsibility. The risk: a platform either untrusted and unused, or trusted and indefensible. Design was in the room because the problem was not model capability but making governance legible to the people who approve it.",
     framing: [
       {
         label: "Hypothesis",
         text:
-          "AI could carry a meaningful share of finance analysis without moving responsibility for the numbers, if every consequential action stayed visible and owned by a person.",
+          "AI could carry finance analysis without moving responsibility for the numbers, if every consequential action stayed visible and owned by a person.",
       },
       {
         label: "Success metric",
         text:
-          "None set at the outset. I would use the share of close work running through the governed pipeline with human sign-off; plans approved without rework is the leading indicator.",
+          "None set at the outset. I would use the share of close work running through the governed pipeline with human sign-off.",
       },
     ],
     hmw:
       "How might we let finance teams use AI for analysis and close work while keeping every consequential action visible, reviewable and owned by a person?",
+    // Four rows, from five: the single-application row is decision 1.
     constraints: [
       {
-        constraint:
-          "Accountants, controllers and compliance staff are personally responsible for journal entries, accruals, payroll and close",
-        implication:
-          "AI could prepare and recommend; a person had to approve anything consequential, and the handoff had to be explicit",
+        constraint: "Accountants and controllers are personally responsible for journal entries, accruals, payroll and close",
+        implication: "AI could prepare and recommend; a person had to approve anything consequential",
       },
       {
         constraint: "A number without provenance cannot be approved, only re-derived by hand",
@@ -136,80 +148,71 @@ export const caseStudies: Record<string, CaseStudy> = {
         constraint: "Automation that fails silently in finance breaks trust in every future result",
         implication: "Failure, partial output and low confidence needed designed states, not error toasts",
       },
-      {
-        constraint:
-          "The program was described to the business as one integrated application that the architecture could not yet support",
-        implication:
-          "Coherence had to be earned through design (shared language, central discovery, clear product relationships) rather than inherited from architecture",
-      },
     ],
     scope: {
       // Paraphrases FINANCE_PRODUCT_MODEL and FINANCE_RESEARCH_ARTIFACTS in
       // ownedStatements.ts; keep the two agreeing.
       owned:
-        "The product model for Finance Cloud: Workflow Builder, Sandbox, promotion gates, Production and monitoring across six user roles. The copilot and agent workflow patterns for reporting, forecasting, variance analysis and close. Anomaly detection and proactive notification. The AI uncertainty and failure states, and the inspectability layer: previews, editable plans, generated code, evidence, logs, lineage, versions, approvals and audit history. PRDs, flows, role models, screeners and training plans. At program level, the suite narrative, the unified homepage and the shared patterns across workflow products.",
-      led: `The zero-to-one build with the lead product owner, from requirements to a shipped POC. The research that scaled the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}: a recruited pool of 32 analysts, 45-minute moderated sessions against prototypes, and protocols segmented by role so each person was asked only about work they actually did. Design direction for ${figures.designersDirectedWord} designers across the finance program, turning the program lead’s and product owners’ intent into direction designers could execute.`,
+        "The product model for Finance Cloud: Workflow Builder, Sandbox, promotion gates, Production and monitoring across six user roles. The copilot and agent patterns for reporting, forecasting, variance analysis and close. PRDs, flows, role models, screeners and training plans. Program-level: the suite narrative and unified homepage.",
+      led: `The zero-to-one build with the lead product owner, from requirements to a shipped POC. The research that scaled the platform from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}: a 32-analyst pool, 45-minute moderated sessions, protocols segmented by role. Design direction for ${figures.designersDirectedWord} designers across the finance program.`,
       // "now used across the platform" is on the rewrite's own verify list.
       // [NEEDS SIGN-OFF]
       influenced:
-        "The three-tier model (act; recommend and wait; stop and escalate), defined with ML engineering and AI research as product boundaries rather than model defaults; the confidence cut-offs are still to be set as the pilot produces data. The environment separation and promotion-gate model, now used across the platform. Human responsibility for accruals, journal entries, payroll and close, kept as a product principle. And the program narrative itself: from one integrated application to a suite with a shared design language.",
+        "The three-tier model (act; recommend and wait; stop and escalate), set with ML engineering as product boundaries, not model defaults. The promotion-gate model, now used across the platform. Human responsibility for accruals, journal entries, payroll and close as a product principle.",
       // [NEEDS SIGN-OFF] Composed from the rewrite's "Worked with" line and
       // the former team grid.
-      workedWith: `Program leadership, product management, ${figures.designersDirectedWord} application-level designers each owning one product, engineering and data specialists, ML engineering and AI research, access-management partners, and finance subject-matter experts, compliance stakeholders and end users.`,
+      workedWith: `Program leadership, product management, ${figures.designersDirectedWord} application-level designers, engineering and data specialists, ML engineering and AI research, access-management partners, finance subject-matter experts, compliance stakeholders and end users.`,
     },
     evidence: {
       body:
-        "Role-segmented moderated prototype testing: 45-minute one-on-one sessions with clickable prototypes, questions tailored to each participant’s responsibilities. Participant counts for the POC research are not recorded and are not stated.",
+        "Role-segmented moderated prototype testing: 45-minute one-on-one sessions, questions tailored to each participant’s responsibilities. POC participant counts are not recorded and not stated.",
       // The findings that changed something the constraints do not already
       // state; the rewrite's first four restated the constraints and are cut.
+      // The pilot-versus-scale finding left 2026-09-10: it is the reflection.
       findings: [
         {
-          finding: `A hackathon put V1 in front of ${figures.hackathonUsers} finance users, who ran ${figures.hackathonAnalyses} analyses and would not read or adjust generated Python.`,
+          finding: `${figures.hackathonUsers} hackathon users ran ${figures.hackathonAnalyses} analyses on V1 and would not read or adjust generated Python.`,
           response: "V2 rebuilt the flow around direct data exploration and agent handoff; research set V3.",
         },
         {
-          finding: "Users saw only the products they were already permitted to use, so the wider suite was invisible.",
+          finding: "Users saw only products they were already permitted to use; the wider suite was invisible.",
           response: "A central, access-aware homepage that knows what each person can use after login.",
         },
         {
-          finding:
-            "Teams used overlapping language for products, roles and AI concepts; the agent portfolio had no shared object model.",
+          finding: "Teams used overlapping language for products, roles and AI concepts, with no shared object model.",
           response:
             "A formal hierarchy, Category → Driver → Anchor Signal, before monitors, thresholds and briefings were designed.",
-        },
-        {
-          finding: "Pilot users tolerated ambiguity because they could ask a person; scaled users could not.",
-          response: "Every explanation a person had been giving moved into the interface: labels, checklists, states, reasons.",
         },
       ],
       insight: "Governance people cannot see is not governance they will approve.",
     },
-    // Six decisions, cut from eight on 2026-09-10: the failure-states decision
-    // is the constraints row and the states table, and the documented-access-
-    // assumptions decision was process rather than product. Decisions 1 to 3
-    // are the program layer (SuiteMap, the front-door flow, VersionArc), 4 to
-    // 6 the platform layer (PromotionGate, GovernedPipeline,
+    // Five decisions, cut from eight: on 2026-09-10 the failure-states
+    // decision went (it is the constraints row and the states table), the
+    // documented-access-assumptions decision went (process, not product),
+    // and later that day the V2 pivot went (it is the first finding, the
+    // first proof point and the stat band's "three versions"). Decisions 1
+    // and 2 are the program layer (SuiteMap, the front-door flow), 3 to 5
+    // the platform layer (PromotionGate, GovernedPipeline,
     // ConfidenceThresholds). Mechanism labels authored 2026-09-10 from the
     // decision lines. [NEEDS SIGN-OFF] on the labels.
     decisions: [
       {
         mechanism: "The suite reframe",
         decision:
-          "Repositioned the program from one integrated application to a suite of independent products with a shared experience layer.",
+          "Repositioned the program from one integrated application to a suite with a shared experience layer.",
         rationale:
-          "The architecture and roadmap could not support the single-app promise. The reframe told the truth about the present and gave a credible path to a more connected future: a common visual language, central discovery, clear product relationships.",
+          "The architecture could not support the single-app promise. The reframe told the truth about the present and gave a credible path forward: common visual language, central discovery, clear product relationships.",
         rejected: "continuing to describe the program as one integrated application",
         tradeoff: "coherence had to be earned through design rather than inherited from architecture.",
       },
       {
         mechanism: "The front door",
         decision:
-          "Designed the homepage as a launcher and discovery hub, personalized from real post-login access, with each product opening in its own tab.",
+          "Designed the homepage as a launcher and discovery hub, personalized from post-login access.",
         rationale:
-          "“Your Apps” shows what each person can actually use; a discovery area shows the rest of the suite. Opening products in their own tabs avoided cross-app authentication complexity and let independently built products keep shipping.",
-        rejected: "a kitchen-sink catalog or a complex dashboard; embedding every product in one shell",
-        tradeoff:
-          "the seams stay visible, coherent at discovery rather than continuous in use. Favorites, cross-app launchers and centralized notifications went to a named roadmap.",
+          "“Your Apps” shows what each person can actually use; a discovery area shows the rest of the suite. Separate tabs avoided cross-app authentication and let independently built products keep shipping.",
+        rejected: "a catalog or dashboard; embedding every product in one shell",
+        tradeoff: "the seams stay visible: coherent at discovery, not continuous in use.",
         images: [
           {
             src: gafFrontDoorUrl,
@@ -220,33 +223,27 @@ export const caseStudies: Record<string, CaseStudy> = {
             alt: "A four-stage user flow. A person signs in; their access is resolved after login. The homepage then answers two questions at once: a personalized Your Apps area lists the products that person can actually use, and a discovery area shows the wider suite they cannot yet see, which is what research found people were missing. Choosing a product launches it in its own tab with its internal navigation intact, so independently built products keep shipping. Two rejected alternatives are recorded: a kitchen-sink catalog or a complex dashboard in place of a launcher, and embedding every product inside one shell.",
             // [NEEDS SIGN-OFF] Caption authored 2026-09-09 with the wiring.
             caption:
-              "The homepage answers two questions at once: what you can use, and what else exists. Launching in a tab was a stated cost, not an oversight.",
+              "The homepage answers two questions: what you can use, and what else exists. Launching in a tab was a stated cost.",
           },
         ],
-      },
-      {
-        mechanism: "The V2 pivot",
-        decision:
-          "Rebuilt the analysis flow around direct data exploration and agent handoff after the hackathon, not around generated code.",
-        rationale: `V1 assumed analysts could read and adjust generated Python. ${figures.hackathonUsers} finance users at a hackathon showed they could not and would not. V2 rebuilt the flow around exploring data directly and handing multi-step work to an agent, then hit two limits: a metadata layer that did not exist, and orchestration too deterministic for how finance work branches. Research set V3, now in testing.`,
       },
       {
         mechanism: "The promotion gate",
         decision:
           "Separated experimentation from production, with promotion as a gated checklist that names what is unmet.",
         rationale:
-          "A sandbox for analysis, transformations and AI-assisted plans has no silent path into financial controls. Promotion is an explicit, reviewable event, and a blocked promotion says which control, approval or data-access condition is missing. A rule that lives only in the backend reads as “it won’t let me”, which is indistinguishable from a bug.",
+          "Promotion is an explicit, reviewable event; a blocked one says which control or approval is missing. A rule that lives only in the backend reads as “it won’t let me”, indistinguishable from a bug.",
         rejected: "one workspace gated by permissions, or a one-click publish",
         tradeoff: "a permission is a setting someone has to remember exists.",
       },
       {
         mechanism: "The copilot plan",
         decision:
-          "Scoped the copilot to the work in front of the user and made it confirm its understanding before producing a plan.",
+          "Scoped the copilot to the work in front of the user, confirming its understanding before producing a plan.",
         rationale:
-          "A plan is inspectable; an answer is not. Assistance appears inside a specific report, forecast or close task with the data already in context, and runs understand, clarify, confirm assumptions, then plan, so wrong assumptions surface before a result does. The user reads the plan, changes it and runs it.",
+          "A plan is inspectable; an answer is not. Assistance appears inside a specific report, forecast or close task and runs understand, clarify, confirm, then plan, so wrong assumptions surface before a result does.",
         rejected:
-          "a general-purpose assistant that answers immediately and lets users find the wrong assumptions in the output",
+          "a general-purpose assistant that answers immediately and leaves wrong assumptions for the user to find",
       },
       // The tiers are defined; the model-confidence cut-offs are pending (the
       // 2026-09-03 correction). The 72-hour success definition is her earlier
@@ -254,9 +251,9 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         mechanism: "The three-tier boundary",
         decision:
-          "Defined where the system acts, where it recommends and waits, and where it stops and escalates, as product boundaries rather than model defaults.",
+          "Defined where the system acts, recommends and waits, or stops and escalates, as product boundaries, not model defaults.",
         rationale:
-          "A raw confidence score pushes interpretation onto a user who has no basis for deciding whether a score is safe enough for an accrual. The tiers are interaction decisions; the confidence cut-offs are still to be set with ML engineering as the pilot produces data. With domain experts we defined agent success as analyst behavior within 72 hours, not forecast precision: did the analyst run a scenario or start a leadership conversation.",
+          "A raw confidence score pushes interpretation onto a user with no basis for judging whether it is safe for an accrual. The cut-offs are still to be set with ML engineering. We defined agent success as analyst behavior within 72 hours, not forecast precision.",
         rejected: "surfacing a raw confidence score and leaving interpretation to the user",
       },
     ],
@@ -272,18 +269,13 @@ export const caseStudies: Record<string, CaseStudy> = {
         recovery: "Retry and escalation path",
       },
       {
-        state: "Missing permissions",
-        userSees: "Blocked state with explanation",
-        recovery: "Request-access path",
-      },
-      {
         state: "Blocked promotion",
         userSees: "The reason",
         recovery: "Checklist of unmet requirements",
       },
       {
         state: "Anomaly detected in a figure",
-        userSees: "Proactive notification to the accountable role, with variance, drivers and affected records",
+        userSees: "Notification to the accountable role with variance, drivers and affected records",
         recovery: "Drill into source data, or dismiss with a recorded reason",
       },
       {
@@ -295,28 +287,29 @@ export const caseStudies: Record<string, CaseStudy> = {
     impact: {
       before:
         "AI analysis in finance was untrusted or unusable: output arrived without provenance, and controls lived where accountable people could not see them.",
-      after: `Experimentation separated from production, every AI action inspectable, anomalies routed to the accountable role, human approval on consequential work; scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}, with ${figures.financePlannedUsers} planned.`,
+      after: `Experimentation separated from production, every AI action inspectable, human approval on consequential work; scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}.`,
       // Four points, and the band's four figures are all argued here.
       proof: [
-        `A hackathon put V1 in front of ${figures.hackathonUsers} finance users who ran ${figures.hackathonAnalyses} analyses; the result pivoted the product.`,
-        `A working POC from zero, scaled through iterative testing from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}; ${figures.financeCloudVersionsWord.toLowerCase()} versions, each redirected by research, with V3 in testing.`,
-        `${figures.researchEngagementsWord} research engagements, grown from about four participants to a 32-analyst pool, now directing an ${figures.programScale} modernization program.`,
-        "The environment separation and promotion-gate model is used across the platform, and the suite has a shared experience model with a homepage MVP in development.",
+        `${figures.hackathonUsers} finance users ran ${figures.hackathonAnalyses} analyses on V1 at a hackathon; the result pivoted the product.`,
+        `A working POC from zero, scaled from ${figures.financePilotUsers} pilot users to ${figures.financeScaledUsers}; ${figures.financeCloudVersionsWord.toLowerCase()} versions, each redirected by research.`,
+        `${figures.researchEngagementsWord} research engagements, grown to a 32-analyst pool, now directing an ${figures.programScale} modernization program.`,
+        "The promotion-gate model is used across the platform; a suite homepage MVP is in development.",
       ],
       measureNext:
-        "Promotions blocked at the gate and then resolved without escalation, anomaly notifications acted on versus dismissed with a reason, and how often copilot plans are edited before they run. All three come from the audit history the product already keeps.",
+        "Promotions blocked then resolved without escalation, anomaly notifications acted on versus dismissed, and how often copilot plans are edited before they run. All three come from the audit history the product already keeps.",
       // [NEEDS SIGN-OFF] The pilot figures are her account, restored
       // 2026-09-09 on her instruction; this caveat is what makes them
       // publishable.
-      metricStatus: `The ${figures.financePilotUsers} → ${figures.financeScaledUsers} figures are my own account, not a project record, and what ${figures.financeScaledUsers} counts (provisioned, onboarded or active) is unconfirmed. The ${figures.financePlannedUsers} is a plan. Adoption dates, efficiency gains and close-cycle improvements are not verified and not stated; client financial figures are deliberately not published.`,
+      metricStatus: `The ${figures.financePilotUsers} → ${figures.financeScaledUsers} figures are my own account, not a project record; what ${figures.financeScaledUsers} counts (provisioned, onboarded or active) is unconfirmed, and ${figures.financePlannedUsers} is a plan. Efficiency gains and close-cycle improvements are not verified and not stated; client financial figures are not published.`,
     },
     reflection: {
-      learned:
-        "The hard part was not making the AI capable; it was making its governance legible, and I underestimated how much of that legibility people were carrying. At ten pilot users, controls could live in the backend because anyone who saw something odd could ask someone who knew. At three hundred they could not, and the design had to absorb every explanation a person had been giving: an environment label, a promotion checklist, an audit entry, a reason for a block. I would now design for the thousandth user from the first sketch.",
+      // The pilot and scale counts read from ./figures since 2026-09-10; they
+      // were spelled out as words before.
+      learned: `The hard part was not making the AI capable but making its governance legible. At ${figures.financePilotUsers} pilot users, controls could live in the backend because anyone who saw something odd could ask someone who knew. At ${figures.financeScaledUsers} they could not, and the design had to absorb every explanation a person had been giving. I would now design for the thousandth user from the first sketch.`,
       // Scorecard session record §4.5. "Leadership is redirecting" is present
       // tense; the decision was still pending in September. [NEEDS SIGN-OFF]
       wouldChange:
-        "Two automations, anomaly detection and journal-entry automation, did not scale: a model tuned for one flow does not transfer, and making them work at acceptable cost means changing how the work is done, not just tooling it. Leadership is redirecting on cost; the research I ran is the evidence behind that decision. Next time I would test transferability across two flows before designing deeply for one.",
+        "Two automations, anomaly detection and journal entries, did not scale: a model tuned for one flow does not transfer. Leadership is redirecting on cost, with my research as the evidence. Next time I would test transferability across two flows before designing deeply for one.",
       principle: "Don’t promise integration before it exists.",
     },
   },
@@ -347,21 +340,23 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // The h1, her Outcome headline cut to the slot. [NEEDS SIGN-OFF]
     claim:
-      "A churn score became a decision a person reviews, edits and monitors — shown as a concept, not deployed.",
-    // [NEEDS SIGN-OFF] on the cuts to one sentence each.
+      "A churn score became a decision a person reviews, edits and monitors, shown as a concept, not deployed.",
+    // [NEEDS SIGN-OFF] on the cuts to one sentence each. The result line no
+    // longer repeats the claim; "from detection to a reviewed, monitored
+    // action" is her Outcome after-line, condensed.
     overview: {
       challenge:
         "A telecommunications operator had predictive churn signals, but nothing connected detection to a reviewed action and its result.",
       result:
-        "An end-to-end mitigation flow in which a model score becomes a decision a person reviews, edits and monitors, shown as a concept rather than deployed.",
+        "An end-to-end mitigation flow from detection to a reviewed, monitored action, shown as a concept rather than deployed.",
       approach:
         "Treat a prediction as the opening of a decision, with context beside the score and human review before any AI-drafted message goes out.",
     },
-    // Her former `context` and the card's problem line, closed with the
-    // hypothesis; the last sentence says why a showcase is framed as proof.
+    // Her former `context` and the card's problem line; the hypothesis itself
+    // is the framing block directly below, so it is not repeated here.
     // [NEEDS SIGN-OFF]
     productFraming:
-      "Analysts, service teams, an AI layer and the partner systems feeding it each held part of the picture. Nothing connected detection to a reviewed action, its launch and what happened next; the gap between a model score and a person taking the right action for the right customer was entirely undesigned. That gap was the bet: a churn score creates value only when the accountable person can act on it with context. As a showcase concept, the work had to prove that interaction model end to end rather than deploy it.",
+      "Analysts, service teams, an AI layer and the partner systems feeding it each held part of the picture. Nothing connected detection to a reviewed action and what happened next; the gap between a model score and a person taking the right action was undesigned. That gap was the bet. As a showcase concept, the work had to prove the interaction model end to end.",
     framing: [
       {
         label: "Hypothesis",
@@ -370,38 +365,39 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     // [NEEDS SIGN-OFF] Composed from her hypothesis and the review constraint.
     hmw:
-      "How might we turn a churn score into an action the accountable person can take with the customer’s context in view — and review before it reaches the customer?",
+      "How might we turn a churn score into an action the accountable person can take in context, and review before it reaches the customer?",
     constraints: [
       {
         constraint: "AI-drafted messages and offers could affect the customer relationship",
-        implication:
-          "Marketing, CX and service users had to review and edit anything AI drafted before it reached a customer, on every channel",
+        implication: "A person had to review and edit anything AI drafted before it reached a customer",
       },
       {
         constraint: "Chatbot-to-human handoff was gated on sentiment",
-        implication:
-          "Routine requests stayed fast; moments that needed empathy went to a person, with the AI summary and suggested action carried across",
+        // [NEEDS SIGN-OFF] "working from an AI summary" condenses "with the
+        // AI summary and suggested action carried across".
+        implication: "Routine requests stayed fast; moments needing empathy went to a person working from an AI summary",
       },
       {
-        constraint: "Analysts, service teams, an AI layer and the partner systems feeding it each held part of the picture",
-        implication:
-          "The flow had to run end to end across the analyst, the customer and the representative, not as one more dashboard",
+        constraint: "Analysts, service teams, an AI layer and partner systems each held part of the picture",
+        implication: "The flow had to run end to end across analyst, customer and representative, not another dashboard",
       },
       {
         constraint: "A showcase concept that never reached customers",
-        implication: "No churn, conversion or revenue metric could be measured; the study proves an interaction model, not adoption",
+        implication: "No churn or revenue metric could be measured; the study proves an interaction model, not adoption",
       },
     ],
     scope: {
       // Paraphrases CCJ_HUMAN_REVIEW in ownedStatements.ts; keep the two agreeing.
       owned:
-        "The journey platform: dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offer customization and performance monitoring in one data-driven platform. Model output as decision support: predictions beside customer context, lifecycle stage, behavior, sentiment and available actions, never an opaque score. The end-to-end mitigation flow from detection to monitoring. Human control over AI messaging: a person reviews and edits before anything reaches a customer. And the research that tested the hypothesis behind the vision.",
+        "The journey platform and end-to-end mitigation flow: dynamic segmentation, churn signals, sentiment and NPS health, AI-assisted messaging, offers, monitoring. Model output as decision support, predictions beside customer context, never an opaque score. Human review and editing of every AI message before it reaches a customer.",
       workedWith:
-        "A cross-functional team: UX design, data science, marketing and CX, AI/NLP engineering, front-end and back-end engineering, and product owners.",
+        "UX design, data science, marketing and CX, AI/NLP engineering, front-end and back-end engineering, and product owners.",
     },
     evidence: {
-      body:
-        "User research against the hypothesis behind the vision: a churn signal changes nothing unless the person responsible can see why it fired and act without leaving the context. It held.",
+      // The hypothesis restated here until 2026-09-10; it is the framing
+      // block and the pull-quote already.
+      body: "User research against the hypothesis behind the vision; it held.",
+      // The static-segments finding left 2026-09-10: it is decision 2.
       findings: [
         {
           finding:
@@ -409,16 +405,11 @@ export const caseStudies: Record<string, CaseStudy> = {
           response: "Customer and segment health as one connected view, not another isolated dashboard.",
         },
         {
-          finding: "Static segments could not reflect changing behavior or lifecycle stage.",
-          response: "Segment membership, its defining signals, risk and change over time made visible.",
-        },
-        {
           finding: "A churn score did not explain what happened or what a team should do next.",
           response: "Predictive risk placed beside behavior, sentiment, journey context and available actions.",
         },
         {
-          finding:
-            "Failures concentrated in specific journey paths, such as a repeated top-up failure in the app diverted to the phone system, but no view showed which path a customer had taken.",
+          finding: "Failures concentrated in specific journey paths, but no view showed which path a customer had taken.",
           response: "Journey exploration shows the churned and continued share on each channel path, not one aggregate rate.",
         },
       ],
@@ -437,7 +428,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         mechanism: "The reset",
         decision: "Treated the churn prediction as the opening of a decision, not the answer.",
         rationale:
-          "We had been treating the prediction as the answer: surface the score, recommend an action, done. The reset put the customer’s context beside the score, options to compare, and the ability to edit anything AI drafted before a customer saw it. Every surface was rebuilt around that.",
+          "The reset put the customer’s context beside the score, options to compare, and the ability to edit anything AI drafted before a customer saw it. Every surface was rebuilt around that.",
         rejected: "surfacing the score, recommending an action, done",
       },
       {
@@ -452,7 +443,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         mechanism: "Risk made explainable",
         decision: "Made the risk visible and explainable before anyone chose a mitigation.",
         rationale:
-          "The dashboard leads with the KPIs at risk, each with a why and a direct path to mitigate it. Journey exploration shows where customers fail by entry channel, with the churned and continued share on each path.",
+          "The dashboard leads with the KPIs at risk, each with a why and a path to mitigate it. Journey exploration shows where customers fail by entry channel.",
         rejected: "presenting an opaque score as a final answer",
         images: [
           {
@@ -462,7 +453,7 @@ export const caseStudies: Record<string, CaseStudy> = {
             height: 1024,
             alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
             caption:
-              "At-risk KPIs beside ARPU, NPS, retention and campaign performance, each with a direct path to mitigate the flagged risk.",
+              "At-risk KPIs beside ARPU, NPS, retention and campaign performance, each with a direct path to mitigation.",
           },
           {
             src: ccjJourneyExplorations,
@@ -481,7 +472,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         decision:
           "Required a person to review and edit every AI-drafted message before it reached a customer, on every channel.",
         rationale:
-          "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first. AI drafts a message for a chosen audience and tone; the person edits the live preview before it goes out.",
+          "The mitigation plan pairs the KPI at risk with its drivers and one recommended action, testable in a what-if tool first. AI drafts the message; the person edits the preview before it goes out.",
         images: [
           {
             src: ccjMitigationPlan,
@@ -490,16 +481,17 @@ export const caseStudies: Record<string, CaseStudy> = {
             height: 1547,
             alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
             caption:
-              "The KPI’s drivers beside an AI-drafted, tone-controlled offer. A person edits the preview before anything launches.",
+              "The KPI’s drivers beside an AI-drafted, tone-controlled offer. A person edits the preview before it launches.",
           },
         ],
       },
       {
         mechanism: "The sentiment gate",
         decision:
-          "Routed customers to a chatbot first, handing off to a representative only when sentiment and account context said the interaction needed a person.",
+          "Routed customers to a chatbot first, handing off to a representative only when sentiment and account context called for a person.",
+        // The declined-offer loop is the states table's last row.
         rationale:
-          "Routine requests stayed fast while the moments that needed empathy were protected. The representative works from an AI summary and suggested action; a declined offer loops back to adjustment.",
+          "Routine requests stayed fast while moments that needed empathy were protected. The representative works from an AI summary and suggested action.",
         images: [
           {
             src: ccjChatExpanded,
@@ -516,7 +508,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     states: [
       {
         state: "High-churn-risk customer",
-        userSees: "A prompt to draft a tone-matched message with generative AI, based on the triggers detected rather than a generic response",
+        userSees: "A prompt to draft a tone-matched AI message from the triggers detected",
       },
       {
         state: "Representative needs to go further than the model recommends",
@@ -524,11 +516,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         state: "Reviewing a case mid-conversation",
-        userSees: "The customer’s file, offer history and prior offer variations, without leaving the chat",
+        userSees: "The customer’s file and offer history, without leaving the chat",
       },
       {
         state: "Offer declined or resolution unsuccessful",
-        recovery: "Loops back to offer adjustment rather than ending in a dead end",
+        recovery: "Loops back to offer adjustment, not a dead end",
       },
     ],
     // The end-to-end user-flow board (user-flow.jpg) left the page 2026-09-10:
@@ -537,7 +529,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     impact: {
       before: "Fragmented customer signals and cross-tool handoffs.",
       after:
-        "One workflow to detect risk, understand the behavior behind it, choose a mitigation, review the message and monitor the response, shared by marketing, CX and service teams.",
+        "One workflow to detect risk, understand the behavior behind it, choose a mitigation, review the message and monitor the response.",
       proof: [
         "Made journey drop-offs and churn risk visible beside customer context.",
         "Translated predictive models into decision support for non-technical users.",
@@ -551,7 +543,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     reflection: {
       learned:
-        "The project reset once we stopped treating the churn prediction as the answer and started treating it as the opening of a decision the representative still had to make, with context, options, and a way to edit anything AI suggested before it reached a customer.",
+        "The project reset once we stopped treating the churn prediction as the answer and treated it as the opening of a decision the representative still had to make.",
       principle: "A model score is not a decision.",
     },
   },
@@ -581,7 +573,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { value: String(figures.billingStatusStates), label: "Shared status states" },
     ],
     // The h1, trimmed from the rewrite's own lead line. [NEEDS SIGN-OFF]
-    claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages with a guided, auditable workflow now used by ${figures.billingActiveUsers} people.`,
+    claim: `Cleared a backlog of ${figures.billingBacklogSize} billing packages with an auditable workflow now used by ${figures.billingActiveUsers} people.`,
     // Layout C (2026-09-10): the claim headings, opener pair, annotated screen
     // and parking lot are lifted from docs/case-study/prototypes/c-lede.html,
     // which restated this study's own copy. None of it has been on the site
@@ -589,7 +581,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     headings: {
       "product-framing": "Clearing a backlog once is automation. Staying clear is a workflow problem.",
       scope: "I owned the product definition, not just the design",
-      decisions: "Six decisions, and what each one cost",
+      // [NEEDS SIGN-OFF] Was "Six": two decisions left the list 2026-09-10
+      // (see the note at `decisions`), and the count follows them.
+      decisions: "Four decisions, and what each one cost",
       parked: "What did not make the release, and why",
       evidence: "What ten usability sessions changed",
       learned: "Enterprise workflows fail at the boundaries between systems and teams",
@@ -611,7 +605,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         height: 1537,
         alt: "Billing package index listing existing packages by ID, projects, contract number, owner and last modified, with a project-number filter and a Start new billing package button.",
         caption:
-          "In context. Every package is found by its project number before a new one can be started, the rule that stopped the duplicates.",
+          "In context. Every package is found by project number before a new one can be started, the rule that stopped duplicates.",
       },
     },
     // Pin coordinates are percentages placed by eye in the prototype; two of
@@ -630,12 +624,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         {
           x: 88,
           y: 19,
-          text: "Guarded by the identity check. Starting a package runs the project-number lookup first, so the control cannot create a duplicate.",
+          text: "Guarded by the identity check. Starting a package runs the project-number lookup first, so duplicates cannot be created.",
         },
         {
           x: 53,
           y: 33,
-          text: "The primary key is the filter. The project number is how a package is found, which is why it is the search field rather than a package ID.",
+          text: "The primary key is the filter. A package is found by project number, hence the search field.",
         },
         {
           x: 47,
@@ -645,20 +639,24 @@ export const caseStudies: Record<string, CaseStudy> = {
         {
           x: 58,
           y: 43,
-          text: "The status model, surfacing. Every transition is timestamped, so last-modified is a real signal rather than a file date.",
+          text: "The status model, surfacing. Every transition is timestamped, so last-modified is a real signal, not a file date.",
         },
       ],
       caption:
-        "Four decisions visible on one screen. The index is the argument: identity, ownership and state are all readable before a package is opened.",
+        "Four decisions on one screen: identity, ownership and state are readable before a package is opened.",
     },
+    // The first two rows carry what the interim-editing and visible-backlog
+    // decisions said until 2026-09-10; the decisions repeated these rows.
     parked: [
       {
         item: "The reporting dashboard",
-        why: "Not feasible in the release. The dependency was surfaced and the dashboard held in the backlog; protecting the core flow cost the release its most demo-friendly screen.",
+        // [NEEDS SIGN-OFF] Condensed; "cost the release" was "protecting the
+        // core flow cost the release".
+        why: "Infeasible this release. Surfacing the dependency and holding it in the backlog cost the release its most demo-friendly screen.",
       },
       {
         item: "In-product editing of package, project and customer details",
-        why: "Excel stayed as the interim path. Continuity now was worth more than a half-built editor.",
+        why: "Not feasible within the technical constraints; Excel stayed the interim path. Continuity now was worth more than a half-built editor.",
       },
       {
         item: "Whole-package automation and section export",
@@ -670,24 +668,26 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     overview: {
-      challenge: `A backlog of ${figures.billingBacklogSize} billing packages had built up behind a manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and off-product handoffs.`,
+      challenge: `A backlog of ${figures.billingBacklogSize} billing packages had built up behind manual assembly of feeder-system data, screenshots, PDFs, spreadsheets and handoffs.`,
       // [NEEDS SIGN-OFF] "Cleared the backlog" confirmed 2026-09-09; the
       // adoption-by-other-projects count is unconfirmed.
-      result: `The workflow cleared the backlog and gave the team a way to keep it clear; ${figures.billingActiveUsers} people use it, and its approval flow has been picked up by other projects.`,
+      result: `The workflow cleared the backlog and keeps it clear; ${figures.billingActiveUsers} people use it, and other projects have picked up its approval flow.`,
       // "Ten explicit stages" left this line 2026-09-10: the copy enumerates
       // six (feedback-queue C2). The figure and `scope.owned` still say ten.
       approach:
-        "Automate retrieval first, then design the mechanism that keeps it clear: explicit stages, progressive validation, ownership, review, status and history, so a package never silently loses state.",
+        "Automate retrieval first, then design what keeps it clear: explicit stages, ownership, review and status history.",
     },
+    // The backlog size is the claim and the challenge line; the
+    // automation-versus-workflow sentence is this section's heading.
     productFraming:
-      "Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. The organization was a few hundred packages behind, and every one was billable work it could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval that was consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room. Clearing a backlog once is automation; staying clear is a workflow problem that lives between systems and roles, not in any one screen. I owned product definition as well as design for that reason.",
+      "Billing packages for highway-construction work reconcile project-ledger data with documents submitted to state transportation agencies under federal rules. Every package in the backlog was billable work the organization could not collect until the evidence was assembled and reviewed. The bet had two parts: automate the retrieval consuming the team, then build a mechanism that keeps the backlog from re-forming. The second part is why design was in the room, and why I owned product definition as well as design.",
     // The one study where a metric was set at kickoff, which is the hardest
     // thing on the page to claim after the fact.
     framing: [
       {
         label: "Hypothesis",
         text:
-          "Work was disappearing because no role owned it and no shared vocabulary existed for where a package was. Make ownership and status explicit and the backlog becomes recoverable.",
+          "Work disappeared because no role owned it and no vocabulary said where it was. Make both explicit and the backlog becomes recoverable.",
       },
       {
         label: "KPI set at kickoff",
@@ -697,6 +697,8 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     hmw:
       "How might we turn a fragmented orchestration process into a guided, error-tolerant workflow that users could review and trust?",
+    // Four rows, from five: the infeasible-editing-and-dashboard row is the
+    // parking lot.
     constraints: [
       {
         constraint: "Evidence came from feeder systems, generated screenshots, invoices, PDFs and spreadsheet edits",
@@ -714,64 +716,62 @@ export const caseStudies: Record<string, CaseStudy> = {
         constraint: "Users could not tell whether a package was still being assembled or ready to submit",
         implication: "Package state had to be a first-class, visible object with history",
       },
-      {
-        constraint: "Direct editing and the planned dashboard were infeasible in this release",
-        implication: "An interim editing path and a smaller scope, without erasing the future opportunity",
-      },
     ],
     scope: {
       // Paraphrases BILLING_OPERATIONAL_FLOW and BILLING_STATUS_MODEL in
       // ownedStatements.ts; keep the two agreeing.
       owned:
-        "Product and design for the workflow. I defined the features and the scope from what was collected from key stakeholders, designed the front end, ran design handoff and maintained the design backlog. The ten-stage decomposition, the status model, the development-ready flows and the error-condition wireframes are mine.",
+        "Product and design for the workflow. I defined the features and scope from stakeholder input, designed the front end, ran handoff and maintained the design backlog. The ten-stage decomposition, the status model, the development-ready flows and the error-condition wireframes are mine.",
+      // [NEEDS SIGN-OFF] "the priority tiers" stands for "the Must / Should /
+      // Nice-to-have option sets".
       led:
-        "Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the Must / Should / Nice-to-have option sets. Moderated usability research with ten participants across three user groups. Delivery syncs with the development teams, and working sessions with the data team lead on retrieval and dependencies.",
+        "Requirements workshops and discovery with the CWO team, the client’s Chief Data Office, product, engineering and UI development, where I set the priority tiers. Moderated usability research with ten participants across three user groups. Working sessions with the data team lead on retrieval and dependencies.",
       influenced:
-        "Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. Decision logs, quality gates and risk documentation. The scope calls on the dashboard and the interim editing path. The approval flow designed here has since been picked up by other projects.",
+        "Prioritized backlogs, roadmaps, test plans and acceptance criteria, built from the wireframes. The scope calls on the dashboard and the interim editing path. The approval flow has since been picked up by other projects.",
       // [NEEDS SIGN-OFF] Composed from the rewrite's Team metadata.
       workedWith:
-        "The CWO team, the client’s Chief Data Office and data team lead, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
+        "The CWO team, the client’s Chief Data Office, product, engineering, UI development, and finance and operations stakeholders. A principal designer sat with the engagement in a consulting role.",
     },
     evidence: {
       // [NEEDS SIGN-OFF] The participant count and the three groups are new
       // to the site.
       body:
-        "Moderated usability research with ten participants across the three user groups (admins, accountants, engineers), plus working sessions on goals, requirements, dependencies, unhappy paths and release feasibility.",
+        "Moderated usability research with ten participants across the three user groups (admins, accountants, engineers), plus working sessions on requirements, dependencies and release feasibility.",
+      // The editing-and-dashboard finding left 2026-09-10: it is the parking
+      // lot's first two rows.
       findings: [
         {
           finding: "Missing screenshots stopped assembly after work was already underway.",
           response: "A recoverable screenshot-generation pattern: visible error state, bot redeploy, preserved progress.",
         },
         {
-          finding:
-            "Creators and reviewers had different responsibilities, and the review step was where sessions found the most friction.",
+          finding: "Creators and reviewers had different responsibilities, and the review step had the most friction.",
           response: "Owner and reviewer views, review tasks, role-based permissions, status history.",
         },
         {
           finding: "Sessions validated the core package-assembly flow across all three groups.",
           response: "The flow held; effort went to states and recovery rather than restructuring.",
         },
-        {
-          finding: "Direct editing and the dashboard were not feasible in the immediate scope.",
-          response: "Interim Excel editing; the dashboard moved to the backlog with its dependency documented.",
-        },
       ],
       insight:
-        "The workflow could recover billable work only if it made dependencies, responsibility, and recovery visible before submission — not after a package failed.",
+        "The workflow could recover billable work only by making dependencies, responsibility and recovery visible before submission, not after a package failed.",
     },
-    // Six decisions. Titles are the consequence, not the activity, per
-    // prototype C and the design critic's strongest finding (feedback-queue
-    // C6); the previous titles restated their own mechanism labels.
-    // [NEEDS SIGN-OFF] on the titles. The package index left decision 2 and
-    // the billing report left decision 4 on 2026-09-10: both are already on
-    // the page, in the opener and the annotated screen.
+    // Four decisions, from six on 2026-09-10: the interim-editing path and
+    // the visible-backlog decisions were the parking lot's first two rows
+    // restated, so the rows kept them (neither carried an image). Titles are
+    // the consequence, not the activity, per prototype C and the design
+    // critic's strongest finding (feedback-queue C6); the previous titles
+    // restated their own mechanism labels. [NEEDS SIGN-OFF] on the titles.
+    // The package index left decision 2 and the billing report left decision
+    // 4 earlier on 2026-09-10: both are already on the page, in the opener
+    // and the annotated screen.
     decisions: [
       {
         mechanism: "Progressive validation",
         decision: "Catch the gap where it happens, not at submission.",
         rationale:
-          "Defects that surface only at submission cost the most, because the work behind them is already spread across systems. Missing data, retrieval states and recovery actions surface as the user moves, progress is preserved when a dependency fails, and a completeness review runs before submission.",
-        rejected: "waiting until final submission to reveal missing data or evidence",
+          "Defects that surface at submission cost the most; the work behind them is already spread across systems. Missing data surfaces as the user moves, progress is preserved when a dependency fails, and a completeness review runs before submission.",
+        rejected: "waiting until submission to reveal missing data",
       },
       {
         mechanism: "The project-number key",
@@ -783,8 +783,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         mechanism: "The six-state status model",
         decision: "A package can never sit in an undefined state.",
-        rationale:
-          "Users needed to know whether a package was being assembled or ready to submit; the organization needed a record of who did what. Six states, Initiated to Completed, carry both, with trigger-based updates, role-based permissions, status history and notifications. It is what keeps the backlog from re-forming.",
+        rationale: `Users needed to know whether a package was being assembled or ready to submit; the organization needed a record of who did what. ${figures.billingStatusStates} states, Initiated to Completed, carry both, with permissions, history and notifications. It is what keeps the backlog from re-forming.`,
         rejected: "leaving package state implicit in the documents and the people handling them",
         images: [
           {
@@ -803,24 +802,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         mechanism: "The review session",
         decision: "The handoff moves into the product, so it has a history.",
+        // The usability sentence is the second finding.
         rationale:
-          "Handoffs were where packages lost state. Package metadata carries owner, creation date, current status and review tasks, and reusable review-and-submit patterns make the handoff visible. Usability sessions across the three groups drove the specific improvements to the review step.",
-        rejected: "treating ownership and review as an off-product coordination step with no visible handoff or history",
-      },
-      {
-        mechanism: "The interim editing path",
-        decision: "Continuity now was worth more than a half-built editor.",
-        rationale:
-          "Direct editing was not feasible within the technical constraints, so Excel stayed as the editing path and the integrated future state was designed rather than abandoned.",
-        rejected: "shipping an incomplete in-product editor that did not meet the constraints",
-      },
-      {
-        mechanism: "The visible backlog",
-        decision: "The dashboard moved to the backlog with its dependency on record, not out of the picture.",
-        rationale:
-          "Forcing unsupported work into the release would have put the feasible billing workflow at risk. I surfaced the dependency behind the dashboard, moved it out of scope and held it in the backlog, which kept the case for it alive.",
-        rejected: "forcing the dashboard into scope",
-        tradeoff: "protecting the core flow cost the release its most demo-friendly screen.",
+          "Handoffs were where packages lost state. Package metadata carries owner, status and review tasks, and reusable review-and-submit patterns make the handoff visible.",
+        rejected: "an off-product coordination step with no visible handoff or history",
       },
     ],
     states: [
@@ -839,7 +824,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         state: "Review in progress",
-        userSees: "All other users see view-only access until the review is complete, so no one edits a package mid-review",
+        userSees: "Everyone else has view-only access until the review completes",
       },
       {
         state: "Discarded inline edit",
@@ -884,22 +869,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     impact: {
-      before: `A few hundred billing packages behind, accumulating across fragmented systems, files, screenshots, spreadsheets and manual handoffs.`,
-      after: `Backlog cleared, and a workflow that keeps it clear: validation, recovery, ownership, review, status and history in one place, used by ${figures.billingActiveUsers} people.`,
+      // The backlog size reads from ./figures since 2026-09-10; it was typed
+      // into this line before.
+      before: `A backlog of ${figures.billingBacklogSize} billing packages across fragmented systems, screenshots, spreadsheets and manual handoffs.`,
+      after: `Backlog cleared, and a workflow that keeps it clear: validation, recovery, ownership, review and status history, used by ${figures.billingActiveUsers} people.`,
+      // Three points: the phased-roadmap point is the parking lot's last row.
       proof: [
         `The backlog of ${figures.billingBacklogSize} billing packages was cleared; ${figures.billingActiveUsers} people are active on the application.`,
         "The approval flow has been picked up by other projects.",
-        "Ownership, package state, action history and review handoffs are visible in-product, with recoverable screenshot generation and progressive validation in the shipped workflow.",
-        "A phased roadmap for document integration, in-product editing, expanded review and automated retrieval.",
+        "Ownership, package state, history and review handoffs are visible in-product, with recoverable screenshot generation and progressive validation.",
       ],
       measureNext:
         "Package cycle time from Initiated to Completed, the share of packages that hit the screenshot-recovery path, and first-pass approval rate. The status model makes all three available without new instrumentation.",
       // [NEEDS SIGN-OFF] Authored 2026-09-09 from the rewrite's verify list.
-      metricStatus: `The backlog size is my own account, not a project record, and ${figures.billingActiveUsers} active users is my own count as of ${figures.billingActiveAsOf}. The +20% submission-rate KPI is measurable from the status model’s timestamps but not yet measured. Release dates, defect reduction and handoff time are not verified and not stated.`,
+      metricStatus: `The backlog size is my own account, not a project record, and ${figures.billingActiveUsers} active users is my own count as of ${figures.billingActiveAsOf}. The +20% submission-rate KPI is measurable from status timestamps but not yet measured. Defect reduction and handoff time are not verified.`,
     },
     reflection: {
+      // The first sentence is this section's heading.
       learned:
-        "Complex enterprise workflows fail at the boundaries between systems and teams. The most important design work here was not an individual screen. It was exposing dependencies early, preserving state when automation failed, and making responsibility visible through review and submission. Automation cleared the backlog; the status and ownership model is what kept it from coming back.",
+        "The most important design work here was not a screen. It was exposing dependencies early, preserving state when automation failed, and making responsibility visible through review and submission. Automation cleared the backlog; the status and ownership model kept it from coming back.",
     },
   },
   // Rewritten 2026-09-09 from docs/case-study/rewrites/case-study-document-ai-platform.md,
@@ -940,71 +928,70 @@ export const caseStudies: Record<string, CaseStudy> = {
     // slot; the page had been falling back to the 40-word result line.
     // [NEEDS SIGN-OFF]
     claim:
-      "Verifiable AI answers over thousands of internal documents, and a compliance tool on the same rails, not a second product.",
+      "Verifiable AI answers over thousands of documents; a compliance tool on the same rails, not a second product.",
     overview: {
       challenge:
-        "Users could get a fast AI answer from thousands of internal documents but not see where it came from, compare sources, or reuse the pattern for the next use case.",
+        "Users got fast AI answers from thousands of documents but could not see where they came from or compare sources.",
       result:
-        "Sourced answers, an embedded viewer, explicit document selection, two comparison modes and drafting, plus a widget framework that let a compliance tool ship on the same rails.",
+        "Sourced answers, explicit document selection, two comparison modes and drafting, on a widget framework a compliance tool could reuse.",
       approach:
-        "Treat verification as an interaction rather than a disclaimer, make document scope visible product state, and prioritize the backlog by user value, business value, effort and dependency.",
+        "Treat verification as an interaction, not a disclaimer, make document scope visible product state, and prioritize by value, effort and dependency.",
     },
+    // [NEEDS SIGN-OFF] "reuse" replaces her word "leverage" for the second
+    // problem; the regulated-workflow list (legal, compliance, risk,
+    // contracts) is the Users line above and is not repeated.
     productFraming:
-      "The organization had invested in an enterprise AI assistant and was under pressure to show it did more than summarize. The real bet was whether AI could be trusted inside regulated workflows (legal, compliance, risk, contracts) where an unsourced answer is a liability rather than a time-saver. At the same time the business wanted a second and third use case without funding a second and third product. So this was two problems wearing one name: trust, whether an answer could carry its evidence with it, and leverage, whether the patterns behind it could become parts a compliance tool is assembled from. Both are interaction problems before they are model problems.",
+      "The organization had an enterprise AI assistant under pressure to show it did more than summarize. The bet was whether AI could be trusted inside regulated workflows, where an unsourced answer is a liability rather than a time-saver, and the business wanted a second use case without funding a second product. Two problems wearing one name: trust, whether an answer carries its evidence, and reuse, whether the patterns behind it could become parts a compliance tool is assembled from.",
     framing: [
       {
         label: "Hypothesis",
         text:
-          "Users will trust AI summaries of internal documents only if the path from any statement back to its source is one interaction away.",
+          "Users will trust AI summaries of internal documents only if the path from any statement to its source is one interaction away.",
       },
       {
         label: "Success metric",
         text:
-          "Not defined at the outset. I would use verification rate: the share of AI answers where a user opens a cited source. Near zero means the citations are decoration.",
+          "Not defined at the outset. I would use verification rate, the share of AI answers where a user opens a cited source.",
       },
     ],
     hmw:
-      "How might we help enterprise users move from retrieval to verified understanding — without hiding the documents behind the AI, and without rebuilding the experience for every new use case?",
+      "How might we move enterprise users from retrieval to verified understanding without hiding the documents behind the AI, or rebuilding the experience for every use case?",
+    // Four rows, from five: the denied-access row went (an edge case, not a
+    // constraint that shaped the product), and the milestone months left
+    // the fixed-dates row (planning-board dates, not a delivery record).
     constraints: [
       {
-        constraint:
-          "Retrieval reliability was below an academic standard; the team’s own note was that users would need to validate against sources",
-        implication: "Verification had to be a first-class interaction on every answer. Citations became navigation",
+        constraint: "Retrieval was imperfect; the team’s own note said users would need to validate against sources",
+        implication: "Verification had to be a first-class interaction on every answer",
       },
       {
         constraint: "Content lived inside governed knowledge domains that only their owners could upload to",
-        implication:
-          "Selection worked within a domain; cross-domain comparison and outside uploads became explicit product questions rather than assumed capability",
-      },
-      {
-        constraint: "Access to a domain could be denied outright",
-        implication: "A real no-access branch with a path to request access, not a dead end",
+        implication: "Selection worked within a domain; cross-domain comparison and outside uploads became explicit product questions",
       },
       {
         constraint: "Three competing plans for the fines and regulations data feed were still unresolved during design",
         implication: "The interface could not assume completeness or freshness, so scope, recency and source stayed visible",
       },
       {
-        constraint:
-          "Fixed dates (design complete in February, engineering onboarded in March, proof of concept in June) and federated engineering shared across use cases on a common widget framework",
-        implication:
-          "The backlog was cut into Must / Should / Nice tiers with dated commitments, and every pattern had to be reusable; a bespoke screen was a cost the program could not absorb",
+        constraint: "Fixed dates and federated engineering shared across use cases on a common widget framework",
+        implication: "Must/Should/Nice tiers with dated commitments, and every pattern had to be reusable",
       },
     ],
     scope: {
       owned:
-        "UX strategy and feature definition: the region-based layout, the entry point and domain landing, chat and chat-with-document, inline citations and sources, multi-document comparison, draft creation and export, follow-up prompts, and the responsive system across five breakpoints from 375px to 1536px. The UX acceptance criteria engineering built against, and the accessibility documentation (semantic markup, ARIA roles, landmark regions, reading order) written into the design source of truth rather than audited later.",
+        "UX strategy and feature definition: the region-based layout, chat and chat-with-document, inline citations, multi-document comparison, drafting and export, and the responsive system across five breakpoints. The UX acceptance criteria engineering built against, and accessibility documentation written into the design source of truth, not audited later.",
       led:
-        "Requirements and prioritization workshops with product, engineering and client stakeholders. Research planning, protocols and synthesis, including a discussion guide for the compliance use case and another for document comparison. Living backlogs across the document AI product and the adjacent enterprise knowledge experience.",
+        "Requirements and prioritization workshops with product, engineering and client stakeholders. Research planning, protocols and synthesis. Living backlogs across the document AI product and the adjacent enterprise knowledge experience.",
+      // The widget-on-shared-rails sentence is decision 5.
       influenced:
-        "The Must / Should / Nice tiers and their dated commitments. The compliance tool framed as a widget on a shared framework rather than a standalone dashboard. The response template that fixed a mandatory shape for comparison answers (summary, differences, commonalities), which constrained the model’s output, not only the UI around it. I did not own the model, the retrieval stack or the data-source procurement; where those were unresolved, I designed against the uncertainty and said so.",
+        "The Must/Should/Nice tiers. The response template that fixed a mandatory shape for comparison answers, constraining the model’s output, not only the UI. I did not own the model, retrieval or data procurement; where those were unresolved, I designed against the uncertainty and said so.",
       workedWith:
-        "Design, product, engineering, research, and client stakeholders across two or more time zones, on federated engineering resources shared with other use cases.",
+        "Design, product, engineering, research and client stakeholders across two or more time zones, with federated engineering shared across use cases.",
     },
     evidence: {
       // The participant count is published only as unverified.
       body:
-        "Research planning, protocols and synthesis, with a discussion guide for the compliance use case and another for document comparison. Four open questions were logged as design risks with owners rather than resolved on assumption. An internal record references ten participants; the count is unverified and not used as a metric.",
+        "Research planning, protocols and synthesis, with a discussion guide for the compliance use case and another for document comparison. An internal record references ten participants; the count is unverified.",
       findings: [
         {
           finding: "Tab behavior and document selection caused confusion about what the AI was actually reading.",
@@ -1017,16 +1004,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         },
         {
           finding: "Users wanted clearer guardrails around AI-generated information.",
-          response: "Citations, source scope and the original documents stayed visible throughout, not at the end of an answer.",
+          response: "Citations, source scope and the original documents stayed visible throughout.",
         },
         {
-          finding:
-            "Compliance and risk users described a manual process for tracking fines, and named trust and accuracy as their first concern about AI doing it.",
-          response: "Filtering and a recommendations playbook scoped as the widget’s core, with inline citation as the validation path.",
+          finding: "Compliance users tracked fines by hand; trust and accuracy were their first concern about AI.",
+          response: "Filtering and a recommendations playbook as the widget’s core, inline citation as the validation path.",
         },
       ],
       insight:
-        "Evidence cannot be a final-step disclaimer. Users need to see which documents are active, move from a statement to its source, and compare without losing their place.",
+        "Evidence cannot be a final-step disclaimer: users need to see which documents are active and reach the source without losing their place.",
     },
     // Five decisions, cut from six on 2026-09-10: the layout-regions and
     // accessibility decision is `scope.owned` and a proof point. The two
@@ -1038,9 +1024,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         mechanism: "Citations as navigation",
         decision: "Made citations navigation, not decoration.",
         rationale:
-          "Every statement carries numbered citation chips; a source opens in the embedded viewer and narrows the chat to that document, and closing it widens the context back. The team knew reliability was imperfect, and if verifying cost the user their place they would stop verifying. An unverified answer in a compliance workflow is worse than none.",
-        rejected:
-          "a citation footer at the end of a response, which satisfies the audit and makes checking a source a separate task",
+          "Every statement carries citation chips; a source opens in the embedded viewer and narrows the chat to that document. Reliability was imperfect, and if verifying cost the user their place they would stop verifying. An unverified answer in a compliance workflow is worse than none.",
+        rejected: "a citation footer at the end of a response, which makes checking a source a separate task",
         images: [
           {
             src: diCitationLoopUrl,
@@ -1051,7 +1036,7 @@ export const caseStudies: Record<string, CaseStudy> = {
             alt: "A three-stage loop. A generated statement carries numbered citation chips. Opening the Sources control lists the documents behind the answer, each item opening in the embedded viewer or in a new tab. Opening a source narrows the chat context to that one document, so the answer and its evidence are read together. Closing the source widens the context back to the broader conversation, which returns the user to the statement they started from without losing their place. A note below records the rejected alternative: a citation footer at the end of a response, which satisfies an audit requirement but makes checking a source a separate task.",
             // [NEEDS SIGN-OFF] Caption authored 2026-09-09 with the wiring.
             caption:
-              "Verification is a round trip, not an exit. The context narrows to the source and widens again, so checking a claim never costs the reader their place.",
+              "A round trip, not an exit: context narrows to the source and widens again, so checking never costs the reader their place.",
           },
         ],
       },
@@ -1059,7 +1044,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         mechanism: "Count-bound comparison",
         decision: "Bound comparison mode to the selection count, not to user preference.",
         rationale:
-          "Exactly two documents open a side-by-side diff that highlights shared and differing content section by section. More than two open a comparison table, themes as rows and documents as columns. Two documents invite reading, where nuance matters; five invite scanning, where a grid is the only readable form.",
+          "Two documents open a side-by-side diff; more than two open a comparison table, themes as rows and documents as columns. Two documents invite reading, where nuance matters; five invite scanning, where a grid is the only readable form.",
         rejected: "one universal comparison view for any number of documents",
         tradeoff: "both modes had to be built and maintained.",
         images: [
@@ -1072,7 +1057,7 @@ export const caseStudies: Record<string, CaseStudy> = {
             alt: "A branch diagram. A user selects between two and ten documents, which appear as chips beside the prompt and stay deselectable until submission. The selection count, not a user preference, decides the mode. Exactly two documents open a side-by-side diff that highlights shared and differing content section by section. Three to ten documents open a comparison table whose rows are themes or entities and whose columns are documents. A note records the rejected alternative: one universal comparison view that scaled to any number of documents.",
             // [NEEDS SIGN-OFF] Caption authored 2026-09-09 with the wiring.
             caption:
-              "The mode is bound to the count, not to a preference. Two documents and five are different reading tasks, so they get different views.",
+              "Bound to the count, not a preference: two documents and five are different reading tasks, so they get different views.",
           },
         ],
       },
@@ -1080,24 +1065,25 @@ export const caseStudies: Record<string, CaseStudy> = {
         mechanism: "Selection as visible state",
         decision: "Made document selection visible, bounded, editable product state.",
         rationale:
-          "Selections appear as chips beside the prompt, stay deselectable until submission, survive collapse and expand, and require two to ten documents, with a plain message outside that range. Scope is the most load-bearing fact about an AI answer, so it belongs in the interface as state the user can see and change, not in retrieval logic they have to trust.",
-        rejected:
-          "inferring the document set from the prompt, which demos well and makes the one question the user most needs answered, what did you read, unanswerable",
+          "Selections appear as chips, editable until submission and bounded to two to ten documents. Scope is the most load-bearing fact about an AI answer; it belongs in the interface as state the user can see and change, not in retrieval logic they must trust.",
+        // [NEEDS SIGN-OFF] The quoted question condenses "makes the one
+        // question the user most needs answered, what did you read,
+        // unanswerable".
+        rejected: "inferring the document set from the prompt, which demos well and leaves “what did you read” unanswerable",
       },
       {
         mechanism: "Draft beside the conversation",
         decision: "Kept drafting beside the conversation and exported it into the system of record.",
         rationale:
-          "Create draft opens a focus mode: canvas on the right, chat still on the left. Export writes a Word file to the enterprise document store, versions on re-export, and gives a specific error with a retry when permissions or storage fail. A draft that cannot leave the AI tool sends the user back to copy-paste, and the evidence chain dies at the clipboard.",
-        rejected:
-          "a rich standalone editor, competing with the tools the organization already runs and cut off from the conversation that produced the draft",
+          "Create draft opens a focus mode with the chat still beside it. Export writes a versioned Word file to the enterprise document store. A draft that cannot leave the AI tool sends the user back to copy-paste, and the evidence chain dies at the clipboard.",
+        rejected: "a standalone editor, competing with tools the organization already runs and cut off from the conversation",
       },
       {
         mechanism: "The widget on shared rails",
         decision: "Shipped the compliance tool as a widget on shared rails, not as its own product.",
         rationale:
-          "The regulatory-risk use case reuses document selection, search, comparison, citation and the response template, with its own filtering and dashboard layer on top. Engineering was federated across use cases on a common widget framework; a standalone dashboard would have duplicated the hardest parts of the platform, governed selection and traceable answers, and their failure modes.",
-        rejected: "an independent risk dashboard on its own data feed: faster to a demo, and a second product with a second trust model",
+          "The regulatory-risk use case reuses document selection, search, comparison, citation and the response template, with its own filtering layer on top. A standalone dashboard would have duplicated the hardest parts of the platform, governed selection and traceable answers, and their failure modes.",
+        rejected: "an independent risk dashboard: faster to a demo, and a second product with a second trust model",
       },
     ],
     // The four end-to-end flow panels (user-flow-01…04.jpg, cut from the
@@ -1107,23 +1093,23 @@ export const caseStudies: Record<string, CaseStudy> = {
     // panels stay in the folder, unimported.
     impact: {
       before:
-        "A contested backlog, answers that could not be traced to their sources, hidden document scope, and no path to a second use case that did not mean a second product.",
+        "Untraceable answers, hidden document scope, and no path to a second use case without a second product.",
       after:
-        "An answer carries its sources, the active document set is visible and editable, comparison matches the reading task, a draft leaves as a versioned file, and a compliance widget rides the same rails.",
+        "Answers carry their sources, the document set is visible, drafts leave as versioned files, and a compliance widget rides the same rails.",
       proof: [
         // [NEEDS SIGN-OFF] The April approval is recorded as a team review;
         // confirm it was a formal sign-off.
-        "Agreed Must Have / Should Have / Nice to Have tiers with dated commitments, reviewed and approved with the team in April.",
-        "Comparison, selection and drafting specified to acceptance-criteria depth, with responsive frames across five breakpoints and seven named layout regions, redlines and permutation states.",
+        "Must/Should/Nice tiers with dated commitments, reviewed and approved with the team in April.",
+        "Comparison, selection and drafting specified to acceptance-criteria depth, with frames across five breakpoints and seven layout regions.",
         "Accessibility documented in the design source of truth rather than retrofitted.",
-        "The compliance use case reframed from a standalone dashboard into a widget on the shared framework, with a fixed response template as engineering’s testable contract.",
+        "The compliance use case reframed from a standalone dashboard into a widget on the shared framework.",
       ],
       metricStatus:
         "No adoption, revenue or time-savings figure appears here. Shipment status and attribution are unverified, and an unattributed number would be worth less than the honest omission.",
     },
     reflection: {
       learned:
-        "I designed the verification interactions before anyone could tell me how good the retrieval was, and I still think that was right. But I let the comparison work run ahead of the data-source decision, and it cost us: three plans for the fines and regulations feed were still open while I wrote acceptance criteria that assumed a coherent corpus, so some could not be tested until late. The lesson is not to wait for the data; it is to write the design’s dependency on the data down as explicitly as the interaction, so the unresolved thing stays visible instead of quietly becoming my assumption.",
+        "I designed the verification interactions before anyone knew how good the retrieval was, and that was right. But I let the comparison work run ahead of the data-source decision: I wrote acceptance criteria that assumed a coherent corpus while the feed was undecided. The lesson is not to wait for the data; it is to write the design’s dependency on it as explicitly as the interaction, so it stays visible.",
       principle: "Trust in enterprise AI is built through interaction structure.",
     },
   },

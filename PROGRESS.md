@@ -553,3 +553,9 @@ Owner's brief, verbatim: "Use svg diagrams not png. Also lets try to rewrite the
 **What only Anastasia can do next** is appended to `context/feedback-queue.md` as section E. The rewrite is hers to read: it condensed her sentences, and a condensed sentence can lose a nuance she meant.
 
 **Do not open or merge a PR without explicit go-ahead.**
+
+---
+
+## Update — 2026-09-10 evening: three layout renderings (G, H, I)
+
+Owner, after the contrast and length pass: "this is better but I still dont like the layout. Look at whitespace, information flow and the text to image layouts." Three standalone renderings of the billing study, same content and figures, each answering one of those three complaints: **G · The Ledger** (4/8 split, sticky rail, one body width), **H · The Column** (680px column, 1040px breakouts, strictly linear), **I · The Spread** (4/8 rows at 1320px, argument left, evidence right). Templates `docs/case-study/prototypes/{g-ledger,h-column,i-spread}.src.html`, base stylesheet `_base-2026-09-10.css`, built by `build-2026-09-10.mjs` (embeds the downscaled screenshots, inlines the SVGs the way the site does). The index lists them. Nothing in `src/` changed for this; the site is untouched until she picks a direction.
