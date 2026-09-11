@@ -16,3 +16,7 @@ DECISIONS.md
 # Local working docs — case-study inputs, source notes, positioning briefs; not part of the published site
 docs/
 instructions/
+
+# Built renderings embed the screenshots; the templates are the source
+renderings/*.html
+!renderings/*.src.html

@@ -1,35 +1,46 @@
 import type { SectionAugments } from "../buildSections";
 import type { CaseStudyImage } from "../../../data/caseStudies";
 import ImageGallery from "../ImageGallery";
-import ScopeOwnershipDiagram from "./ScopeOwnershipDiagram";
-import reviewStories from "../../../assets/case-studies/cwo/review-stories.jpg?preview";
-import reviewStoriesFull from "../../../assets/case-studies/cwo/review-stories.jpg";
+import { diagramSvg } from "../../../data/diagramSvg";
+import scopeUrl from "../../../assets/case-studies/cwo/scope-ownership.svg";
+import scopeRaw from "../../../assets/case-studies/cwo/scope-ownership.svg?raw";
 
 /**
- * The study's section-level figures. The status model and the product
- * screens are attached to the decisions they prove, in `caseStudies.ts`;
- * these two belong to a section rather than a decision, so they arrive as
- * augments: the coded ownership diagram under Scope and ownership, and the
- * four review user stories under Evidence, since they are the record the
- * review flow was built against rather than a step of it.
+ * The study's one section-level figure: scope and ownership as four widening
+ * bands, under Scope and ownership. Owned is the maroon core; Led, Influenced
+ * beyond the design lane, and Worked with ring it outward, each band fainter
+ * than the one inside it. Nesting is the one layout that shows "contributed"
+ * and "led" are different words without asserting it.
+ *
+ * Drawn 2026-09-09 with the diagram-design plugin; every line of text is
+ * Anastasia's own from the Scope and ownership section of the CWO
+ * principal-framework document. It was hand-ported to a React component
+ * (`ScopeOwnershipDiagram.tsx`) until 2026-09-10, when every diagram moved to
+ * the same inlined-SVG path and the second copy, which had already drifted
+ * from the export, was deleted.
+ *
+ * The status model and the product screens are attached to the decisions
+ * they prove, in `caseStudies.ts`. The four review user stories that used to
+ * hang under Evidence left the page 2026-09-10 in the image cut: a board of
+ * stories is a record, not a figure that proves a decision.
  */
-const stories: CaseStudyImage = {
-  src: reviewStories,
-  fullSrc: reviewStoriesFull,
-  width: 1310,
-  height: 2279,
-  displayScale: 0.5,
-  alt: "Four user stories on cards. An editor wants to start a review so that they can make edits, so the content matches what is sent in the final billing package. An editor wants to save progress from a review session, for the same reason. An editor wants to complete a review and assign the billing package to the next reviewer or owner, so the package can be finalized. A viewer wants to view an existing billing package and see the status of the review, its details and the bill of charges, to understand its current state and contents. All four are marked priority: necessary.",
-  // [NEEDS SIGN-OFF] Caption authored 2026-09-09 with the wiring.
+const scope: CaseStudyImage = {
+  label: "Scope and ownership",
+  src: scopeUrl,
+  fullSrc: scopeUrl,
+  inlineSvg: diagramSvg(scopeRaw),
+  width: 960,
+  height: 600,
+  alt: "Four widening bands of involvement on the billing workflow. At the core, what I owned outright: product definition and scope, the ten-stage decomposition and status model, and development-ready flows with error-condition wireframes. Around it, what I led: requirements workshops, prioritization, and moderated usability research. Beyond that, what I influenced outside the design lane: backlogs, roadmaps, test plans, decision logs, quality gates, and the scope calls on the dashboard and the interim editing path. The outermost band is the team the work sat inside.",
+  // [NEEDS SIGN-OFF] Caption authored 2026-09-10 with the re-wiring.
   caption:
-    "The four stories the review flow was built against — three for the editor, one for the viewer, all necessary.",
+    "Four widening bands. Control falls as the band widens, and the approval flow is the one claim that escaped the design lane.",
 };
 
 export function cwoAugments(): SectionAugments {
   return {
     append: {
-      scope: <ScopeOwnershipDiagram />,
-      evidence: <ImageGallery images={[stories]} />,
+      scope: <ImageGallery images={[scope]} />,
     },
   };
 }

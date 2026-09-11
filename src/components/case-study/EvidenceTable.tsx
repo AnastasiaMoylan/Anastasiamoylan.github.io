@@ -1,27 +1,29 @@
 import type { Evidence } from "../../data/caseStudyTypes";
-import TwoColumnTable from "./primitives/TwoColumnTable";
 
 /**
  * What the research found and what changed because of it: the method in one
- * line, then a ledger of finding and product response (Layout C). A finding
- * whose response names no change is cut at the data, not hidden here.
+ * line, then each finding with the product response it caused, as a hairline
+ * list in the prose column rather than a plate. The page already carries its
+ * tables as plates; this is argument, read in order.
  */
 export default function EvidenceTable({ evidence }: { evidence: Evidence }) {
   const findings = evidence.findings ?? [];
-
   return (
-    <div className="flex flex-col gap-6">
+    <div className="cs-sub">
       {evidence.body && (
-        <p className="m-0 max-w-[38rem] text-body leading-[1.7] text-muted-foreground">
-          {evidence.body}
-        </p>
+        <div className="cs-prose cs-body">
+          <p>{evidence.body}</p>
+        </div>
       )}
       {findings.length > 0 && (
-        <TwoColumnTable
-          caption="Each research finding and the product response it caused."
-          headers={["Research finding", "Product response"]}
-          rows={findings.map((f) => ({ term: f.finding, detail: f.response }))}
-        />
+        <dl className={["cs-findings", evidence.body ? "" : "!mt-0"].join(" ")}>
+          {findings.map((f) => (
+            <div key={f.finding}>
+              <dt>{f.finding}</dt>
+              <dd>{f.response}</dd>
+            </div>
+          ))}
+        </dl>
       )}
     </div>
   );

@@ -1,76 +1,133 @@
-import { useState } from "react";
-import { ZoomIn } from "lucide-react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { CaseStudyImage } from "../../data/caseStudyTypes";
 import ImageLightbox from "../work/ImageLightbox";
+import Plate, { leadIn } from "./Plate";
 
 /**
- * Captioned figures, each enlargeable (Layout C's `.fig`): the image on a
- * hairline frame, the caption beneath it in small italics stating what the
- * figure proves. No inner padding around the image, so a screen reads as a
- * screen rather than as a card holding one.
+ * Figures as plates (Plates layout, 2026-09-11). A screenshot sits on ink and
+ * opens in the lightbox; a drawn diagram (`inlineSvg`) sits on champagne and
+ * is inlined, so its labels set in the site's fonts and it needs no zoom. A
+ * panel with a `displayScale` becomes a scroll plate: it renders at that
+ * fraction of its source width and scrolls sideways inside its plate.
+ *
+ * `note` is the decision's "Instead of" line; it goes on the last plate, in
+ * the margin column beside that plate's caption.
  */
-export default function ImageGallery({ images }: { images: CaseStudyImage[] }) {
+export default function ImageGallery({
+  images,
+  label = "Figure",
+  note,
+}: {
+  images: CaseStudyImage[];
+  /** Plate label for an image that carries none of its own. */
+  label?: string;
+  note?: ReactNode;
+}) {
   const [active, setActive] = useState<CaseStudyImage | null>(null);
   return (
     <>
-      <div className="flex flex-col gap-8">
-        {images.map((image) => (
-          <figure key={image.src} className="m-0 flex flex-col gap-3">
-            <button
-              type="button"
-              onClick={() => setActive(image)}
-              aria-label={`Enlarge image: ${image.caption}`}
-              className={[
-                "group relative block cursor-zoom-in overflow-hidden rounded-lg border border-border bg-card p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                // A scaled panel's frame hugs the panel; a fitted image fills the column.
-                image.displayScale ? "w-fit max-w-full" : "w-full",
-              ].join(" ")}
-            >
-              {/*
-                A panel with a display scale renders at that fraction of its
-                source width, so its labels stay legible, and scrolls sideways
-                inside this container when it is wider than the column. The
-                page itself never scrolls sideways. Everything else fits the
-                column.
-              */}
-              {image.displayScale ? (
-                <div className="overflow-x-auto">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    width={image.width}
-                    height={image.height}
-                    style={{ width: image.width * image.displayScale }}
-                    className="block h-auto max-w-none"
-                    loading="lazy"
-                  />
-                </div>
-              ) : (
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  className="block h-auto w-full"
-                  loading="lazy"
-                />
-              )}
-              {/*
-                Always visible, not hover-revealed: touch devices have no hover,
-                and on desktop a reader scrolling past never learns the flows
-                zoom, which the wide boards need.
-              */}
-              <span className="pointer-events-none absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white opacity-90 transition-all duration-150 group-hover:bg-black/70 group-hover:opacity-100 group-focus-visible:opacity-100">
-                <ZoomIn size={18} />
-              </span>
-            </button>
-            <figcaption className="max-w-[56ch] text-small italic leading-[1.65] text-muted-foreground">
-              {image.caption}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      {images.map((image, i) => {
+        const last = i === images.length - 1;
+        const plateLabel = image.label ?? label;
+        const svg = !!image.inlineSvg;
+        return (
+          <Plate
+            key={image.src}
+            ground={svg ? "champagne" : "ink"}
+            label={plateLabel}
+            caption={leadIn(image.caption)}
+            note={last ? note : undefined}
+            onEnlarge={svg ? undefined : () => setActive(image)}
+            enlargeLabel={`Enlarge: ${plateLabel}`}
+          >
+            {svg ? (
+              <div
+                className="cs-frame overflow-x-auto [&>svg]:min-w-[40rem]"
+                dangerouslySetInnerHTML={{ __html: image.inlineSvg! }}
+              />
+            ) : image.displayScale ? (
+              <ScrollPlate image={image} />
+            ) : (
+              <button
+                type="button"
+                className="cs-frame cs-zoom block w-full p-0"
+                onClick={() => setActive(image)}
+                aria-label={`Enlarge: ${plateLabel}`}
+              >
+                <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+              </button>
+            )}
+          </Plate>
+        );
+      })}
       {active && <ImageLightbox image={active} onClose={() => setActive(null)} />}
     </>
+  );
+}
+
+/**
+ * A panel wider than the column at its display scale: it scrolls sideways
+ * inside its plate by drag, touch, or arrow keys, and a "scroll →" hint shows
+ * until the first movement, and only when there is somewhere to scroll.
+ */
+function ScrollPlate({ image }: { image: CaseStudyImage }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const drag = useRef<{ x: number; left: number } | null>(null);
+  const [overflows, setOverflows] = useState(false);
+  const [moved, setMoved] = useState(false);
+  const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const check = () => setOverflows(el.scrollWidth > el.clientWidth + 1);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  return (
+    <div className="cs-frame">
+      <div
+        ref={ref}
+        className={["cs-scroller", dragging ? "is-dragging" : ""].join(" ")}
+        tabIndex={0}
+        role="region"
+        aria-label={`${image.label ?? "Flow"}, scrolls sideways`}
+        onScroll={() => setMoved(true)}
+        onPointerDown={(e) => {
+          if (e.pointerType !== "mouse" || !ref.current) return;
+          drag.current = { x: e.clientX, left: ref.current.scrollLeft };
+          setDragging(true);
+        }}
+        onPointerMove={(e) => {
+          if (!drag.current || !ref.current) return;
+          ref.current.scrollLeft = drag.current.left - (e.clientX - drag.current.x);
+        }}
+        onPointerUp={() => {
+          drag.current = null;
+          setDragging(false);
+        }}
+        onPointerLeave={() => {
+          drag.current = null;
+          setDragging(false);
+        }}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          style={{ width: image.width * image.displayScale! }}
+          draggable={false}
+          loading="lazy"
+        />
+      </div>
+      {overflows && !moved && (
+        <span className="cs-scroll-hint cs-label" aria-hidden="true">
+          scroll →
+        </span>
+      )}
+    </div>
   );
 }

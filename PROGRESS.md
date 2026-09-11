@@ -533,3 +533,57 @@ review, image briefs, `rewrites/`, `prototypes/`); `docs/source/` is unchanged g
 rendered HTML snapshots, the ideation prompt and the reference screenshots. Every path citation in
 `src/`, `scripts/`, `context/`, this file, `parallel-plan.md` and the gitignored root docs was
 rewritten. `docs/README.md` has the folder table and the old → new map.
+
+---
+
+## Update — 2026-09-10: SVG diagrams, the image cut, the length cut, and contrast (branch `case-study/svg-clarity-contrast`)
+
+Owner's brief, verbatim: "Use svg diagrams not png. Also lets try to rewrite the case studies for clarity. Its still too wordy. I also dont like all the images. Try to bring in a little more contrast."
+
+**Diagrams are SVG, inlined.** Every drawn diagram now ships as its `.svg` export and is inlined into the page by `src/data/diagramSvg.ts` (a `?raw` import, cleaned: XML prolog and the Google Fonts `@import` stripped, Geist Mono → IBM Plex Mono, Instrument Serif italic → Inter italic one size step down so the callouts clear their leader lines). `CaseStudyImage.inlineSvg` carries the markup and `ImageGallery` renders it in the same frame as a screenshot, not as a button: a vector figure needs no lightbox. The nine PNG exports were deleted (`git rm`), and `ScopeOwnershipDiagram.tsx`, the hand-ported copy of the billing ownership figure, went with them: the SVG file is the one source now. Bundle: 442 kB JS, down from the raster path's separate 100–170 kB per figure.
+
+**The image cut.** One image proves one claim, and a screen already on the page does not appear twice. Billing 17 → 8 (the package index left decision 02 and the billing report left decision 04, both already in the opener and the annotated screen; nine flow panels became three; the MVP2 scope board and the review-stories board are gone). Customer Journey 8 → 6 (the user-flow board, which the three-role loop already draws; the segment-of-one timeline). Document AI 7 → 3 (the four flow panels cut from the whiteboard, which carried the team's sticky notes; the citation loop and comparison modes now sit on the decisions they prove). Finance Cloud unchanged at two figures plus the five coded diagrams. Every file that left the page stays in its folder, unimported.
+
+**The length cut.** All four studies rewritten to the type budgets, every line a tightening of what was there. Key decisions: Finance Cloud 836 → 531 words (8 → 6 decisions), Document AI 877 → 441 (6 → 5), Customer Journey 362 → 260 (6 → 5), billing 400 → 348. Outcome: 318 → 226, 242 → 170, 204 → 182; proof points at four everywhere. Product framing: 224 → 111 on Finance Cloud. Document AI has a written claim for the first time (the h1 had been the 40-word result line). Every study's decisions carry a mechanism label; the billing titles are the consequence lines from prototype C (feedback-queue C6). Page heights: billing 22,759 → 15,215 px; Document AI 11,078; Customer Journey 13,650; Finance Cloud 13,678.
+
+**Contrast.** Two tokens in `theme.css`: `--muted-foreground` #6b6560 → #57514b and `--border` #dad4cb → #cfc7bb, site-wide by design (every secondary line and hairline reads now). Primary prose (framing, ownership, evidence method, rationale, reflection) is `text-foreground`; captions, caveats and table detail stay muted. Decision cards are white on the hairline grid. Part numerals are `tertiary-500`, not the ghosted `tertiary-100`. Figure frames carry a soft shadow as well as the hairline.
+
+**Gates:** `npm run typecheck` and `npm run build` pass; all eleven routes prerender. `node scripts/casestudy-md.mjs` for the counts.
+
+**What only Anastasia can do next** is appended to `context/feedback-queue.md` as section E. The rewrite is hers to read: it condensed her sentences, and a condensed sentence can lose a nuance she meant.
+
+**Do not open or merge a PR without explicit go-ahead.**
+
+---
+
+## Update — 2026-09-10 evening: three layout renderings (G, H, I)
+
+Owner, after the contrast and length pass: "this is better but I still dont like the layout. Look at whitespace, information flow and the text to image layouts." Three standalone renderings of the billing study, same content and figures, each answering one of those three complaints: **G · The Ledger** (4/8 split, sticky rail, one body width), **H · The Column** (680px column, 1040px breakouts, strictly linear), **I · The Spread** (4/8 rows at 1320px, argument left, evidence right). Templates `docs/case-study/prototypes/{g-ledger,h-column,i-spread}.src.html`, base stylesheet `_base-2026-09-10.css`, built by `build-2026-09-10.mjs` (embeds the downscaled screenshots, inlines the SVGs the way the site does). The index lists them. Nothing in `src/` changed for this; the site is untouched until she picks a direction.
+
+---
+
+## Update — 2026-09-11: two editorial directions, J · Plates and K · Broadsheet
+
+Owner, after G/H/I: "I dont like it yet. Go ahead with the editorial edition. Do research into other agency sites … the content needs to be paired down a bit … I would like 2 uniquely different layouts." Run as four agents: a content agent pared all four studies (committed d7b35ca, report `docs/case-study/2026-09-10-content-pare-down.md`); a research agent read 14 agency and senior-IC case-study pages at CSS level and specified two directions (`docs/case-study/2026-09-10-editorial-layout-research.md`); two design agents built one direction each from the pared billing content. The Broadsheet agent hit the account's spend limit and was re-run in a remote session, which pushed its template to `design/k-broadsheet-rendering` (scratch branch, no PR; delete when done).
+
+**J · Plates** — every artefact a numbered full-bleed plate on a ground assigned by kind (screens on ink, diagrams on champagne, tables on white); argument in a 60ch column between plates; Newsreader added for voice roles. **K · Broadsheet** — one ground, eight-column hairline grid with a numeral margin, Archivo `wdth` 62–125 as the personality, cuts mirrored block to block, list of figures as navigation. Templates `docs/case-study/prototypes/{j-plates,k-broadsheet}.src.html`, built by `build-2026-09-10.mjs <name>`. Both fold edge cases into decision 01. Nothing in `src/` changed for the layouts.
+
+Open from the builds: both add small chrome copy (table headers, figure titles, part "why" lines, K's cross-references) that needs sign-off with the rest; K collapses decisions below 900px as specified; the diagrams' own label sizes (7–9px in the 960 viewBox) sit under the 12px floor at narrow widths in both.
+
+---
+
+## Update — 2026-09-11: Plates implemented on the site; Broadsheet kept as the backup
+
+Owner: "I want to implement the plates but keep the broadsheet as a backup. move that onto this branch. make the changes."
+
+**Backup.** Both rendering templates now live in a tracked `renderings/` folder with a self-contained `renderings/build.mjs` (commit 81a53b9); Broadsheet came over from the scratch branch `design/k-broadsheet-rendering`, which can now be deleted.
+
+**Plates on the site.** All four case studies render in it. New: `src/styles/case-study.css` (the system), `Plate.tsx`, `RunningHead.tsx` (replaces the chapter bar). Rewritten: the lede, the hero (opener detail only, as plate 01), part openers as ink bands, decisions as stacked blocks with their plates and the "Instead of" note in the margin, constraints / edge cases / what did not ship as white table plates, before and after as a champagne typographic plate, every image and diagram as a plate, the coded Finance Cloud diagrams via `DiagramPanel`. Deleted: `ChapterBar`, `StatBand`, `FramingBlock`, `TwoColumnTable`, `PullQuote`. Newsreader and Archivo's width axis added to the font request; `--font-voice` token; the `.js` reveal gate in index.html.
+
+**Data.** `CaseStudyImage.label` (plate labels, authored, sign-off as a set), `statesDecision` and `annotated.decision` (billing: the edge-cases table is decision 01's plate, the annotated index decision 02's). The billing review flow moved from the study-level flows onto the review-session decision; the other two flow panels (creation-flow-02b, review-flow-02) left the page, matching the approved rendering.
+
+**Not rendered any more:** the case-study tags (still on the cards), the byline mark, the opener's `context` image, the ownership tint sentence and the parking-lot intro line (both chrome, not content).
+
+**Known:** the Customer Journey has four ink screen plates close together (two back to back on decision 3), which bends the spec's "no two consecutive plates on one ground"; Document AI runs four champagne plates with prose between. Diagram labels inside the SVGs (7–9px in a 960 viewBox) still sit under 12px at narrow widths. Pins are 24px at phone width and cover a little of the screen they annotate.
+
+**Gates:** typecheck and build pass; all eleven routes prerender with the plates in the static HTML.

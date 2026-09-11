@@ -1,0 +1,520 @@
+/**
+ * The case-study page in the Plates direction (2026-09-11).
+ *
+ * The page is a plate book: every artefact (screen, drawn diagram, table) is
+ * a numbered plate on its own full-bleed ground, and the argument is a narrow
+ * column of type on the warm ground between plates. Nothing sits beside
+ * anything. Reference rendering: renderings/j-plates.src.html; research and
+ * spec: docs/case-study/2026-09-10-editorial-layout-research.md, Direction A.
+ *
+ * Why a stylesheet and not utilities: the direction is a grid system (twelve
+ * columns, subgrids, full-bleed escapes, a plate counter, a reveal gate) and
+ * those read as a spec here and as noise in markup. Components take these
+ * `cs-` classes; everything else on the page is still Tailwind. In the
+ * components layer, so a utility on the same element still wins.
+ *
+ * Order follows the spec: tokens, grid, type, lede, plates, pairing,
+ * decisions, openers and running head, interactions, breakpoints, reduced
+ * motion.
+ */
+@layer components {
+  /* ------------------------------------------------------------ 0. Tokens
+     Three gaps and nothing else: inside a block (claim to prose), between
+     blocks (caption to the next claim, plate padding), and at a section. */
+  .cs-page {
+    --cs-gap-claim: 24px;
+    --cs-gap-block: 64px;
+    --cs-gap-section: 12vh;
+    --cs-gutter: 24px;
+    --cs-head: 40px;
+    --cs-plate-pad: 64px;
+    /* Grounds by artefact kind, never by taste. */
+    --cs-ink: var(--tertiary-900);
+    --cs-champagne: var(--secondary);
+    --cs-white: var(--card);
+
+    /* Plates escape to the viewport edge with 100vw; clip, not hidden, so the
+       sticky running head still works and a scrollbar's width never becomes
+       a sideways scroll. */
+    overflow-x: clip;
+    counter-reset: plate;
+  }
+
+  /* -------------------------------------------------------------- 1. Grid
+     Twelve columns inside .content-container, 24px gutter. Prose = columns
+     3–8 capped at 60ch; captions = 3–6; margin notes = 9–12; plates centre
+     their artefact at 2–11. Children nest as subgrids so a plate inside a
+     decision lines up with a plate at section level. */
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--cs-gutter);
+    align-items: start;
+  }
+  .cs-sub {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: start;
+  }
+  .cs-grid > *,
+  .cs-sub > * { min-width: 0; }
+  .cs-wide { grid-column: 3 / 13; }
+  .cs-prose { grid-column: 3 / 9; max-width: 60ch; }
+  .cs-cap { grid-column: 3 / 7; max-width: 44ch; }
+  .cs-note { grid-column: 9 / 13; max-width: 44ch; }
+
+  /* -------------------------------------------------------------- 2. Type
+     Archivo (display), Inter (body), IBM Plex Mono (labels), and Newsreader
+     for the voice roles only: section and decision claims, the deck, the pull
+     quote, the "Instead of" line. Newsreader never sets body. */
+  .cs-numeral {
+    font-family: var(--font-display);
+    font-stretch: 125%;
+    font-variation-settings: "wdth" 125;
+    font-weight: 800;
+    font-size: clamp(96px, 11vw, 160px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(40px, 4.6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+  .cs-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-h3 {
+    font-family: var(--font-voice);
+    font-variation-settings: "opsz" 36;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    max-width: 30ch;
+    text-wrap: balance;
+  }
+  .cs-deck {
+    font-family: var(--font-voice);
+    font-variation-settings: "opsz" 24;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.4;
+    max-width: 44ch;
+  }
+  .cs-body {
+    font-size: clamp(17px, 1.1vw, 18px);
+    line-height: 1.65;
+  }
+  .cs-small {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.005em;
+    font-variant-numeric: tabular-nums;
+  }
+  .cs-small b { font-weight: 600; }
+  .cs-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* -------------------------------------------------------------- 3. Lede
+     The kick, the claim, the deck, then the snapshot beside the figures.
+     Text beside text is allowed; text beside an image is not. */
+  .cs-lede { padding-block: var(--cs-gap-block); }
+  .cs-kick {
+    grid-column: 3 / 13;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px var(--cs-gap-claim);
+    color: var(--muted-foreground);
+  }
+  .cs-kick b { color: var(--foreground); font-weight: 600; }
+  .cs-kick .cs-sep { color: var(--tertiary-500); margin-inline: 0.75em; }
+  .cs-lede h1 { grid-column: 3 / 13; margin-top: var(--cs-gap-claim); }
+  .cs-lede .cs-deck { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); color: var(--muted-foreground); }
+  .cs-meta { grid-column: 3 / 9; margin-top: var(--cs-gap-block); }
+  .cs-meta > div {
+    display: grid;
+    grid-template-columns: 9em minmax(0, 1fr);
+    gap: 8px var(--cs-gap-claim);
+    padding-block: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .cs-meta dt { color: var(--muted-foreground); padding-top: 3px; }
+  .cs-stats { grid-column: 9 / 13; margin-top: var(--cs-gap-block); }
+  .cs-stats > div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-block: 8px 16px;
+    border-top: 1px solid var(--border);
+  }
+  .cs-stats dd { color: var(--accent); }
+  .cs-stats dt { color: var(--muted-foreground); }
+  .cs-lede .cs-caveat { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); }
+
+  /* ------------------------------------------------------------ 4. Plates
+     Three grounds, by kind: screens on ink, drawn diagrams on champagne,
+     tables on white. No radius, no shadow; the artefact carries a 1px inset.
+     A mono label at column 3 is numbered by the page's plate counter, so
+     numbering follows render order with no bookkeeping in the data. The
+     caption sits below on the warm ground, bold lead-in, aligned to column 3. */
+  .cs-plate {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: start;
+    margin-top: var(--cs-gap-block);
+  }
+  .cs-plate > * { min-width: 0; }
+  .cs-ground {
+    grid-column: 1 / -1;
+    margin-inline: calc(50% - 50vw);
+    padding-block: var(--cs-plate-pad);
+  }
+  .cs-ground[data-ground="ink"] { background: var(--cs-ink); color: var(--background); }
+  .cs-ground[data-ground="champagne"] { background: var(--cs-champagne); color: var(--foreground); }
+  .cs-ground[data-ground="white"] { background: var(--cs-white); color: var(--foreground); }
+  .cs-plate-label { grid-column: 3 / 10; color: var(--muted-foreground); }
+  .cs-plate-label::before {
+    counter-increment: plate;
+    content: "Plate " counter(plate, decimal-leading-zero) " · ";
+  }
+  [data-ground="ink"] .cs-plate-label { color: var(--tertiary-100); }
+  .cs-enlarge {
+    grid-column: 10 / 13;
+    justify-self: end;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+    cursor: zoom-in;
+  }
+  .cs-enlarge:hover { color: var(--accent-hover); }
+  [data-ground="ink"] .cs-enlarge { color: var(--secondary); }
+  [data-ground="ink"] .cs-enlarge:hover { color: var(--card); }
+  [data-ground="ink"] :focus-visible { outline-color: var(--secondary); }
+  .cs-art {
+    grid-column: 2 / 12;
+    margin-top: var(--cs-gap-claim);
+    max-width: 1120px;
+    justify-self: center;
+    width: 100%;
+  }
+  .cs-frame { position: relative; }
+  .cs-frame img,
+  .cs-frame svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    outline: 1px solid var(--border);
+    outline-offset: -1px;
+  }
+  [data-ground="ink"] .cs-frame img,
+  [data-ground="ink"] .cs-frame svg { outline-color: var(--tertiary-500); }
+  .cs-frame.cs-zoom { cursor: zoom-in; }
+  /* The hero fits the viewport height rather than the column, so the plate
+     stays within one screen. */
+  .cs-hero .cs-plate { margin-top: 0; }
+  .cs-hero .cs-frame img { width: auto; max-height: 80vh; max-width: 100%; margin-inline: auto; }
+  /* A coded diagram (React markup rather than an exported SVG) sits on the
+     champagne ground as-is; it brings its own cards. */
+  .cs-coded { color: var(--foreground); }
+
+  /* Tables on white: hairline rows, mono headers in maroon. */
+  .cs-tscroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .cs-table { width: 100%; border-collapse: collapse; text-align: left; }
+  .cs-table.cs-cols-3 { min-width: 640px; }
+  .cs-table th,
+  .cs-table td { padding: 12px 24px 12px 0; border-top: 1px solid var(--border); vertical-align: top; }
+  .cs-table tr:last-child th,
+  .cs-table tr:last-child td { border-bottom: 1px solid var(--border); }
+  .cs-table thead th { border-top: 0; color: var(--accent); padding-top: 0; }
+  .cs-table tbody th { font-weight: 600; }
+  .cs-table td { color: var(--muted-foreground); }
+  .cs-table th:last-child,
+  .cs-table td:last-child { padding-right: 0; }
+
+  /* Annotated pins: maroon dots on the screen; the pin list is the caption. */
+  .cs-pin {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--card);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 0 0 2px var(--cs-ink);
+    cursor: pointer;
+  }
+  .cs-pinlist { display: grid; gap: 8px; margin-top: 8px; }
+  .cs-pinlist li { display: flex; gap: 8px; align-items: flex-start; outline: 0; }
+  .cs-pinlist li > span {
+    flex: 0 0 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-tint-subtle);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+    margin-top: 1px;
+  }
+
+  /* The scroll plate: an artefact wider than the column scrolls sideways
+     inside its plate at its display scale; the page never does. */
+  .cs-scroller { overflow-x: auto; overscroll-behavior-x: contain; cursor: grab; position: relative; }
+  .cs-scroller.is-dragging { cursor: grabbing; }
+  .cs-scroller img { max-width: none; }
+  .cs-scroll-hint { position: absolute; right: 0; bottom: -28px; color: var(--tertiary-100); }
+
+  /* Typographic plate (before and after): two columns of the deck step. */
+  .cs-ba { display: grid; grid-template-columns: 1fr 1fr; gap: var(--cs-gap-claim) var(--cs-gap-block); }
+  .cs-ba > div { display: grid; gap: 8px; border-top: 1px solid var(--border); padding-top: 16px; align-content: start; }
+  .cs-ba dt { color: var(--accent); }
+
+  /* Caption and margin note, on the warm ground below the plate. */
+  .cs-plate > figcaption { margin-top: var(--cs-gap-claim); color: var(--muted-foreground); }
+  .cs-plate > figcaption b { color: var(--foreground); }
+  .cs-plate > .cs-note { margin-top: var(--cs-gap-claim); }
+  .cs-note {
+    font-family: var(--font-voice);
+    font-style: italic;
+    font-variation-settings: "opsz" 14;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+  .cs-note b { font-weight: 500; font-style: normal; color: var(--accent); margin-right: 0.35em; }
+
+  /* ----------------------------------------------------------- 5. Pairing
+     Above and below only: claim, prose, plate, caption, "Instead of".
+     24px between claim and prose, 64px between a caption and the next claim. */
+  .cs-sec { scroll-margin-top: calc(72px + var(--cs-head) + 16px); }
+  .cs-claim { grid-column: 3 / 9; }
+  .cs-sec > .cs-sub { margin-top: var(--cs-gap-claim); }
+  .cs-prose p + p { margin-top: var(--cs-gap-claim); }
+  .cs-list { grid-column: 3 / 9; max-width: 60ch; display: grid; gap: var(--cs-gap-claim); }
+  .cs-list > div { display: grid; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+  .cs-after { margin-top: var(--cs-gap-block); }
+  .cs-quote {
+    grid-column: 3 / 9;
+    margin-top: var(--cs-gap-block);
+    border-left: 2px solid var(--accent);
+    padding-left: var(--cs-gap-claim);
+    color: var(--foreground);
+  }
+  .cs-proof { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); display: grid; gap: 8px; }
+  .cs-proof li { display: flex; gap: 12px; }
+  .cs-proof li::before { content: "→"; color: var(--accent); flex: 0 0 auto; }
+  .cs-measure {
+    grid-column: 3 / 9;
+    max-width: 60ch;
+    margin-top: var(--cs-gap-block);
+    display: grid;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+  }
+  .cs-caveat { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-claim); color: var(--muted-foreground); font-style: italic; }
+  .cs-findings { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); }
+  .cs-findings > div { display: grid; gap: 8px; padding-block: 16px; border-top: 1px solid var(--border); }
+  .cs-findings > div:last-child { border-bottom: 1px solid var(--border); }
+  .cs-findings dt { font-weight: 600; }
+  .cs-findings dd { color: var(--muted-foreground); }
+  .cs-findings dd::before { content: "→ "; color: var(--accent); }
+
+  /* --------------------------------------------------------- 6. Decisions
+     One block each, in argument order: the number and mechanism, the claim,
+     the reasoning, its plates, then the path not taken. */
+  .cs-dec + .cs-dec { margin-top: var(--cs-gap-block); }
+  .cs-dec-id { grid-column: 3 / 9; display: flex; gap: 12px; align-items: baseline; margin-bottom: 8px; }
+  .cs-dec-id .cs-n { color: var(--accent); font-weight: 600; }
+  .cs-dec-id .cs-m { color: var(--muted-foreground); }
+  .cs-dec h4 { grid-column: 3 / 9; }
+  .cs-dec > .cs-prose { margin-top: var(--cs-gap-claim); }
+  .cs-dec > .cs-note { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); }
+
+  /* -------------------------------------- 7. Chapter openers and transitions
+     Each part opens on a full-bleed ink band: the ghosted numeral, the title,
+     the "why" line in champagne, the part's contents as a mono list. Inside a
+     part, a hairline at columns 3–12 and 12vh between sections. */
+  .cs-opener {
+    background: var(--cs-ink);
+    color: var(--background);
+    min-height: 60vh;
+    display: grid;
+    align-content: end;
+    padding-block: var(--cs-gap-block);
+  }
+  /* A grid item with auto margins shrinks to fit; the container has to fill
+     the band for its columns to line up with the page's. */
+  .cs-opener > .content-container { width: 100%; }
+  .cs-opener .cs-numeral { grid-column: 3 / 13; color: var(--tertiary-700); }
+  .cs-opener h2 { grid-column: 3 / 13; color: var(--background); margin-top: var(--cs-gap-claim); }
+  .cs-opener .cs-deck { grid-column: 3 / 13; color: var(--secondary); margin-top: 8px; }
+  .cs-contents { grid-column: 3 / 13; display: flex; flex-wrap: wrap; gap: 8px var(--cs-gap-claim); margin-top: var(--cs-gap-claim); color: var(--tertiary-100); }
+  .cs-contents a { text-decoration: none; border-bottom: 1px solid var(--tertiary-700); padding-bottom: 2px; }
+  .cs-contents a:hover { border-color: var(--secondary); color: var(--card); }
+  .cs-opener :focus-visible { outline-color: var(--secondary); }
+  .cs-opener + .cs-sec { margin-top: var(--cs-gap-section); }
+  .cs-sec + .cs-sec { margin-top: var(--cs-gap-section); }
+  .cs-sec + .cs-sec::before {
+    content: "";
+    grid-column: 3 / 13;
+    border-top: 1px solid var(--border);
+    margin-bottom: var(--cs-gap-block);
+  }
+  .cs-part > .cs-sec:last-child { margin-bottom: var(--cs-gap-section); }
+
+  /* The running head: the page's one navigation. Sticks under the site
+     header, carries "02 · The work · Key decisions", draws a 2px progress
+     line as its bottom edge, and inverts to ink-on-champagne over ink. */
+  .cs-rh {
+    position: sticky;
+    top: 72px;
+    z-index: 40;
+    height: var(--cs-head);
+    background: var(--background);
+    color: var(--foreground);
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .cs-rh > div { height: 100%; align-items: center; }
+  .cs-rh-now { grid-column: 3 / 10; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-rh-now a { text-decoration: none; }
+  .cs-rh-now a:hover { color: var(--accent); }
+  .cs-rh-now .cs-sep { color: var(--tertiary-500); margin-inline: 0.5em; }
+  .cs-rh-parts { grid-column: 10 / 13; justify-self: end; display: flex; gap: 16px; }
+  .cs-rh-parts a { text-decoration: none; color: var(--muted-foreground); padding-block: 4px; }
+  .cs-rh-parts a:hover,
+  .cs-rh-parts a[aria-current] { color: var(--accent); }
+  .cs-rh-bar {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 100%;
+    background: var(--accent);
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+  }
+  .cs-rh[data-over-ink] { background: var(--cs-champagne); color: var(--tertiary-900); border-bottom-color: var(--cs-champagne); }
+  .cs-rh[data-over-ink] .cs-rh-parts a { color: var(--tertiary-700); }
+  .cs-rh[data-over-ink] .cs-rh-parts a[aria-current],
+  .cs-rh[data-over-ink] .cs-rh-parts a:hover { color: var(--accent); }
+
+  /* ---------------------------------------------------------------- 8. Close */
+  .cs-credits { grid-column: 3 / 9; max-width: 60ch; display: grid; gap: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+  .cs-next {
+    grid-column: 3 / 13;
+    margin-top: var(--cs-gap-block);
+    margin-bottom: var(--cs-gap-section);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--cs-gap-claim);
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding-top: var(--cs-gap-claim);
+  }
+
+  /* ---------------------------------------------------------- 9. Interactions
+     1 · Plate reveal. The artefact fades in and rises 12px once, when a fifth
+     of it enters the viewport. Gated on .js, which index.html sets before
+     paint; a CSS fallback shows everything after 2.5s whatever the script
+     does, so a failed bundle can never leave a plate hidden. */
+  .js .cs-art:not([data-in]) {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: cs-show 0s 2.5s forwards;
+  }
+  .js .cs-art[data-in] {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  }
+  /* 3 · Pin and caption line highlight each other on hover or focus. */
+  .cs-pin[data-hi],
+  .cs-pin:hover,
+  .cs-pin:focus-visible { box-shadow: 0 0 0 2px var(--background), 0 0 0 5px var(--accent); }
+  .cs-pinlist li[data-hi] b { color: var(--accent); }
+  .cs-pinlist li[data-hi] > span { background: var(--accent); color: var(--card); }
+
+  /* --------------------------------------------------------- 10. Breakpoints
+     1024: prose to columns 2–9, margin notes inline under the caption.
+     720: one column; plates keep full bleed with 32px padding. */
+  @media (max-width: 1024px) {
+    .cs-wide, .cs-kick, .cs-lede h1, .cs-opener .cs-numeral, .cs-opener h2, .cs-opener .cs-deck,
+    .cs-contents, .cs-next, .cs-sec + .cs-sec::before { grid-column: 2 / 13; }
+    .cs-prose, .cs-claim, .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-caveat, .cs-findings,
+    .cs-credits, .cs-dec-id, .cs-dec h4, .cs-dec > .cs-note, .cs-lede .cs-deck, .cs-meta,
+    .cs-lede .cs-caveat, .cs-note { grid-column: 2 / 10; }
+    .cs-stats { grid-column: 2 / 10; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--cs-gap-block); }
+    .cs-cap { grid-column: 2 / 6; }
+    .cs-plate-label, .cs-rh-now { grid-column: 2 / 10; }
+  }
+  @media (max-width: 720px) {
+    .cs-page { --cs-plate-pad: 32px; --cs-gutter: 16px; }
+    .cs-wide, .cs-kick, .cs-lede h1, .cs-lede .cs-deck, .cs-meta, .cs-stats, .cs-lede .cs-caveat,
+    .cs-opener .cs-numeral, .cs-opener h2, .cs-opener .cs-deck, .cs-contents, .cs-prose, .cs-claim,
+    .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-caveat, .cs-findings, .cs-credits, .cs-next,
+    .cs-dec-id, .cs-dec h4, .cs-dec > .cs-note, .cs-cap, .cs-note, .cs-art,
+    .cs-sec + .cs-sec::before { grid-column: 1 / -1; }
+    .cs-plate-label, .cs-rh-now { grid-column: 1 / 9; }
+    .cs-enlarge, .cs-rh-parts { grid-column: 9 / 13; }
+    .cs-stats { gap: 0 var(--cs-gap-claim); }
+    .cs-meta > div { grid-template-columns: 1fr; }
+    .cs-h2 { font-size: 32px; }
+    .cs-h3 { font-size: 26px; }
+    .cs-deck { font-size: 21px; }
+    .cs-ba { grid-template-columns: 1fr; }
+    .cs-opener { min-height: 44vh; }
+  }
+
+  /* -------------------------------------------------------- 11. Reduced motion
+     Every interaction has a rule: no reveal, no head transition. */
+  @media (prefers-reduced-motion: reduce) {
+    .js .cs-art:not([data-in]),
+    .js .cs-art[data-in] { opacity: 1; transform: none; transition: none; animation: none; }
+    .cs-rh { transition: none; }
+  }
+  @media print {
+    .js .cs-art:not([data-in]) { opacity: 1; transform: none; }
+    .cs-rh, .cs-enlarge, .cs-scroll-hint { display: none; }
+  }
+}
+
+@keyframes cs-show {
+  to { opacity: 1; transform: none; }
+}
