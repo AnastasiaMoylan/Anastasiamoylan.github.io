@@ -1,0 +1,204 @@
+<title>Home 3: Band</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --background:#f7f5f1;--foreground:#283d3b;--card:#ffffff;
+  --accent:#6e2a2a;--accent-hover:#5a2222;--secondary:#edddd4;
+  --tertiary-100:#d6e3e1;--tertiary-500:#6b8f8a;--tertiary-700:#3e5b58;--tertiary-900:#283d3b;
+  --muted:#f2efe9;--muted-foreground:#57514b;--border:#cfc7bb;
+  --font-display:'Archivo','Inter',system-ui,sans-serif;
+  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --gutter:24px;--pad:clamp(20px,4vw,64px);
+  --s2:16px;--s3:24px;--s4:32px;--s5:40px;--s6:48px;--s8:64px;--s10:80px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,dl,dd,dt,ol,ul,figure,figcaption{margin:0;padding:0}
+ol,ul{list-style:none}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.foot :focus-visible{outline-color:var(--secondary)}
+.skip{position:absolute;left:var(--pad);top:-100px;background:var(--foreground);color:var(--background);padding:8px 16px;z-index:10;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.grid>*{min-width:0}
+
+.site{position:sticky;top:0;z-index:5;background:var(--background);border-bottom:1px solid var(--border)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s3)}
+.site .name{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.site .name svg{width:14px;height:14px;color:var(--accent);flex:none}
+.site nav ul{display:flex;gap:28px}
+.site nav a{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--muted-foreground);padding-bottom:4px;border-bottom:2px solid transparent}
+.site nav a:hover{color:var(--foreground)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 36px;border:2px solid var(--accent);border-radius:4px;background:var(--accent);color:#fff;font-weight:600;font-size:15px;line-height:1;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.quiet{background:transparent;color:var(--foreground);border-color:var(--border)}
+.btn.quiet:hover{background:var(--card);border-color:var(--tertiary-500)}
+.h2{font-family:var(--font-display);font-weight:700;font-size:clamp(26px,2.3vw,33px);line-height:1.15;letter-spacing:-.03em}
+.h3{font-family:var(--font-display);font-weight:700;font-size:clamp(20px,1.8vw,24px);line-height:1.2;letter-spacing:-.02em}
+.small{font-size:14px;line-height:1.5;color:var(--muted-foreground)}
+.link{color:var(--accent);font-weight:500;text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1px}
+.link:hover{color:var(--accent-hover)}
+.bar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px var(--s3)}
+
+.foot{background:var(--tertiary-900);color:var(--secondary)}
+.foot .wrap{padding-block:var(--s3)}
+.foot .bot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:14px;color:rgba(214,227,225,.75)}
+.foot .bot ul{display:flex;gap:24px}
+.foot .bot a{text-decoration:none}
+.foot .bot a:hover{color:var(--secondary)}
+@media (max-width:1023px){.site nav{display:none}}
+
+
+/* Home 3 · Band. The name at display size with the role and one
+   paragraph; the outcomes as one band across the page with the first
+   figure carrying the weight; the case studies as a numbered list with
+   their covers at the right; contact as one line you can copy. */
+.hero{padding-block:var(--s10) var(--s8)}
+.hero h1{grid-column:1/13;font-family:var(--font-display);font-weight:800;font-size:clamp(48px,7.6vw,112px);line-height:.95;letter-spacing:-.045em}
+.hero .role{grid-column:1/6;margin-top:var(--s4);font-size:clamp(17px,1.4vw,20px);font-weight:500}
+.hero .meta{grid-column:1/6;margin-top:8px}
+.hero .intro{grid-column:6/13;margin-top:var(--s4);font-size:clamp(17px,1.35vw,19px);line-height:1.6;max-width:56ch}
+.hero .cta{grid-column:6/13;margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s2)}
+
+.outcomes{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--card)}
+.outcomes .wrap{padding-block:var(--s6)}
+.outcomes dl{display:grid;grid-template-columns:minmax(0,4fr) repeat(5,minmax(0,2fr));column-gap:var(--gutter);row-gap:var(--s4);align-items:start}
+.outcomes .o:first-child{padding-right:var(--s4);border-right:1px solid var(--border)}
+.outcomes dd{white-space:nowrap;font-family:var(--font-display);font-weight:800;font-size:clamp(28px,2.2vw,34px);line-height:1;letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.outcomes .o:first-child dd{font-size:clamp(64px,7vw,104px);letter-spacing:-.04em}
+.outcomes dt{margin-top:8px;font-size:14px;line-height:1.45;font-weight:500}
+.outcomes .o:first-child dt{font-size:17px;margin-top:var(--s2)}
+.outcomes .small{margin-top:4px;font-size:13px}
+.outcomes .small a{color:inherit}
+
+.studies{padding-block:var(--s10)}
+.studies ol{margin-top:var(--s5)}
+.study{position:relative;display:grid;grid-template-columns:3rem minmax(0,1fr) minmax(0,1fr);column-gap:var(--gutter);padding-block:var(--s4);border-top:1px solid var(--border);align-items:center}
+.study:last-child{border-bottom:1px solid var(--border)}
+.study .n{font-family:var(--font-mono);font-size:12px;font-weight:500;color:var(--tertiary-700);align-self:start;padding-top:8px}
+.study .h3 a{text-decoration:none}
+.study:hover .h3 a{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.study .h3 a::after{content:"";position:absolute;inset:0}
+.study .tag{margin-top:8px;font-size:16px;line-height:1.55;color:var(--muted-foreground);max-width:44ch}
+.study .who{margin-top:12px}
+.study .pic img{width:100%;aspect-ratio:16/9;object-fit:cover;outline:1px solid var(--border);outline-offset:-1px}
+
+.contact{background:var(--tertiary-900);color:var(--secondary);padding-block:var(--s10)}
+.contact .h2{font-size:14px;font-family:var(--font-mono);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(214,227,225,.7)}
+.contact .c-mail{display:block;margin-top:var(--s3);font-family:var(--font-display);font-weight:800;font-size:clamp(24px,4vw,58px);line-height:1.05;letter-spacing:-.03em;color:var(--secondary);text-decoration:none;word-break:break-all}
+.contact .c-mail:hover{color:#fff;text-decoration:underline;text-underline-offset:.15em;text-decoration-thickness:2px}
+.contact .c-p{margin-top:var(--s4);font-size:17px;line-height:1.6;color:rgba(214,227,225,.8);max-width:56ch}
+.contact .c-links{margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:12px var(--s4);font-size:16px}
+.contact .c-links a{color:var(--secondary);text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1px}
+.contact .c-links a:hover{color:#fff}
+.contact .c-links span{color:rgba(214,227,225,.7)}
+
+@media (max-width:1023px){
+  .hero .role,.hero .meta,.hero .intro,.hero .cta{grid-column:1/13}
+  .outcomes dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .outcomes .o:first-child{border:0;padding:0}
+  .outcomes .o:first-child dd{font-size:clamp(40px,6vw,64px)}
+  .study{grid-template-columns:2.5rem minmax(0,1fr);row-gap:var(--s3)}
+  .study .pic{grid-column:2}
+}
+@media (max-width:719px){
+  .hero{padding-block:var(--s6) var(--s5)}
+  .outcomes dl{grid-template-columns:1fr}
+  .studies,.contact{padding-block:var(--s8)}
+}
+
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="name" href="/"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 7 L7 0 L14 7 L7 14 Z" fill="currentColor"/></svg>Anastasia Novelly Moylan</a>
+    <nav aria-label="Main navigation"><ul>
+      <li><a href="/work">Work</a></li><li><a href="/philosophy">Philosophy</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero wrap grid" aria-labelledby="h1">
+    <h1 id="h1">Anastasia Novelly Moylan</h1>
+    <p class="role">Lead Product Designer, Amdocs Studios</p>
+    <p class="meta small">Eleven years in enterprise product and AI design. St. Marys, Kansas, remote across the Americas.</p>
+    <p class="intro">I design complex enterprise products: AI assistants, workflows, document intelligence systems, and operational tooling. I stay engaged until what ships matches what was designed, a distinction that a lot of enterprise design loses between design and production.</p>
+    <p class="cta"><a class="btn" href="/work">See the case studies</a><a class="btn quiet" href="#contact">Contact</a></p>
+  </section>
+
+  <section class="outcomes" aria-labelledby="out">
+    <div class="wrap">
+      <h2 class="h2" id="out" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Outcomes</h2>
+      <dl>
+        <div class="o"><dd>800+</dd><dt>Finance Cloud hackathon analyses, 40+ users</dt><p class="small">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>70</dd><dt>People using the billing workflow, September 2026</dt><p class="small">From <a href="/work/auditable-billing-workflow">An auditable billing workflow</a></p></div>
+        <div class="o"><dd>6</dd><dt>Designers directed across one program</dt><p class="small">From <a href="/about">About</a></p></div>
+        <div class="o"><dd>3</dd><dt>Finance Cloud versions, each redirected by research</dt><p class="small">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>8-figure</dd><dt>Program the research now directs</dt><p class="small">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>2</dd><dt>Platforms built from zero</dt><p class="small">From <a href="/work">Finance Cloud, billing workflow</a></p></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="studies wrap" aria-labelledby="cs">
+    <div class="bar"><h2 class="h2" id="cs">Case studies</h2><a class="link" href="/work">All case studies</a></div>
+    <ol>
+      <li class="study">
+        <span class="n" aria-hidden="true">01</span>
+        <div class="txt">
+          <h3 class="h3"><a href="/work/finance-cloud">Finance Cloud</a></h3>
+          <p class="tag">A governed AI platform for finance and payroll, taken from zero to one and scaled through iterative testing</p>
+          <p class="who small">Product Experience Lead. Ongoing program; several MVPs released, some in testing and some in production</p>
+        </div>
+        <div class="pic"><img src="{{img:gaf/cover}}" width="1440" height="900" alt="Finance Cloud cover: an architecture diagram in which governance, risk and compliance governs agentic workflows, data products and a command view."></div>
+      </li>
+      <li class="study">
+        <span class="n" aria-hidden="true">02</span>
+        <div class="txt">
+          <h3 class="h3"><a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></h3>
+          <p class="tag">Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience</p>
+          <p class="who small">Product Lead and Design Contributor. Released</p>
+        </div>
+        <div class="pic"><img src="{{img:cwo/cover}}" width="1440" height="900" alt="Billing workflow cover: a billing package screen with its review task, invoice details and projects, over the process flow it replaced."></div>
+      </li>
+      <li class="study">
+        <span class="n" aria-hidden="true">03</span>
+        <div class="txt">
+          <h3 class="h3"><a href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform</a></h3>
+          <p class="tag">Answers users could trace, compare, and reuse, on rails the next compliance tool could ride</p>
+          <p class="who small">Lead Product Designer, UX and product strategy lead. Released</p>
+        </div>
+        <div class="pic"><img src="{{img:di/cover}}" width="1440" height="900" alt="Document AI platform cover."></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="contact" aria-labelledby="contact">
+    <div class="wrap">
+      <h2 class="h2" id="contact">Contact</h2>
+      <a class="c-mail" href="mailto:anastasiamoylan.design@gmail.com">anastasiamoylan.design@gmail.com</a>
+      <p class="c-p">Open to Lead and Principal UX roles: enterprise products, fintech, and AI-assisted tools. Remote only, across the Americas. No forms, no gatekeeping: reach out directly.</p>
+      <p class="c-links"><a href="https://linkedin.com/in/anastasiamoylan">LinkedIn</a><a href="/resume">R&eacute;sum&eacute;</a><span>St. Marys, Kansas, Central Time</span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="bot">
+      <ul><li><a href="https://linkedin.com/in/anastasiamoylan">LinkedIn</a></li><li><a href="/resume">R&eacute;sum&eacute;</a></li><li><a href="/work">Work</a></li><li><a href="/philosophy">Philosophy</a></li></ul>
+      <span>&copy; 2026 Anastasia Novelly Moylan</span>
+    </div>
+  </div>
+</footer>

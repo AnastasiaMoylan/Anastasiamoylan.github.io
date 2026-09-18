@@ -6,8 +6,8 @@
  * A template is artifact-form HTML (title, font links, one <style>, markup,
  * no doctype/html/head/body) with two kinds of placeholder:
  *
- *   {{img:<name>}}   a screenshot from src/assets/case-studies/cwo/<name>.jpg,
- *                    embedded as a data URI
+ *   {{img:<name>}}   a screenshot from src/assets/case-studies/cwo/<name>.jpg
+ *                    (or <study>/<name>), embedded as a data URI
  *   {{svg:<name>}}   a drawn diagram from src/assets/case-studies/cwo/<name>.svg
  *                    (or <study>/<name>), inlined with the site's fonts, the
  *                    same edits src/data/diagramSvg.ts makes on the live site
@@ -25,7 +25,10 @@ const assets = path.resolve(here, "../src/assets/case-studies");
 const imgDir = process.env.IMG_DIR ?? path.join(assets, "cwo");
 
 const img = (name) =>
-  "data:image/jpeg;base64," + fs.readFileSync(path.join(imgDir, `${name}.jpg`)).toString("base64");
+  "data:image/jpeg;base64," +
+  fs
+    .readFileSync(name.includes("/") ? path.join(assets, `${name}.jpg`) : path.join(imgDir, `${name}.jpg`))
+    .toString("base64");
 const svg = (name) =>
   fs
     .readFileSync(path.join(assets, name.includes("/") ? name : `cwo/${name}`) + ".svg", "utf8")
@@ -44,7 +47,7 @@ if (!names.length) throw new Error("usage: node renderings/build.mjs <template n
 for (const name of names) {
   const src = fs
     .readFileSync(path.join(here, `${name}.src.html`), "utf8")
-    .replace(/\{\{img:([\w-]+)\}\}/g, (_, n) => img(n))
+    .replace(/\{\{img:([\w/-]+)\}\}/g, (_, n) => img(n))
     .replace(/\{\{svg:([\w/-]+)\}\}/g, (_, n) => svg(n));
   const doc =
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
