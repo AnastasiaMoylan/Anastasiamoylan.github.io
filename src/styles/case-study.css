@@ -41,9 +41,11 @@
   }
 
   /* -------------------------------------------------------------- 1. Grid
-     Twelve columns inside .content-container, 24px gutter. Prose = columns
-     3–8 capped at 60ch; captions = 3–6; margin notes = 9–12; plates centre
-     their artefact at 2–11. Children nest as subgrids so a plate inside a
+     Twelve columns inside .content-container, 24px gutter. Everything starts
+     at column 1, the container's left edge, so the case study shares its
+     margins with the header and every other page. Prose = columns 1–8 capped
+     at 60ch; captions = 1–6; margin notes = 9–12; plate artefacts span the
+     full container, 1–12. Children nest as subgrids so a plate inside a
      decision lines up with a plate at section level. */
   .cs-grid {
     display: grid;
@@ -59,9 +61,9 @@
   }
   .cs-grid > *,
   .cs-sub > * { min-width: 0; }
-  .cs-wide { grid-column: 3 / 13; }
-  .cs-prose { grid-column: 3 / 9; max-width: 60ch; }
-  .cs-cap { grid-column: 3 / 7; max-width: 44ch; }
+  .cs-wide { grid-column: 1 / 13; }
+  .cs-prose { grid-column: 1 / 9; max-width: 60ch; }
+  .cs-cap { grid-column: 1 / 7; max-width: 44ch; }
   .cs-note { grid-column: 9 / 13; max-width: 44ch; }
 
   /* -------------------------------------------------------------- 2. Type
@@ -140,7 +142,7 @@
      Text beside text is allowed; text beside an image is not. */
   .cs-lede { padding-block: var(--cs-gap-block); }
   .cs-kick {
-    grid-column: 3 / 13;
+    grid-column: 1 / 13;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -150,9 +152,9 @@
   }
   .cs-kick b { color: var(--foreground); font-weight: 600; }
   .cs-kick .cs-sep { color: var(--tertiary-500); margin-inline: 0.75em; }
-  .cs-lede h1 { grid-column: 3 / 13; margin-top: var(--cs-gap-claim); }
-  .cs-lede .cs-deck { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); color: var(--muted-foreground); }
-  .cs-meta { grid-column: 3 / 9; margin-top: var(--cs-gap-block); }
+  .cs-lede h1 { grid-column: 1 / 13; margin-top: var(--cs-gap-claim); }
+  .cs-lede .cs-deck { grid-column: 1 / 9; margin-top: var(--cs-gap-claim); color: var(--muted-foreground); }
+  .cs-meta { grid-column: 1 / 9; margin-top: var(--cs-gap-block); }
   .cs-meta > div {
     display: grid;
     grid-template-columns: 9em minmax(0, 1fr);
@@ -176,9 +178,9 @@
   /* ------------------------------------------------------------ 4. Plates
      Three grounds, by kind: screens on ink, drawn diagrams on champagne,
      tables on white. No radius, no shadow; the artefact carries a 1px inset.
-     A mono label at column 3 is numbered by the page's plate counter, so
+     A mono label at column 1 is numbered by the page's plate counter, so
      numbering follows render order with no bookkeeping in the data. The
-     caption sits below on the warm ground, bold lead-in, aligned to column 3. */
+     caption sits below on the warm ground, bold lead-in, aligned to column 1. */
   .cs-plate {
     grid-column: 1 / -1;
     display: grid;
@@ -195,7 +197,7 @@
   .cs-ground[data-ground="ink"] { background: var(--cs-ink); color: var(--background); }
   .cs-ground[data-ground="champagne"] { background: var(--cs-champagne); color: var(--foreground); }
   .cs-ground[data-ground="white"] { background: var(--cs-white); color: var(--foreground); }
-  .cs-plate-label { grid-column: 3 / 10; color: var(--muted-foreground); }
+  .cs-plate-label { grid-column: 1 / 10; color: var(--muted-foreground); }
   .cs-plate-label::before {
     counter-increment: plate;
     content: "Plate " counter(plate, decimal-leading-zero) " · ";
@@ -215,11 +217,8 @@
   [data-ground="ink"] .cs-enlarge:hover { color: var(--card); }
   [data-ground="ink"] :focus-visible { outline-color: var(--secondary); }
   .cs-art {
-    grid-column: 2 / 12;
+    grid-column: 1 / -1;
     margin-top: var(--cs-gap-claim);
-    max-width: 1120px;
-    justify-self: center;
-    width: 100%;
   }
   .cs-frame { position: relative; }
   .cs-frame img,
@@ -322,24 +321,24 @@
      Above and below only: claim, prose, plate, caption, "Instead of".
      24px between claim and prose, 64px between a caption and the next claim. */
   .cs-sec { scroll-margin-top: calc(72px + var(--cs-head) + 16px); }
-  .cs-claim { grid-column: 3 / 9; }
+  .cs-claim { grid-column: 1 / 9; }
   .cs-sec > .cs-sub { margin-top: var(--cs-gap-claim); }
   .cs-prose p + p { margin-top: var(--cs-gap-claim); }
-  .cs-list { grid-column: 3 / 9; max-width: 60ch; display: grid; gap: var(--cs-gap-claim); }
+  .cs-list { grid-column: 1 / 9; max-width: 60ch; display: grid; gap: var(--cs-gap-claim); }
   .cs-list > div { display: grid; gap: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
   .cs-after { margin-top: var(--cs-gap-block); }
   .cs-quote {
-    grid-column: 3 / 9;
+    grid-column: 1 / 9;
     margin-top: var(--cs-gap-block);
     border-left: 2px solid var(--accent);
     padding-left: var(--cs-gap-claim);
     color: var(--foreground);
   }
-  .cs-proof { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); display: grid; gap: 8px; }
+  .cs-proof { grid-column: 1 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); display: grid; gap: 8px; }
   .cs-proof li { display: flex; gap: 12px; }
   .cs-proof li::before { content: "→"; color: var(--accent); flex: 0 0 auto; }
   .cs-measure {
-    grid-column: 3 / 9;
+    grid-column: 1 / 9;
     max-width: 60ch;
     margin-top: var(--cs-gap-block);
     display: grid;
@@ -347,7 +346,7 @@
     border-top: 1px solid var(--border);
     padding-top: 8px;
   }
-  .cs-findings { grid-column: 3 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); }
+  .cs-findings { grid-column: 1 / 9; max-width: 60ch; margin-top: var(--cs-gap-block); }
   .cs-findings > div { display: grid; gap: 8px; padding-block: 16px; border-top: 1px solid var(--border); }
   .cs-findings > div:last-child { border-bottom: 1px solid var(--border); }
   .cs-findings dt { font-weight: 600; }
@@ -358,17 +357,17 @@
      One block each, in argument order: the number and mechanism, the claim,
      the reasoning, its plates, then the path not taken. */
   .cs-dec + .cs-dec { margin-top: var(--cs-gap-block); }
-  .cs-dec-id { grid-column: 3 / 9; display: flex; gap: 12px; align-items: baseline; margin-bottom: 8px; }
+  .cs-dec-id { grid-column: 1 / 9; display: flex; gap: 12px; align-items: baseline; margin-bottom: 8px; }
   .cs-dec-id .cs-n { color: var(--accent); font-weight: 600; }
   .cs-dec-id .cs-m { color: var(--muted-foreground); }
-  .cs-dec h4 { grid-column: 3 / 9; }
+  .cs-dec h4 { grid-column: 1 / 9; }
   .cs-dec > .cs-prose { margin-top: var(--cs-gap-claim); }
-  .cs-dec > .cs-note { grid-column: 3 / 9; margin-top: var(--cs-gap-claim); }
+  .cs-dec > .cs-note { grid-column: 1 / 9; margin-top: var(--cs-gap-claim); }
 
   /* -------------------------------------- 7. Chapter openers and transitions
      Each part opens on a full-bleed ink band: the ghosted numeral, the title,
      the "why" line in champagne, the part's contents as a mono list. Inside a
-     part, a hairline at columns 3–12 and 12vh between sections. */
+     part, a hairline at columns 1–12 and 12vh between sections. */
   .cs-opener {
     background: var(--cs-ink);
     color: var(--background);
@@ -380,10 +379,10 @@
   /* A grid item with auto margins shrinks to fit; the container has to fill
      the band for its columns to line up with the page's. */
   .cs-opener > .content-container { width: 100%; }
-  .cs-opener .cs-numeral { grid-column: 3 / 13; color: var(--tertiary-700); }
-  .cs-opener h2 { grid-column: 3 / 13; color: var(--background); margin-top: var(--cs-gap-claim); }
-  .cs-opener .cs-deck { grid-column: 3 / 13; color: var(--secondary); margin-top: 8px; }
-  .cs-contents { grid-column: 3 / 13; display: flex; flex-wrap: wrap; gap: 8px var(--cs-gap-claim); margin-top: var(--cs-gap-claim); color: var(--tertiary-100); }
+  .cs-opener .cs-numeral { grid-column: 1 / 13; color: var(--tertiary-700); }
+  .cs-opener h2 { grid-column: 1 / 13; color: var(--background); margin-top: var(--cs-gap-claim); }
+  .cs-opener .cs-deck { grid-column: 1 / 13; color: var(--secondary); margin-top: 8px; }
+  .cs-contents { grid-column: 1 / 13; display: flex; flex-wrap: wrap; gap: 8px var(--cs-gap-claim); margin-top: var(--cs-gap-claim); color: var(--tertiary-100); }
   .cs-contents a { text-decoration: none; border-bottom: 1px solid var(--tertiary-700); padding-bottom: 2px; }
   .cs-contents a:hover { border-color: var(--secondary); color: var(--card); }
   .cs-opener :focus-visible { outline-color: var(--secondary); }
@@ -391,7 +390,7 @@
   .cs-sec + .cs-sec { margin-top: var(--cs-gap-section); }
   .cs-sec + .cs-sec::before {
     content: "";
-    grid-column: 3 / 13;
+    grid-column: 1 / 13;
     border-top: 1px solid var(--border);
     margin-bottom: var(--cs-gap-block);
   }
@@ -411,7 +410,7 @@
     transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   }
   .cs-rh > div { height: 100%; align-items: center; }
-  .cs-rh-now { grid-column: 3 / 10; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cs-rh-now { grid-column: 1 / 10; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cs-rh-now a { text-decoration: none; }
   .cs-rh-now a:hover { color: var(--accent); }
   .cs-rh-now .cs-sep { color: var(--tertiary-500); margin-inline: 0.5em; }
@@ -435,9 +434,9 @@
   .cs-rh[data-over-ink] .cs-rh-parts a:hover { color: var(--accent); }
 
   /* ---------------------------------------------------------------- 8. Close */
-  .cs-credits { grid-column: 3 / 9; max-width: 60ch; display: grid; gap: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+  .cs-credits { grid-column: 1 / 9; max-width: 60ch; display: grid; gap: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
   .cs-next {
-    grid-column: 3 / 13;
+    grid-column: 1 / 13;
     margin-top: var(--cs-gap-block);
     margin-bottom: var(--cs-gap-section);
     display: flex;
@@ -472,17 +471,17 @@
   .cs-pinlist li[data-hi] > span { background: var(--accent); color: var(--card); }
 
   /* --------------------------------------------------------- 10. Breakpoints
-     1024: prose to columns 2–9, margin notes inline under the caption.
+     1024: prose to columns 1–9, margin notes inline under the caption.
      720: one column; plates keep full bleed with 32px padding. */
   @media (max-width: 1024px) {
     .cs-wide, .cs-kick, .cs-lede h1, .cs-opener .cs-numeral, .cs-opener h2, .cs-opener .cs-deck,
-    .cs-contents, .cs-next, .cs-sec + .cs-sec::before { grid-column: 2 / 13; }
+    .cs-contents, .cs-next, .cs-sec + .cs-sec::before { grid-column: 1 / 13; }
     .cs-prose, .cs-claim, .cs-list, .cs-quote, .cs-proof, .cs-measure, .cs-findings,
     .cs-credits, .cs-dec-id, .cs-dec h4, .cs-dec > .cs-note, .cs-lede .cs-deck, .cs-meta,
-    .cs-note { grid-column: 2 / 10; }
-    .cs-stats { grid-column: 2 / 10; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--cs-gap-block); }
-    .cs-cap { grid-column: 2 / 6; }
-    .cs-plate-label, .cs-rh-now { grid-column: 2 / 10; }
+    .cs-note { grid-column: 1 / 10; }
+    .cs-stats { grid-column: 1 / 10; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--cs-gap-block); }
+    .cs-cap { grid-column: 1 / 7; }
+    .cs-plate-label, .cs-rh-now { grid-column: 1 / 10; }
   }
   @media (max-width: 720px) {
     .cs-page { --cs-plate-pad: 32px; --cs-gutter: 16px; }
