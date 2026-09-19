@@ -17,7 +17,27 @@ Three layouts of the same four sections, in the order the owner set: who, outcom
 | `home-2-split.src.html` | Name and intro on the left, the six outcomes as a ledger on the right so the claims sit in the first screen; case studies three across with covers; contact on the warm ground. |
 | `home-3-band.src.html` | Name at display size; outcomes as one band with the hackathon figure carrying the weight; case studies as a numbered list with covers right; contact as the email address set large on the dark band. |
 
-Build with `node renderings/build.mjs home-1-stacked home-2-split home-3-band`. `{{img:<study>/<name>}}` resolves against any study folder. `_phone.html` is a gitignored harness that shows all three at 390px.
+## Homepage directions (2026-09-19, third pass: the hero and the contrast)
+
+Owner's brief: a more catching hero, more contrast on the page, and visuals that show the process and the work. Same rule as the second pass: no new copy. The headline in Ink is the live hero line; the headline in Billboard is principle 02's thesis from `src/data/philosophy.ts`, and either line drops into either layout. The process strip in Ink quotes principles 01, 02, 03 and 07; the governance chain in Billboard is the live `GovernanceChain` figure. Outcome figures, study cards and the leadership cards are verbatim from `figures.ts`, `projects.ts` and `HowILead`.
+
+Contrast comes from the grounds, not from new colours: the hero and contact bands are ink (`--tertiary-900`), the outcomes and studies are pure white, the warm ground stays between. On ink the accent is rose (`--accent-tint-light`), because solid maroon reads at 1.1:1 against it; every text pairing clears WCAG AA (champagne on ink 8.7:1, rose on ink 7.3:1, ink on white 11.5:1, maroon on white 8.6:1, white on maroon 10.4:1). Body copy is set in `--foreground`, not `--muted-foreground`.
+
+| Template | Layout |
+|---|---|
+| `home-4-ink.src.html` | **Ink.** Header and hero on ink; the live headline at display size with the last word in rose; the three study covers fanned as numbered plates on the right; the meta line as a facts row. Outcomes as four figures on white between 3px ink rules. A five-step process rail quoting the philosophy. Case studies as full rows on white, cover seven columns, alternating sides. Leadership as three columns on the warm ground. Contact on ink. |
+| `home-5-billboard.src.html` | **Billboard.** White hero, principle 02's thesis across all twelve columns in Archivo's condensed width with the second sentence in maroon; the deck left and a facts list right. Then the Finance Cloud cover full-width at 21:9 with the governance chain drawn along its foot. Outcomes on solid maroon. Case studies as three cover cards with ink caption plates. Leadership as a numbered ledger on white. Contact on ink. |
+
+## Philosophy directions (2026-09-19)
+
+Two layouts of `src/data/philosophy.ts` as it stands: the thesis, the bridge, the eight principles with their thesis lines and the three coded figures, and the six evaluation checks. No sentence is new.
+
+| Template | Layout |
+|---|---|
+| `philosophy-1-rail.src.html` | **Rail.** Opener on ink with the thesis in Newsreader at 44px. Below, a sticky index of the eight principles in the left three columns and the principles down the right eight: ordinal in maroon, thesis in Newsreader, body in ink. The status flow and the threshold zones as champagne plates with a maroon edge. The checks close on ink as a three-by-two grid. |
+| `philosophy-2-spreads.src.html` | **Spreads.** White opener, title left and thesis right, then a jump strip on ink. Each principle a full-width spread alternating white and the warm ground under a 3px ink rule: the ordinal at poster size in rose, title and thesis (maroon Newsreader) in the left five columns, body with a drop cap in the right six, the figure spanning below. The checks as a numbered table on champagne. |
+
+Build with `node renderings/build.mjs home-1-stacked home-2-split home-3-band` (or `home-4-ink home-5-billboard philosophy-1-rail philosophy-2-spreads`). `{{img:<study>/<name>}}` resolves against any study folder. `_phone.html` is a gitignored harness that shows all three at 390px.
 
 Build either case-study template with `node renderings/build.mjs k-broadsheet` (or `j-plates`); the output `renderings/<name>.html` is gitignored because it embeds the screenshots. The content in both is the billing study as of commit `d7b35ca`; the live copy in `src/data/caseStudies.ts` may have moved on since.
 

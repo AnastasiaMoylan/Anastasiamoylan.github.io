@@ -1,0 +1,302 @@
+<title>Home 4: Ink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap" rel="stylesheet">
+<style>
+/* Home 4 · Ink. The site's own tokens (src/styles/theme.css). The one new
+   move is the ground: the hero and the contact band are ink, the outcomes
+   and the studies are pure white, the warm ground is kept for the sections
+   between. Rose (#dbc9c9, the accent-tint-light token) is the accent on ink
+   because solid maroon does not read on it (1.1:1). Every pairing below
+   clears WCAG AA: champagne on ink 8.7:1, rose on ink 7.3:1, ink on white
+   11.5:1, maroon on white 8.6:1, white on maroon 10.4:1. */
+:root{
+  color-scheme:light;
+  --background:#f7f5f1;--foreground:#283d3b;--card:#ffffff;
+  --accent:#6e2a2a;--accent-hover:#5a2222;--secondary:#edddd4;
+  --rose:#dbc9c9;--rose-mid:#b69494;
+  --tertiary-100:#d6e3e1;--tertiary-500:#6b8f8a;--tertiary-700:#3e5b58;--ink:#283d3b;--ink-deep:#1d2d2b;
+  --muted:#f2efe9;--muted-foreground:#57514b;--border:#cfc7bb;
+  --font-display:'Archivo','Inter',system-ui,sans-serif;
+  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --font-voice:'Newsreader',Georgia,'Times New Roman',serif;
+  --gutter:24px;--pad:clamp(20px,4vw,64px);
+  --s2:16px;--s3:24px;--s4:32px;--s5:40px;--s6:48px;--s8:64px;--s10:80px;--s12:96px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,dl,dd,dt,ol,ul,figure,figcaption{margin:0;padding:0}
+ol,ul{list-style:none}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.on-ink :focus-visible{outline-color:var(--secondary)}
+.skip{position:absolute;left:var(--pad);top:-100px;background:var(--foreground);color:var(--background);padding:8px 16px;z-index:10;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.grid>*{min-width:0}
+.eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.h2{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3vw,44px);line-height:1.05;letter-spacing:-.035em;text-wrap:balance}
+.h3{font-family:var(--font-display);font-weight:700;font-size:clamp(24px,2.4vw,34px);line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
+.small{font-size:14px;line-height:1.5}
+.link{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1.5px}
+.link:hover{color:var(--accent-hover)}
+.bar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px var(--s3)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 32px;border:2px solid var(--accent);border-radius:4px;background:var(--accent);color:#fff;font-weight:600;font-size:16px;line-height:1;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* Header, on ink so the band starts at the top of the window. */
+.site{position:sticky;top:0;z-index:5;background:var(--ink);color:var(--secondary);border-bottom:1px solid rgba(237,221,212,.18)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s3)}
+.site .name{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.site .name svg{width:14px;height:14px;color:var(--rose);flex:none}
+.site nav ul{display:flex;gap:28px}
+.site nav a{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--rose);padding-bottom:4px;border-bottom:2px solid transparent}
+.site nav a:hover{color:#fff;border-color:var(--rose)}
+
+/* Hero. Ink ground, the live headline set at display size, the three
+   study covers stacked as plates on the right. */
+.hero{background:var(--ink);color:var(--secondary);padding-block:var(--s10) var(--s8);position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(rgba(237,221,212,.06) 1px,transparent 1px) 0 0/100% 96px,
+  linear-gradient(90deg,rgba(237,221,212,.06) 1px,transparent 1px) 0 0/96px 100%;pointer-events:none}
+.hero .wrap{position:relative}
+.hero .who{grid-column:1/8;align-self:center}
+.hero .eyebrow{color:var(--rose)}
+.hero h1{margin-top:var(--s3);font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 100;font-size:clamp(46px,7.2vw,108px);line-height:.96;letter-spacing:-.045em;color:#fff;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--rose)}
+.hero .deck{margin-top:var(--s4);font-size:clamp(18px,1.5vw,22px);line-height:1.5;max-width:34em;color:var(--secondary)}
+.hero .cta{margin-top:var(--s5);display:flex;flex-wrap:wrap;gap:var(--s2)}
+.hero .btn{background:var(--secondary);border-color:var(--secondary);color:var(--ink)}
+.hero .btn:hover{background:#fff;border-color:#fff}
+.hero .btn.quiet{background:transparent;color:var(--secondary);border-color:var(--rose)}
+.hero .btn.quiet:hover{background:rgba(237,221,212,.1);border-color:#fff}
+.hero .meta{margin-top:var(--s8);padding-top:var(--s3);border-top:1px solid rgba(237,221,212,.25);display:flex;flex-wrap:wrap;gap:8px var(--s3);color:var(--rose)}
+.hero .meta li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--rose-mid);margin-right:10px;vertical-align:middle}
+
+/* The plate stack: three covers fanned down and to the right, the front
+   plate the most recent study. Each plate carries its ordinal and title in
+   a strip along its top, which the plate in front never covers. */
+.plates{grid-column:8/13;position:relative;align-self:center;aspect-ratio:1/0.82}
+.plate{position:absolute;width:72%;background:var(--ink-deep);outline:1px solid rgba(237,221,212,.4);outline-offset:-1px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.plate img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.plate .cap{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--ink-deep);color:var(--secondary);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(237,221,212,.25)}
+.plate .cap b{font-weight:600;color:var(--rose)}
+.plate:nth-child(1){left:28%;top:34%;z-index:3}
+.plate:nth-child(2){left:14%;top:17%;z-index:2}
+.plate:nth-child(3){left:0;top:0;z-index:1}
+.plates figcaption{position:absolute;left:0;bottom:-30px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose)}
+
+/* Outcomes. Pure white, figures at display size, a 2px ink rule top and
+   bottom so the band reads as a ledger and not a card. */
+.outcomes{background:var(--card);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+.outcomes .wrap{padding-block:var(--s8)}
+.outcomes dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--s5)}
+.outcomes .o{display:flex;flex-direction:column;gap:10px;padding-left:var(--s3);border-left:2px solid var(--border)}
+.outcomes dd{font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 112;font-size:clamp(52px,5.4vw,84px);line-height:.9;letter-spacing:-.04em;color:var(--accent);font-variant-numeric:tabular-nums}
+.outcomes dt{font-size:16px;line-height:1.4;font-weight:600;color:var(--foreground);max-width:18em}
+.outcomes .src{font-size:13.5px;color:var(--muted-foreground)}
+.outcomes .src a{color:inherit}
+
+/* Process. Five steps, each a line from the philosophy page, on a maroon
+   rail. Section heading and the step lines are existing copy. */
+.process{padding-block:var(--s12)}
+.process .lead{grid-column:1/5}
+.process .lead p{margin-top:var(--s3);font-size:17px;line-height:1.6;max-width:30em}
+.process .lead .link{display:inline-block;margin-top:var(--s3)}
+.process ol{grid-column:5/13;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--s2);position:relative;padding-top:38px}
+.process ol::before{content:"";position:absolute;left:14px;right:14px;top:13px;height:3px;background:var(--accent)}
+.step{position:relative}
+.step::before{content:"";position:absolute;top:-38px;left:0;width:28px;height:28px;border-radius:50%;background:var(--card);border:3px solid var(--accent)}
+.step.gate::before{background:var(--accent)}
+.step .n{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:.02em;color:var(--accent)}
+.step h3{margin-top:6px;font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.15;letter-spacing:-.02em}
+.step p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--foreground)}
+.step .from{margin-top:12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--tertiary-700)}
+
+/* Case studies. White ground, each study a full row: cover 7 columns,
+   text 5. The cover is the artefact; the text is verbatim from projects.ts. */
+.studies{background:var(--card);border-top:3px solid var(--ink)}
+.studies .wrap{padding-block:var(--s12)}
+.studies ol{margin-top:var(--s8)}
+.study{position:relative;padding-block:var(--s8);border-top:1px solid var(--border);align-items:center}
+.study:last-child{border-bottom:1px solid var(--border)}
+.study .pic{grid-column:1/8}
+.study .pic img{width:100%;aspect-ratio:16/10;object-fit:cover;outline:1px solid var(--border);outline-offset:-1px;box-shadow:0 24px 48px -28px rgba(40,61,59,.5)}
+.study .txt{grid-column:8/13}
+.study:nth-child(even) .pic{grid-column:6/13;order:2}
+.study:nth-child(even) .txt{grid-column:1/6}
+.study .n{font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 118;font-size:44px;line-height:1;letter-spacing:-.03em;color:var(--rose)}
+.study .h3{margin-top:var(--s2)}
+.study .h3 a{text-decoration:none}
+.study .h3 a::after{content:"";position:absolute;inset:0}
+.study:hover .h3 a{color:var(--accent)}
+.study .tag{margin-top:var(--s2);font-size:18px;line-height:1.5;color:var(--foreground)}
+.study .who{margin-top:var(--s3);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tertiary-700);line-height:1.7}
+.study .who b{font-weight:600;color:var(--accent)}
+.study .go{margin-top:var(--s3);display:inline-block;color:var(--accent);font-weight:600}
+
+/* Leadership. Warm ground, three columns, ordinals in maroon, no cards. */
+.lead-sec{padding-block:var(--s12)}
+.lead-sec ul{margin-top:var(--s6);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s5);row-gap:var(--s5)}
+.lead-sec li{padding-top:var(--s3);border-top:3px solid var(--ink)}
+.lead-sec .n{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--accent)}
+.lead-sec h3{margin-top:12px;font-family:var(--font-display);font-weight:700;font-size:24px;line-height:1.15;letter-spacing:-.02em}
+.lead-sec p{margin-top:12px;font-size:16px;line-height:1.6;color:var(--foreground)}
+
+/* Contact, on ink. */
+.contact{background:var(--ink);color:var(--secondary)}
+.contact .wrap{padding-block:var(--s12)}
+.contact .eyebrow{color:var(--rose)}
+.contact .c-say{margin-top:var(--s2);font-family:var(--font-display);font-weight:800;font-size:clamp(38px,5.5vw,76px);line-height:1;letter-spacing:-.04em;color:#fff;text-wrap:balance}
+.contact .c-mail{display:inline-block;margin-top:var(--s5);font-family:var(--font-display);font-weight:700;font-size:clamp(20px,2.4vw,34px);letter-spacing:-.02em;color:var(--rose);text-decoration:none;word-break:break-all;border-bottom:2px solid var(--rose-mid);padding-bottom:6px}
+.contact .c-mail:hover{color:#fff;border-color:#fff}
+.contact .c-p{margin-top:var(--s4);font-size:17px;line-height:1.6;color:var(--secondary);max-width:40ch}
+.contact .c-links{margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s3);font-size:15px}
+.contact .c-links a{color:var(--secondary)}
+.contact .bot{margin-top:var(--s10);padding-top:var(--s3);border-top:1px solid rgba(237,221,212,.2);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:14px;color:var(--rose)}
+
+@media (max-width:1023px){
+  .site nav{display:none}
+  .hero .who,.plates{grid-column:1/13}
+  .plates{margin-top:var(--s8);max-width:640px;width:100%}
+  .outcomes dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .process .lead,.process ol{grid-column:1/13}
+  .process ol{margin-top:var(--s6);grid-template-columns:1fr;row-gap:var(--s4);padding-top:0;padding-left:44px}
+  .process ol::before{left:12px;right:auto;top:8px;bottom:8px;width:3px;height:auto}
+  .step::before{top:-2px;left:-44px}
+  .study .pic,.study .txt,.study:nth-child(even) .pic,.study:nth-child(even) .txt{grid-column:1/13;order:0}
+  .study .txt{margin-top:var(--s4)}
+  .lead-sec ul{grid-template-columns:1fr}
+}
+@media (max-width:719px){
+  .hero{padding-block:var(--s8) var(--s6)}
+  .outcomes dl{grid-template-columns:1fr}
+  .process,.studies .wrap,.lead-sec,.contact .wrap{padding-block:var(--s8)}
+}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site on-ink">
+  <div class="wrap">
+    <a class="name" href="/"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 7 L7 0 L14 7 L7 14 Z" fill="currentColor"/></svg>Anastasia Novelly Moylan</a>
+    <nav aria-label="Main navigation"><ul>
+      <li><a href="/work">Work</a></li><li><a href="/philosophy">Philosophy</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero on-ink" aria-labelledby="h1">
+    <div class="wrap grid">
+      <div class="who">
+        <p class="eyebrow">Lead Product Designer &middot; AI workflow patterns for enterprise</p>
+        <h1 id="h1">Designing journeys people can <em>trust.</em></h1>
+        <p class="deck">Governed AI for enterprise finance, telecom, and document intelligence, where every automated step stays inspectable, reversible, and owned by a person.</p>
+        <p class="cta"><a class="btn" href="/work">See the case studies</a><a class="btn quiet" href="#contact">Get in touch</a></p>
+        <ul class="meta small">
+          <li>Eleven years in enterprise product and AI design</li>
+          <li>Six designers directed across one program</li>
+          <li>St. Marys, Kansas, remote across the Americas</li>
+        </ul>
+      </div>
+
+      <figure class="plates">
+        <div class="plate"><span class="cap"><b>01</b><span>Finance Cloud</span></span><img src="{{img:gaf/cover}}" width="1440" height="900" alt="Finance Cloud cover: an architecture diagram in which governance, risk and compliance governs agentic workflows, data products and a command view."></div>
+        <div class="plate"><span class="cap"><b>02</b><span>Auditable Billing Workflow</span></span><img src="{{img:cwo/cover}}" width="1440" height="900" alt="Billing workflow cover: a billing package screen with its review task, invoice details and projects, over the process flow it replaced."></div>
+        <div class="plate"><span class="cap"><b>03</b><span>Document AI Platform</span></span><img src="{{img:di/cover}}" width="1440" height="900" alt="Document AI platform cover: a side-by-side document comparison with an assistant panel."></div>
+        <figcaption>Three platforms, 2024 to present</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="outcomes" aria-labelledby="out">
+    <div class="wrap">
+      <h2 class="h2" id="out" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Outcomes</h2>
+      <dl>
+        <div class="o"><dd>800+</dd><dt>Finance Cloud hackathon analyses, 40+ users</dt><p class="src">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>70</dd><dt>People using the billing workflow, September 2026</dt><p class="src">From <a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></p></div>
+        <div class="o"><dd>3</dd><dt>Finance Cloud versions, each redirected by research</dt><p class="src">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>2</dd><dt>Platforms built from zero</dt><p class="src">Finance Cloud and the billing workflow</p></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="process wrap grid" aria-labelledby="proc">
+    <div class="lead">
+      <p class="eyebrow" style="color:var(--tertiary-700)">Process</p>
+      <h2 class="h2" id="proc" style="margin-top:12px">Design flows, not screens</h2>
+      <p>Most product failures don&rsquo;t happen on a screen. They happen between screens: at a handoff, a failed retrieval, a permission gap, a status nobody updated. Screens come last, after the flow proves it can survive contact with reality.</p>
+      <a class="link" href="/philosophy">Read the eight principles</a>
+    </div>
+    <ol>
+      <li class="step"><span class="n">1</span><h3>Map the whole journey</h3><p>Every role, every state, and every path that breaks.</p><p class="from">Principle 01</p></li>
+      <li class="step"><span class="n">2</span><h3>Draw the system</h3><p>Data, roles, governance, adjacent products: one picture everyone can argue with.</p><p class="from">Principle 03</p></li>
+      <li class="step"><span class="n">3</span><h3>Prototype in code</h3><p>Real data lengths, real loading time, real state transitions.</p><p class="from">Principle 02</p></li>
+      <li class="step gate"><span class="n">4</span><h3>Let evidence decide</h3><p>Tested with the actual user group, not a convenient proxy.</p><p class="from">Principle 07</p></li>
+      <li class="step"><span class="n">5</span><h3>Stay through build</h3><p>Done when what ships matches what was designed.</p><p class="from">Principle 02</p></li>
+    </ol>
+  </section>
+
+  <section class="studies" aria-labelledby="cs">
+    <div class="wrap">
+      <div class="bar"><h2 class="h2" id="cs">Platforms people had to trust.</h2><a class="link" href="/work">All case studies</a></div>
+      <ol>
+        <li class="study grid">
+          <div class="pic"><img src="{{img:gaf/cover}}" width="1440" height="900" alt=""></div>
+          <div class="txt">
+            <span class="n" aria-hidden="true">01</span>
+            <h3 class="h3"><a href="/work/finance-cloud">Finance Cloud</a></h3>
+            <p class="tag">A governed AI platform for finance and payroll, taken from zero to one and scaled through iterative testing</p>
+            <p class="who"><b>Product Experience Lead</b><br>Ongoing program; several MVPs released, some in testing and some in production</p>
+            <span class="go">Read the case study &rarr;</span>
+          </div>
+        </li>
+        <li class="study grid">
+          <div class="pic"><img src="{{img:cwo/cover}}" width="1440" height="900" alt=""></div>
+          <div class="txt">
+            <span class="n" aria-hidden="true">02</span>
+            <h3 class="h3"><a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></h3>
+            <p class="tag">Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience</p>
+            <p class="who"><b>Product Lead and Design Contributor</b><br>Released</p>
+            <span class="go">Read the case study &rarr;</span>
+          </div>
+        </li>
+        <li class="study grid">
+          <div class="pic"><img src="{{img:di/cover}}" width="1440" height="900" alt=""></div>
+          <div class="txt">
+            <span class="n" aria-hidden="true">03</span>
+            <h3 class="h3"><a href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform</a></h3>
+            <p class="tag">Answers users could trace, compare, and reuse, on rails the next compliance tool could ride</p>
+            <p class="who"><b>Lead Product Designer, UX and product strategy lead</b><br>Released</p>
+            <span class="go">Read the case study &rarr;</span>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="lead-sec wrap" aria-labelledby="lead">
+    <div class="bar"><h2 class="h2" id="lead">Player-coach, on the tools.</h2><a class="link" href="/about">About</a></div>
+    <ul>
+      <li><span class="n">01</span><h3>Directed and delivered</h3><p>Directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens.</p></li>
+      <li><span class="n">02</span><h3>Zero to one, then pivoted on evidence</h3><p>Took Finance Cloud from zero to a working POC with the lead product owner, then ran the hackathon, 40+ users and 800+ analyses, whose result pivoted the product.</p></li>
+      <li><span class="n">03</span><h3>Six designers, five products</h3><p>Owned the product strategy and directed the six application-level designers building across a finance transformation program, coordinating large cross-functional teams throughout.</p></li>
+    </ul>
+  </section>
+
+  <section class="contact on-ink" id="contact" aria-labelledby="ct">
+    <div class="wrap">
+      <p class="eyebrow" id="ct">Contact</p>
+      <p class="c-say">Let&rsquo;s make it legible.</p>
+      <a class="c-mail" href="mailto:anastasiamoylan.design@gmail.com">anastasiamoylan.design@gmail.com</a>
+      <p class="c-p">Open to Lead and Principal UX roles: enterprise products, fintech, and AI-assisted tools. Remote only, across the Americas.</p>
+      <p class="c-links"><a href="https://linkedin.com/in/anastasiamoylan">LinkedIn</a><a href="/resume">R&eacute;sum&eacute;</a><a href="/work">Work</a><a href="/philosophy">Philosophy</a></p>
+      <div class="bot"><span>&copy; 2026 Anastasia Novelly Moylan</span><a href="#main" style="color:inherit">Back to top &uarr;</a></div>
+    </div>
+  </section>
+</main>
