@@ -23,6 +23,8 @@ export default function AnnotatedFigure({
   const [hi, setHi] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const label = image.label ?? "Annotated screen";
+  // A drawn screen (2026-09-19) is inlined; the pins overlay it the same way.
+  const svg = !!image.inlineSvg;
   const id = (i: number) => `pin-${image.label?.toLowerCase().replace(/\W+/g, "-") ?? "screen"}-${i + 1}`;
 
   return (
@@ -30,7 +32,7 @@ export default function AnnotatedFigure({
       <Plate
         ground="ink"
         label={label}
-        onEnlarge={() => setOpen(true)}
+        onEnlarge={svg ? undefined : () => setOpen(true)}
         enlargeLabel={`Enlarge: ${label}`}
         note={note}
         caption={
@@ -57,7 +59,11 @@ export default function AnnotatedFigure({
         }
       >
         <div className="cs-frame">
-          <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+          {svg ? (
+            <div dangerouslySetInnerHTML={{ __html: image.inlineSvg! }} />
+          ) : (
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+          )}
           {pins.map((pin, i) => (
             <button
               key={`${pin.x}-${pin.y}`}
@@ -81,7 +87,7 @@ export default function AnnotatedFigure({
           ))}
         </div>
       </Plate>
-      {open && (
+      {open && !svg && (
         <ImageLightbox
           image={{ src: image.src, fullSrc: image.fullSrc, alt: image.alt, caption }}
           onClose={() => setOpen(false)}

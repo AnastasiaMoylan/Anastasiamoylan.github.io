@@ -18,20 +18,27 @@ export default function Opener({ opener }: { opener: OpenerPair }) {
   const [open, setOpen] = useState(false);
   const image = opener.detail;
   const label = image.label ?? "Close up";
+  // A drawn opener (2026-09-19) is inlined so its labels set in the site's
+  // fonts; it needs no lightbox.
+  const svg = !!image.inlineSvg;
   return (
     <div className="content-container cs-grid cs-hero">
       <Plate
         ground="ink"
         label={label}
         caption={leadIn(image.caption)}
-        onEnlarge={() => setOpen(true)}
+        onEnlarge={svg ? undefined : () => setOpen(true)}
         enlargeLabel={`Enlarge: ${label}`}
       >
-        <button type="button" className="cs-frame cs-zoom block w-full p-0" onClick={() => setOpen(true)} aria-label={`Enlarge: ${label}`}>
-          <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
-        </button>
+        {svg ? (
+          <div className="cs-frame" dangerouslySetInnerHTML={{ __html: image.inlineSvg! }} />
+        ) : (
+          <button type="button" className="cs-frame cs-zoom block w-full p-0" onClick={() => setOpen(true)} aria-label={`Enlarge: ${label}`}>
+            <img src={image.src} alt={image.alt} width={image.width} height={image.height} />
+          </button>
+        )}
       </Plate>
-      {open && <ImageLightbox image={image} onClose={() => setOpen(false)} />}
+      {open && !svg && <ImageLightbox image={image} onClose={() => setOpen(false)} />}
     </div>
   );
 }

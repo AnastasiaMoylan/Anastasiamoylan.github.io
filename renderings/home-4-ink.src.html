@@ -83,7 +83,7 @@ a{color:inherit}
    a strip along its top, which the plate in front never covers. */
 .plates{grid-column:8/13;position:relative;align-self:center;aspect-ratio:1/0.82}
 .plate{position:absolute;width:72%;background:var(--ink-deep);outline:1px solid rgba(237,221,212,.4);outline-offset:-1px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
-.plate img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.plate img,.plate svg{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
 .plate .cap{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--ink-deep);color:var(--secondary);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid rgba(237,221,212,.25)}
 .plate .cap b{font-weight:600;color:var(--rose)}
 .plate:nth-child(1){left:28%;top:34%;z-index:3}
@@ -126,7 +126,7 @@ a{color:inherit}
 .study{position:relative;padding-block:var(--s8);border-top:1px solid var(--border);align-items:center}
 .study:last-child{border-bottom:1px solid var(--border)}
 .study .pic{grid-column:1/8}
-.study .pic img{width:100%;aspect-ratio:16/10;object-fit:cover;outline:1px solid var(--border);outline-offset:-1px;box-shadow:0 24px 48px -28px rgba(40,61,59,.5)}
+.study .pic img,.study .pic svg{width:100%;height:auto;aspect-ratio:16/10;outline:1px solid var(--border);outline-offset:-1px;box-shadow:0 24px 48px -28px rgba(40,61,59,.5)}
 .study .txt{grid-column:8/13}
 .study:nth-child(even) .pic{grid-column:6/13;order:2}
 .study:nth-child(even) .txt{grid-column:1/6}
@@ -206,9 +206,9 @@ a{color:inherit}
       </div>
 
       <figure class="plates">
-        <div class="plate"><span class="cap"><b>01</b><span>Finance Cloud</span></span><img src="{{img:gaf/cover}}" width="1440" height="900" alt="Finance Cloud cover: an architecture diagram in which governance, risk and compliance governs agentic workflows, data products and a command view."></div>
-        <div class="plate"><span class="cap"><b>02</b><span>Auditable Billing Workflow</span></span><img src="{{img:cwo/cover}}" width="1440" height="900" alt="Billing workflow cover: a billing package screen with its review task, invoice details and projects, over the process flow it replaced."></div>
-        <div class="plate"><span class="cap"><b>03</b><span>Document AI Platform</span></span><img src="{{img:di/cover}}" width="1440" height="900" alt="Document AI platform cover: a side-by-side document comparison with an assistant panel."></div>
+        <div class="plate"><span class="cap"><b>01</b><span>Finance Cloud</span></span>{{svg:gaf/cover}}</div>
+        <div class="plate"><span class="cap"><b>02</b><span>Auditable Billing Workflow</span></span>{{svg:cwo/cover}}</div>
+        <div class="plate"><span class="cap"><b>03</b><span>Document AI Platform</span></span>{{svg:di/cover}}</div>
         <figcaption>Three platforms, 2024 to present</figcaption>
       </figure>
     </div>
@@ -247,7 +247,7 @@ a{color:inherit}
       <div class="bar"><h2 class="h2" id="cs">Platforms people had to trust.</h2><a class="link" href="/work">All case studies</a></div>
       <ol>
         <li class="study grid">
-          <div class="pic"><img src="{{img:gaf/cover}}" width="1440" height="900" alt=""></div>
+          <div class="pic">{{svg:gaf/cover}}</div>
           <div class="txt">
             <span class="n" aria-hidden="true">01</span>
             <h3 class="h3"><a href="/work/finance-cloud">Finance Cloud</a></h3>
@@ -257,7 +257,7 @@ a{color:inherit}
           </div>
         </li>
         <li class="study grid">
-          <div class="pic"><img src="{{img:cwo/cover}}" width="1440" height="900" alt=""></div>
+          <div class="pic">{{svg:cwo/cover}}</div>
           <div class="txt">
             <span class="n" aria-hidden="true">02</span>
             <h3 class="h3"><a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></h3>
@@ -267,7 +267,7 @@ a{color:inherit}
           </div>
         </li>
         <li class="study grid">
-          <div class="pic"><img src="{{img:di/cover}}" width="1440" height="900" alt=""></div>
+          <div class="pic">{{svg:di/cover}}</div>
           <div class="txt">
             <span class="n" aria-hidden="true">03</span>
             <h3 class="h3"><a href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform</a></h3>

@@ -36,22 +36,31 @@ import { diagramSvg } from "./diagramSvg";
 // visible-backlog decisions (both were the parking lot's first two rows,
 // word for word). Report: docs/case-study/2026-09-10-content-pare-down.md.
 
-// `?preview` yields a downscaled WebP for inline display (see vite.config.ts);
-// the plain import is the full-resolution original used by the lightbox.
-import ccjJourneyExplorations from "../assets/case-studies/ccj/journey-explorations.jpg?preview";
-import ccjJourneyExplorationsFull from "../assets/case-studies/ccj/journey-explorations.jpg";
-import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg?preview";
-import ccjDashboardFull from "../assets/case-studies/ccj/dashboard-performance.jpg";
-import ccjMitigationPlan from "../assets/case-studies/ccj/mitigation-plan.jpg?preview";
-import ccjMitigationPlanFull from "../assets/case-studies/ccj/mitigation-plan.jpg";
-import ccjChatExpanded from "../assets/case-studies/ccj/chat-expanded.png?preview";
-import ccjChatExpandedFull from "../assets/case-studies/ccj/chat-expanded.png";
-import cwoPackageIndex from "../assets/case-studies/cwo/package-index.jpg?preview";
-import cwoPackageIndexFull from "../assets/case-studies/cwo/package-index.jpg";
-import cwoBillingReport from "../assets/case-studies/cwo/billing-report.jpg?preview";
-import cwoBillingReportFull from "../assets/case-studies/cwo/billing-report.jpg";
-import cwoReview01 from "../assets/case-studies/cwo/review-flow-01.jpg?preview";
-import cwoReview01Full from "../assets/case-studies/cwo/review-flow-01.jpg";
+// Every screen in the studies is drawn (scripts/visuals/, 2026-09-19):
+// anonymised schematics of the real product in the site's tokens, inlined
+// like the diagrams so their labels set in the site's fonts. The `?raw`
+// import is the markup, the plain import the file URL. No screenshot of a
+// client system ships on the site.
+import gafCoverUrl from "../assets/case-studies/gaf/cover.svg";
+import gafCoverRaw from "../assets/case-studies/gaf/cover.svg?raw";
+import diCoverUrl from "../assets/case-studies/di/cover.svg";
+import diCoverRaw from "../assets/case-studies/di/cover.svg?raw";
+import ccjCoverUrl from "../assets/case-studies/ccj/cover.svg";
+import ccjCoverRaw from "../assets/case-studies/ccj/cover.svg?raw";
+import ccjJourneyUrl from "../assets/case-studies/ccj/journey-exploration.svg";
+import ccjJourneyRaw from "../assets/case-studies/ccj/journey-exploration.svg?raw";
+import ccjDashboardUrl from "../assets/case-studies/ccj/dashboard.svg";
+import ccjDashboardRaw from "../assets/case-studies/ccj/dashboard.svg?raw";
+import ccjMitigationUrl from "../assets/case-studies/ccj/mitigation-plan.svg";
+import ccjMitigationRaw from "../assets/case-studies/ccj/mitigation-plan.svg?raw";
+import ccjChatUrl from "../assets/case-studies/ccj/representative-chat.svg";
+import ccjChatRaw from "../assets/case-studies/ccj/representative-chat.svg?raw";
+import cwoPackageIndexUrl from "../assets/case-studies/cwo/package-index.svg";
+import cwoPackageIndexRaw from "../assets/case-studies/cwo/package-index.svg?raw";
+import cwoBillingReportUrl from "../assets/case-studies/cwo/billing-report.svg";
+import cwoBillingReportRaw from "../assets/case-studies/cwo/billing-report.svg?raw";
+import cwoReviewFlowUrl from "../assets/case-studies/cwo/review-flow.svg";
+import cwoReviewFlowRaw from "../assets/case-studies/cwo/review-flow.svg?raw";
 // Drawn diagrams ship as SVG and are inlined (see ./diagramSvg): the `?raw`
 // import is the markup, the plain import the file URL. Source `.html` beside
 // each, per docs/case-study/case-study-diagrams.md.
@@ -109,6 +118,19 @@ export const caseStudies: Record<string, CaseStudy> = {
     // The subtitle carries what the headline dropped, 2026-09-11, from her
     // overview lines. [NEEDS SIGN-OFF]
     deck: "Scaled through iterative testing, with every AI action inspectable and a person’s approval on anything consequential.",
+    opener: {
+      detail: {
+        label: "A governed analysis",
+        src: gafCoverUrl,
+        fullSrc: gafCoverUrl,
+        inlineSvg: diagramSvg(gafCoverRaw),
+        ground: "ink",
+        width: 1440,
+        height: 900,
+        alt: "A drawn Finance Cloud analysis screen: a question, the AI-drafted answer with a variance chart, a provenance panel naming the ledger, forecast and payroll sources with a confidence bar, and a Send to review action. Beside it, a Human review card with the checks a controller runs before approving, and the five-step governance chain below.",
+        caption: "Every number traces to its source. The draft carries its provenance and confidence, and a person approves it before anything posts to the ledger.",
+      },
+    },
     overview: {
       challenge:
         "Finance teams wanted AI-assisted analysis without giving up the controls, audit trails and accountability that finance work requires.",
@@ -348,6 +370,19 @@ export const caseStudies: Record<string, CaseStudy> = {
     // [NEEDS SIGN-OFF] on the cuts to one sentence each. The result line no
     // longer repeats the claim; "from detection to a reviewed, monitored
     // action" is her Outcome after-line, condensed.
+    opener: {
+      detail: {
+        label: "Score to decision",
+        src: ccjCoverUrl,
+        fullSrc: ccjCoverUrl,
+        inlineSvg: diagramSvg(ccjCoverRaw),
+        ground: "ink",
+        width: 1440,
+        height: 900,
+        alt: "A drawn sequence: an at-risk revenue tile with a Mitigate action, a mitigation plan listing the model’s key drivers and an assistant-drafted offer with audience and tone controls, and a Human review card that must approve the offer before it is sent.",
+        caption: "A score becomes a decision a person makes. The model names the driver, the assistant drafts the offer, and review is required before anything reaches a customer.",
+      },
+    },
     overview: {
       challenge:
         "A telecommunications operator had predictive churn signals, but nothing connected detection to a reviewed action and its result.",
@@ -448,20 +483,23 @@ export const caseStudies: Record<string, CaseStudy> = {
         images: [
           {
             label: "Analyst dashboard",
-            src: ccjDashboard,
-            fullSrc: ccjDashboardFull,
-            width: 1600,
-            height: 1024,
+            src: ccjDashboardUrl,
+            fullSrc: ccjDashboardUrl,
+            inlineSvg: diagramSvg(ccjDashboardRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
             alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
             caption:
               "At-risk KPIs beside ARPU, NPS, retention and campaign performance, each with a direct path to mitigation.",
           },
           {
             label: "Journey exploration",
-            src: ccjJourneyExplorations,
-            fullSrc: ccjJourneyExplorationsFull,
-            width: 2400,
-            height: 1531,
+            src: ccjJourneyUrl,
+            fullSrc: ccjJourneyUrl,
+            inlineSvg: diagramSvg(ccjJourneyRaw),
+            width: 1440,
+            height: 720,
             alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
             caption:
               "Top-up failures churn differently by channel, so mitigation targets the worst path, not every failure equally.",
@@ -478,10 +516,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         images: [
           {
             label: "Mitigation plan",
-            src: ccjMitigationPlan,
-            fullSrc: ccjMitigationPlanFull,
-            width: 1600,
-            height: 1547,
+            src: ccjMitigationUrl,
+            fullSrc: ccjMitigationUrl,
+            inlineSvg: diagramSvg(ccjMitigationRaw),
+            ground: "ink",
+            width: 1200,
+            height: 1100,
             alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
             caption:
               "The KPI’s drivers beside an AI-drafted, tone-controlled offer. A person edits the preview before it launches.",
@@ -498,10 +538,12 @@ export const caseStudies: Record<string, CaseStudy> = {
         images: [
           {
             label: "Representative chat",
-            src: ccjChatExpanded,
-            fullSrc: ccjChatExpandedFull,
-            width: 1600,
-            height: 1024,
+            src: ccjChatUrl,
+            fullSrc: ccjChatUrl,
+            inlineSvg: diagramSvg(ccjChatRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
             alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
             caption:
               "An AI summary and suggested action beside the live conversation: assistance in view, the representative in control.",
@@ -596,58 +638,52 @@ export const caseStudies: Record<string, CaseStudy> = {
     opener: {
       detail: {
         label: "Billing report",
-        src: cwoBillingReport,
-        fullSrc: cwoBillingReportFull,
-        width: 2400,
-        height: 2390,
-        alt: "Close detail of the finalized billing report: charges broken down by category with gross and net construction cost, credit lines and the total amount due.",
-        caption:
-          "Close up. Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.",
-      },
-      context: {
-        src: cwoPackageIndex,
-        fullSrc: cwoPackageIndexFull,
-        width: 2400,
-        height: 1537,
-        alt: "Billing package index listing existing packages by ID, projects, contract number, owner and last modified, with a project-number filter and a Start new billing package button.",
-        caption:
-          "In context. Every package is found by project number before a new one can be started, the rule that stopped duplicates.",
+        src: cwoBillingReportUrl,
+        fullSrc: cwoBillingReportUrl,
+        inlineSvg: diagramSvg(cwoBillingReportRaw),
+        ground: "ink",
+        width: 1200,
+        height: 1128,
+        alt: "A drawn billing report: charges broken down by category with their totals, gross and net construction cost, credit lines, previous billings and advance payments, and the total amount due, with a Download PDF action.",
+        caption: "Close up. Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.",
       },
     },
-    // Pin coordinates are percentages placed by eye in the prototype; two of
-    // the four land on a table row rather than the column header they mean.
-    // Tune against the asset in the browser.
+    // Pin coordinates are percentages of the drawn index (scripts/visuals/
+    // scenes.mjs, packageIndex): the button, the filter field, the Owner
+    // header and the Last modified header.
     annotated: {
       // Decision 02's plate: the index is the project-number key, shown.
       decision: 1,
       image: {
         label: "Package index",
-        src: cwoPackageIndex,
-        fullSrc: cwoPackageIndexFull,
-        width: 2400,
-        height: 1537,
+        src: cwoPackageIndexUrl,
+        fullSrc: cwoPackageIndexUrl,
+        inlineSvg: diagramSvg(cwoPackageIndexRaw),
+        ground: "ink",
+        width: 1440,
+        height: 900,
         alt: "Billing package index with the project-number filter, owner and last-modified columns, and the Start new billing package control.",
         caption: "Four decisions visible on one screen.",
       },
       pins: [
         {
-          x: 88,
-          y: 19,
+          x: 86,
+          y: 15.5,
           text: "Guarded by the identity check. Starting a package runs the project-number lookup first, so duplicates cannot be created.",
         },
         {
-          x: 53,
-          y: 33,
+          x: 50,
+          y: 15.5,
           text: "The primary key is the filter. A package is found by project number, hence the search field.",
         },
         {
-          x: 47,
-          y: 43,
+          x: 51,
+          y: 27,
           text: "Ownership before you open anything. The owner column makes the responsible person visible from the index.",
         },
         {
-          x: 58,
-          y: 43,
+          x: 78,
+          y: 27,
           text: "The status model, surfacing. Every transition is timestamped, so last-modified is a real signal, not a file date.",
         },
       ],
@@ -824,11 +860,11 @@ export const caseStudies: Record<string, CaseStudy> = {
         images: [
           {
             label: "Review flow",
-            src: cwoReview01,
-            fullSrc: cwoReview01Full,
-            width: 1942,
-            height: 1833,
-            displayScale: 0.55,
+            src: cwoReviewFlowUrl,
+            fullSrc: cwoReviewFlowUrl,
+            inlineSvg: diagramSvg(cwoReviewFlowRaw),
+            width: 1440,
+            height: 720,
             alt: "Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.",
             caption: "Starting a review locks the package to one reviewer; everyone else reads until it is done.",
           },
@@ -924,6 +960,19 @@ export const caseStudies: Record<string, CaseStudy> = {
     // authored from that. [NEEDS SIGN-OFF]
     claim: "One workspace for every business unit’s document AI tools.",
     deck: "Cited answers, document upload, comparison and drafting on shared patterns, so the next unit’s tool arrives as a widget, not a product.",
+    opener: {
+      detail: {
+        label: "Cited and compared",
+        src: diCoverUrl,
+        fullSrc: diCoverUrl,
+        inlineSvg: diagramSvg(diCoverRaw),
+        ground: "ink",
+        width: 1440,
+        height: 900,
+        alt: "A drawn document workspace: an answer with three numbered citations, the active document set as editable tiles with the cited documents marked, and two versions of a policy compared side by side with the cited passages highlighted and numbered.",
+        caption: "An answer carries its sources. The document set is visible and editable, and comparison has a mode matched to the reading task.",
+      },
+    },
     overview: {
       challenge:
         "Business units had built specialized AI functions for their documents, but users had no single, trustworthy place to use them.",

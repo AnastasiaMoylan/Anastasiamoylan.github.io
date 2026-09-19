@@ -1,0 +1,33 @@
+/**
+ * Writes every generated case-study visual to src/assets/case-studies/.
+ *
+ *   node scripts/visuals/build.mjs
+ *
+ * The scenes are in scenes.mjs, the primitives in lib.mjs. The outputs are
+ * committed: the site imports them (`?raw` for inlining, plain for the URL)
+ * and the renderings embed them, so a change here is a change on the page.
+ */
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import * as scenes from "./scenes.mjs";
+
+const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../src/assets/case-studies");
+const files = {
+  "gaf/cover.svg": scenes.financeCloudCover,
+  "cwo/cover.svg": scenes.billingCover,
+  "di/cover.svg": scenes.documentAiCover,
+  "ccj/cover.svg": scenes.customerJourneyCover,
+  "cwo/billing-report.svg": scenes.billingReport,
+  "cwo/package-index.svg": scenes.packageIndex,
+  "cwo/review-flow.svg": scenes.reviewFlow,
+  "ccj/dashboard.svg": scenes.analystDashboard,
+  "ccj/journey-exploration.svg": scenes.journeyExploration,
+  "ccj/mitigation-plan.svg": scenes.mitigationPlan,
+  "ccj/representative-chat.svg": scenes.representativeChat,
+};
+for (const [file, draw] of Object.entries(files)) {
+  const svg = draw();
+  fs.writeFileSync(path.join(out, file), svg);
+  console.log(`${file}  ${(svg.length / 1024).toFixed(0)} kB`);
+}

@@ -76,7 +76,7 @@ a{color:inherit}
    chain (the pattern the studies share) as a rail across its foot. */
 .board{background:var(--card);padding-block:var(--s8) 0}
 .board .frame{position:relative;background:var(--ink-deep);overflow:hidden}
-.board img{width:100%;aspect-ratio:21/9;object-fit:cover;object-position:center 30%}
+.board svg{width:100%;height:auto;display:block}
 .board .label{position:absolute;top:0;left:0;display:flex;gap:var(--s3);padding:12px 18px;background:rgba(29,45,43,.9);color:var(--rose);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
 .chain{position:absolute;left:0;right:0;bottom:0;background:rgba(29,45,43,.92);color:var(--secondary);padding:var(--s3) var(--s4) var(--s4);border-top:1px solid rgba(237,221,212,.3)}
 .chain ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--s3);position:relative;padding-top:26px}
@@ -88,6 +88,7 @@ a{color:inherit}
 .chain li.gate b{color:var(--rose)}
 .chain p{margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--secondary)}
 .chain .cap{margin-top:var(--s3);display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose)}
+.chain-cap{display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;padding:14px 18px;background:var(--ink-deep);color:var(--rose);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;border-top:1px solid rgba(237,221,212,.3)}
 .board .meta{display:flex;flex-wrap:wrap;gap:8px var(--s3);padding-block:var(--s3) var(--s8);font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--tertiary-700)}
 
 /* Outcomes on solid maroon. */
@@ -104,7 +105,7 @@ a{color:inherit}
 .studies{padding-block:var(--s12)}
 .studies ol{margin-top:var(--s6);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--s6)}
 .study{position:relative;display:flex;flex-direction:column;background:var(--ink);color:var(--secondary);box-shadow:0 30px 50px -30px rgba(40,61,59,.55)}
-.study img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.study img,.study svg{width:100%;height:auto;aspect-ratio:16/10}
 .study .txt{padding:var(--s3) var(--s3) var(--s4);display:flex;flex-direction:column;flex:1}
 .study .n{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--rose)}
 .study .h3{margin-top:10px;color:#fff}
@@ -139,7 +140,6 @@ a{color:inherit}
   .site nav{display:none}
   .hero .deck,.hero .facts{grid-column:1/13}
   .hero .facts{margin-top:var(--s4)}
-  .board img{aspect-ratio:16/10}
   .chain{position:static;padding-inline:var(--s3)}
   .chain ol{grid-template-columns:1fr;row-gap:var(--s3);padding-top:0;padding-left:36px}
   .chain ol::before{left:10px;right:auto;top:6px;bottom:6px;width:2px;height:auto}
@@ -191,18 +191,8 @@ a{color:inherit}
     <div class="wrap">
       <h2 id="board" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The governance pattern</h2>
       <figure class="frame on-ink">
-        <img src="{{img:gaf/cover}}" width="1440" height="900" alt="Finance Cloud architecture: governance, risk and compliance governs agentic workflows, data products and a command view.">
-        <span class="label"><span>Finance Cloud</span><span>Pattern / 001</span></span>
-        <figcaption class="chain">
-          <ol>
-            <li><b>Signal</b><p>Model score, anomaly flag, or a failed automation</p></li>
-            <li class="ai"><b>AI draft</b><p>Copilot proposes the action and shows the inputs it used</p></li>
-            <li class="gate"><b>Human review</b><p>Required. Nothing reaches a customer or a ledger unreviewed.</p></li>
-            <li><b>Action</b><p>Message sent, journal entry posted, billing package released</p></li>
-            <li><b>Audit log</b><p>Every step replayable, every input traceable to its source</p></li>
-          </ol>
-          <p class="cap"><span>Governance chain</span><span>Extracted across Finance Cloud, Connected Customer Journey, and the Auditable Billing Workflow</span></p>
-        </figcaption>
+        {{svg:gaf/cover}}
+        <figcaption class="chain-cap"><span>Finance Cloud · the governance chain, drawn along the foot of the figure</span><span>Extracted across Finance Cloud, Connected Customer Journey, and the Auditable Billing Workflow</span></figcaption>
       </figure>
       <ul class="meta">
         <li>Finance</li><li>Telecom</li><li>Document intelligence</li><li>AI-enabled B2B software</li>
@@ -226,7 +216,7 @@ a{color:inherit}
     <div class="bar"><h2 class="h2" id="cs">Platforms people had to trust.</h2><a class="link" href="/work">All case studies</a></div>
     <ol>
       <li class="study on-ink">
-        <img src="{{img:gaf/cover}}" width="1440" height="900" alt="">
+        {{svg:gaf/cover}}
         <div class="txt">
           <span class="n" aria-hidden="true">01</span>
           <h3 class="h3"><a href="/work/finance-cloud">Finance Cloud</a></h3>
@@ -235,7 +225,7 @@ a{color:inherit}
         </div>
       </li>
       <li class="study on-ink">
-        <img src="{{img:cwo/cover}}" width="1440" height="900" alt="">
+        {{svg:cwo/cover}}
         <div class="txt">
           <span class="n" aria-hidden="true">02</span>
           <h3 class="h3"><a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></h3>
@@ -244,7 +234,7 @@ a{color:inherit}
         </div>
       </li>
       <li class="study on-ink">
-        <img src="{{img:di/cover}}" width="1440" height="900" alt="">
+        {{svg:di/cover}}
         <div class="txt">
           <span class="n" aria-hidden="true">03</span>
           <h3 class="h3"><a href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform</a></h3>
