@@ -52,10 +52,9 @@ body {
 }
 
 /* Reusable max-width container — avoids repeating the breakpoint sequence everywhere */
-/* One container site-wide. Widened 1152 -> 1440 on 2026-08-26, when the
-   case-study canvas went full-screen and the owner standardized the rest of
-   the site to match. Narrow reading measures come from max-w-* on inner
-   blocks, not from this container. */
+/* One container site-wide; its width is `--container-max` in theme.css
+   (1152 -> 1440 on 2026-08-26, 1440 -> 1200 on 2026-09-18). Narrow reading
+   measures come from max-w-* on inner blocks, not from this container. */
 /* The reading measure: every prose block in a case study caps here (~70ch at
    1rem body). Wider elements — cards, diagrams, galleries — use the grid, not
    this. */
@@ -64,7 +63,7 @@ body {
 }
 
 .content-container {
-  max-width: 1440px;
+  max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;

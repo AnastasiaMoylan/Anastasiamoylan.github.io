@@ -51,6 +51,11 @@
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --radius: 0.375rem;
+  /* The one page width (`.content-container`). Narrowed 1440 -> 1200 on
+     2026-09-18: at 1440 a case study's 60ch column left the right half of
+     every prose screen empty, and a full-width 16:10 plate stood about 840px
+     tall, more than a laptop viewport. At 1200 a plate is about 690px. */
+  --container-max: 1200px;
 
   /* Maroon tint ramp for case-study diagrams: successive mixes of --accent
      with white. Subtle = tinted rows and callouts, light = first bar and

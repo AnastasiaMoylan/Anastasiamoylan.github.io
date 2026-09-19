@@ -40,13 +40,18 @@
     margin-top: 24px;
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(2.5rem, 4.7vw, 4.25rem);
+    /* Sized to the five-column measure (about 446px in a 1200 container), so
+       "journeys people" holds one line and the headline stays at three. */
+    font-size: clamp(2.5rem, 4.2vw, 3.75rem);
     line-height: 0.98;
     letter-spacing: -0.04em;
     color: #fff;
     text-wrap: balance;
   }
   .home-hero h1 em { font-style: normal; color: var(--home-rose); }
+  /* The eyebrow is two phrases joined by a middot; when the column is too
+     narrow for both it breaks between them, never inside one. */
+  .home-hero-eyebrow span { white-space: nowrap; }
   .home-hero-deck {
     margin-top: 32px;
     max-width: 34em;
@@ -82,7 +87,7 @@
     grid-column: 6 / 13;
     position: relative;
     display: block;
-    margin-right: calc((100vw - min(100vw, 1440px)) / -2 - var(--home-pad));
+    margin-right: calc((100vw - min(100vw, var(--container-max))) / -2 - var(--home-pad));
     text-decoration: none;
     color: var(--secondary);
   }

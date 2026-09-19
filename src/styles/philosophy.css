@@ -48,11 +48,13 @@
   .ph-open .ph-grid { padding-block: 80px; }
   .ph-open .ph-eyebrow { grid-column: 1 / -1; color: var(--ph-rose); }
   .ph-open h1 {
-    grid-column: 1 / 8;
+    /* Nine columns and 72px at most, so the title holds its two-line break
+       ("The whole system, / not just the screen") in a 1200 container. */
+    grid-column: 1 / 10;
     margin-top: 24px;
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(2.5rem, 5.6vw, 5.25rem);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     line-height: 0.98;
     letter-spacing: -0.04em;
     color: #fff;

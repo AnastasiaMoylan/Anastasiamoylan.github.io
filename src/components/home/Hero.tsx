@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Link } from "react-router";
 import Button from "../ui/Button";
 import Eyebrow from "../ui/Eyebrow";
@@ -16,7 +17,16 @@ export default function Hero() {
       <div className="content-container">
         <div className="home-hero-grid">
           <div className="home-hero-who">
-            <Eyebrow tone="ink">{eyebrow}</Eyebrow>
+            <Eyebrow tone="ink" className="home-hero-eyebrow">
+              {eyebrow.split(" · ").map((phrase, i, all) => (
+                <Fragment key={phrase}>
+                  <span>
+                    {phrase}
+                    {i < all.length - 1 && " ·"}
+                  </span>{" "}
+                </Fragment>
+              ))}
+            </Eyebrow>
             <h1 id="hero-heading">
               {headline[0]} <em>{headline[1]}</em>
             </h1>

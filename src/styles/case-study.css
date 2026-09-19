@@ -236,8 +236,9 @@
      stays within one screen. */
   .cs-hero .cs-plate { margin-top: 0; }
   .cs-hero .cs-frame img { width: auto; max-height: 80vh; max-width: 100%; margin-inline: auto; }
-  /* A drawn opener is 16:10 and fits the column; the frame is the SVG's own. */
-  .cs-hero .cs-frame svg { width: 100%; height: auto; max-width: 1120px; margin-inline: auto; }
+  /* A drawn opener is 16:10 and spans the container like every other plate;
+     the frame is the SVG's own. */
+  .cs-hero .cs-frame svg { width: 100%; height: auto; }
   /* A coded diagram (React markup rather than an exported SVG) sits on the
      champagne ground as-is; it brings its own cards. */
   .cs-coded { color: var(--foreground); }
