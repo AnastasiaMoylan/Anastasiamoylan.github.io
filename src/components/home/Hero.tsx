@@ -1,43 +1,50 @@
+import { Link } from "react-router";
 import Button from "../ui/Button";
 import Eyebrow from "../ui/Eyebrow";
-import GovernanceChain from "./GovernanceChain";
+import { homeHero } from "../../data/home";
 
+/**
+ * The home hero in the Lead plate layout (`styles/home.css`). The copy and the
+ * cover come from `data/home.ts`; this file is only the layout, so another of
+ * the drawn heroes can replace it without touching the content.
+ */
 export default function Hero() {
+  const { eyebrow, headline, deck, primaryCta, secondaryCta, meta, lead } = homeHero;
+
   return (
-    <section className="relative overflow-hidden border-b border-border" aria-labelledby="hero-heading">
-
-      <div className="content-container relative py-16 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_396px] lg:gap-16 lg:items-start">
-          <div>
-            <Eyebrow>
-              Lead Product Designer &middot; AI Workflow Patterns for Enterprise
-            </Eyebrow>
-
-            <h1
-              id="hero-heading"
-              className="mt-6 font-display text-[clamp(2.75rem,6.5vw,5.5rem)] font-extrabold leading-[1.02] tracking-[-0.045em] text-foreground"
-            >
-              Designing journeys people can trust.
+    <section className="home-hero on-ink" aria-labelledby="hero-heading">
+      <div className="content-container">
+        <div className="home-hero-grid">
+          <div className="home-hero-who">
+            <Eyebrow tone="ink">{eyebrow}</Eyebrow>
+            <h1 id="hero-heading">
+              {headline[0]} <em>{headline[1]}</em>
             </h1>
-
-            <p className="mt-8 max-w-[34rem] text-[1.0625rem] leading-[1.75] text-muted-foreground">
-              Governed AI for enterprise finance, telecom, and document intelligence &mdash; where
-              every automated step stays inspectable, reversible, and owned by a person.
-            </p>
-
-            <div className="mt-9">
-              <Button to="/work">
-                See the case studies
+            <p className="home-hero-deck">{deck}</p>
+            <div className="home-hero-cta">
+              <Button to={primaryCta.to} variant="inkPrimary">
+                {primaryCta.label}
+              </Button>
+              <Button to={secondaryCta.to} variant="inkOutline">
+                {secondaryCta.label}
               </Button>
             </div>
+            <ul className="home-hero-meta">
+              {meta.map((fact) => (
+                <li key={fact}>{fact}</li>
+              ))}
+            </ul>
           </div>
 
-          <GovernanceChain />
+          <Link className="home-hero-lead" to={lead.to}>
+            <span className="home-hero-cap">
+              <b aria-hidden="true">{lead.ordinal}</b>
+              <span>{lead.title}</span>
+            </span>
+            {/* Inlined, not an <img>: the cover's labels are live text. */}
+            <span className="home-hero-shot" dangerouslySetInnerHTML={{ __html: lead.svg }} />
+          </Link>
         </div>
-
-        <p className="mt-16 text-center font-mono text-[0.6875rem] uppercase tracking-[0.14em] text-muted-foreground">
-          St. Marys, Kansas &middot; Remote across the Americas &middot; Eleven years &middot; Finance &middot; Telecom &middot; AI-enabled B2B software
-        </p>
       </div>
     </section>
   );

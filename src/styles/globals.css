@@ -10,9 +10,16 @@ body {
 /* One focus ring for every interactive element that doesn't style its own.
    Most links and buttons relied on browser defaults, which vary per platform
    and disappear against the warm ground. */
-:where(a, button, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+/* In the base layer so a component can restate it: unlayered, it outranked
+   every ink-ground override and left a maroon ring on ink at 1.1:1. */
+@layer base {
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--secondary);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

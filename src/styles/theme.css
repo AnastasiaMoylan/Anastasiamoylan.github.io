@@ -29,6 +29,9 @@
   --tertiary-500: #6b8f8a;
   --tertiary-700: #3e5b58;
   --tertiary-900: #283d3b;
+  /* The ground the drawn covers sit on (`SITE.inkDeep` in scripts/visuals).
+     The home hero takes it too, so a cover has no box of its own there. */
+  --ink-deep: #1d2d2b;
 
   --muted: #f2efe9;
   /* Darkened 2026-09-10 from #6b6560: at 14–17px the old value read as
@@ -95,6 +98,7 @@
   --color-tertiary-500: var(--tertiary-500);
   --color-tertiary-700: var(--tertiary-700);
   --color-tertiary-900: var(--tertiary-900);
+  --color-ink-deep: var(--ink-deep);
   --color-grid-line: var(--grid-line);
   --color-grid-mark: var(--grid-mark);
 
