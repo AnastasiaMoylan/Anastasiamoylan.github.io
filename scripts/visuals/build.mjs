@@ -17,20 +17,10 @@ const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../sr
 // (2026-09-18): they are SVG exports from Figma (the CCJ Screens file and the
 // Case Study Visuals cover plate), committed as-is. Their scenes stay in
 // scenes.mjs but are not written, so a rebuild cannot overwrite the exports.
+// The same holds since 2026-09-19 for every Finance Cloud, Billing and
+// Document AI plate: they are exports of the plates on pages 01–03 of the
+// Case Study Visuals file.
 const files = {
-  "gaf/cover.svg": scenes.financeCloudCover,
-  "cwo/cover.svg": scenes.billingCover,
-  "di/cover.svg": scenes.documentAiCover,
-  "cwo/billing-report.svg": scenes.billingReport,
-  "cwo/package-index.svg": scenes.packageIndex,
-  "cwo/review-flow.svg": scenes.reviewFlow,
-  // Second pass: one plate for every decision that had none.
-  "gaf/promotion-gate.svg": scenes.promotionGate,
-  "gaf/copilot-plan.svg": scenes.copilotPlan,
-  "gaf/confidence-tiers.svg": scenes.confidenceTiers,
-  "cwo/progressive-validation.svg": scenes.progressiveValidation,
-  "di/draft-export.svg": scenes.draftExport,
-  "di/compliance-widget.svg": scenes.complianceWidget,
   "ccj/dynamic-segments.svg": scenes.dynamicSegments,
 };
 for (const [file, draw] of Object.entries(files)) {

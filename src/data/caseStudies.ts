@@ -42,34 +42,22 @@ import { diagramSvg } from "./diagramSvg";
 // import is the markup, the plain import the file URL. No screenshot of a
 // client system ships on the site.
 import gafCoverUrl from "../assets/case-studies/gaf/cover.svg";
-import gafCoverRaw from "../assets/case-studies/gaf/cover.svg?raw";
 import diCoverUrl from "../assets/case-studies/di/cover.svg";
-import diCoverRaw from "../assets/case-studies/di/cover.svg?raw";
 import ccjCoverUrl from "../assets/case-studies/ccj/cover.svg";
 import ccjJourneyUrl from "../assets/case-studies/ccj/journey-exploration.svg";
 import ccjDashboardUrl from "../assets/case-studies/ccj/dashboard.svg";
 import ccjMitigationUrl from "../assets/case-studies/ccj/mitigation-plan.svg";
 import ccjChatUrl from "../assets/case-studies/ccj/representative-chat.svg";
 import cwoPackageIndexUrl from "../assets/case-studies/cwo/package-index.svg";
-import cwoPackageIndexRaw from "../assets/case-studies/cwo/package-index.svg?raw";
 import cwoBillingReportUrl from "../assets/case-studies/cwo/billing-report.svg";
-import cwoBillingReportRaw from "../assets/case-studies/cwo/billing-report.svg?raw";
 import cwoReviewFlowUrl from "../assets/case-studies/cwo/review-flow.svg";
-import cwoReviewFlowRaw from "../assets/case-studies/cwo/review-flow.svg?raw";
 import cwoCoverUrl from "../assets/case-studies/cwo/cover.svg";
-import cwoCoverRaw from "../assets/case-studies/cwo/cover.svg?raw";
 import cwoValidationUrl from "../assets/case-studies/cwo/progressive-validation.svg";
-import cwoValidationRaw from "../assets/case-studies/cwo/progressive-validation.svg?raw";
 import gafGateUrl from "../assets/case-studies/gaf/promotion-gate.svg";
-import gafGateRaw from "../assets/case-studies/gaf/promotion-gate.svg?raw";
 import gafPlanUrl from "../assets/case-studies/gaf/copilot-plan.svg";
-import gafPlanRaw from "../assets/case-studies/gaf/copilot-plan.svg?raw";
 import gafTiersUrl from "../assets/case-studies/gaf/confidence-tiers.svg";
-import gafTiersRaw from "../assets/case-studies/gaf/confidence-tiers.svg?raw";
 import diDraftUrl from "../assets/case-studies/di/draft-export.svg";
-import diDraftRaw from "../assets/case-studies/di/draft-export.svg?raw";
 import diWidgetUrl from "../assets/case-studies/di/compliance-widget.svg";
-import diWidgetRaw from "../assets/case-studies/di/compliance-widget.svg?raw";
 import ccjSegmentsUrl from "../assets/case-studies/ccj/dynamic-segments.svg";
 import ccjSegmentsRaw from "../assets/case-studies/ccj/dynamic-segments.svg?raw";
 // Drawn diagrams ship as SVG and are inlined (see ./diagramSvg): the `?raw`
@@ -134,10 +122,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "A governed analysis",
         src: gafCoverUrl,
         fullSrc: gafCoverUrl,
-        inlineSvg: diagramSvg(gafCoverRaw),
         ground: "ink",
-        width: 1440,
-        height: 900,
+        width: 1600,
+        height: 729,
         alt: "A drawn Finance Cloud analysis screen: a question, the AI-drafted answer with a variance chart, a provenance panel naming the ledger, forecast and payroll sources with a confidence bar, and a Send to review action. Beside it, a Human review card with the checks a controller runs before approving, and the five-step governance chain below.",
         caption: "Every number traces to its source. The draft carries its provenance and confidence, and a person approves it before anything posts to the ledger.",
       },
@@ -278,10 +265,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Promotion gate",
             src: gafGateUrl,
             fullSrc: gafGateUrl,
-            inlineSvg: diagramSvg(gafGateRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 772,
             alt: "Experimentation on the left and governed production on the right, with a promotion gate between them: a checklist of lineage, reviewer approval, confidence threshold, access policy and audit log. One control is unmet and a notice names it; the Promote button is disabled until every control passes.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "A blocked promotion names what is missing. The rule lives in the interface, so it reads as a rule and not as a bug.",
@@ -301,10 +287,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Copilot plan",
             src: gafPlanUrl,
             fullSrc: gafPlanUrl,
-            inlineSvg: diagramSvg(gafPlanRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 818,
             alt: "A month-end close task listing accrual candidates, and beside it a copilot panel scoped to that task running understand, clarify, confirm, then plan. The plan is a checklist of steps with pause, resume and roll back.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "Understand, clarify, confirm, then plan. Wrong assumptions surface before a result does, and the plan can be paused or rolled back as a unit.",
@@ -326,9 +311,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Three tiers",
             src: gafTiersUrl,
             fullSrc: gafTiersUrl,
-            inlineSvg: diagramSvg(gafTiersRaw),
-            width: 1440,
-            height: 640,
+            ground: "ink",
+            width: 1600,
+            height: 673,
             alt: "Three tiers across rising model confidence and falling consequence: stops and escalates, recommends and waits, acts on its own, with the two cut-offs between them marked pending. Below, three worked accrual examples placed in their tiers and the success definition: analyst behaviour within 72 hours.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "Three tiers, two cut-offs still to set. The boundaries are product decisions; the numbers between them are ML engineering’s.",
@@ -702,10 +687,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Billing report",
         src: cwoBillingReportUrl,
         fullSrc: cwoBillingReportUrl,
-        inlineSvg: diagramSvg(cwoBillingReportRaw),
         ground: "ink",
-        width: 1200,
-        height: 1128,
+        width: 1600,
+        height: 980,
         alt: "A drawn billing report: charges broken down by category with their totals, gross and net construction cost, credit lines, previous billings and advance payments, and the total amount due, with a Download PDF action.",
         caption: "Close up. Every line of the total is traceable, so a reviewer can check the number before the PDF leaves the system.",
       },
@@ -720,10 +704,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Package index",
         src: cwoPackageIndexUrl,
         fullSrc: cwoPackageIndexUrl,
-        inlineSvg: diagramSvg(cwoPackageIndexRaw),
         ground: "ink",
-        width: 1440,
-        height: 900,
+        width: 1600,
+        height: 769,
         alt: "Billing package index with the project-number filter, owner and last-modified columns, and the Start new billing package control.",
         caption: "Four decisions visible on one screen.",
       },
@@ -885,10 +868,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Validation as you go",
             src: cwoValidationUrl,
             fullSrc: cwoValidationUrl,
-            inlineSvg: diagramSvg(cwoValidationRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 797,
             alt: "Step two of creating a billing package: a banner says screenshot generation failed for one project and progress is saved, with a Retry action; four project rows validate inline, one with evidence pending and one whose project number was not found; a completeness review below runs before submission.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "Catch the gap where it happens. A failed dependency keeps the progress, names the retry, and the completeness review runs before submission rather than after.",
@@ -924,10 +906,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Package with history",
             src: cwoCoverUrl,
             fullSrc: cwoCoverUrl,
-            inlineSvg: diagramSvg(cwoCoverRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 825,
             alt: "A billing package on Review: the six-state stepper, a review task locked to one reviewer, validation as you go, the projects it bills, and a history panel listing every transition with who made it and when.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "Status as a first-class object. The stepper is the vocabulary, the history is the record, and both are on the package itself.",
@@ -950,9 +931,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Review flow",
             src: cwoReviewFlowUrl,
             fullSrc: cwoReviewFlowUrl,
-            inlineSvg: diagramSvg(cwoReviewFlowRaw),
-            width: 1440,
-            height: 720,
+            ground: "ink",
+            width: 1600,
+            height: 740,
             alt: "Review flow, start: open the billing package and check whether a review is active. If one is active and the user is not the reviewer, view only. Otherwise start review, set the status to review active, then loop through inline edits, each saved or discarded, until there are no more edits. A note states that starting a review sets the package to in review and enables editing only for the reviewer; all other users have view-only access until the review is complete.",
             caption: "Starting a review locks the package to one reviewer; everyone else reads until it is done.",
           },
@@ -1053,10 +1034,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Cited and compared",
         src: diCoverUrl,
         fullSrc: diCoverUrl,
-        inlineSvg: diagramSvg(diCoverRaw),
         ground: "ink",
-        width: 1440,
-        height: 900,
+        width: 1600,
+        height: 759,
         alt: "A drawn document workspace: an answer with three numbered citations, the active document set as editable tiles with the cited documents marked, and two versions of a policy compared side by side with the cited passages highlighted and numbered.",
         caption: "An answer carries its sources. The document set is visible and editable, and comparison has a mode matched to the reading task.",
       },
@@ -1215,10 +1195,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Draft and export",
             src: diDraftUrl,
             fullSrc: diDraftUrl,
-            inlineSvg: diagramSvg(diDraftRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 781,
             alt: "A focus-mode draft with numbered sections, each carrying a citation mark, and the conversation still open beside it; an export bar writes a versioned Word file with the citations kept as footnotes into the enterprise document store.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "The draft leaves the tool with its citations. Export writes a versioned file to the system of record, so the evidence chain does not end at the clipboard.",
@@ -1236,10 +1215,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Widget on shared rails",
             src: diWidgetUrl,
             fullSrc: diWidgetUrl,
-            inlineSvg: diagramSvg(diWidgetRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1600,
+            height: 770,
             alt: "A compliance-check widget embedded in a risk portal: its own regulatory filter layer on top, then five shared rails it reuses, document selection, search, comparison, citations and the response template, and a finding with numbered citations and a routed action.",
             // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
             caption: "One layer of its own, five rails reused. The hardest parts of the platform, governed selection and traceable answers, were not rebuilt.",
