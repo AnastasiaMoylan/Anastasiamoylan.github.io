@@ -1,0 +1,269 @@
+<title>Home 5: Billboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap" rel="stylesheet">
+<style>
+/* Home 5 · Billboard. White hero, the headline across all twelve columns
+   in Archivo's condensed width, then the Finance Cloud artefact full-bleed
+   with the governance chain drawn along its foot. Outcomes on solid maroon
+   (white on maroon 10.4:1). Studies as three cover cards with ink caption
+   plates. The headline is principle 02's thesis, verbatim; the live hero
+   line is the alternative and swaps in without changing the layout. */
+:root{
+  color-scheme:light;
+  --background:#f7f5f1;--foreground:#283d3b;--card:#ffffff;
+  --accent:#6e2a2a;--accent-hover:#5a2222;--secondary:#edddd4;
+  --rose:#dbc9c9;--rose-mid:#b69494;
+  --tertiary-100:#d6e3e1;--tertiary-500:#6b8f8a;--tertiary-700:#3e5b58;--ink:#283d3b;--ink-deep:#1d2d2b;
+  --muted:#f2efe9;--muted-foreground:#57514b;--border:#cfc7bb;
+  --font-display:'Archivo','Inter',system-ui,sans-serif;
+  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --font-voice:'Newsreader',Georgia,'Times New Roman',serif;
+  --gutter:24px;--pad:clamp(20px,4vw,64px);
+  --s2:16px;--s3:24px;--s4:32px;--s5:40px;--s6:48px;--s8:64px;--s10:80px;--s12:96px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,dl,dd,dt,ol,ul,figure,figcaption{margin:0;padding:0}
+ol,ul{list-style:none}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.on-ink :focus-visible,.on-maroon :focus-visible{outline-color:var(--secondary)}
+.skip{position:absolute;left:var(--pad);top:-100px;background:var(--foreground);color:var(--background);padding:8px 16px;z-index:10;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.grid>*{min-width:0}
+.eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.h2{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,3vw,44px);line-height:1.05;letter-spacing:-.035em;text-wrap:balance}
+.h3{font-family:var(--font-display);font-weight:700;font-size:clamp(22px,2vw,28px);line-height:1.12;letter-spacing:-.025em;text-wrap:balance}
+.small{font-size:14px;line-height:1.5}
+.link{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1.5px}
+.link:hover{color:var(--accent-hover)}
+.bar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px var(--s3)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 32px;border:2px solid var(--accent);border-radius:4px;background:var(--accent);color:#fff;font-weight:600;font-size:16px;line-height:1;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+.btn.quiet{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.quiet:hover{background:var(--ink);color:#fff}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+.site{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:2px solid var(--ink)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s3)}
+.site .name{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.site .name svg{width:14px;height:14px;color:var(--accent);flex:none}
+.site nav ul{display:flex;gap:28px}
+.site nav a{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding-bottom:4px;border-bottom:2px solid transparent}
+.site nav a:hover{border-color:var(--accent)}
+
+/* Hero. White band. Headline across all columns; the second sentence is
+   maroon. Below it, the deck on the left and the facts on the right. */
+.hero{background:var(--card);padding-block:var(--s10) 0}
+.hero .eyebrow{color:var(--accent)}
+.hero h1{margin-top:var(--s3);font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 88;font-size:clamp(44px,7.6vw,118px);line-height:.94;letter-spacing:-.04em;color:var(--ink);text-wrap:balance;max-width:14em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .row{margin-top:var(--s6);padding-top:var(--s4);border-top:2px solid var(--ink);align-items:start}
+.hero .deck{grid-column:1/7;font-size:clamp(18px,1.5vw,22px);line-height:1.5;max-width:30em}
+.hero .facts{grid-column:8/13}
+.hero .facts dl{display:grid;grid-template-columns:auto 1fr;gap:6px var(--s3);font-size:15px}
+.hero .facts dt{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tertiary-700);padding-top:3px}
+.hero .facts dd{font-weight:500}
+.hero .cta{margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s2)}
+
+/* Billboard. The Finance Cloud artefact at 21:9, with the governance
+   chain (the pattern the studies share) as a rail across its foot. */
+.board{background:var(--card);padding-block:var(--s8) 0}
+.board .frame{position:relative;background:var(--ink-deep);overflow:hidden}
+.board svg{width:100%;height:auto;display:block}
+.board .label{position:absolute;top:0;left:0;display:flex;gap:var(--s3);padding:12px 18px;background:rgba(29,45,43,.9);color:var(--rose);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.chain{position:absolute;left:0;right:0;bottom:0;background:rgba(29,45,43,.92);color:var(--secondary);padding:var(--s3) var(--s4) var(--s4);border-top:1px solid rgba(237,221,212,.3)}
+.chain ol{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:var(--s3);position:relative;padding-top:26px}
+.chain ol::before{content:"";position:absolute;left:11px;right:11px;top:10px;height:2px;background:var(--rose-mid)}
+.chain li{position:relative}
+.chain li::before{content:"";position:absolute;top:-26px;left:0;width:22px;height:22px;border-radius:50%;background:var(--ink-deep);border:2px solid var(--rose)}
+.chain li.ai::before,.chain li.gate::before{background:var(--rose);border-color:var(--rose)}
+.chain b{display:block;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#fff}
+.chain li.gate b{color:var(--rose)}
+.chain p{margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--secondary)}
+.chain .cap{margin-top:var(--s3);display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rose)}
+.chain-cap{display:flex;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;padding:14px 18px;background:var(--ink-deep);color:var(--rose);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;border-top:1px solid rgba(237,221,212,.3)}
+.board .meta{display:flex;flex-wrap:wrap;gap:8px var(--s3);padding-block:var(--s3) var(--s8);font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--tertiary-700)}
+
+/* Outcomes on solid maroon. */
+.outcomes{background:var(--accent);color:#fff}
+.outcomes .wrap{padding-block:var(--s8)}
+.outcomes dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--s5)}
+.outcomes .o{display:flex;flex-direction:column;gap:10px;padding-left:var(--s3);border-left:1px solid rgba(255,255,255,.4)}
+.outcomes dd{font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 112;font-size:clamp(52px,5.4vw,84px);line-height:.9;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.outcomes dt{font-size:16px;line-height:1.4;font-weight:600;color:#fff;max-width:18em}
+.outcomes .src{font-size:13.5px;color:var(--secondary)}
+.outcomes .src a{color:inherit}
+
+/* Studies. Three covers, ink caption plates. */
+.studies{padding-block:var(--s12)}
+.studies ol{margin-top:var(--s6);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gutter);row-gap:var(--s6)}
+.study{position:relative;display:flex;flex-direction:column;background:var(--ink);color:var(--secondary);box-shadow:0 30px 50px -30px rgba(40,61,59,.55)}
+.study img,.study svg{width:100%;height:auto;aspect-ratio:16/10}
+.study .txt{padding:var(--s3) var(--s3) var(--s4);display:flex;flex-direction:column;flex:1}
+.study .n{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;color:var(--rose)}
+.study .h3{margin-top:10px;color:#fff}
+.study .h3 a{text-decoration:none}
+.study .h3 a::after{content:"";position:absolute;inset:0}
+.study:hover .h3 a{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1.5px}
+.study .tag{margin-top:12px;font-size:15.5px;line-height:1.5;color:var(--secondary)}
+.study .who{margin-top:auto;padding-top:var(--s3);font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--rose);line-height:1.7}
+
+/* Leadership as a ledger on white. */
+.lead-sec{background:var(--card);border-top:3px solid var(--ink)}
+.lead-sec .wrap{padding-block:var(--s12)}
+.lead-sec ol{margin-top:var(--s6)}
+.lead-sec li{padding-block:var(--s4);border-top:1px solid var(--border);align-items:baseline}
+.lead-sec li:last-child{border-bottom:1px solid var(--border)}
+.lead-sec .n{grid-column:1/2;font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 118;font-size:40px;line-height:1;letter-spacing:-.03em;color:var(--accent)}
+.lead-sec h3{grid-column:2/6;font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.15;letter-spacing:-.02em}
+.lead-sec p{grid-column:7/13;font-size:17px;line-height:1.6}
+
+.contact{background:var(--ink);color:var(--secondary)}
+.contact .wrap{padding-block:var(--s12)}
+.contact .eyebrow{color:var(--rose)}
+.contact .c-say{margin-top:var(--s2);font-family:var(--font-display);font-weight:800;font-size:clamp(38px,5.5vw,76px);line-height:1;letter-spacing:-.04em;color:#fff;text-wrap:balance}
+.contact .c-mail{display:inline-block;margin-top:var(--s5);font-family:var(--font-display);font-weight:700;font-size:clamp(20px,2.4vw,34px);letter-spacing:-.02em;color:var(--rose);text-decoration:none;word-break:break-all;border-bottom:2px solid var(--rose-mid);padding-bottom:6px}
+.contact .c-mail:hover{color:#fff;border-color:#fff}
+.contact .c-p{margin-top:var(--s4);font-size:17px;line-height:1.6;color:var(--secondary);max-width:40ch}
+.contact .c-links{margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:var(--s3);font-size:15px}
+.contact .c-links a{color:var(--secondary)}
+.contact .bot{margin-top:var(--s10);padding-top:var(--s3);border-top:1px solid rgba(237,221,212,.2);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:14px;color:var(--rose)}
+
+@media (max-width:1023px){
+  .site nav{display:none}
+  .hero .deck,.hero .facts{grid-column:1/13}
+  .hero .facts{margin-top:var(--s4)}
+  .chain{position:static;padding-inline:var(--s3)}
+  .chain ol{grid-template-columns:1fr;row-gap:var(--s3);padding-top:0;padding-left:36px}
+  .chain ol::before{left:10px;right:auto;top:6px;bottom:6px;width:2px;height:auto}
+  .chain li::before{top:0;left:-36px}
+  .outcomes dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .studies ol{grid-template-columns:1fr;max-width:640px}
+  .lead-sec .n,.lead-sec h3,.lead-sec p{grid-column:1/13}
+  .lead-sec h3{margin-top:8px}.lead-sec p{margin-top:8px}
+}
+@media (max-width:719px){
+  .hero{padding-block:var(--s8) 0}
+  .outcomes dl{grid-template-columns:1fr}
+  .studies,.lead-sec .wrap,.contact .wrap{padding-block:var(--s8)}
+  .hero .facts dl{grid-template-columns:1fr}
+}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="name" href="/"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 7 L7 0 L14 7 L7 14 Z" fill="currentColor"/></svg>Anastasia Novelly Moylan</a>
+    <nav aria-label="Main navigation"><ul>
+      <li><a href="/work">Work</a></li><li><a href="/philosophy">Philosophy</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="h1">
+    <div class="wrap">
+      <p class="eyebrow">Anastasia Novelly Moylan &middot; Lead Product Designer</p>
+      <h1 id="h1">The design isn&rsquo;t done when the file is done. <em>It&rsquo;s done when what ships matches what was designed.</em></h1>
+      <div class="row grid">
+        <p class="deck">Governed AI for enterprise finance, telecom, and document intelligence, where every automated step stays inspectable, reversible, and owned by a person.</p>
+        <div class="facts">
+          <dl>
+            <dt>Now</dt><dd>Lead Product Designer, Amdocs Studios</dd>
+            <dt>Years</dt><dd>Eleven in enterprise product and AI design</dd>
+            <dt>Domains</dt><dd>Finance, telecom, AI-enabled B2B software</dd>
+            <dt>Where</dt><dd>St. Marys, Kansas, remote across the Americas</dd>
+          </dl>
+          <p class="cta"><a class="btn" href="/work">See the case studies</a><a class="btn quiet" href="/resume">R&eacute;sum&eacute;</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="board" aria-labelledby="board">
+    <div class="wrap">
+      <h2 id="board" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">The governance pattern</h2>
+      <figure class="frame on-ink">
+        {{svg:gaf/cover}}
+        <figcaption class="chain-cap"><span>Finance Cloud · the governance chain, drawn along the foot of the figure</span><span>Extracted across Finance Cloud, Connected Customer Journey, and the Auditable Billing Workflow</span></figcaption>
+      </figure>
+      <ul class="meta">
+        <li>Finance</li><li>Telecom</li><li>Document intelligence</li><li>AI-enabled B2B software</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="outcomes on-maroon" aria-labelledby="out">
+    <div class="wrap">
+      <h2 class="h2" id="out" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Outcomes</h2>
+      <dl>
+        <div class="o"><dd>800+</dd><dt>Finance Cloud hackathon analyses, 40+ users</dt><p class="src">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+        <div class="o"><dd>70</dd><dt>People using the billing workflow, September 2026</dt><p class="src">From <a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></p></div>
+        <div class="o"><dd>6</dd><dt>Designers directed across one program</dt><p class="src">From <a href="/about">About</a></p></div>
+        <div class="o"><dd>3</dd><dt>Finance Cloud versions, each redirected by research</dt><p class="src">From <a href="/work/finance-cloud">Finance Cloud</a></p></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="studies wrap" aria-labelledby="cs">
+    <div class="bar"><h2 class="h2" id="cs">Platforms people had to trust.</h2><a class="link" href="/work">All case studies</a></div>
+    <ol>
+      <li class="study on-ink">
+        {{svg:gaf/cover}}
+        <div class="txt">
+          <span class="n" aria-hidden="true">01</span>
+          <h3 class="h3"><a href="/work/finance-cloud">Finance Cloud</a></h3>
+          <p class="tag">A governed AI platform for finance and payroll, taken from zero to one and scaled through iterative testing</p>
+          <p class="who">Product Experience Lead<br>Ongoing program; several MVPs released</p>
+        </div>
+      </li>
+      <li class="study on-ink">
+        {{svg:cwo/cover}}
+        <div class="txt">
+          <span class="n" aria-hidden="true">02</span>
+          <h3 class="h3"><a href="/work/auditable-billing-workflow">An Auditable Billing Workflow</a></h3>
+          <p class="tag">Turning fragmented documents, feeder-system screenshots, and ledger data into a guided review and submission experience</p>
+          <p class="who">Product Lead and Design Contributor<br>Released</p>
+        </div>
+      </li>
+      <li class="study on-ink">
+        {{svg:di/cover}}
+        <div class="txt">
+          <span class="n" aria-hidden="true">03</span>
+          <h3 class="h3"><a href="/work/enterprise-document-knowledge">A Verifiable Document AI Platform</a></h3>
+          <p class="tag">Answers users could trace, compare, and reuse, on rails the next compliance tool could ride</p>
+          <p class="who">Lead Product Designer, UX and product strategy lead<br>Released</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="lead-sec" aria-labelledby="lead">
+    <div class="wrap">
+      <div class="bar"><h2 class="h2" id="lead">Player-coach, on the tools.</h2><a class="link" href="/philosophy">Read the philosophy</a></div>
+      <ol>
+        <li class="grid"><span class="n" aria-hidden="true">01</span><h3>Directed and delivered</h3><p>Directed the design workstream across a cross-functional team and did the work myself, from the product model to shipped screens.</p></li>
+        <li class="grid"><span class="n" aria-hidden="true">02</span><h3>Zero to one, then pivoted on evidence</h3><p>Took Finance Cloud from zero to a working POC with the lead product owner, then ran the hackathon, 40+ users and 800+ analyses, whose result pivoted the product.</p></li>
+        <li class="grid"><span class="n" aria-hidden="true">03</span><h3>Six designers, five products</h3><p>Owned the product strategy and directed the six application-level designers building across a finance transformation program, coordinating large cross-functional teams throughout.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="contact on-ink" id="contact" aria-labelledby="ct">
+    <div class="wrap">
+      <p class="eyebrow" id="ct">Contact</p>
+      <p class="c-say">Let&rsquo;s make it legible.</p>
+      <a class="c-mail" href="mailto:anastasiamoylan.design@gmail.com">anastasiamoylan.design@gmail.com</a>
+      <p class="c-p">Open to Lead and Principal UX roles: enterprise products, fintech, and AI-assisted tools. Remote only, across the Americas.</p>
+      <p class="c-links"><a href="https://linkedin.com/in/anastasiamoylan">LinkedIn</a><a href="/resume">R&eacute;sum&eacute;</a><a href="/work">Work</a><a href="/philosophy">Philosophy</a></p>
+      <div class="bot"><span>&copy; 2026 Anastasia Novelly Moylan</span><a href="#main" style="color:inherit">Back to top &uarr;</a></div>
+    </div>
+  </section>
+</main>

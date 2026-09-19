@@ -10,9 +10,16 @@ body {
 /* One focus ring for every interactive element that doesn't style its own.
    Most links and buttons relied on browser defaults, which vary per platform
    and disappear against the warm ground. */
-:where(a, button, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+/* In the base layer so a component can restate it: unlayered, it outranked
+   every ink-ground override and left a maroon ring on ink at 1.1:1. */
+@layer base {
+  :where(a, button, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  .on-ink :focus-visible {
+    outline-color: var(--secondary);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -45,10 +52,9 @@ body {
 }
 
 /* Reusable max-width container — avoids repeating the breakpoint sequence everywhere */
-/* One container site-wide. Widened 1152 -> 1440 on 2026-08-26, when the
-   case-study canvas went full-screen and the owner standardized the rest of
-   the site to match. Narrow reading measures come from max-w-* on inner
-   blocks, not from this container. */
+/* One container site-wide; its width is `--container-max` in theme.css
+   (1152 -> 1440 on 2026-08-26, 1440 -> 1200 on 2026-09-18). Narrow reading
+   measures come from max-w-* on inner blocks, not from this container. */
 /* The reading measure: every prose block in a case study caps here (~70ch at
    1rem body). Wider elements — cards, diagrams, galleries — use the grid, not
    this. */
@@ -57,7 +63,7 @@ body {
 }
 
 .content-container {
-  max-width: 1440px;
+  max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.25rem;

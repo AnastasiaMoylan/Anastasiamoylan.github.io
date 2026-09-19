@@ -29,6 +29,9 @@
   --tertiary-500: #6b8f8a;
   --tertiary-700: #3e5b58;
   --tertiary-900: #283d3b;
+  /* The ground the drawn covers sit on (`SITE.inkDeep` in scripts/visuals).
+     The home hero takes it too, so a cover has no box of its own there. */
+  --ink-deep: #1d2d2b;
 
   --muted: #f2efe9;
   /* Darkened 2026-09-10 from #6b6560: at 14–17px the old value read as
@@ -48,6 +51,11 @@
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --radius: 0.375rem;
+  /* The one page width (`.content-container`). Narrowed 1440 -> 1200 on
+     2026-09-18: at 1440 a case study's 60ch column left the right half of
+     every prose screen empty, and a full-width 16:10 plate stood about 840px
+     tall, more than a laptop viewport. At 1200 a plate is about 690px. */
+  --container-max: 1200px;
 
   /* Maroon tint ramp for case-study diagrams: successive mixes of --accent
      with white. Subtle = tinted rows and callouts, light = first bar and
@@ -95,6 +103,7 @@
   --color-tertiary-500: var(--tertiary-500);
   --color-tertiary-700: var(--tertiary-700);
   --color-tertiary-900: var(--tertiary-900);
+  --color-ink-deep: var(--ink-deep);
   --color-grid-line: var(--grid-line);
   --color-grid-mark: var(--grid-mark);
 

@@ -3,7 +3,8 @@
  * Monospaced and letter-spaced, matching every other micro-label in the design.
  *
  * Teal by default — the colour convention reserves teal for labels and
- * location, and maroon (`accent`) for things you can act on.
+ * location, and maroon (`accent`) for things you can act on. `ink` is the
+ * label on an ink ground, where teal does not read: rose.
  */
 export default function Eyebrow({
   children,
@@ -11,13 +12,14 @@ export default function Eyebrow({
   className = "",
 }: {
   children: React.ReactNode;
-  tone?: "label" | "accent" | "muted";
+  tone?: "label" | "accent" | "muted" | "ink";
   className?: string;
 }) {
   const tones = {
     label: "text-tertiary-700",
     accent: "text-accent",
     muted: "text-muted-foreground",
+    ink: "text-accent-tint-light",
   };
 
   return (

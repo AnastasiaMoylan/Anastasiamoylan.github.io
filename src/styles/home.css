@@ -1,0 +1,132 @@
+/**
+ * The home hero in the Lead plate layout (2026-09-18).
+ *
+ * Five columns of text, seven of artefact: one cover, Finance Cloud, set large
+ * enough to read and run off the right edge of the window. The hero ground is
+ * the covers' own ground (`--ink-deep`), so the plate has no box: the screen
+ * sits on the hero itself and the governance rail under it is the hero's
+ * baseline. Reference rendering: renderings/home-4-ink-hero-a.src.html.
+ *
+ * `home-` classes in the components layer, for the reason case-study.css
+ * gives; keep margin utilities off these elements.
+ */
+@layer components {
+  .home-hero {
+    /* Mirrors .content-container's padding, so the plate can bleed past it. */
+    --home-pad: 1.25rem;
+    --home-rose: var(--accent-tint-light);
+    position: relative;
+    overflow: hidden;
+    background: var(--ink-deep);
+    color: var(--secondary);
+  }
+  @media (min-width: 768px) { .home-hero { --home-pad: 2rem; } }
+  @media (min-width: 1024px) { .home-hero { --home-pad: 3rem; } }
+  .home-hero :where(h1, p, ul) { margin: 0; padding: 0; }
+  .home-hero ul { list-style: none; }
+
+  .home-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 24px;
+    align-items: end;
+    padding-top: 80px;
+  }
+  .home-hero-grid > * { min-width: 0; }
+
+  /* Above the plate: the cover's opaque ground overlaps this column's edge. */
+  .home-hero-who { grid-column: 1 / 6; position: relative; z-index: 2; padding-bottom: 80px; }
+  .home-hero h1 {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    /* Sized to the five-column measure (about 446px in a 1200 container), so
+       "journeys people" holds one line and the headline stays at three. */
+    font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .home-hero h1 em { font-style: normal; color: var(--home-rose); }
+  /* The eyebrow is two phrases joined by a middot; when the column is too
+     narrow for both it breaks between them, never inside one. */
+  .home-hero-eyebrow span { white-space: nowrap; }
+  .home-hero-deck {
+    margin-top: 32px;
+    max-width: 34em;
+    font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+    line-height: 1.55;
+  }
+  .home-hero-cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 16px; }
+  .home-hero-meta {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(237 221 212 / 0.25);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--home-rose);
+  }
+  .home-hero-meta li::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background: var(--accent-tint-mid);
+    vertical-align: middle;
+  }
+
+  /* The plate. Wider than its columns and pulled to the window's edge; the
+     hero clips what runs past. */
+  .home-hero-lead {
+    grid-column: 6 / 13;
+    position: relative;
+    display: block;
+    margin-right: calc((100vw - min(100vw, var(--container-max))) / -2 - var(--home-pad));
+    text-decoration: none;
+    color: var(--secondary);
+  }
+  .home-hero-cap {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 16px;
+    padding-left: 3.2%;
+    padding-bottom: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.71875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .home-hero-cap b { font-weight: 600; color: var(--home-rose); }
+  .home-hero-lead:hover .home-hero-cap span { color: #fff; }
+  .home-hero-shot { display: block; }
+  .home-hero-shot svg {
+    display: block;
+    width: 124%;
+    max-width: none;
+    height: auto;
+    margin: -7% 0 0 -5%;
+    /* The cover draws its own 48px grid; fade its top and left edges so the
+       grid has no seam against the hero. */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%), linear-gradient(180deg, transparent 0, #000 9%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0, #000 6%), linear-gradient(180deg, transparent 0, #000 9%);
+    mask-composite: intersect;
+  }
+
+  @media (max-width: 1023px) {
+    .home-hero-who, .home-hero-lead { grid-column: 1 / -1; }
+    .home-hero-who { padding-bottom: 48px; }
+    .home-hero-lead { margin-right: calc(-1 * var(--home-pad)); }
+    .home-hero-shot svg { width: 135%; }
+  }
+  @media (max-width: 719px) {
+    .home-hero-grid { padding-top: 64px; }
+  }
+}

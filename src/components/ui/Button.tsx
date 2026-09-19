@@ -2,7 +2,7 @@ import { Link } from "react-router";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "outline";
+  variant?: "primary" | "outline" | "inkPrimary" | "inkOutline";
   size?: "sm" | "md";
   /** In-app route; renders a router <Link>. */
   to?: string;
@@ -27,13 +27,19 @@ const sizes = {
 /*
   One shape for every button (the angled hex tab was retired 2026-08-26 —
   owner: "odd shaped buttons"). Roles differ by tone only: primary is the
-  filled maroon action, outline the quiet secondary.
+  filled maroon action, outline the quiet secondary. The ink pair is the same
+  two roles on an ink ground, where maroon does not read: champagne fill, and
+  a rose outline.
 */
 const tones = {
   primary:
     "bg-primary text-primary-foreground border-primary hover:bg-accent-hover hover:border-accent-hover",
   outline:
     "bg-transparent text-foreground border-border hover:border-tertiary-500 hover:bg-card",
+  inkPrimary:
+    "bg-secondary text-tertiary-900 border-secondary hover:bg-white hover:border-white",
+  inkOutline:
+    "bg-transparent text-secondary border-accent-tint-light hover:border-white hover:bg-white/10",
 };
 
 export default function Button({

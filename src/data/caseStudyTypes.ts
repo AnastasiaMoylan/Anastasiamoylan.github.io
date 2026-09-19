@@ -52,6 +52,12 @@ export interface CaseStudyImage {
    * 2026-09-11). Falls back to the label the rendering section supplies.
    */
   label?: string;
+  /**
+   * The plate ground for an inlined figure (2026-09-19). A drawn diagram
+   * sits on champagne by default; a drawn screen (the generated visuals
+   * under scripts/visuals/) is still a screen, so it says "ink".
+   */
+  ground?: "ink" | "champagne" | "white";
 }
 
 /**
@@ -237,7 +243,8 @@ export type SectionId =
  */
 export interface Opener {
   detail: CaseStudyImage;
-  context: CaseStudyImage;
+  /** Unused since the Plates layout: only the detail renders. */
+  context?: CaseStudyImage;
 }
 
 /**

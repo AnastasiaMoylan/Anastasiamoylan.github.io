@@ -18,10 +18,12 @@ export interface Project {
   image?: string;
 }
 
-import financeAIFlow from "../assets/case-studies/gaf/cover.jpg";
-import ccjDashboard from "../assets/case-studies/ccj/dashboard-performance.jpg";
-import cwoCover from "../assets/case-studies/cwo/cover.jpg";
-import diCover from "../assets/case-studies/di/cover.jpg";
+// Covers are drawn (scripts/visuals/, 2026-09-19): anonymised schematics of
+// each product in the site's tokens, so no client screen leaves the studies.
+import financeAIFlow from "../assets/case-studies/gaf/cover.svg";
+import ccjDashboard from "../assets/case-studies/ccj/cover.svg";
+import cwoCover from "../assets/case-studies/cwo/cover.svg";
+import diCover from "../assets/case-studies/di/cover.svg";
 
 export const projects: Project[] = [
   {

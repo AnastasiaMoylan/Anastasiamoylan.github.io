@@ -1,0 +1,253 @@
+/**
+ * The philosophy page in the Rail direction (2026-09-18).
+ *
+ * The thesis on an ink opener, then a sticky index of the principles in the
+ * left three columns and the principles down the right eight: ordinal in
+ * maroon, thesis in Newsreader at reading-lead size, body in ink rather than
+ * the muted grey. The coded figures sit on champagne with a maroon edge, the
+ * same ground the case study gives a drawn diagram. The evaluation checks
+ * close on ink. Reference rendering: renderings/philosophy-1-rail.src.html.
+ *
+ * A stylesheet for the same reason as case-study.css: the direction is grid
+ * placement, a sticky rail and a width-axis numeral, which read as a spec here
+ * and as noise in markup. `ph-` classes, in the components layer, so keep
+ * margin utilities off these elements; a utility would outrank the spacing.
+ */
+@layer components {
+  .ph-page {
+    --ph-gutter: 24px;
+    --ph-ink: var(--tertiary-900);
+    --ph-rose: var(--accent-tint-light);
+    --ph-rose-mid: var(--accent-tint-mid);
+    /* Header height plus one gap: where the rail sticks and anchors land. */
+    --ph-stick: 96px;
+    color: var(--foreground);
+  }
+  .ph-page :where(h1, h2, h3, p, ol, ul, figure, figcaption, blockquote) { margin: 0; padding: 0; }
+  .ph-page :where(ol, ul) { list-style: none; }
+
+  .ph-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--ph-gutter);
+  }
+  .ph-grid > * { min-width: 0; }
+
+  .ph-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tertiary-700);
+  }
+
+  /* ------------------------------------------------------------ Opener
+     Title, the thesis in Newsreader, the bridge, all on ink. */
+  .ph-open { background: var(--ph-ink); color: var(--secondary); }
+  .ph-open .ph-grid { padding-block: 80px; }
+  .ph-open .ph-eyebrow { grid-column: 1 / -1; color: var(--ph-rose); }
+  .ph-open h1 {
+    /* Nine columns and 72px at most, so the title holds its two-line break
+       ("The whole system, / not just the screen") in a 1200 container. */
+    grid-column: 1 / 10;
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .ph-sub { grid-column: 1 / 8; margin-top: 24px; font-size: 1.125rem; color: var(--ph-rose); }
+  .ph-open blockquote {
+    grid-column: 1 / 10;
+    margin-top: 64px;
+    padding-left: 32px;
+    border-left: 4px solid var(--ph-rose-mid);
+    font-family: var(--font-voice);
+    font-weight: 400;
+    font-size: clamp(1.625rem, 3vw, 2.75rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .ph-bridge { grid-column: 1 / 8; margin-top: 40px; font-size: 1.125rem; line-height: 1.6; color: var(--secondary); }
+
+  /* -------------------------------------------------------------- Body
+     Index rail three columns, principles eight columns offset one. */
+  .ph-body .ph-grid { padding-block: 96px; }
+  .ph-rail { grid-column: 1 / 4; position: sticky; top: var(--ph-stick); align-self: start; }
+  .ph-rail .ph-eyebrow { padding-bottom: 12px; border-bottom: 2px solid var(--ph-ink); }
+  .ph-rail ol { margin-top: 4px; }
+  .ph-rail li { border-bottom: 1px solid var(--border); }
+  .ph-rail li a {
+    display: grid;
+    grid-template-columns: 2.4em 1fr;
+    gap: 12px;
+    padding-block: 11px;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--foreground);
+  }
+  .ph-rail li a b {
+    padding-top: 3px;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+  .ph-rail li a:hover { color: var(--accent); }
+  /* Teal marks location: the principle in view carries a teal edge. */
+  .ph-rail li a[aria-current] { box-shadow: inset 3px 0 0 var(--tertiary-700); padding-left: 12px; font-weight: 600; }
+  .ph-to-checks {
+    display: block;
+    margin-top: 32px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+  .ph-to-checks:hover { color: var(--accent-hover); }
+
+  .ph-list { grid-column: 5 / 13; }
+  .ph-p { padding-block: 64px; border-top: 3px solid var(--ph-ink); scroll-margin-top: var(--ph-stick); }
+  .ph-p:first-child { padding-top: 0; border-top: 0; }
+  .ph-p:last-child { padding-bottom: 0; }
+  .ph-n {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 118;
+    font-size: 3.5rem;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+  }
+  .ph-p h2 {
+    margin-top: 24px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.75rem, 2.6vw, 2.375rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .ph-thesis {
+    margin-top: 24px;
+    max-width: 26em;
+    font-family: var(--font-voice);
+    font-size: clamp(1.375rem, 2vw, 1.75rem);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .ph-thesis em { font-style: italic; }
+  .ph-prose {
+    margin-top: 32px;
+    max-width: 64ch;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  /* ----------------------------------------------------------- Figures
+     The coded figures on champagne, a maroon edge on the left. */
+  .ph-plate { margin-top: 32px; padding: 24px; background: var(--secondary); border-left: 4px solid var(--accent); }
+  .ph-plate figcaption { margin-top: 12px; font-size: 0.875rem; }
+  .ph-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .ph-flow span {
+    padding: 6px 12px;
+    background: var(--card);
+    border: 1px solid var(--ph-ink);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+  }
+  .ph-flow i { font-style: normal; font-weight: 700; color: var(--accent); }
+  .ph-zones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .ph-zones div { padding: 16px 14px; text-align: center; font-weight: 700; font-size: 0.9375rem; }
+  .ph-zones div:nth-child(1) { background: var(--card); border: 1px solid var(--ph-rose-mid); }
+  .ph-zones div:nth-child(2) { background: var(--ph-rose); }
+  .ph-zones div:nth-child(3) { background: var(--accent); color: #fff; }
+  .ph-plate .ph-zones-cap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .ph-stat { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 24px; }
+  .ph-stat b {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 112;
+    font-size: clamp(4rem, 7vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .ph-stat span { max-width: 20em; font-size: 1.125rem; line-height: 1.4; }
+
+  /* ------------------------------------------------------------ Checks
+     On ink. The site footer is ink too, so a hairline keeps them apart. */
+  .ph-checks {
+    background: var(--ph-ink);
+    color: var(--secondary);
+    border-bottom: 1px solid rgb(237 221 212 / 0.2);
+    scroll-margin-top: 72px;
+  }
+  .ph-checks .content-container { padding-block: 96px; }
+  .ph-checks .ph-eyebrow { color: var(--ph-rose); }
+  .ph-checks h2 {
+    margin-top: 12px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: #fff;
+  }
+  .ph-intro { margin-top: 24px; max-width: 40em; font-size: 1.125rem; }
+  .ph-checks ul {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 40px;
+    row-gap: 48px;
+  }
+  .ph-checks li { padding-top: 24px; border-top: 1px solid var(--ph-rose-mid); }
+  .ph-checks h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ph-rose);
+  }
+  .ph-checks li p { margin-top: 12px; font-size: 0.96875rem; line-height: 1.6; }
+
+  @media (max-width: 1023px) {
+    .ph-open h1, .ph-sub, .ph-open blockquote, .ph-bridge, .ph-rail, .ph-list { grid-column: 1 / -1; }
+    .ph-rail { position: static; }
+    .ph-rail li a[aria-current] { box-shadow: none; padding-left: 0; font-weight: 500; }
+    .ph-list { margin-top: 64px; }
+    .ph-checks ul { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 719px) {
+    .ph-open .ph-grid, .ph-body .ph-grid, .ph-checks .content-container { padding-block: 64px; }
+    .ph-open blockquote { margin-top: 40px; padding-left: 20px; }
+    .ph-zones { grid-template-columns: 1fr; }
+  }
+}

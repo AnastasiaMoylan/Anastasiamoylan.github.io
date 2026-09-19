@@ -7,6 +7,8 @@ import Plate, { leadIn } from "./Plate";
  * Figures as plates (Plates layout, 2026-09-11). A screenshot sits on ink and
  * opens in the lightbox; a drawn diagram (`inlineSvg`) sits on champagne and
  * is inlined, so its labels set in the site's fonts and it needs no zoom. A
+ * drawn screen (`inlineSvg` with `ground: "ink"`, 2026-09-19) is inlined the
+ * same way but keeps the screen ground. A
  * panel with a `displayScale` becomes a scroll plate: it renders at that
  * fraction of its source width and scrolls sideways inside its plate.
  *
@@ -33,7 +35,7 @@ export default function ImageGallery({
         return (
           <Plate
             key={image.src}
-            ground={svg ? "champagne" : "ink"}
+            ground={image.ground ?? (svg ? "champagne" : "ink")}
             label={plateLabel}
             caption={leadIn(image.caption)}
             note={last ? note : undefined}

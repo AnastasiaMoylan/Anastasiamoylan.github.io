@@ -1,0 +1,276 @@
+<title>Philosophy 1: Rail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap" rel="stylesheet">
+<style>
+/* Philosophy 1 · Rail. The thesis on an ink opener, then a sticky index of
+   the eight principles on the left and the principles down the right, each
+   thesis line in Newsreader at reading-lead size, body copy in ink rather
+   than the muted grey. Visuals redrawn as champagne plates. The evaluation
+   checks close on ink. Every sentence is from src/data/philosophy.ts. */
+:root{
+  color-scheme:light;
+  --background:#f7f5f1;--foreground:#283d3b;--card:#ffffff;
+  --accent:#6e2a2a;--accent-hover:#5a2222;--secondary:#edddd4;
+  --rose:#dbc9c9;--rose-mid:#b69494;--tint-subtle:#f1eaea;--tint-light:#dbc9c9;--tint-mid:#b69494;
+  --tertiary-100:#d6e3e1;--tertiary-500:#6b8f8a;--tertiary-700:#3e5b58;--ink:#283d3b;--ink-deep:#1d2d2b;
+  --muted:#f2efe9;--muted-foreground:#57514b;--border:#cfc7bb;
+  --font-display:'Archivo','Inter',system-ui,sans-serif;
+  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --font-voice:'Newsreader',Georgia,'Times New Roman',serif;
+  --gutter:24px;--pad:clamp(20px,4vw,64px);
+  --s2:16px;--s3:24px;--s4:32px;--s5:40px;--s6:48px;--s8:64px;--s10:80px;--s12:96px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;overflow-x:clip;scroll-behavior:smooth}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font-sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:clip}
+h1,h2,h3,p,dl,dd,dt,ol,ul,figure,figcaption,blockquote{margin:0;padding:0}
+ol,ul{list-style:none}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.on-ink :focus-visible{outline-color:var(--secondary)}
+.skip{position:absolute;left:var(--pad);top:-100px;background:var(--foreground);color:var(--background);padding:8px 16px;z-index:10;text-decoration:none}
+.skip:focus{top:12px}
+.wrap{max-width:1440px;margin-inline:auto;padding-inline:var(--pad)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter)}
+.grid>*{min-width:0}
+.eyebrow{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase}
+.link{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:1.5px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+.site{position:sticky;top:0;z-index:5;background:var(--background);border-bottom:2px solid var(--ink)}
+.site .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:var(--s3)}
+.site .name{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.02em;text-transform:uppercase}
+.site .name svg{width:14px;height:14px;color:var(--accent);flex:none}
+.site nav ul{display:flex;gap:28px}
+.site nav a{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding-bottom:4px;border-bottom:2px solid transparent}
+.site nav a[aria-current]{border-color:var(--accent)}
+
+/* Opener on ink: title, the thesis in Newsreader, the bridge. */
+.open{background:var(--ink);color:var(--secondary)}
+.open .wrap{padding-block:var(--s10) var(--s10)}
+.open .eyebrow{color:var(--rose)}
+.open h1{grid-column:1/8;margin-top:var(--s3);font-family:var(--font-display);font-weight:800;font-size:clamp(40px,5.6vw,84px);line-height:.98;letter-spacing:-.04em;color:#fff;text-wrap:balance}
+.open .sub{grid-column:1/8;margin-top:var(--s3);font-size:18px;color:var(--rose)}
+.open blockquote{grid-column:1/10;margin-top:var(--s8);font-family:var(--font-voice);font-weight:400;font-size:clamp(26px,3vw,44px);line-height:1.25;letter-spacing:-.01em;color:#fff;text-wrap:balance;border-left:4px solid var(--rose-mid);padding-left:var(--s4)}
+.open .bridge{grid-column:1/8;margin-top:var(--s5);font-size:18px;line-height:1.6;color:var(--secondary)}
+
+/* Body: index rail 3 columns, principles 8 columns offset 1. */
+.body .wrap{padding-block:var(--s12)}
+.rail{grid-column:1/4;position:sticky;top:96px;align-self:start}
+.rail .eyebrow{color:var(--tertiary-700);padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.rail ol{margin-top:4px}
+.rail li{border-bottom:1px solid var(--border)}
+.rail a{display:grid;grid-template-columns:2.4em 1fr;gap:12px;padding-block:11px;text-decoration:none;font-size:15px;font-weight:500;line-height:1.35}
+.rail a b{font-family:var(--font-mono);font-weight:600;font-size:12px;color:var(--accent);padding-top:3px}
+.rail a:hover{color:var(--accent)}
+.rail .to-checks{margin-top:var(--s4);display:block;font-size:15px;font-weight:600;color:var(--accent);text-decoration:underline;text-underline-offset:.25em}
+
+.list{grid-column:5/13}
+.p{padding-block:var(--s8);border-top:3px solid var(--ink);scroll-margin-top:96px}
+.p:first-child{padding-top:0;border-top:0}
+.p .n{font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 118;font-size:56px;line-height:.9;letter-spacing:-.04em;color:var(--accent)}
+.p h2{margin-top:var(--s3);font-family:var(--font-display);font-weight:800;font-size:clamp(28px,2.6vw,38px);line-height:1.08;letter-spacing:-.03em;text-wrap:balance}
+.p .thesis{margin-top:var(--s3);font-family:var(--font-voice);font-size:clamp(22px,2vw,28px);line-height:1.3;color:var(--ink);text-wrap:balance;max-width:26em}
+.p .thesis em{font-style:italic}
+.p .body{margin-top:var(--s4);max-width:64ch;display:flex;flex-direction:column;gap:var(--s3);font-size:17px;line-height:1.7;color:var(--ink)}
+
+/* Plates: the three coded figures on champagne. */
+.plate{margin-top:var(--s4);background:var(--secondary);padding:var(--s3) var(--s3);border-left:4px solid var(--accent)}
+.plate .cap{margin-top:12px;font-size:14px;color:var(--ink)}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.flow span{background:var(--card);border:1px solid var(--ink);padding:6px 12px;font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.02em}
+.flow i{font-style:normal;color:var(--accent);font-weight:700}
+.zones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.zones div{padding:16px 14px;text-align:center;font-weight:700;font-size:15px;color:var(--ink)}
+.zones div:nth-child(1){background:var(--card);border:1px solid var(--tint-mid)}
+.zones div:nth-child(2){background:var(--tint-light)}
+.zones div:nth-child(3){background:var(--accent);color:#fff}
+.zones-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.stat{margin-top:var(--s3);display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.stat b{font-family:var(--font-display);font-weight:800;font-variation-settings:"wdth" 112;font-size:clamp(64px,7vw,104px);line-height:.9;letter-spacing:-.05em;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:18px;line-height:1.4;max-width:20em;color:var(--ink)}
+
+/* Checks on ink. */
+.checks{background:var(--ink);color:var(--secondary)}
+.checks .wrap{padding-block:var(--s12)}
+.checks h2{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,4vw,56px);line-height:1;letter-spacing:-.04em;color:#fff}
+.checks .intro{margin-top:var(--s3);font-size:18px;max-width:40em;color:var(--secondary)}
+.checks ul{margin-top:var(--s8);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s5);row-gap:var(--s6)}
+.checks li{padding-top:var(--s3);border-top:1px solid var(--rose-mid)}
+.checks li b{display:block;font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.2;letter-spacing:-.02em;color:var(--rose)}
+.checks li p{margin-top:12px;font-size:15.5px;line-height:1.6;color:var(--secondary)}
+
+.foot{background:var(--ink-deep);color:var(--rose)}
+.foot .wrap{padding-block:var(--s3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;font-size:14px}
+.foot ul{display:flex;gap:24px}
+.foot a{text-decoration:none}
+
+@media (max-width:1023px){
+  .site nav{display:none}
+  .open h1,.open .sub,.open blockquote,.open .bridge{grid-column:1/13}
+  .rail,.list{grid-column:1/13}
+  .rail{position:static}
+  .list{margin-top:var(--s8)}
+  .checks ul{grid-template-columns:1fr}
+}
+@media (max-width:719px){
+  .open .wrap,.body .wrap,.checks .wrap{padding-block:var(--s8)}
+  .zones{grid-template-columns:1fr}
+}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap">
+    <a class="name" href="/"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M0 7 L7 0 L14 7 L7 14 Z" fill="currentColor"/></svg>Anastasia Novelly Moylan</a>
+    <nav aria-label="Main navigation"><ul>
+      <li><a href="/work">Work</a></li><li><a href="/philosophy" aria-current="page">Philosophy</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="open on-ink" aria-labelledby="h1">
+    <div class="wrap grid">
+      <p class="eyebrow" style="grid-column:1/13">Design philosophy</p>
+      <h1 id="h1">The whole system, not just the screen</h1>
+      <p class="sub">Eight principles, each drawn from a real engagement.</p>
+      <blockquote>Good product design is what makes a system understandable: getting the flows right, designing the data well, and treating AI as core to the experience, not an afterthought.</blockquote>
+      <p class="bridge">Principles only matter if they help someone make a decision under pressure. Each of these is short enough to remember, specific enough to act on, and flexible enough to survive new evidence. If a principle here ever stops a better decision, the principle loses.</p>
+    </div>
+  </section>
+
+  <section class="body" aria-label="The principles">
+    <div class="wrap grid">
+      <nav class="rail" aria-label="Principles">
+        <p class="eyebrow">Eight principles</p>
+        <ol>
+          <li><a href="#p1"><b>01</b>Design flows, not screens</a></li>
+          <li><a href="#p2"><b>02</b>Design through implementation</a></li>
+          <li><a href="#p3"><b>03</b>Design holistically, not in isolation</a></li>
+          <li><a href="#p4"><b>04</b>Design for the moment AI is wrong</a></li>
+          <li><a href="#p5"><b>05</b>Critique the decision, not the deliverable</a></li>
+          <li><a href="#p6"><b>06</b>Teach people how to decide, not what to produce</a></li>
+          <li><a href="#p7"><b>07</b>Continuous improvement, driven by evidence</a></li>
+          <li><a href="#p8"><b>08</b>Use AI the way I ask users to trust it</a></li>
+        </ol>
+        <a class="to-checks" href="#checks">How I evaluate design &darr;</a>
+      </nav>
+
+      <div class="list">
+        <article class="p" id="p1">
+          <span class="n" aria-hidden="true">01</span>
+          <h2>Design flows, not screens</h2>
+          <p class="thesis">A screen is a moment. <em>The flow is the product.</em></p>
+          <div class="body">
+            <p>Most product failures don&rsquo;t happen on a screen &mdash; they happen between screens: at a handoff, a failed retrieval, a permission gap, a status nobody updated. So I map the whole journey first: every role, every state, and every path that breaks. Screens come last, after the flow proves it can survive contact with reality.</p>
+            <p>On an enterprise billing workflow, the most valuable design work wasn&rsquo;t a single interface &mdash; it was the status model. Making Initiated &rarr; In Progress &rarr; Review &rarr; Approved &rarr; Finalized visible, with ownership and history attached, did more for the team than any screen refinement could have.</p>
+          </div>
+          <figure class="plate" aria-hidden="true">
+            <div class="flow"><span>Initiated</span><i>&rarr;</i><span>In Progress</span><i>&rarr;</i><span>Review</span><i>&rarr;</i><span>Approved</span><i>&rarr;</i><span>Finalized</span></div>
+            <figcaption class="cap">One shared status vocabulary, with ownership and history attached.</figcaption>
+          </figure>
+        </article>
+
+        <article class="p" id="p2">
+          <span class="n" aria-hidden="true">02</span>
+          <h2>Design through implementation</h2>
+          <p class="thesis">The design isn&rsquo;t done when the file is done. <em>It&rsquo;s done when what ships matches what was designed.</em></p>
+          <div class="body">
+            <p>I stay engaged through build: reviewing feasibility with engineers mid-implementation, pressure-testing decisions by prototyping in code, and adjusting the design when a technical constraint proves a flow wrong. A beautiful spec that engineering can&rsquo;t build &mdash; or builds differently &mdash; is a design that failed quietly.</p>
+            <p>This is also why I build in code myself. A React prototype exposes problems a Figma file hides: real data lengths, real loading time, real state transitions. Building the thing is the fastest honest critique of the thing.</p>
+          </div>
+        </article>
+
+        <article class="p" id="p3">
+          <span class="n" aria-hidden="true">03</span>
+          <h2>Design holistically, not in isolation</h2>
+          <p class="thesis">No decision is local. <em>Every component lives inside a system of data, roles, governance, and adjacent products.</em></p>
+          <div class="body">
+            <p>A dropdown is never just a dropdown &mdash; it&rsquo;s a data model, a permission question, and a precedent the next three teams will copy. Before I change anything, I ask what it touches: which roles see it, what data feeds it, what governance applies to it, and what breaks downstream if it changes.</p>
+            <p>This is how invisible structure becomes visible. Organizations feel chaotic when the system connecting their tools and teams exists only in people&rsquo;s heads. Half my job is drawing that system so everyone can argue with the same picture.</p>
+          </div>
+        </article>
+
+        <article class="p" id="p4">
+          <span class="n" aria-hidden="true">04</span>
+          <h2>Design for the moment AI is wrong</h2>
+          <p class="thesis">When the system is uncertain, show it. <em>When the action is consequential, make it reversible.</em></p>
+          <div class="body">
+            <p>AI earns trust at exactly the moments it&rsquo;s least reliable. So uncertainty, partial output, and failure are first-class states in my work &mdash; not error toasts. Low-confidence output gets a visible indicator and an explanation. Failed operations preserve the user&rsquo;s work and offer a retry path. Consequential multi-step workflows get pause, resume, and rollback.</p>
+            <p>The threshold question &mdash; where the system acts on its own, where it recommends and waits, where it must stop and ask &mdash; is a product decision made deliberately with ML engineers, not a tuning detail inherited from the model. A number without provenance can&rsquo;t be approved; it can only be re-derived by hand. Governance people can&rsquo;t see isn&rsquo;t governance they&rsquo;ll approve.</p>
+          </div>
+          <figure class="plate" aria-hidden="true">
+            <div class="zones"><div>Acts on its own</div><div>Recommends and waits</div><div>Stops and asks</div></div>
+            <figcaption class="zones-cap" style="margin-top:12px"><span>Higher confidence &middot; lower consequence</span><span>Lower confidence &middot; higher consequence</span></figcaption>
+          </figure>
+        </article>
+
+        <article class="p" id="p5">
+          <span class="n" aria-hidden="true">05</span>
+          <h2>Critique the decision, not the deliverable</h2>
+          <p class="thesis">Feedback exists to help someone choose. <em>If critique doesn&rsquo;t move a decision, it&rsquo;s just opinion.</em></p>
+          <div class="body">
+            <p>Before I give or take feedback, I name the decision on the table: are we choosing a direction, validating a flow, or polishing for release? Critique aimed at the wrong altitude wastes everyone&rsquo;s time &mdash; pixel notes during direction-setting, direction debates during final polish.</p>
+            <p>The same rule governs how I receive it. &ldquo;I don&rsquo;t like it&rdquo; isn&rsquo;t actionable; &ldquo;a reviewer can&rsquo;t tell who owns this package&rdquo; is. I push every conversation toward the second kind.</p>
+          </div>
+        </article>
+
+        <article class="p" id="p6">
+          <span class="n" aria-hidden="true">06</span>
+          <h2>Teach people how to decide, not what to produce</h2>
+          <p class="thesis">Output can be corrected in a review. <em>Judgment compounds for a career.</em></p>
+          <div class="body">
+            <p>When I mentor, the goal is never a better artifact this week &mdash; it&rsquo;s a designer who makes better calls next quarter without me in the room. That means explaining the why behind every note, showing the rejected alternatives alongside the chosen one, and handing over decisions slightly before someone feels ready for them.</p>
+            <p>The test of good coaching is absence: if the work only holds up when I&rsquo;m reviewing it, I taught production, not judgment.</p>
+          </div>
+        </article>
+
+        <article class="p" id="p7">
+          <span class="n" aria-hidden="true">07</span>
+          <h2>Continuous improvement, driven by evidence</h2>
+          <p class="thesis">Looking good is not the same as being right. <em>Only research settles it.</em></p>
+          <div class="body">
+            <p>I&rsquo;ve thrown out navigation I liked because it tested poorly. I&rsquo;ve killed a feature after a POC showed it didn&rsquo;t translate into adoption. I&rsquo;ve replaced a data display that fit the design system perfectly with a format that testing proved finance users could actually read. Every one of those stung, and every one was correct.</p>
+            <p>Taste gets you to a strong hypothesis. Evidence decides. When facts change, the design changes &mdash; a principle that can&rsquo;t bend to new evidence isn&rsquo;t a principle, it&rsquo;s a superstition.</p>
+          </div>
+        </article>
+
+        <article class="p" id="p8">
+          <span class="n" aria-hidden="true">08</span>
+          <h2>Use AI the way I ask users to trust it</h2>
+          <p class="stat"><b>~90%</b><span>of my work is AI-driven, with my judgment on every output.</span></p>
+          <div class="body">
+            <p>I design AI products, and I practice what I design: AI runs through my ideation, research synthesis, product strategy, prototyping, and testing. But the same rules I build into interfaces apply to my own process &mdash; I review everything, I keep provenance, and nothing consequential ships without a human decision behind it. Using AI heavily and reviewing it rigorously aren&rsquo;t in tension. They&rsquo;re the same discipline.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="checks on-ink" id="checks" aria-labelledby="ch">
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--rose)">The checks</p>
+      <h2 id="ch" style="margin-top:12px">How I evaluate design</h2>
+      <p class="intro">The principles set direction. These are the checks I run against actual work &mdash; mine or anyone&rsquo;s.</p>
+      <ul>
+        <li><b>Usability and interaction</b><p>Can the right person complete the real task, including the unhappy path? Feedback is timely, errors are recoverable, and the interaction cost matches the task&rsquo;s importance. Tested with the actual user group, not a convenient proxy.</p></li>
+        <li><b>Clarity and hierarchy</b><p>The eye lands where the decision is. Visual hierarchy guides attention deliberately; anything competing with the primary action has to justify itself. Simplicity is the default &mdash; complexity must be earned by the problem, not by the design.</p></li>
+        <li><b>Consistency and systems</b><p>Typography, color, layout, and components draw from one system, aligned to brand guidelines, so users learn the product once. A design system isn&rsquo;t decoration &mdash; it&rsquo;s the mechanism that lets consistency and speed coexist, and it&rsquo;s how one team&rsquo;s decision becomes every team&rsquo;s standard.</p></li>
+        <li><b>Evidence and iteration</b><p>Prototypes early, usability testing before conviction hardens, and a willingness to change course when findings demand it. Success is measured against defined criteria set before the work ships &mdash; not against how the launch felt.</p></li>
+        <li><b>Alignment and value</b><p>The design serves stated business objectives and delivers something the user personally values &mdash; time saved, confidence gained, a task that used to hurt and doesn&rsquo;t anymore. If it only does one of those, it isn&rsquo;t done.</p></li>
+        <li><b>Longevity</b><p>Will this hold up when the team doubles, the data grows, and the original designers leave? Patterns should be maintainable, documented, and extensible &mdash; designed for the tenth use case, not just the first.</p></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="foot on-ink">
+  <div class="wrap">
+    <ul><li><a href="https://linkedin.com/in/anastasiamoylan">LinkedIn</a></li><li><a href="/resume">R&eacute;sum&eacute;</a></li><li><a href="/work">Work</a></li><li><a href="/contact">Contact</a></li></ul>
+    <span>&copy; 2026 Anastasia Novelly Moylan</span>
+  </div>
+</footer>
