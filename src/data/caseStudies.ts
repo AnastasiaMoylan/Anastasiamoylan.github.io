@@ -46,15 +46,10 @@ import gafCoverRaw from "../assets/case-studies/gaf/cover.svg?raw";
 import diCoverUrl from "../assets/case-studies/di/cover.svg";
 import diCoverRaw from "../assets/case-studies/di/cover.svg?raw";
 import ccjCoverUrl from "../assets/case-studies/ccj/cover.svg";
-import ccjCoverRaw from "../assets/case-studies/ccj/cover.svg?raw";
 import ccjJourneyUrl from "../assets/case-studies/ccj/journey-exploration.svg";
-import ccjJourneyRaw from "../assets/case-studies/ccj/journey-exploration.svg?raw";
 import ccjDashboardUrl from "../assets/case-studies/ccj/dashboard.svg";
-import ccjDashboardRaw from "../assets/case-studies/ccj/dashboard.svg?raw";
 import ccjMitigationUrl from "../assets/case-studies/ccj/mitigation-plan.svg";
-import ccjMitigationRaw from "../assets/case-studies/ccj/mitigation-plan.svg?raw";
 import ccjChatUrl from "../assets/case-studies/ccj/representative-chat.svg";
-import ccjChatRaw from "../assets/case-studies/ccj/representative-chat.svg?raw";
 import cwoPackageIndexUrl from "../assets/case-studies/cwo/package-index.svg";
 import cwoPackageIndexRaw from "../assets/case-studies/cwo/package-index.svg?raw";
 import cwoBillingReportUrl from "../assets/case-studies/cwo/billing-report.svg";
@@ -432,10 +427,9 @@ export const caseStudies: Record<string, CaseStudy> = {
         label: "Score to decision",
         src: ccjCoverUrl,
         fullSrc: ccjCoverUrl,
-        inlineSvg: diagramSvg(ccjCoverRaw),
         ground: "ink",
-        width: 1440,
-        height: 900,
+        width: 1600,
+        height: 800,
         alt: "A drawn sequence: an at-risk revenue tile with a Mitigate action, a mitigation plan listing the model’s key drivers and an assistant-drafted offer with audience and tone controls, and a Human review card that must approve the offer before it is sent.",
         caption: "A score becomes a decision a person makes. The model names the driver, the assistant drafts the offer, and review is required before anything reaches a customer.",
       },
@@ -556,10 +550,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Analyst dashboard",
             src: ccjDashboardUrl,
             fullSrc: ccjDashboardUrl,
-            inlineSvg: diagramSvg(ccjDashboardRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1512,
+            height: 968,
             alt: "Analyst dashboard showing at-risk KPIs including top-up revenue, data usage, and network experience, alongside ARPU, NPS, retention, and campaign conversion performance.",
             caption:
               "At-risk KPIs beside ARPU, NPS, retention and campaign performance, each with a direct path to mitigation.",
@@ -568,9 +561,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Journey exploration",
             src: ccjJourneyUrl,
             fullSrc: ccjJourneyUrl,
-            inlineSvg: diagramSvg(ccjJourneyRaw),
-            width: 1440,
-            height: 720,
+            ground: "ink",
+            width: 1512,
+            height: 965,
             alt: "Journey exploration diagram mapping top-up failure paths from mobile app, SMS, and IVR entry points, with churn and successful-continuation percentages at each branch.",
             caption:
               "Top-up failures churn differently by channel, so mitigation targets the worst path, not every failure equally.",
@@ -589,10 +582,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Mitigation plan",
             src: ccjMitigationUrl,
             fullSrc: ccjMitigationUrl,
-            inlineSvg: diagramSvg(ccjMitigationRaw),
             ground: "ink",
-            width: 1200,
-            height: 1100,
+            width: 1512,
+            height: 1462,
             alt: "Mitigation plan screen showing an identified KPI risk, its key drivers, and a personalized offer generation builder with audience, tone, and message preview.",
             caption:
               "The KPI’s drivers beside an AI-drafted, tone-controlled offer. A person edits the preview before it launches.",
@@ -611,10 +603,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             label: "Representative chat",
             src: ccjChatUrl,
             fullSrc: ccjChatUrl,
-            inlineSvg: diagramSvg(ccjChatRaw),
             ground: "ink",
-            width: 1440,
-            height: 900,
+            width: 1512,
+            height: 968,
             alt: "Customer service representative interface with an expanded chat panel showing an AI-generated customer summary and suggested course of action alongside the live conversation.",
             caption:
               "An AI summary and suggested action beside the live conversation: assistance in view, the representative in control.",

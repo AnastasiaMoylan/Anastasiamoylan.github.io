@@ -13,18 +13,17 @@ import { fileURLToPath } from "node:url";
 import * as scenes from "./scenes.mjs";
 
 const out = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../src/assets/case-studies");
+// The Customer Journey cover and its four screens are no longer drawn here
+// (2026-09-18): they are SVG exports from Figma (the CCJ Screens file and the
+// Case Study Visuals cover plate), committed as-is. Their scenes stay in
+// scenes.mjs but are not written, so a rebuild cannot overwrite the exports.
 const files = {
   "gaf/cover.svg": scenes.financeCloudCover,
   "cwo/cover.svg": scenes.billingCover,
   "di/cover.svg": scenes.documentAiCover,
-  "ccj/cover.svg": scenes.customerJourneyCover,
   "cwo/billing-report.svg": scenes.billingReport,
   "cwo/package-index.svg": scenes.packageIndex,
   "cwo/review-flow.svg": scenes.reviewFlow,
-  "ccj/dashboard.svg": scenes.analystDashboard,
-  "ccj/journey-exploration.svg": scenes.journeyExploration,
-  "ccj/mitigation-plan.svg": scenes.mitigationPlan,
-  "ccj/representative-chat.svg": scenes.representativeChat,
   // Second pass: one plate for every decision that had none.
   "gaf/promotion-gate.svg": scenes.promotionGate,
   "gaf/copilot-plan.svg": scenes.copilotPlan,
