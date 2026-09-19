@@ -61,6 +61,22 @@ import cwoBillingReportUrl from "../assets/case-studies/cwo/billing-report.svg";
 import cwoBillingReportRaw from "../assets/case-studies/cwo/billing-report.svg?raw";
 import cwoReviewFlowUrl from "../assets/case-studies/cwo/review-flow.svg";
 import cwoReviewFlowRaw from "../assets/case-studies/cwo/review-flow.svg?raw";
+import cwoCoverUrl from "../assets/case-studies/cwo/cover.svg";
+import cwoCoverRaw from "../assets/case-studies/cwo/cover.svg?raw";
+import cwoValidationUrl from "../assets/case-studies/cwo/progressive-validation.svg";
+import cwoValidationRaw from "../assets/case-studies/cwo/progressive-validation.svg?raw";
+import gafGateUrl from "../assets/case-studies/gaf/promotion-gate.svg";
+import gafGateRaw from "../assets/case-studies/gaf/promotion-gate.svg?raw";
+import gafPlanUrl from "../assets/case-studies/gaf/copilot-plan.svg";
+import gafPlanRaw from "../assets/case-studies/gaf/copilot-plan.svg?raw";
+import gafTiersUrl from "../assets/case-studies/gaf/confidence-tiers.svg";
+import gafTiersRaw from "../assets/case-studies/gaf/confidence-tiers.svg?raw";
+import diDraftUrl from "../assets/case-studies/di/draft-export.svg";
+import diDraftRaw from "../assets/case-studies/di/draft-export.svg?raw";
+import diWidgetUrl from "../assets/case-studies/di/compliance-widget.svg";
+import diWidgetRaw from "../assets/case-studies/di/compliance-widget.svg?raw";
+import ccjSegmentsUrl from "../assets/case-studies/ccj/dynamic-segments.svg";
+import ccjSegmentsRaw from "../assets/case-studies/ccj/dynamic-segments.svg?raw";
 // Drawn diagrams ship as SVG and are inlined (see ./diagramSvg): the `?raw`
 // import is the markup, the plain import the file URL. Source `.html` beside
 // each, per docs/case-study/case-study-diagrams.md.
@@ -262,6 +278,20 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Promotion is an explicit, reviewable event; a blocked one says which control or approval is missing. A rule that lives only in the backend reads as “it won’t let me”, indistinguishable from a bug.",
         rejected: "one workspace gated by permissions, or a one-click publish",
         tradeoff: "a permission is a setting someone has to remember exists.",
+        images: [
+          {
+            label: "Promotion gate",
+            src: gafGateUrl,
+            fullSrc: gafGateUrl,
+            inlineSvg: diagramSvg(gafGateRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "Experimentation on the left and governed production on the right, with a promotion gate between them: a checklist of lineage, reviewer approval, confidence threshold, access policy and audit log. One control is unmet and a notice names it; the Promote button is disabled until every control passes.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "A blocked promotion names what is missing. The rule lives in the interface, so it reads as a rule and not as a bug.",
+          },
+        ],
       },
       {
         mechanism: "The copilot plan",
@@ -271,6 +301,20 @@ export const caseStudies: Record<string, CaseStudy> = {
           "A plan is inspectable; an answer is not. Assistance appears inside a specific report, forecast or close task and runs understand, clarify, confirm, then plan, so wrong assumptions surface before a result does.",
         rejected:
           "a general-purpose assistant that answers immediately and leaves wrong assumptions for the user to find",
+        images: [
+          {
+            label: "Copilot plan",
+            src: gafPlanUrl,
+            fullSrc: gafPlanUrl,
+            inlineSvg: diagramSvg(gafPlanRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "A month-end close task listing accrual candidates, and beside it a copilot panel scoped to that task running understand, clarify, confirm, then plan. The plan is a checklist of steps with pause, resume and roll back.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "Understand, clarify, confirm, then plan. Wrong assumptions surface before a result does, and the plan can be paused or rolled back as a unit.",
+          },
+        ],
       },
       // The tiers are defined; the model-confidence cut-offs are pending (the
       // 2026-09-03 correction). The 72-hour success definition is her earlier
@@ -282,6 +326,19 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "A raw confidence score pushes interpretation onto a user with no basis for judging whether it is safe for an accrual. The cut-offs are still to be set with ML engineering. We defined agent success as analyst behavior within 72 hours, not forecast precision.",
         rejected: "surfacing a raw confidence score and leaving interpretation to the user",
+        images: [
+          {
+            label: "Three tiers",
+            src: gafTiersUrl,
+            fullSrc: gafTiersUrl,
+            inlineSvg: diagramSvg(gafTiersRaw),
+            width: 1440,
+            height: 640,
+            alt: "Three tiers across rising model confidence and falling consequence: stops and escalates, recommends and waits, acts on its own, with the two cut-offs between them marked pending. Below, three worked accrual examples placed in their tiers and the success definition: analyst behaviour within 72 hours.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "Three tiers, two cut-offs still to set. The boundaries are product decisions; the numbers between them are ML engineering’s.",
+          },
+        ],
       },
     ],
     states: [
@@ -471,6 +528,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         decision: "Built segments dynamically from churn-risk criteria: issues, behavior, likelihood to churn.",
         rationale: "The model stayed tied to real journey data instead of a one-time snapshot.",
         rejected: "static lists",
+        images: [
+          {
+            label: "Segment builder",
+            src: ccjSegmentsUrl,
+            fullSrc: ccjSegmentsUrl,
+            inlineSvg: diagramSvg(ccjSegmentsRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "A segment builder with four churn-risk criteria, issue, behaviour, likelihood to churn and an exclusion, beside a live count of matching customers and a churn-likelihood histogram; below, the path from journey data through segment and mitigation plan to a what-if test and human review.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "Built from criteria, recomputed from journey data. The segment is never a snapshot, so the plan built on it is never stale.",
+          },
+        ],
       },
       // [NEEDS SIGN-OFF] on the decision line; the rationale is her solution
       // steps' own points.
@@ -818,6 +889,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "Defects that surface at submission cost the most; the work behind them is already spread across systems. Missing data surfaces as the user moves, progress is preserved when a dependency fails, and a completeness review runs before submission.",
         rejected: "waiting until submission to reveal missing data",
+        images: [
+          {
+            label: "Validation as you go",
+            src: cwoValidationUrl,
+            fullSrc: cwoValidationUrl,
+            inlineSvg: diagramSvg(cwoValidationRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "Step two of creating a billing package: a banner says screenshot generation failed for one project and progress is saved, with a Retry action; four project rows validate inline, one with evidence pending and one whose project number was not found; a completeness review below runs before submission.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "Catch the gap where it happens. A failed dependency keeps the progress, names the retry, and the completeness review runs before submission rather than after.",
+          },
+        ],
       },
       {
         mechanism: "The project-number key",
@@ -843,6 +928,18 @@ export const caseStudies: Record<string, CaseStudy> = {
             // [NEEDS SIGN-OFF] Caption authored 2026-09-08 with the diagram.
             caption:
               "Six states, two recovery loops. The loops are where work used to disappear; Review became its own state so nobody edits mid-review.",
+          },
+          {
+            label: "Package with history",
+            src: cwoCoverUrl,
+            fullSrc: cwoCoverUrl,
+            inlineSvg: diagramSvg(cwoCoverRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "A billing package on Review: the six-state stepper, a review task locked to one reviewer, validation as you go, the projects it bills, and a history panel listing every transition with who made it and when.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "Status as a first-class object. The stepper is the vocabulary, the history is the record, and both are on the package itself.",
           },
         ],
       },
@@ -1122,6 +1219,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "Create draft opens a focus mode with the chat still beside it. Export writes a versioned Word file to the enterprise document store. A draft that cannot leave the AI tool sends the user back to copy-paste, and the evidence chain dies at the clipboard.",
         rejected: "a standalone editor, competing with tools the organization already runs and cut off from the conversation",
+        images: [
+          {
+            label: "Draft and export",
+            src: diDraftUrl,
+            fullSrc: diDraftUrl,
+            inlineSvg: diagramSvg(diDraftRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "A focus-mode draft with numbered sections, each carrying a citation mark, and the conversation still open beside it; an export bar writes a versioned Word file with the citations kept as footnotes into the enterprise document store.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "The draft leaves the tool with its citations. Export writes a versioned file to the system of record, so the evidence chain does not end at the clipboard.",
+          },
+        ],
       },
       {
         mechanism: "The widget on shared rails",
@@ -1129,6 +1240,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         rationale:
           "The regulatory-risk use case reuses document selection, search, comparison, citation and the response template, with its own filtering layer on top. A standalone dashboard would have duplicated the hardest parts of the platform, governed selection and traceable answers, and their failure modes.",
         rejected: "an independent risk dashboard: faster to a demo, and a second product with a second trust model",
+        images: [
+          {
+            label: "Widget on shared rails",
+            src: diWidgetUrl,
+            fullSrc: diWidgetUrl,
+            inlineSvg: diagramSvg(diWidgetRaw),
+            ground: "ink",
+            width: 1440,
+            height: 900,
+            alt: "A compliance-check widget embedded in a risk portal: its own regulatory filter layer on top, then five shared rails it reuses, document selection, search, comparison, citations and the response template, and a finding with numbered citations and a routed action.",
+            // [NEEDS SIGN-OFF] Drawn figure and caption added 2026-09-19.
+            caption: "One layer of its own, five rails reused. The hardest parts of the platform, governed selection and traceable answers, were not rebuilt.",
+          },
+        ],
       },
     ],
     // The four end-to-end flow panels (user-flow-01…04.jpg, cut from the

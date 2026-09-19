@@ -613,3 +613,11 @@ Owner's brief: "Create modern visuals for the case studies. I dont like the ones
 **Wiring.** `CaseStudyImage.ground` lets an inlined SVG sit on ink (a drawn screen) rather than champagne (a drawn diagram); `Opener.context` is optional, since only the detail has rendered since Plates. `Opener` and `AnnotatedFigure` inline an SVG the way `ImageGallery` does, so labels set in the site's faces and the pins overlay the drawing; the package-index pins were re-placed on the drawn index (button, filter field, Owner and Last modified headers). `projects.ts` covers point at the SVGs; the five homepage renderings inline them. The replaced screenshots are deleted except the three the J and K case-study renderings still embed.
 
 **Not changed.** Copy and the existing drawn diagrams. Three openers carry new one-line captions and every replaced figure a new `alt`, both describing the drawing; both are [NEEDS SIGN-OFF].
+
+## Update — 2026-09-19, later: the products wear their own colours, and every decision has a plate
+
+Owner: "There should be different tokens from my site's tokens. Because they were projects for a different company then mine. I dont want colors to clash tho with my site." And: "make sure I have enough visuals to support my work."
+
+**Two token sets.** `scripts/visuals/lib.mjs` now separates SITE tokens (the ink plate ground, the grid, the rose notes, the governance chain: theme.css) from PRODUCT tokens (cool slate neutrals shared by all four products, one accent per study via `use(study)`: Finance Cloud cobalt #2457d6, billing azure #0f7fa3, Document AI violet #6d3fc4, Customer Journey indigo #4348c9; semantics green / amber / burnt orange). Nothing in the product set sits near the site's maroon or teal-green, so the site reads as annotating someone else's product. Two alternatives were offered and not built: one shared accent, and dark product chrome.
+
+**Seven new plates**, one for each decision that had none: Finance Cloud's promotion gate, copilot plan and three-tier boundary; billing's progressive validation (and the package screen now proves the six-state decision); Document AI's draft-and-export and the widget on shared rails; Customer Journey's dynamic segments. Eighteen figures in all. Every new figure's alt and caption are marked [NEEDS SIGN-OFF] in the data.

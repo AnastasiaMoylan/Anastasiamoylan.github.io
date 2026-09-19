@@ -25,6 +25,14 @@ const files = {
   "ccj/journey-exploration.svg": scenes.journeyExploration,
   "ccj/mitigation-plan.svg": scenes.mitigationPlan,
   "ccj/representative-chat.svg": scenes.representativeChat,
+  // Second pass: one plate for every decision that had none.
+  "gaf/promotion-gate.svg": scenes.promotionGate,
+  "gaf/copilot-plan.svg": scenes.copilotPlan,
+  "gaf/confidence-tiers.svg": scenes.confidenceTiers,
+  "cwo/progressive-validation.svg": scenes.progressiveValidation,
+  "di/draft-export.svg": scenes.draftExport,
+  "di/compliance-widget.svg": scenes.complianceWidget,
+  "ccj/dynamic-segments.svg": scenes.dynamicSegments,
 };
 for (const [file, draw] of Object.entries(files)) {
   const svg = draw();
