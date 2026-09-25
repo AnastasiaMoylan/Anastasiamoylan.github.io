@@ -205,7 +205,7 @@
   .ph-checks {
     background: var(--ph-ink);
     color: var(--secondary);
-    border-bottom: 1px solid rgb(237 221 212 / 0.2);
+    border-bottom: 1px solid color-mix(in srgb, var(--secondary) 20%, transparent);
     scroll-margin-top: 72px;
   }
   .ph-checks .content-container { padding-block: 96px; }

@@ -51,8 +51,10 @@ export default function Hero() {
               <b aria-hidden="true">{lead.ordinal}</b>
               <span>{lead.title}</span>
             </span>
-            {/* Inlined, not an <img>: the cover's labels are live text. */}
-            <span className="home-hero-shot" dangerouslySetInnerHTML={{ __html: lead.svg }} />
+            {/* Inlined, not an <img>: the cover's labels are live text. Hidden
+                from assistive tech so the link's name is the caption above,
+                not the caption plus the SVG's title and description. */}
+            <span className="home-hero-shot" aria-hidden="true" dangerouslySetInnerHTML={{ __html: lead.svg }} />
           </Link>
         </div>
       </div>

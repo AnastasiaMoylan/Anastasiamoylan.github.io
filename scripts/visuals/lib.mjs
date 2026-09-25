@@ -61,7 +61,9 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 export const tw = (s, size, mono = false) => String(s).length * size * (mono ? 0.62 : 0.56);
 
 export function doc({ w, h, id, title, desc, ground = "ink", grid = true }, body) {
-  const bg = ground === "ink" ? C.inkDeep : ground === "white" ? C.white : C.ground;
+  // "warm" is the champagne plate a drawn diagram sits on (theme.css
+  // --secondary), so the figure's ground and the plate's are one colour.
+  const bg = ground === "ink" ? C.inkDeep : ground === "white" ? C.white : ground === "warm" ? SITE.champ : C.ground;
   const gridLine = ground === "ink" ? "rgba(237,221,212,0.06)" : "rgba(40,61,59,0.06)";
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="${id}-title ${id}-desc">
@@ -152,8 +154,10 @@ export function stepper(x, y, states, active, { w = 640, size = 12 } = {}) {
   return s;
 }
 
-const statusFill = { Initiated: [C.muted, C.textMuted], "In Progress": [C.dataSoft, C.dataDeep], Review: [C.accent, C.white], Approved: [C.accentTint, C.accent], Finalized: [C.ink, C.white], Completed: [C.ink, C.white], Released: [C.dataSoft, C.dataDeep] };
-export const statusChip = (x, y, st) => chip(x, y, st, { fill: statusFill[st]?.[0] ?? C.muted, color: statusFill[st]?.[1] ?? C.text, size: 11, h: 22 });
+// Read at call time, not module load: `use(study)` swaps C.accent after this
+// module is evaluated, and a table built here once would keep the first accent.
+const statusFill = (st) => ({ Initiated: [C.muted, C.textMuted], "In Progress": [C.dataSoft, C.dataDeep], Review: [C.accent, C.white], Approved: [C.accentTint, C.accent], Finalized: [C.ink, C.white], Completed: [C.ink, C.white], Released: [C.dataSoft, C.dataDeep] })[st];
+export const statusChip = (x, y, st) => chip(x, y, st, { fill: statusFill(st)?.[0] ?? C.muted, color: statusFill(st)?.[1] ?? C.text, size: 11, h: 22 });
 
 /**
  * A data table. `cols` = [{label, w, align?}], `rows` = arrays of cells; a
