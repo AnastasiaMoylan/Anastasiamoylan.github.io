@@ -121,7 +121,7 @@ function render(slug, cs) {
   if (cs.opener) {
     L.push("", "Opener pair:");
     L.push(`- *Close-up:* ${cs.opener.detail.caption}`);
-    L.push(`- *In context:* ${cs.opener.context.caption}`);
+    if (cs.opener.context) L.push(`- *In context:* ${cs.opener.context.caption}`);
   } else {
     L.push("", "*No opener pair — the first screen has no image.*");
   }

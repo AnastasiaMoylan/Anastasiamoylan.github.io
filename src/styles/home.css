@@ -12,16 +12,12 @@
  */
 @layer components {
   .home-hero {
-    /* Mirrors .content-container's padding, so the plate can bleed past it. */
-    --home-pad: 1.25rem;
     --home-rose: var(--accent-tint-light);
     position: relative;
     overflow: hidden;
     background: var(--ink-deep);
     color: var(--secondary);
   }
-  @media (min-width: 768px) { .home-hero { --home-pad: 2rem; } }
-  @media (min-width: 1024px) { .home-hero { --home-pad: 3rem; } }
   .home-hero :where(h1, p, ul) { margin: 0; padding: 0; }
   .home-hero ul { list-style: none; }
 
@@ -62,7 +58,7 @@
   .home-hero-meta {
     margin-top: 48px;
     padding-top: 24px;
-    border-top: 1px solid rgb(237 221 212 / 0.25);
+    border-top: 1px solid color-mix(in srgb, var(--secondary) 25%, transparent);
     display: flex;
     flex-wrap: wrap;
     gap: 8px 24px;
@@ -87,7 +83,7 @@
     grid-column: 6 / 13;
     position: relative;
     display: block;
-    margin-right: calc((100vw - min(100vw, var(--container-max))) / -2 - var(--home-pad));
+    margin-right: calc((100vw - min(100vw, var(--container-max))) / -2 - var(--container-pad));
     text-decoration: none;
     color: var(--secondary);
   }
@@ -123,7 +119,7 @@
   @media (max-width: 1023px) {
     .home-hero-who, .home-hero-lead { grid-column: 1 / -1; }
     .home-hero-who { padding-bottom: 48px; }
-    .home-hero-lead { margin-right: calc(-1 * var(--home-pad)); }
+    .home-hero-lead { margin-right: calc(-1 * var(--container-pad)); }
     .home-hero-shot svg { width: 135%; }
   }
   @media (max-width: 719px) {

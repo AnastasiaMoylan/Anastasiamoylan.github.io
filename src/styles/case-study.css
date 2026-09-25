@@ -236,9 +236,10 @@
      stays within one screen. */
   .cs-hero .cs-plate { margin-top: 0; }
   .cs-hero .cs-frame img { width: auto; max-height: 80vh; max-width: 100%; margin-inline: auto; }
-  /* A drawn opener is 16:10 and spans the container like every other plate;
-     the frame is the SVG's own. */
-  .cs-hero .cs-frame svg { width: 100%; height: auto; }
+  /* A drawn opener takes the same viewport cap as a raster one: a wide 16:10
+     plate fills the container, a near-square one (the billing report) fits
+     80vh and centres. The frame is the SVG's own. */
+  .cs-hero .cs-frame svg { display: block; width: auto; height: auto; max-height: 80vh; max-width: 100%; margin-inline: auto; }
   /* A coded diagram (React markup rather than an exported SVG) sits on the
      champagne ground as-is; it brings its own cards. */
   .cs-coded { color: var(--foreground); }

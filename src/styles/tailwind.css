@@ -1,2 +1,5 @@
 @import 'tailwindcss' source(none);
 @source '../**/*.{js,ts,jsx,tsx}';
+/* Kept for the Billboard homepage direction but imported by nothing since
+   the Lead-plate hero (2026-09-18); excluded so its classes are not compiled. */
+@source not '../components/home/GovernanceChain.tsx';
